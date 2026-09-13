@@ -1,0 +1,72 @@
+Problem 1
+    - Root composer.json requires php ^8.3 but your php version (8.2.20) does not satisfy that requirement.
+  Problem 2
+    - laravel/framework is locked to version v13.31.0 and an update of this package was not requested.
+    - laravel/framework v13.31.0 requires php ^8.3 -> your php version (8.2.20) does not satisfy that requirement.
+  Problem 3
+    - laravel/pao is locked to version v1.1.5 and an update of this package was not requested.
+    - laravel/pao v1.1.5 requires php ^8.3 -> your php version (8.2.20) does not satisfy that requirement.
+  Problem 4
+    - laravel/pint is locked to version v1.32.1 and an update of this package was not requested.
+    - laravel/pint v1.32.1 requires php ^8.3.0 -> your php version (8.2.20) does not satisfy that requirement.
+  Problem 5
+    - phpunit/php-code-coverage is locked to version 12.5.7 and an update of this package was not requested.
+    - phpunit/php-code-coverage 12.5.7 requires php >=8.3 -> your php version (8.2.20) does not satisfy that requirement.
+  Problem 6
+    - phpunit/php-file-iterator is locked to version 6.0.2 and an update of this package was not requested.
+    - phpunit/php-file-iterator 6.0.2 requires php >=8.3 -> your php version (8.2.20) does not satisfy that requirement.
+  Problem 7
+    - phpunit/php-invoker is locked to version 6.0.0 and an update of this package was not requested.
+    - phpunit/php-invoker 6.0.0 requires php >=8.3 -> your php version (8.2.20) does not satisfy that requirement.
+  Problem 8
+    - phpunit/php-text-template is locked to version 5.0.0 and an update of this package was not requested.
+    - phpunit/php-text-template 5.0.0 requires php >=8.3 -> your php version (8.2.20) does not satisfy that requirement.
+  Problem 9
+    - phpunit/php-timer is locked to version 8.0.0 and an update of this package was not requested.
+    - phpunit/php-timer 8.0.0 requires php >=8.3 -> your php version (8.2.20) does not satisfy that requirement.
+  Problem 10
+    - phpunit/phpunit is locked to version 12.5.35 and an update of this package was not requested.
+    - phpunit/phpunit 12.5.35 requires php >=8.3 -> your php version (8.2.20) does not satisfy that requirement.
+  Problem 11
+    - sebastian/cli-parser is locked to version 4.2.1 and an update of this package was not requested.
+    - sebastian/cli-parser 4.2.1 requires php >=8.3 -> your php version (8.2.20) does not satisfy that requirement.
+  Problem 12
+    - sebastian/comparator is locked to version 7.1.8 and an update of this package was not requested.
+    - sebastian/comparator 7.1.8 requires php >=8.3 -> your php version (8.2.20) does not satisfy that requirement.
+  Problem 13
+    - sebastian/complexity is locked to version 5.0.0 and an update of this package was not requested.
+    - sebastian/complexity 5.0.0 requires php >=8.3 -> your php version (8.2.20) does not satisfy that requirement.
+  Problem 14
+    - sebastian/diff is locked to version 7.0.1 and an update of this package was not requested.
+    - sebastian/diff 7.0.1 requires php >=8.3 -> your php version (8.2.20) does not satisfy that requirement.
+  Problem 15
+    - sebastian/environment is locked to version 8.1.2 and an update of this package was not requested.
+    - sebastian/environment 8.1.2 requires php >=8.3 -> your php version (8.2.20) does not satisfy that requirement.
+  Problem 16
+    - sebastian/exporter is locked to version 7.0.3 and an update of this package was not requested.
+    - sebastian/exporter 7.0.3 requires php >=8.3 -> your php version (8.2.20) does not satisfy that requirement.
+  Problem 17
+    - sebastian/global-state is locked to version 8.0.3 and an update of this package was not requested.
+    - sebastian/global-state 8.0.3 requires php >=8.3 -> your php version (8.2.20) does not satisfy that requirement.
+  Problem 18
+    - sebastian/lines-of-code is locked to version 4.0.1 and an update of this package was not requested.
+    - sebastian/lines-of-code 4.0.1 requires php >=8.3 -> your php version (8.2.20) does not satisfy that requirement.
+  Problem 19
+    - sebastian/object-enumerator is locked to version 7.0.0 and an update of this package was not requested.
+    - sebastian/object-enumerator 7.0.0 requires php >=8.3 -> your php version (8.2.20) does not satisfy that requirement.
+  Problem 20
+    - sebastian/object-reflector is locked to version 5.0.0 and an update of this package was not requested.
+    - sebastian/object-reflector 5.0.0 requires php >=8.3 -> your php version (8.2.20) does not satisfy that requirement.
+  Problem 21
+    - sebastian/recursion-context is locked to version 7.0.1 and an update of this package was not requested.
+    - sebastian/recursion-context 7.0.1 requires php >=8.3 -> your php version (8.2.20) does not satisfy that requirement.
+  Problem 22
+    - sebastian/type is locked to version 6.0.4 and an update of this package was not requested.
+    - sebastian/type 6.0.4 requires php >=8.3 -> your php version (8.2.20) does not satisfy that requirement.
+  Problem 23
+    - sebastian/version is locked to version 6.0.0 and an update of this package was not requested.
+    - sebastian/version 6.0.0 requires php >=8.3 -> your php version (8.2.20) does not satisfy that requirement.
+  Problem 24
+    - laravel/pail is locked to version v1.2.7 and an update of this package was not requested.
+    - laravel/framework v13.31.0 requires php ^8.3 -> your php version (8.2.20) does not satisfy that requirement.
+    - laravel/pail v1.2.7 requires illuminate/console ^10.24|^11.0|^12.0|^13.0 -> satisfiable by laravel/framework[v13.31.0].

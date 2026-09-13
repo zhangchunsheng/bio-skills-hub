@@ -12,7 +12,7 @@ Bio Skills Hub —— 面向生物分析的 AI Agent Skills 离线库平台。�
 |---|---|---|
 | `web/` | Vue 3 + Vite + Tailwind CSS 3 + Vue Router | 用户端（技能浏览/搜索/详情） |
 | `admin/` | Vue 3 + Vite + Element Plus | 管理端（仪表盘/技能管理/同步） |
-| `server/` | Laravel 13（composer `platform.php=8.2.0`，可部署到 PHP 8.2） | 后端 API |
+| `server/` | Laravel 12（PHP ≥ 8.2，本地用 8.3 开发） | 后端 API |
 | `data/` | SQLite `skills.db` + `skills/` 文件目录 | 运行时数据（gitignore） |
 
 需要 PHP 扩展：`curl`、`pdo_sqlite`（Ubuntu：`sudo apt install php-sqlite3 php-curl`）。
@@ -86,6 +86,8 @@ npm start          # Laravel 托管 API + 用户端 / + 管理端 /admin/
 
 - **PHP 禁用裸 `exit;` / `exit(0);`**：本机 PHP 8.3.6 (Ubuntu noble) 构建把零状态码
   exit 当作空操作继续执行（`exit(非零)` 正常）。提前结束用返回值/if-else/顶层 `return`。
+- **composer 镜像用腾讯（`mirrors.cloud.tencent.com/composer/`）**：阿里云 composer
+  镜像已停止维护（元数据过期、安全公告误报全量版本）。GitHub codeload 直连在本网络下会超时。
 - **字符串内插变量后紧跟全角字符（如 `）`）时必须用花括号**:`"（失败 {$failed}）"`，
   否则 PHP 把全角字符并进变量名（历史上踩过两次）。
 - 安全：所有磁盘相对路径必须过 `SkillFile::isSafeRelPath()`（禁 `..` 与绝对路径）；
