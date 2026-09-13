@@ -1,4 +1,11 @@
+# data 与构建产物
 data/
 node_modules/
 dist/
 *.log
+
+# 部署产物（由 deploy/deploy.sh 生成）
+server/public/assets/
+server/public/admin/
+server/public/index.html
+server/public/favicon.ico

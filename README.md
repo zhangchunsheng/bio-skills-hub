@@ -1,54 +1,69 @@
 # Bio Skills Hub 🧬
 
-面向生物分析的 AI Agent Skills 离线库网站。技能内容预先从 [SkillHub.cn](https://www.skillhub.cn/)
+面向生物分析的 AI Agent Skills 离线库平台。技能内容预先从 [SkillHub.cn](https://www.skillhub.cn/)
 社区抓取并保存到本地（SQLite + 文件），**部署后完全离线运行，不再访问外网**。
 
 ## 技术栈
 
-- **前端**：Vue 3 + Vite + Tailwind CSS + Vue Router
-- **后端**：PHP 8（PDO + SQLite，无框架，内置服务器即可运行）
-- **数据库**：SQLite（`data/skills.db`）
+| 模块 | 技术 |
+|---|---|
+| 用户端 `web/` | Vue 3 + Vite + Tailwind CSS |
+| 管理端 `admin/` | Vue 3 + Vite + Element Plus |
+| 后端 API `server/` | Laravel（目标 PHP 8.2，见 composer `platform`） |
+| 数据库 | SQLite（`data/skills.db`） |
 
 ## 环境要求
 
 - Node.js ≥ 18
-- PHP ≥ 8.1，扩展：`curl`、`pdo_sqlite`
-  - Debian/Ubuntu：`sudo apt install php-cli php-sqlite3 php-curl`
+- PHP ≥ 8.2（本地开发使用 8.3），扩展：`curl`、`pdo_sqlite`
+- Composer
 
 ## 快速开始
 
 ```bash
-npm install
-npm run sync     # 从 skillhub.cn 抓取生物分析相关技能到本地（一次性，可随时重跑更新）
-npm run dev      # 前端 http://localhost:5173（/api 自动代理到 PHP :8000）
+# 安装依赖
+npm install && npm --prefix web install && npm --prefix admin install
+cd server && composer install && cp .env.example .env && php artisan key:generate && cd ..
+
+# 抓取技能数据（一次性，可随时重跑更新）
+npm run sync
+
+# 开发（同时启动 Laravel :8000、用户端 :5173、管理端 :5174）
+npm run dev
 ```
+
+- 用户端：http://localhost:5173
+- 管理端：http://localhost:5174
+- API：http://localhost:8000/api/
 
 ## 生产部署
 
 ```bash
-npm run build
-npm start        # PHP 在 :8000 同时提供 API 和前端静态页面
+npm run deploy   # 构建两个前端并拷入 server/public/
+npm start        # Laravel 在 :8000 提供 API + 用户端 / + 管理端 /admin/
 ```
 
-也可以把 `dist/` 交给 Nginx/Apache 托管，将 `/api` 反代到 PHP。
-
-## 功能
-
-- **技能库浏览**：关键词搜索（内置基因组学 / 蛋白质 / 单细胞 / 测序 / 药物研发等主题快捷词）、分类筛选、排序、分页
-- **技能详情**：元信息、文件列表、`SKILL.md` 等内容在线预览、单文件下载
-- **离线数据**：所有技能元数据存于 SQLite，技能文件存于 `data/skills/`，运行时零外网依赖
-- **增量同步**：`npm run sync` 可随时重跑以更新技能库（`--refresh` 强制全量重下）
+生产环境通常用 Nginx/Apache 将域名指向 `server/public/`。
 
 ## 项目结构
 
 ```
-├── php-server/
-│   ├── public/index.php   # PHP 入口：/api/* JSON 接口 + dist/ 静态托管
-│   ├── src/db.php         # SQLite 数据访问层
-│   └── bin/sync.php       # 抓取脚本：skillhub.cn → SQLite + 本地文件
-├── src/                   # Vue 前端源码
-├── data/                  # 运行时生成：skills.db 与技能文件（已 gitignore）
-└── CLAUDE.md              # 面向 AI 协作者的项目说明
+├── web/               # 用户端（Vue 3 + Tailwind）：技能浏览/搜索/详情/文件预览
+├── admin/             # 管理端（Vue 3 + Element Plus）：仪表盘、技能管理、同步触发
+├── server/            # Laravel API
+│   ├── app/Console/Commands/SyncSkills.php   # skills:sync 抓取命令
+│   ├── app/Http/Controllers/                 # 公开 API + Admin API
+│   └── routes/api.php
+├── data/              # 运行时数据（gitignore）：skills.db 与技能文件
+└── deploy/deploy.sh   # 前端产物发布脚本
 ```
+
+## 功能
+
+**用户端**：关键词搜索（内置基因组学 / 蛋白质 / 单细胞等主题快捷词）、分类筛选、
+排序、分页、技能详情、文件在线预览与下载。
+
+**管理端**：收录统计仪表盘、增量/全量同步触发（后台执行）、技能检索表格、
+元数据编辑、删除（同时清理磁盘文件）。
 
 详见 [CLAUDE.md](./CLAUDE.md)。
