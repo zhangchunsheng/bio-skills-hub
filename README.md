@@ -72,7 +72,11 @@ sudo chown -R www-data:www-data data/ server/storage server/bootstrap/cache
 
 **用户端**：关键词搜索（内置基因组学 / 蛋白质 / 单细胞等主题快捷词）、分类筛选、
 排序、分页、技能详情、文件在线预览与下载；**注册登录后可上传自己的技能**
-（multipart，必须包含 SKILL.md），并可管理（删除）自己的上传。
+（multipart，必须包含 SKILL.md），并可管理（删除）自己的上传与修改密码。
+
+**SEO**：Laravel 在服务端为每个技能页注入独立 title/description/OG/Twitter Card/
+JSON-LD（TechArticle）与 canonical，提供 `/sitemap.xml`（全部技能页）与
+`/robots.txt`（屏蔽 /admin 与 /api）；管理端 noindex。
 
 **管理端**（需管理员登录）：收录统计仪表盘、增量/全量同步触发（后台执行）、
 技能检索表格、元数据编辑、删除（同时清理磁盘文件）、**用户管理**（列表/新建/

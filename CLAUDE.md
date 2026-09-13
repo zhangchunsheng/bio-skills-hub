@@ -113,4 +113,9 @@ npm start          # Laravel 托管 API + 用户端 / + 管理端 /admin/
   技能目录名 `<handle>__<slug>`，非单词字符替换为 `_`（见 `Skill::diskDir()`）。
 - 用户端字段 snake_case（与 SQLite 列一致）：`icon_url`、`description_zh`、`category_name`。
 - 界面文案为中文；代码注释可用中文。
+- **SEO**:`SeoController` 在 fallback 路由里按路径向 index.html 注入 meta
+  （技能页查库生成 title/OG/JSON-LD/canonical）；新增公开页面时记得同步
+  `sitemap()`；管理端必须保持 noindex。Nginx 部署用
+  `try_files $uri $uri/ /index.php?$query_string;`，技能页不是真实文件才会
+  走进 Laravel 注入逻辑。
 - 提交前验证：`npm run build`（两个前端）、`php artisan route:list` 正常。

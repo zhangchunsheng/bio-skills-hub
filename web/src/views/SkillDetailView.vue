@@ -134,6 +134,7 @@ onMounted(async () => {
   try {
     const data = await api.getSkill(props.handle, props.slug)
     skill.value = data.skill
+    document.title = `${skill.value.name || props.slug} - Bio Skills Hub`
     if (skillMdPath.value) selectFile(skillMdPath.value)
     else if (skill.value.files.length) selectFile(skill.value.files[0].path)
   } catch (e) {
