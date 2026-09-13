@@ -60,4 +60,15 @@ export const api = {
   deleteSkill: (id) => request(`/api/admin/skills/${id}`, { method: 'DELETE' }),
   syncStatus: () => request('/api/admin/sync-status'),
   startSync: (opts) => request('/api/admin/sync', { method: 'POST', body: JSON.stringify(opts) }),
+
+  listUsers: (params) => {
+    const q = new URLSearchParams()
+    Object.entries(params).forEach(([k, v]) => {
+      if (v !== undefined && v !== null && v !== '') q.set(k, v)
+    })
+    return request(`/api/admin/users?${q}`)
+  },
+  createUser: (data) => request('/api/admin/users', { method: 'POST', body: JSON.stringify(data) }),
+  updateUser: (id, data) => request(`/api/admin/users/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  deleteUser: (id) => request(`/api/admin/users/${id}`, { method: 'DELETE' }),
 }

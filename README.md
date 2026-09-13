@@ -75,7 +75,8 @@ sudo chown -R www-data:www-data data/ server/storage server/bootstrap/cache
 （multipart，必须包含 SKILL.md），并可管理（删除）自己的上传。
 
 **管理端**（需管理员登录）：收录统计仪表盘、增量/全量同步触发（后台执行）、
-技能检索表格、元数据编辑、删除（同时清理磁盘文件）。
+技能检索表格、元数据编辑、删除（同时清理磁盘文件）、**用户管理**（列表/新建/
+编辑角色/重置密码/删除，删除用户时连带清理其上传的技能）。
 默认管理员：`admin@bio-skills.local / admin123456`（`php artisan db:seed` 创建，
 可用 `ADMIN_EMAIL`/`ADMIN_PASSWORD` 环境变量覆盖；登录后请通过
 `POST /api/auth/password` 修改密码）。

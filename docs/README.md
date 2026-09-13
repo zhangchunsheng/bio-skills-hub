@@ -21,4 +21,6 @@ chmod 777 bootstrap/cache/
 chmod 777 storage/app/private/
 chmod 777 storage/app/public/
 
+https://biohub.luomor.com/
+管理员账号：admin@bio-skills.local / admin123456 
 ```

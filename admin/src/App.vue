@@ -15,11 +15,14 @@
         <el-menu-item index="/skills">
           <el-icon><Collection /></el-icon><span>技能管理</span>
         </el-menu-item>
+        <el-menu-item index="/users">
+          <el-icon><User /></el-icon><span>用户管理</span>
+        </el-menu-item>
       </el-menu>
     </el-aside>
     <el-container>
       <el-header class="header">
-        <span class="page-title">{{ $route.name === 'skills' ? '技能管理' : '仪表盘' }}</span>
+        <span class="page-title">{{ { dashboard: '仪表盘', skills: '技能管理', users: '用户管理' }[$route.name] || '' }}</span>
         <div class="right">
           <span class="user">{{ user?.name }}</span>
           <a href="/" target="_blank" class="site-link">查看用户端 →</a>
@@ -36,7 +39,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { Odometer, Collection } from '@element-plus/icons-vue'
+import { Odometer, Collection, User } from '@element-plus/icons-vue'
 import { api, auth } from './api.js'
 
 const router = useRouter()

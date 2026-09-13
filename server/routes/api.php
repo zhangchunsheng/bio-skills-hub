@@ -37,4 +37,9 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'admin'])->group(function ()
     Route::delete('/skills/{id}', [AdminSkillController::class, 'destroy'])->whereNumber('id');
     Route::get('/sync-status', [SyncController::class, 'status']);
     Route::post('/sync', [SyncController::class, 'start']);
+
+    Route::get('/users', [\App\Http\Controllers\Admin\UserController::class, 'index']);
+    Route::post('/users', [\App\Http\Controllers\Admin\UserController::class, 'store']);
+    Route::put('/users/{id}', [\App\Http\Controllers\Admin\UserController::class, 'update'])->whereNumber('id');
+    Route::delete('/users/{id}', [\App\Http\Controllers\Admin\UserController::class, 'destroy'])->whereNumber('id');
 });

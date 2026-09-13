@@ -90,6 +90,7 @@ npm start          # Laravel 托管 API + 用户端 / + 管理端 /admin/
 | `GET /api/admin/skills?keyword=&category=&page=` | 管理列表（含 files_count） |
 | `GET/PUT/DELETE /api/admin/skills/{id}` | 详情 / 编辑元数据 / 删除（含磁盘文件） |
 | `GET /api/admin/sync-status` · `POST /api/admin/sync` | 同步状态 / 触发同步 |
+| `GET/POST /api/admin/users` · `PUT/DELETE /api/admin/users/{id}` | 用户管理：列表/创建/编辑角色与邮箱/重置密码（PUT 带 password）/删除（连带清理其上传技能）；不可删除或降级自己 |
 
 ## 上游 skillhub.cn API（仅同步命令使用）
 
