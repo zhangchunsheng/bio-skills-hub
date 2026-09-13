@@ -44,6 +44,7 @@ export const api = {
   login: (payload) => request('/api/auth/login', { method: 'POST', body: JSON.stringify(payload) }),
   logout: () => request('/api/auth/logout', { method: 'POST' }),
   me: () => request('/api/auth/me'),
+  changePassword: (payload) => request('/api/auth/password', { method: 'POST', body: JSON.stringify(payload) }),
 
   // 技能浏览
   searchSkills: (params) => {

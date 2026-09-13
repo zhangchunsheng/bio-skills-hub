@@ -45,6 +45,7 @@ async function request(url, options = {}) {
 export const api = {
   login: (payload) => request('/api/auth/login', { method: 'POST', body: JSON.stringify(payload) }),
   logout: () => request('/api/auth/logout', { method: 'POST' }),
+  changePassword: (payload) => request('/api/auth/password', { method: 'POST', body: JSON.stringify(payload) }),
 
   stats: () => request('/api/stats'),
   categories: () => request('/api/categories'),

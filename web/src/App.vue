@@ -25,6 +25,7 @@
               {{ authState.user.name }}
               <span v-if="authState.user.role === 'admin'" class="ml-1 px-1.5 py-0.5 rounded bg-bio-900 text-bio-300 text-xs">管理员</span>
             </span>
+            <button class="text-xs text-slate-500 hover:text-slate-300 transition" @click="showPassword = true">修改密码</button>
             <button class="text-xs text-slate-500 hover:text-slate-300 transition" @click="authState.logout()">退出</button>
           </template>
           <button
@@ -47,6 +48,7 @@
     </footer>
 
     <AuthDialog v-if="showAuth" @close="showAuth = false" />
+    <PasswordDialog v-if="showPassword" @close="showPassword = false" />
   </div>
 </template>
 
@@ -54,6 +56,8 @@
 import { ref } from 'vue'
 import { authState } from './store.js'
 import AuthDialog from './components/AuthDialog.vue'
+import PasswordDialog from './components/PasswordDialog.vue'
 
 const showAuth = ref(false)
+const showPassword = ref(false)
 </script>
