@@ -24,6 +24,8 @@
 # 安装依赖
 npm install && npm --prefix web install && npm --prefix admin install
 cd server && composer install && cp .env.example .env && php artisan key:generate && cd ..
+# SQLite 默认使用仓库根目录 data/skills.db（已随仓库提交），无需额外配置；
+# 如需换路径，在 server/.env 中设置 DB_DATABASE 绝对路径
 
 # 抓取技能数据（一次性，可随时重跑更新）
 npm run sync

@@ -16,6 +16,8 @@ Bio Skills Hub —— 面向生物分析的 AI Agent Skills 离线库平台。�
 | `data/` | SQLite `skills.db` + `skills/` 文件目录 | 技能数据（已随仓库提交，开箱即用） |
 
 需要 PHP 扩展：`curl`、`pdo_sqlite`（Ubuntu：`sudo apt install php-sqlite3 php-curl`）。
+SQLite 默认路径为仓库根目录 `data/skills.db`（`config/database.php` 中用
+`base_path('../data/skills.db')` 解析，与部署机器无关）；可用 `DB_DATABASE` 环境变量覆盖。
 
 ## 常用命令（在仓库根目录执行）
 
