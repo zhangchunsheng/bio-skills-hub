@@ -46,9 +46,14 @@ npm run dev
 ```bash
 npm run deploy   # 构建两个前端并拷入 server/public/
 npm start        # Laravel 在 :8000 提供 API + 用户端 / + 管理端 /admin/
+
+# 重要：PHP 进程（php-fpm/Apache，通常 www-data）需要对 data/ 与
+# server/storage 有写权限，否则登录/上传会报 "attempt to write a readonly database"
+sudo chown -R www-data:www-data data/ server/storage server/bootstrap/cache
 ```
 
-生产环境通常用 Nginx/Apache 将域名指向 `server/public/`。
+生产环境通常用 Nginx/Apache 将域名指向 `server/public/`。注意 SQLite 写入要求
+数据库文件**及其所在目录**都可写（会创建 `-journal`/`-wal` 临时文件）。
 
 ## 项目结构
 
