@@ -10,27 +10,19 @@ async function request(url, options) {
   return res.json()
 }
 
+// All endpoints are served by the local PHP backend from the local SQLite
+// database — no runtime dependency on skillhub.cn.
 export const api = {
   searchSkills: (params) => {
     const q = new URLSearchParams()
     Object.entries(params).forEach(([k, v]) => {
       if (v !== undefined && v !== null && v !== '') q.set(k, v)
     })
-    return request(`/api/remote/skills?${q}`)
+    return request(`/api/skills?${q}`)
   },
-  getCategories: () => request('/api/remote/categories'),
-  getSkill: (handle, slug) => request(`/api/remote/skills/${handle}/${slug}`),
-  getRemoteFileUrl: (handle, slug, path) =>
-    `/api/remote/skills/${handle}/${slug}/file?path=${encodeURIComponent(path)}`,
-  getLocalSkills: () => request('/api/local/skills'),
-  downloadSkill: (handle, slug) =>
-    request('/api/local/download', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ handle, slug }),
-    }),
-  removeLocal: (handle, slug) =>
-    request(`/api/local/skills/${handle}/${slug}`, { method: 'DELETE' }),
-  getLocalFileUrl: (handle, slug, path) =>
-    `/api/local/skills/${handle}/${slug}/file?path=${encodeURIComponent(path)}`,
+  getCategories: () => request('/api/categories'),
+  getStats: () => request('/api/stats'),
+  getSkill: (handle, slug) => request(`/api/skills/${handle}/${slug}`),
+  getFileUrl: (handle, slug, path) =>
+    `/api/skills/${handle}/${slug}/file?path=${encodeURIComponent(path)}`,
 }

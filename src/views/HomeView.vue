@@ -6,7 +6,8 @@
         发现<span class="text-bio-400">生物分析</span> AI 技能
       </h1>
       <p class="mt-2 text-slate-400 text-sm">
-        从 SkillHub 社区检索生物信息、基因组学、药物研发等方向的 Agent Skills，一键下载到本地使用
+        本地收录 <span class="text-bio-300 font-semibold">{{ stats?.skills ?? '…' }}</span> 个生物信息 / 基因组学 / 药物研发等方向的 Agent Skills，
+        全部离线可用<span v-if="stats?.lastSync"> · 最近同步于 {{ formatDate(stats.lastSync) }}</span>
       </p>
 
       <!-- Search -->
@@ -14,7 +15,7 @@
         <input
           v-model="keyword"
           type="search"
-          placeholder="搜索技能，如 genomics、protein、scRNA-seq…"
+          placeholder="搜索本地技能库，如 genomics、蛋白、scRNA…"
           class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-bio-500 placeholder:text-slate-600"
         />
         <button
@@ -45,7 +46,9 @@
         @change="doSearch(1)"
       >
         <option value="">全部分类</option>
-        <option v-for="c in categories" :key="c.key" :value="c.key">{{ c.name }}</option>
+        <option v-for="c in categories" :key="c.key" :value="c.key">
+          {{ c.name || c.key }}（{{ c.count }}）
+        </option>
       </select>
       <select
         v-model="sort"
@@ -55,7 +58,8 @@
         <option value="">综合排序</option>
         <option value="downloads">下载量</option>
         <option value="stars">收藏数</option>
-        <option value="newest">最新发布</option>
+        <option value="installs">安装量</option>
+        <option value="newest">最新收录</option>
       </select>
       <span v-if="total !== null" class="text-slate-500 text-xs ml-auto">
         共 {{ total.toLocaleString() }} 个技能
@@ -71,7 +75,7 @@
 
     <!-- Grid -->
     <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-      <SkillCard v-for="s in skills" :key="s.namespace?.canonicalName || s.slug" :skill="s" :categories="categories" />
+      <SkillCard v-for="s in skills" :key="s.handle + '/' + s.slug" :skill="s" />
     </div>
 
     <!-- Pagination -->
@@ -97,18 +101,18 @@ import { api } from '../api.js'
 import SkillCard from '../components/SkillCard.vue'
 
 const topics = [
-  { label: '生物医药', keyword: 'bio' },
-  { label: '基因组学', keyword: 'genomics' },
+  { label: '全部', keyword: '' },
+  { label: '基因组学', keyword: 'genom' },
   { label: '蛋白质', keyword: 'protein' },
-  { label: '单细胞测序', keyword: 'single-cell' },
-  { label: '药物研发', keyword: 'drug discovery' },
-  { label: '临床医疗', keyword: 'clinical' },
-  { label: '文献调研', keyword: 'literature research' },
-  { label: '数据分析', keyword: 'data analysis' },
+  { label: '单细胞', keyword: 'single-cell' },
+  { label: '测序', keyword: 'sequenc' },
+  { label: '药物研发', keyword: 'drug' },
+  { label: '临床医疗', keyword: 'clinic' },
+  { label: 'DNA/RNA', keyword: 'rna' },
 ]
 
-const keyword = ref('bio')
-const activeKeyword = ref('bio')
+const keyword = ref('')
+const activeKeyword = ref('')
 const category = ref('')
 const sort = ref('')
 const page = ref(1)
@@ -117,12 +121,17 @@ const pageSize = 24
 const skills = ref([])
 const total = ref(null)
 const categories = ref([])
+const stats = ref(null)
 const loading = ref(false)
 const error = ref('')
 
 const totalPages = computed(() =>
-  total.value === null ? 0 : Math.min(Math.ceil(total.value / pageSize), 50)
+  total.value === null ? 0 : Math.ceil(total.value / pageSize)
 )
+
+function formatDate(ts) {
+  return new Date(ts * 1000).toLocaleString('zh-CN')
+}
 
 function selectTopic(kw) {
   keyword.value = kw
@@ -134,17 +143,13 @@ async function doSearch(p) {
   loading.value = true
   error.value = ''
   try {
-    const params = { page: p, pageSize, keyword: keyword.value, category: category.value }
-    if (sort.value) {
-      if (sort.value === 'newest') {
-        params.sortBy = 'created_at'
-        params.order = 'desc'
-      } else {
-        params.sortBy = sort.value
-        params.order = 'desc'
-      }
-    }
-    const data = await api.searchSkills(params)
+    const data = await api.searchSkills({
+      page: p,
+      pageSize,
+      keyword: keyword.value,
+      category: category.value,
+      sort: sort.value,
+    })
     skills.value = data.skills || []
     total.value = data.total ?? null
     activeKeyword.value = keyword.value
@@ -158,9 +163,7 @@ async function doSearch(p) {
 
 onMounted(async () => {
   doSearch(1)
-  try {
-    const data = await api.getCategories()
-    categories.value = (data.items || []).filter((c) => c.level === 1 && c.active)
-  } catch {}
+  api.getCategories().then((d) => (categories.value = d.items || [])).catch(() => {})
+  api.getStats().then((d) => (stats.value = d)).catch(() => {})
 })
 </script>

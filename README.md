@@ -1,58 +1,54 @@
 # Bio Skills Hub 🧬
 
-面向生物分析的 AI Skills 聚合站。从 [SkillHub.cn](https://www.skillhub.cn/) 社区检索生物信息、基因组学、药物研发等方向的 Agent Skills，并可一键下载到本地。
+面向生物分析的 AI Agent Skills 离线库网站。技能内容预先从 [SkillHub.cn](https://www.skillhub.cn/)
+社区抓取并保存到本地（SQLite + 文件），**部署后完全离线运行，不再访问外网**。
 
 ## 技术栈
 
 - **前端**：Vue 3 + Vite + Tailwind CSS + Vue Router
-- **后端**：Node.js + Express（代理 SkillHub API、下载技能到本地磁盘）
-- **数据源**：`https://api.skillhub.cn`（公开 API，无需鉴权）
+- **后端**：PHP 8（PDO + SQLite，无框架，内置服务器即可运行）
+- **数据库**：SQLite（`data/skills.db`）
+
+## 环境要求
+
+- Node.js ≥ 18
+- PHP ≥ 8.1，扩展：`curl`、`pdo_sqlite`
+  - Debian/Ubuntu：`sudo apt install php-cli php-sqlite3 php-curl`
 
 ## 快速开始
 
 ```bash
 npm install
-npm run dev
+npm run sync     # 从 skillhub.cn 抓取生物分析相关技能到本地（一次性，可随时重跑更新）
+npm run dev      # 前端 http://localhost:5173（/api 自动代理到 PHP :8000）
 ```
 
-- 前端：http://localhost:5173
-- 后端：http://localhost:3001
-
-## 功能
-
-- **技能市场**：关键词搜索（内置生物医药 / 基因组学 / 蛋白质 / 单细胞测序等主题快捷词）、分类筛选、排序、分页
-- **技能详情**：查看技能元信息与文件内容（如 `SKILL.md`）
-- **下载到本地**：点击"下载到本地"，后端将技能全部文件保存到 `data/downloads/<handle>__<slug>/`
-- **本地技能库**：查看、预览、删除已下载的技能
-
-## 生产模式
+## 生产部署
 
 ```bash
 npm run build
-npm start   # 后端直接托管 dist/，访问 http://localhost:3001
+npm start        # PHP 在 :8000 同时提供 API 和前端静态页面
 ```
+
+也可以把 `dist/` 交给 Nginx/Apache 托管，将 `/api` 反代到 PHP。
+
+## 功能
+
+- **技能库浏览**：关键词搜索（内置基因组学 / 蛋白质 / 单细胞 / 测序 / 药物研发等主题快捷词）、分类筛选、排序、分页
+- **技能详情**：元信息、文件列表、`SKILL.md` 等内容在线预览、单文件下载
+- **离线数据**：所有技能元数据存于 SQLite，技能文件存于 `data/skills/`，运行时零外网依赖
+- **增量同步**：`npm run sync` 可随时重跑以更新技能库（`--refresh` 强制全量重下）
 
 ## 项目结构
 
 ```
-├── server/
-│   ├── index.js      # Express 入口，API 路由
-│   ├── skillhub.js   # SkillHub.cn 上游 API 客户端
-│   └── storage.js    # 本地下载存储（data/downloads/）
-├── src/
-│   ├── views/        # HomeView / SkillDetailView / LibraryView
-│   ├── components/   # SkillCard
-│   ├── api.js        # 前端 API 封装
-│   └── ...
-└── data/             # 运行时生成：下载的技能与索引（已 gitignore）
+├── php-server/
+│   ├── public/index.php   # PHP 入口：/api/* JSON 接口 + dist/ 静态托管
+│   ├── src/db.php         # SQLite 数据访问层
+│   └── bin/sync.php       # 抓取脚本：skillhub.cn → SQLite + 本地文件
+├── src/                   # Vue 前端源码
+├── data/                  # 运行时生成：skills.db 与技能文件（已 gitignore）
+└── CLAUDE.md              # 面向 AI 协作者的项目说明
 ```
 
-## 使用的上游 API
-
-| 接口 | 说明 |
-|---|---|
-| `GET /api/skills?page&pageSize&keyword&category&sortBy&order` | 技能搜索 |
-| `GET /api/v1/categories` | 分类列表 |
-| `GET /api/v1/skills/{slug}?namespace=` | 技能详情 |
-| `GET /api/v1/skills/{slug}/files?namespace=` | 文件清单 |
-| `GET /api/v1/skills/{slug}/file?path=&namespace=` | 文件内容（302 → COS） |
+详见 [CLAUDE.md](./CLAUDE.md)。
