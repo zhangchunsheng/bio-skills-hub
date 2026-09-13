@@ -3,6 +3,7 @@
 生成claude.md
 项目部署后不应该再使用https://www.skillhub.cn，项目应直接包含生物分析相关skills，从互联网检索并保存到本地，数据库可以使用sqlite，后端接口可以使用php
 重构系统，前端仍然使用vue+vite+tailwind，后端管理使用vue+vite+element，后端接口使用laravel，php版本为8.2，数据库仍然使用sqlite
+admin需要登录才能访问，用户可以上传skills，上传skills也需要登录
 
 chmod 777 public
 chmod 777 storage

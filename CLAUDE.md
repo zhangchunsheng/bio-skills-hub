@@ -59,6 +59,16 @@ npm start          # Laravel 托管 API + 用户端 / + 管理端 /admin/
 
 ## API（全部本地数据）
 
+认证（Sanctum Bearer token；前端把 token 存 localStorage，请求带 `Authorization: Bearer`）：
+| 接口 | 说明 |
+|---|---|
+| `POST /api/auth/register` · `POST /api/auth/login` | 注册（role=user）/ 登录，返回 `{token, user}` |
+| `POST /api/auth/logout` · `GET /api/auth/me`（需登录） | 注销 / 当前用户 |
+| `POST /api/auth/password`（需登录） | 修改密码，吊销其它令牌 |
+
+默认管理员：`admin@bio-skills.local / admin123456`，由 `php artisan db:seed` 创建
+（`ADMIN_EMAIL`/`ADMIN_PASSWORD` 环境变量可覆盖）。
+
 公开：
 | 接口 | 说明 |
 |---|---|
@@ -68,7 +78,13 @@ npm start          # Laravel 托管 API + 用户端 / + 管理端 /admin/
 | `GET /api/skills/{handle}/{slug}` | 详情 + 文件清单 |
 | `GET /api/skills/{handle}/{slug}/file?path=` | 文件内容（text/plain） |
 
-管理（`/api/admin/`，无鉴权——如需公网暴露请自行加认证）：
+用户（需登录）：
+| 接口 | 说明 |
+|---|---|
+| `POST /api/skills` | 上传技能（multipart：元数据字段 + `files[]`，必须含 SKILL.md，单文件 ≤2MB；handle=`u{user_id}`） |
+| `GET /api/my/skills` · `DELETE /api/my/skills/{id}` | 我的上传 / 删除（连带磁盘文件） |
+
+管理（`/api/admin/`，需 admin 角色）：
 | 接口 | 说明 |
 |---|---|
 | `GET /api/admin/skills?keyword=&category=&page=` | 管理列表（含 files_count） |

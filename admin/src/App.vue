@@ -1,5 +1,8 @@
 <template>
-  <el-container class="layout">
+  <!-- 登录页独占布局 -->
+  <RouterView v-if="$route.name === 'login'" />
+
+  <el-container v-else class="layout">
     <el-aside width="220px">
       <div class="brand">
         <span class="logo">🧬</span> Bio Skills Hub
@@ -17,7 +20,11 @@
     <el-container>
       <el-header class="header">
         <span class="page-title">{{ $route.name === 'skills' ? '技能管理' : '仪表盘' }}</span>
-        <a href="/" target="_blank" class="site-link">查看用户端 →</a>
+        <div class="right">
+          <span class="user">{{ user?.name }}</span>
+          <a href="/" target="_blank" class="site-link">查看用户端 →</a>
+          <el-button size="small" text type="danger" @click="logout">退出登录</el-button>
+        </div>
       </el-header>
       <el-main>
         <RouterView />
@@ -27,7 +34,21 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { Odometer, Collection } from '@element-plus/icons-vue'
+import { api, auth } from './api.js'
+
+const router = useRouter()
+const user = computed(() => auth.user)
+
+async function logout() {
+  try {
+    await api.logout()
+  } catch {}
+  auth.clear()
+  router.replace('/login')
+}
 </script>
 
 <style scoped>
@@ -44,6 +65,8 @@ import { Odometer, Collection } from '@element-plus/icons-vue'
   border-bottom: 1px solid #e5e7eb; background: #fff;
 }
 .page-title { font-weight: 600; }
+.right { display: flex; align-items: center; gap: 14px; }
+.user { font-size: 13px; color: #606266; }
 .site-link { font-size: 13px; color: #52c41a; text-decoration: none; }
 .el-main { background: #f5f7fa; }
 </style>

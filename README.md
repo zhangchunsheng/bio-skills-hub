@@ -30,6 +30,9 @@ cd server && composer install && cp .env.example .env && php artisan key:generat
 # 抓取技能数据（一次性，可随时重跑更新）
 npm run sync
 
+# 创建默认管理员（admin@bio-skills.local / admin123456，可用 ADMIN_EMAIL/ADMIN_PASSWORD 覆盖）
+cd server && php artisan db:seed --force && cd ..
+
 # 开发（同时启动 Laravel :8000、用户端 :5173、管理端 :5174）
 npm run dev
 ```
@@ -63,9 +66,13 @@ npm start        # Laravel 在 :8000 提供 API + 用户端 / + 管理端 /admin
 ## 功能
 
 **用户端**：关键词搜索（内置基因组学 / 蛋白质 / 单细胞等主题快捷词）、分类筛选、
-排序、分页、技能详情、文件在线预览与下载。
+排序、分页、技能详情、文件在线预览与下载；**注册登录后可上传自己的技能**
+（multipart，必须包含 SKILL.md），并可管理（删除）自己的上传。
 
-**管理端**：收录统计仪表盘、增量/全量同步触发（后台执行）、技能检索表格、
-元数据编辑、删除（同时清理磁盘文件）。
+**管理端**（需管理员登录）：收录统计仪表盘、增量/全量同步触发（后台执行）、
+技能检索表格、元数据编辑、删除（同时清理磁盘文件）。
+默认管理员：`admin@bio-skills.local / admin123456`（`php artisan db:seed` 创建，
+可用 `ADMIN_EMAIL`/`ADMIN_PASSWORD` 环境变量覆盖；登录后请通过
+`POST /api/auth/password` 修改密码）。
 
 详见 [CLAUDE.md](./CLAUDE.md)。
