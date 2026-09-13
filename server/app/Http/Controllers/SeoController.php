@@ -114,11 +114,14 @@ class SeoController extends Controller
         ];
     }
 
-    /** 替换 <title> 并在 </head> 前注入额外标签 */
+    /** 替换 <title> 并在 </head> 前注入额外标签（先移除静态同名 meta，避免重复） */
     private function inject(string $html, array $meta): string
     {
         $html = preg_replace('/<title>.*?<\/title>/s', '<title>' . e($meta['title']) . '</title>', $html, 1);
         if (!empty($meta['extra'])) {
+            // index.html 中静态的站点级 description/keywords 需移除，
+            // 否则与注入的页面级标签重复（爬虫可能读到错误的那个）
+            $html = preg_replace('/\s*<meta\s+name="(?:description|keywords)"[^>]*>/i', '', $html);
             $html = str_replace('</head>', "    {$meta['extra']}\n  </head>", $html);
         }
 

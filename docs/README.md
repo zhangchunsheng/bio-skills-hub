@@ -6,6 +6,8 @@
 admin需要登录才能访问，用户可以上传skills，上传skills也需要登录
 后台缺少用户管理
 允许用户修改密码
+优化seo
+https://biohub.luomor.com/skill/org-whlskj/biomed-rd-procurement-intelligence-assistant，显示有两个keywords
 
 chmod 777 public
 chmod 777 storage
