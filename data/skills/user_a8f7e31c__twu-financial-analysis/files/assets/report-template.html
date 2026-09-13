@@ -1,0 +1,793 @@
+<!--
+  ============================================================================
+  twu-financial-analysis · 输出模板 v2.3（排版精修版）
+  用途：上市公司财报分析 HTML 报告骨架
+
+  【v2.3 变化：排版系统精修，内容与维度不变】
+  1. 统一表格系统：深蓝表头白字、行高统一、细横线、数字列右对齐+nowrap
+  2. 卡片内小节标题 .st 分层（金条 + 深蓝字），消灭"表格堆表格"
+  3. 删除全部内联 style，间距由类控制
+  4. 卡片头 sub 右对齐（不再挤在标题后）
+  5. 结论行 .concl 改金底 callout（浅金底 + 金左边框）
+  6. 标签 .tag 统一收敛，单元格内不产生错位
+
+  模块（与 v2.2 相同，内容不动）：
+    A 锚定 → ⚖ 三路输入 → B 可信度 → C 财务 → ⚖ 正反合 → D 同业
+    → E 非财务 → F 舞弊 → M 管理层与指引 → G 估值 → H 分歧 → I 综合
+    → J 风险 → ◆ 快照
+  ============================================================================
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{TICKER}} · {{PERIOD}} 业绩审查</title>
+<style>
+  :root{
+    --bg:#f2f3f5;--card:#ffffff;--ink:#1f2937;--muted:#6b7280;--line:#e5e7eb;
+    --rowline:#eef0f2;--strip:#fafbfc;
+    --up:#c0392b;--down:#059669;--warn:#d97706;
+    --hdr:#1e3a5f;--gold:#a8862f;--gold-soft:#faf6ec;
+    --shadow:0 1px 2px rgba(16,24,40,.04),0 2px 10px rgba(16,24,40,.05);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,sans-serif;background:var(--bg);color:var(--ink);font-size:13px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .page{max-width:1160px;margin:0 auto;padding:0 24px 48px}
+
+  /* ===== 页头 ===== */
+  .topbar{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;background:var(--card);padding:22px 30px;margin:24px 0 0;border-radius:12px 12px 0 0;border-bottom:3px solid var(--gold)}
+  .topbar .co{min-width:0}
+  .topbar .ticker{font-size:22px;font-weight:800;letter-spacing:.5px;line-height:1.2}
+  .topbar .name{font-size:14px;color:var(--muted);margin-top:3px}
+  .topbar .date{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.6}
+  .topbar .rt{text-align:right;flex-shrink:0}
+  .topbar .chip{display:inline-block;padding:7px 22px;border-radius:6px;color:#fff;font-size:15px;font-weight:800;letter-spacing:1px}
+  .chip.hold{background:var(--warn)}.chip.buy{background:var(--up)}.chip.sell{background:var(--down)}
+  .topbar .pt{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.8;text-align:right}
+  .topbar .pt b{color:var(--hdr)}
+
+  /* ===== 导航 ===== */
+  .nav{display:flex;gap:6px;flex-wrap:wrap;background:var(--card);padding:11px 18px;border-bottom:1px solid var(--line);border-radius:0 0 12px 12px}
+  .nav a{font-size:11px;font-weight:600;color:var(--muted);text-decoration:none;padding:4px 12px;border-radius:12px;border:1px solid var(--line);letter-spacing:.3px}
+  .nav a:hover{border-color:var(--gold);color:var(--gold)}
+
+  /* ===== KPI ===== */
+  .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin:18px 0}
+  .kpi{background:var(--card);border-radius:10px;padding:16px 18px;box-shadow:var(--shadow);border-top:3px solid var(--gold)}
+  .kpi .v{font-size:21px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.3px;line-height:1.25}
+  .kpi .v .u{font-size:13px;font-weight:600;color:var(--muted);margin-left:1px}
+  .kpi .l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:5px}
+  .kpi .d{font-size:11px;font-weight:700;margin-top:5px}
+  .kpi .d.up{color:var(--up)}.kpi .d.dn{color:var(--down)}
+
+  /* ===== 执行摘要 ===== */
+  .summary{background:linear-gradient(135deg,#1e3a5f 0%,#274b73 100%);color:#fff;border-radius:12px;padding:24px 30px;margin-bottom:18px;position:relative;box-shadow:var(--shadow)}
+  .summary::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,#a8862f,#c9a84c,#a8862f)}
+  .summary .label{display:inline-block;font-size:10px;font-weight:800;letter-spacing:2px;color:#c9a84c;text-transform:uppercase;margin-bottom:10px}
+  .summary .headline{font-size:16px;font-weight:700;line-height:1.75;margin-bottom:14px}
+  .summary .headline b{color:#f5d78a}
+  .sum-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  .sum-item{background:rgba(255,255,255,.07);border-radius:8px;padding:12px 16px}
+  .sum-item .t{font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px}
+  .sum-item .c{font-size:12px;line-height:1.7}
+  .sum-item .c b{color:#f5d78a}
+
+  /* ===== 卡片网格 ===== */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .card{background:var(--card);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;border:1px solid var(--line)}
+  .card.full{grid-column:1 / -1}
+  .card-hd{display:flex;align-items:center;gap:10px;padding:13px 20px;border-bottom:1px solid var(--line);background:#fbfcfd}
+  .card-hd .no{width:26px;height:26px;border-radius:7px;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .card-hd .ttl{font-size:13.5px;font-weight:700;color:var(--hdr);white-space:nowrap}
+  .card-hd .sub{margin-left:auto;font-size:10px;color:var(--muted);letter-spacing:.3px;text-align:right;line-height:1.5}
+  .card-bd{padding:18px 20px}
+  .m-anchor{border-top:3px solid #a8862f}.m-anchor .no{background:#a8862f}
+  .m-trust{border-top:3px solid #dc2626}.m-trust .no{background:#dc2626}
+  .m-fin{border-top:3px solid #2563eb}.m-fin .no{background:#2563eb}
+  .m-peer{border-top:3px solid #0891b2}.m-peer .no{background:#0891b2}
+  .m-nf{border-top:3px solid #7c3aed}.m-nf .no{background:#7c3aed}
+  .m-fraud{border-top:3px solid #b91c1c}.m-fraud .no{background:#b91c1c}
+  .m-mgmt{border-top:3px solid #4f46e5}.m-mgmt .no{background:#4f46e5}
+  .m-val{border-top:3px solid #a8862f}.m-val .no{background:#a8862f}
+  .m-debate{border-top:3px solid #475569}.m-debate .no{background:#475569}
+  .m-syn{border-top:3px solid #0f172a}.m-syn .no{background:#0f172a}
+
+  /* ===== 小节标题（卡片内分层）===== */
+  .st{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--hdr);margin:18px 0 10px}
+  .st:first-child{margin-top:0}
+  .st::before{content:"";width:3px;height:13px;background:var(--gold);border-radius:1px;flex-shrink:0}
+  .st .no{font-size:10px;color:var(--gold);font-weight:700;letter-spacing:.5px}
+
+  /* ===== 表格系统 ===== */
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  thead th{background:var(--hdr);color:#fff;font-weight:600;font-size:10.5px;letter-spacing:.4px;text-align:left;padding:8px 10px;white-space:nowrap}
+  thead th.num{text-align:right}
+  tbody td{padding:8px 10px;border-bottom:1px solid var(--rowline);vertical-align:middle;line-height:1.5}
+  tbody td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  tbody tr:nth-child(even){background:var(--strip)}
+  tbody tr:last-child td{border-bottom:none}
+  .up{color:var(--up);font-weight:600}.dn{color:var(--down);font-weight:600}
+
+  /* ===== 标签 ===== */
+  .tag{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:3px;letter-spacing:.3px;white-space:nowrap}
+  .tag-up{background:#fdecea;color:#b91c1c}.tag-dn{background:#e6f7f2;color:#065f46}.tag-warn{background:#fef3c7;color:#92400e}.tag-info{background:#e0e7ff;color:#3730a3}
+
+  /* ===== 注释/结论 ===== */
+  .note{font-size:11.5px;color:var(--muted);line-height:1.7;margin:10px 0 0}
+  .concl{display:flex;gap:10px;align-items:flex-start;margin:16px 0 0;padding:11px 14px;background:var(--gold-soft);border-left:3px solid var(--gold);border-radius:0 6px 6px 0;font-size:12px;font-weight:700;line-height:1.7}
+  .concl .lb{flex-shrink:0;font-size:10px;font-weight:800;background:var(--gold);color:#fff;padding:3px 8px;border-radius:3px;letter-spacing:.5px;margin-top:1px}
+
+  /* ===== 锚定三卡 ===== */
+  .anchor-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  .anchor-card{border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:#fff}
+  .anchor-card h4{font-size:10.5px;font-weight:800;letter-spacing:.6px;color:var(--gold);text-transform:uppercase;margin-bottom:9px;padding-bottom:6px;border-bottom:1px solid var(--rowline)}
+  .anchor-card .big{font-size:14px;font-weight:800;margin-bottom:8px;line-height:1.4}
+  .anchor-card .row{display:flex;justify-content:space-between;gap:10px;font-size:11px;padding:4px 0;border-bottom:1px dotted var(--rowline);line-height:1.5}
+  .anchor-card .row:last-child{border-bottom:none}
+  .anchor-card .row .k{color:var(--muted);flex-shrink:0}
+  .anchor-card .row .v{font-weight:600;text-align:right;min-width:0}
+
+  /* ===== 三路输入 ===== */
+  .tri-input{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  .tri-in{border-radius:8px;padding:14px 16px;font-size:11.5px;line-height:1.7}
+  .tri-in h5{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;margin-bottom:9px;padding-bottom:6px;border-bottom:1px solid rgba(0,0,0,.06)}
+  .tri-in ul{margin:0;padding-left:16px}
+  .tri-in li{margin-bottom:5px}
+  .tri-in li:last-child{margin-bottom:0}
+  .tri-in.fact{background:#f0f6ff;border:1px solid #dbeafe}.tri-in.fact h5{color:#1d4ed8}
+  .tri-in.theory{background:#f6f4ff;border:1px solid #e4e0fb}.tri-in.theory h5{color:#6d28d9}
+  .tri-in.view{background:#fff9f0;border:1px solid #fedeb8}.tri-in.view h5{color:#c2410c}
+  .conv{display:flex;align-items:flex-start;gap:10px;margin-top:14px;padding:11px 14px;background:var(--strip);border:1px solid var(--rowline);border-radius:8px;font-size:12px;line-height:1.7}
+  .conv .lb{flex-shrink:0;font-size:10px;font-weight:800;background:var(--hdr);color:#fff;padding:3px 8px;border-radius:3px;letter-spacing:.5px;margin-top:1px}
+
+  /* ===== 正反合 ===== */
+  .dia{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  .dia-col{border-radius:8px;padding:14px 16px;font-size:11.5px;line-height:1.7}
+  .dia-col h5{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;margin-bottom:9px;padding-bottom:6px;border-bottom:1px solid rgba(0,0,0,.06)}
+  .dia-col ul{margin:0;padding-left:16px}
+  .dia-col li{margin-bottom:5px}
+  .dia-col li:last-child{margin-bottom:0}
+  .dia-col.pro{background:#f0fdf8;border:1px solid #d1fae5}.dia-col.pro h5{color:var(--down)}
+  .dia-col.con{background:#fdf2f2;border:1px solid #fecaca}.dia-col.con h5{color:var(--up)}
+  .dia-col.syn{background:var(--gold-soft);border:1px solid #ead9a8}.dia-col.syn h5{color:var(--gold)}
+
+  /* ===== DuPont ===== */
+  .dupont{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:start}
+  .dupont-root{border:2px solid var(--gold);border-radius:8px;padding:12px;text-align:center;background:var(--gold-soft);font-weight:800;font-size:14px;margin-bottom:10px}
+  .dupont-node{border:1px solid var(--line);border-radius:6px;padding:8px 12px;margin-bottom:6px;font-size:11.5px;display:flex;justify-content:space-between;align-items:center;background:#fff}
+  .dupont-node .k{color:var(--muted)}
+  .dupont-node .v{font-weight:700;font-variant-numeric:tabular-nums}
+
+  /* ===== 铁三角 ===== */
+  .tri{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .tri-card{border:1px solid var(--line);border-radius:8px;padding:12px;text-align:center;background:#fff}
+  .tri-card .t{font-size:10px;color:var(--muted);margin-bottom:5px;letter-spacing:.4px}
+  .tri-card .v{font-size:16px;font-weight:800;font-variant-numeric:tabular-nums}
+
+  /* ===== 多空辩论 ===== */
+  .debate{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .debate-card{border-radius:8px;padding:14px 16px;font-size:12px}
+  .debate-card h4{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;margin-bottom:9px;padding-bottom:6px;border-bottom:1px solid rgba(0,0,0,.06)}
+  .debate-card ul{margin:0;padding-left:16px}
+  .debate-card li{margin-bottom:5px;line-height:1.7}
+  .debate-card li:last-child{margin-bottom:0}
+  .debate-card li .ev{font-size:10px;color:var(--muted);font-weight:400}
+  .debate-card.bull{background:#f0fdf8;border:1px solid #d1fae5}.debate-card.bull h4{color:var(--down)}
+  .debate-card.bear{background:#fdf2f2;border:1px solid #fecaca}.debate-card.bear h4{color:var(--up)}
+  .verdict{display:flex;gap:10px;align-items:flex-start;border-left:4px solid var(--gold);background:var(--gold-soft);border-radius:0 8px 8px 0;padding:12px 16px;margin-top:14px;font-size:12px;line-height:1.7}
+  .verdict .lb{flex-shrink:0;font-size:10px;font-weight:800;background:var(--gold);color:#fff;letter-spacing:.5px;padding:3px 8px;border-radius:3px;margin-top:1px}
+
+  /* ===== 评分卡 ===== */
+  .score-row{display:flex;align-items:center;gap:12px;padding:6px 0;border-bottom:1px dotted var(--rowline);font-size:12px}
+  .score-row .dim{width:104px;font-weight:600;flex-shrink:0}
+  .score-row .bar{flex:1;height:7px;background:var(--rowline);border-radius:2px;overflow:hidden}
+  .score-row .bar i{display:block;height:100%;background:linear-gradient(90deg,#a8862f,#c9a84c)}
+  .score-row .sc{width:auto;text-align:right;font-weight:700;font-variant-numeric:tabular-nums;font-size:11px;color:var(--muted);white-space:nowrap}
+
+  /* ===== 监控/残余 ===== */
+  .monitor-table td:first-child{font-weight:600;width:22%}
+  .monitor-table td{font-size:11px}
+  .residual-note{font-size:11.5px;color:var(--muted);line-height:1.8;margin:10px 0 0}
+  .residual-note b{color:var(--hdr)}
+
+  /* ===== 风险 ===== */
+  .risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .risk-card{border-radius:8px;padding:14px 18px;font-size:12px}
+  .risk-card h4{font-size:11.5px;font-weight:800;margin-bottom:9px;letter-spacing:.5px;padding-bottom:6px;border-bottom:1px solid rgba(0,0,0,.06)}
+  .risk-card ul{margin:0;padding-left:16px}
+  .risk-card li{margin-bottom:5px;line-height:1.7}
+  .risk-card li:last-child{margin-bottom:0}
+  .risk-card.down{background:#fdf2f2;border:1px solid #fecaca}.risk-card.down h4{color:var(--up)}
+  .risk-card.up{background:#f0fdf8;border:1px solid #d1fae5}.risk-card.up h4{color:var(--down)}
+
+  /* ===== 快照 ===== */
+  .info-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .info-card{border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:#fff}
+  .info-card h4{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:9px;border-bottom:1px solid var(--rowline);padding-bottom:6px}
+  .info-row{display:flex;justify-content:space-between;gap:10px;font-size:11px;padding:4px 0;border-bottom:1px dotted var(--rowline);line-height:1.5}
+  .info-row:last-child{border-bottom:none}
+  .info-row .v{font-weight:600;text-align:right;min-width:0}
+  .info-note{font-size:11px;line-height:1.7;color:var(--muted)}
+
+  /* ===== 敏感性/情景 ===== */
+  .sens{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+  .sens table td.num{font-weight:700}
+  .sens .rowlab{font-weight:700;color:var(--hdr);font-size:11px}
+  .scenario td.hl{font-weight:800}
+
+  /* ===== 一句话 ===== */
+  .oneline{background:var(--card);border-left:5px solid var(--gold);border-radius:0 12px 12px 0;padding:18px 24px;margin-top:16px;box-shadow:var(--shadow)}
+  .oneline .label{display:inline-block;font-size:10px;font-weight:800;background:var(--gold);color:#fff;letter-spacing:1px;padding:3px 10px;border-radius:3px;margin-right:10px;vertical-align:middle}
+  .oneline p{font-size:13px;line-height:1.9;margin-top:10px}
+
+  .footer{border-top:1px solid var(--line);margin-top:18px;padding:16px 4px 0;font-size:11px;color:var(--muted);line-height:1.8;display:flex;justify-content:space-between;gap:20px}
+
+  @media(max-width:960px){
+    .kpis{grid-template-columns:repeat(3,1fr)}
+    .grid{grid-template-columns:1fr}
+    .sum-grid{grid-template-columns:1fr}
+    .anchor-grid{grid-template-columns:1fr}
+    .tri-input{grid-template-columns:1fr}
+    .info-grid{grid-template-columns:repeat(2,1fr)}
+    .dupont{grid-template-columns:1fr}
+    .sens{grid-template-columns:1fr}
+    .card-hd .sub{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ===== 页头 ===== -->
+  <div class="topbar">
+    <div class="co">
+      <div class="ticker">{{TICKER}}</div>
+      <div class="name">{{COMPANY_NAME}} · {{POSITIONING}}</div>
+      <div class="date">报告期 {{PERIOD}}（截止 {{PERIOD_END}}）· 披露 {{REPORT_DATE}} · 分析日期 {{ANALYSIS_DATE}}</div>
+    </div>
+    <div class="rt">
+      <span class="chip {{RATING_CLASS}}">{{RATING}}</span>
+      <div class="pt">机构综合目标价 <b>{{TARGET_PRICE}}</b> · 一致预期 {{FY_CONSENSUS}}<br>{{RATING_RATIONALE_SHORT}} · 置信度 <b>{{CONFIDENCE}}</b></div>
+    </div>
+  </div>
+
+  <!-- ===== 导航 ===== -->
+  <div class="nav">
+    <a href="#a">锚定</a><a href="#tri">三路</a><a href="#b">可信度</a><a href="#c">财务</a>
+    <a href="#d">同业</a><a href="#e">非财务</a><a href="#f">舞弊</a><a href="#m">治理</a>
+    <a href="#g">估值</a><a href="#h">分歧</a><a href="#i">综合</a><a href="#j">风险</a>
+  </div>
+
+  <!-- ===== KPI ===== -->
+  <div class="kpis">
+    <div class="kpi"><div class="v">{{KPI_1_V}}</div><div class="l">{{KPI_1_L}}</div><div class="d {{KPI_1_C}}">{{KPI_1_D}}</div></div>
+    <div class="kpi"><div class="v">{{KPI_2_V}}</div><div class="l">{{KPI_2_L}}</div><div class="d {{KPI_2_C}}">{{KPI_2_D}}</div></div>
+    <div class="kpi"><div class="v">{{KPI_3_V}}</div><div class="l">{{KPI_3_L}}</div><div class="d {{KPI_3_C}}">{{KPI_3_D}}</div></div>
+    <div class="kpi"><div class="v">{{KPI_4_V}}</div><div class="l">{{KPI_4_L}}</div><div class="d {{KPI_4_C}}">{{KPI_4_D}}</div></div>
+    <div class="kpi"><div class="v">{{KPI_5_V}}</div><div class="l">{{KPI_5_L}}</div><div class="d {{KPI_5_C}}">{{KPI_5_D}}</div></div>
+    <div class="kpi"><div class="v">{{KPI_6_V}}</div><div class="l">{{KPI_6_L}}</div><div class="d {{KPI_6_C}}">{{KPI_6_D}}</div></div>
+  </div>
+
+  <!-- ===== 执行摘要 ===== -->
+  <div class="summary">
+    <div class="label">执行摘要 · Executive Summary</div>
+    <div class="headline">{{HEADLINE}}</div>
+    <div class="sum-grid">
+      <div class="sum-item"><div class="t">关键判断 1</div><div class="c">{{SUM_1}}</div></div>
+      <div class="sum-item"><div class="t">关键判断 2</div><div class="c">{{SUM_2}}</div></div>
+      <div class="sum-item"><div class="t">核心风险</div><div class="c">{{SUM_3}}</div></div>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <!-- A 锚定 -->
+    <div class="card full m-anchor" id="a">
+      <div class="card-hd"><span class="no">A</span><span class="ttl">财务锚定</span><span class="sub">时间窗口 · 预期差 · 公司定位</span></div>
+      <div class="card-bd">
+        <div class="anchor-grid">
+          <div class="anchor-card">
+            <h4>时间锚定</h4>
+            <div class="big">{{TIME_BIG}}</div>
+            <div class="row"><span class="k">最新报告期</span><span class="v">{{LATEST_PERIOD}}</span></div>
+            <div class="row"><span class="k">披露日/时差</span><span class="v">{{REPORT_DATE_SHORT}} / {{LAG_DAYS}}</span></div>
+            <div class="row"><span class="k">数据窗口</span><span class="v">{{DATA_WINDOW}}</span></div>
+            <div class="row"><span class="k">季节性</span><span class="v">{{SEASONALITY}}</span></div>
+            <div class="row"><span class="k">基期效应</span><span class="v">{{BASE_EFFECT}}</span></div>
+            <div class="row"><span class="k">短期边际</span><span class="v">{{NEAR_TERM}}</span></div>
+            <div class="row"><span class="k">三年趋势</span><span class="v">{{TREND_3Y}}</span></div>
+          </div>
+          <div class="anchor-card">
+            <h4>预期差判定（第一输入）</h4>
+            <div class="big" style="color:var(--up)">{{EXPECT_GAP}}</div>
+            <div class="row"><span class="k">超预期幅度</span><span class="v">{{EXPECT_MAGNITUDE}}</span></div>
+            <div class="row"><span class="k">拆分来源</span><span class="v">{{EXPECT_SOURCE_SPLIT}}</span></div>
+            <div class="row"><span class="k">数字预期差</span><span class="v">{{NUM_GAP}}</span></div>
+            <div class="row"><span class="k">质量预期差</span><span class="v">{{QUAL_GAP}}</span></div>
+            <div class="row"><span class="k">预期来源</span><span class="v">{{EXPECT_SOURCE}}</span></div>
+            <div class="row"><span class="k">发布后反应</span><span class="v">{{MARKET_REACTION}}</span></div>
+          </div>
+          <div class="anchor-card">
+            <h4>公司定位（是什么）</h4>
+            <div class="big">{{POSITION_BIG}}</div>
+            <div class="row"><span class="k">商业模式</span><span class="v">{{BUSINESS_MODEL}}</span></div>
+            <div class="row"><span class="k">收入驱动</span><span class="v">{{REVENUE_DRIVER}}</span></div>
+            <div class="row"><span class="k">利润驱动</span><span class="v">{{PROFIT_DRIVER}}</span></div>
+            <div class="row"><span class="k">生命周期</span><span class="v">{{LIFECYCLE}}</span></div>
+            <div class="row"><span class="k">产业链位置</span><span class="v">{{CHAIN_POSITION}}</span></div>
+            <div class="row"><span class="k">不是</span><span class="v">{{NOT_POSITION}}</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ⚖ 三路输入 -->
+    <div class="card full" id="tri" style="border-top:3px solid var(--hdr)">
+      <div class="card-hd"><span class="no" style="background:var(--hdr)">⚖</span><span class="ttl">三路输入</span><span class="sub">不闭门造车（底层逻辑 #2）</span></div>
+      <div class="card-bd">
+        <div class="tri-input">
+          <div class="tri-in fact">
+            <h5>事实路 · 报表事实</h5>
+            <ul><li>{{FACT_1}}</li><li>{{FACT_2}}</li><li>{{FACT_3}}</li></ul>
+          </div>
+          <div class="tri-in theory">
+            <h5>理论路 · 经营机制</h5>
+            <ul><li>{{THEORY_1}}</li><li>{{THEORY_2}}</li><li>{{THEORY_3}}</li></ul>
+          </div>
+          <div class="tri-in view">
+            <h5>观点路 · 市场观点</h5>
+            <ul><li>{{VIEW_1}}</li><li>{{VIEW_2}}</li><li>{{VIEW_3}}</li></ul>
+          </div>
+        </div>
+        <div class="conv"><span class="lb">三路判定</span>{{CONVERGENCE}}</div>
+      </div>
+    </div>
+
+    <!-- B 可信度 -->
+    <div class="card m-trust" id="b">
+      <div class="card-hd"><span class="no">B</span><span class="ttl">数据可信度与会计质量</span><span class="sub">五级信任 · 勾稽 · 政策 · 盈余质量</span></div>
+      <div class="card-bd">
+        <div class="st"><span class="no">1</span>核心数据 · 五级信任追溯</div>
+        <table>
+          <thead><tr><th>数据项</th><th>层级</th></tr></thead>
+          <tbody>
+            <tr><td>{{TRUST_1_DESC}}</td><td><span class="tag tag-up">{{TRUST_1_LV}}</span></td></tr>
+            <tr><td>{{TRUST_2_DESC}}</td><td><span class="tag tag-up">{{TRUST_2_LV}}</span></td></tr>
+            <tr><td>{{TRUST_3_DESC}}</td><td><span class="tag tag-info">{{TRUST_3_LV}}</span></td></tr>
+          </tbody>
+        </table>
+        <p class="note">五级信任：L1 交易所披露文件（裁决）→ L2 官方结构化 → L3 权威数据商 → L4 媒体 → L5 搜索碎片。审计意见：{{AUDIT_OPINION}}（{{AUDIT_NOTE}}）</p>
+        <div class="st"><span class="no">2</span>勾稽校验（五项）</div>
+        <table>
+          <thead><tr><th>校验项</th><th class="num">数字</th><th>结果</th></tr></thead>
+          <tbody>
+            <tr><td>BS 平衡：总资产 = 负债 + 权益</td><td class="num">{{RECON_1_NUM}}</td><td>{{RECON_1}}</td></tr>
+            <tr><td>CF 衔接：期末现金 = BS 货币资金</td><td class="num">{{RECON_2_NUM}}</td><td>{{RECON_2}}</td></tr>
+            <tr><td>利润衔接：CF 净利 = IS 净利</td><td class="num">{{RECON_3_NUM}}</td><td>{{RECON_3}}</td></tr>
+            <tr><td>留存收益滚动</td><td class="num">{{RECON_4_NUM}}</td><td>{{RECON_4}}</td></tr>
+            <tr><td>上年同期数核对</td><td class="num">{{RECON_5_NUM}}</td><td>{{RECON_5}}</td></tr>
+          </tbody>
+        </table>
+        <div class="st"><span class="no">3</span>会计政策审查</div>
+        <table>
+          <thead><tr><th>政策领域</th><th>公司做法</th><th>激进/稳健</th></tr></thead>
+          <tbody>
+            <tr><td>收入确认</td><td>{{POL_1_V}}</td><td>{{POL_1_J}}</td></tr>
+            <tr><td>折旧/摊销</td><td>{{POL_2_V}}</td><td>{{POL_2_J}}</td></tr>
+            <tr><td>存货计价/跌价</td><td>{{POL_3_V}}</td><td>{{POL_3_J}}</td></tr>
+            <tr><td>坏账计提</td><td>{{POL_4_V}}</td><td>{{POL_4_J}}</td></tr>
+            <tr><td>研发资本化</td><td>{{POL_5_V}}</td><td>{{POL_5_J}}</td></tr>
+            <tr><td>商誉/资产减值</td><td>{{POL_6_V}}</td><td>{{POL_6_J}}</td></tr>
+          </tbody>
+        </table>
+        <div class="st"><span class="no">4</span>盈余质量七维</div>
+        <table>
+          <thead><tr><th>维度</th><th class="num">读数</th><th>趋势</th><th>判定</th></tr></thead>
+          <tbody>
+            <tr><td>净现比</td><td class="num">{{QUAL_CASH}}</td><td>{{QUAL_CASH_T}}</td><td>{{QUAL_CASH_J}}</td></tr>
+            <tr><td>扣非占比</td><td class="num">{{QUAL_NONREC}}</td><td>{{QUAL_NONREC_T}}</td><td>{{QUAL_NONREC_J}}</td></tr>
+            <tr><td>应收/收入背离</td><td class="num">{{QUAL_AR}}</td><td>{{QUAL_AR_T}}</td><td>{{QUAL_AR_J}}</td></tr>
+            <tr><td>存货/收入背离</td><td class="num">{{QUAL_INV}}</td><td>{{QUAL_INV_T}}</td><td>{{QUAL_INV_J}}</td></tr>
+            <tr><td>一次性项目</td><td>{{QUAL_ONEOFF}}</td><td>{{QUAL_ONEOFF_T}}</td><td>{{QUAL_ONEOFF_J}}</td></tr>
+            <tr><td>资本化程度</td><td>{{QUAL_CAP}}</td><td>{{QUAL_CAP_T}}</td><td>{{QUAL_CAP_J}}</td></tr>
+            <tr><td>表外项目</td><td>{{QUAL_OBS}}</td><td>—</td><td>{{QUAL_OBS_J}}</td></tr>
+          </tbody>
+        </table>
+        <p class="note">利润正常化：{{NORMALIZATION}}</p>
+      </div>
+    </div>
+
+    <!-- C 财务分析 -->
+    <div class="card m-fin" id="c">
+      <div class="card-hd"><span class="no">C</span><span class="ttl">财务分析</span><span class="sub">DuPont · 五维度 · 趋势四问 · 现金流组合</span></div>
+      <div class="card-bd">
+        <div class="st"><span class="no">1</span>DuPont 分解（{{DUPONT_YEAR}}）</div>
+        <div class="dupont">
+          <div>
+            <div class="dupont-root">ROE {{DUPONT_ROE}}</div>
+            <div class="dupont-node"><span class="k">净利率</span><span class="v">{{DUPONT_NPM}}</span></div>
+            <div class="dupont-node"><span class="k">总资产周转</span><span class="v">{{DUPONT_TAT}}</span></div>
+            <div class="dupont-node"><span class="k">权益乘数</span><span class="v">{{DUPONT_EM}}</span></div>
+          </div>
+          <table>
+            <thead><tr><th>趋势</th><th class="num">{{Y_5}}</th><th class="num">{{Y_4}}</th><th class="num">{{Y_3}}</th><th class="num">{{Y_2}}</th><th class="num">{{Y_1}}</th></tr></thead>
+            <tbody>
+              <tr><td>ROE（加权）</td><td class="num">{{DP_ROE_5}}</td><td class="num">{{DP_ROE_4}}</td><td class="num">{{DP_ROE_3}}</td><td class="num">{{DP_ROE_2}}</td><td class="num">{{DP_ROE_1}}</td></tr>
+              <tr><td>净利率</td><td class="num">{{DP_NPM_5}}</td><td class="num">{{DP_NPM_4}}</td><td class="num">{{DP_NPM_3}}</td><td class="num">{{DP_NPM_2}}</td><td class="num">{{DP_NPM_1}}</td></tr>
+              <tr><td>总资产周转率</td><td class="num">{{DP_TAT_5}}</td><td class="num">{{DP_TAT_4}}</td><td class="num">{{DP_TAT_3}}</td><td class="num">{{DP_TAT_2}}</td><td class="num">{{DP_TAT_1}}</td></tr>
+              <tr><td>权益乘数</td><td class="num">{{DP_EM_5}}</td><td class="num">{{DP_EM_4}}</td><td class="num">{{DP_EM_3}}</td><td class="num">{{DP_EM_2}}</td><td class="num">{{DP_EM_1}}</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">{{DUPONT_INSIGHT}}</p>
+        <div class="st"><span class="no">2</span>五维度指标（时间 + 同业双维度）</div>
+        <table>
+          <thead><tr><th>维度</th><th class="num">本报告期</th><th class="num">同比</th><th>判断标准</th><th>同业位置</th></tr></thead>
+          <tbody>
+            <tr><td>毛利率</td><td class="num">{{M_GM}}</td><td class="num">{{M_GM_T}}</td><td>{{M_GM_S}}</td><td>{{M_GM_PEER}}</td></tr>
+            <tr><td>净利率</td><td class="num">{{M_NPM}}</td><td class="num">{{M_NPM_T}}</td><td>{{M_NPM_S}}</td><td>{{M_NPM_PEER}}</td></tr>
+            <tr><td>营收增速</td><td class="num">{{M_REV}}</td><td class="num">{{M_REV_T}}</td><td>{{M_REV_S}}</td><td>{{M_REV_PEER}}</td></tr>
+            <tr><td>归母增速</td><td class="num">{{M_NP}}</td><td class="num">{{M_NP_T}}</td><td>{{M_NP_S}}</td><td>{{M_NP_PEER}}</td></tr>
+            <tr><td>经营现金流</td><td class="num">{{M_OCF}}</td><td class="num">{{M_OCF_T}}</td><td>{{M_OCF_S}}</td><td>{{M_OCF_PEER}}</td></tr>
+            <tr><td>资产负债率</td><td class="num">{{M_DA}}</td><td class="num">{{M_DA_T}}</td><td>{{M_DA_S}}</td><td>{{M_DA_PEER}}</td></tr>
+            <tr><td>应收周转天数</td><td class="num">{{M_AR}}</td><td class="num">{{M_AR_T}}</td><td>{{M_AR_S}}</td><td>{{M_AR_PEER}}</td></tr>
+            <tr><td>存货周转天数</td><td class="num">{{M_INV}}</td><td class="num">{{M_INV_T}}</td><td>{{M_INV_S}}</td><td>{{M_INV_PEER}}</td></tr>
+          </tbody>
+        </table>
+        <div class="st"><span class="no">3</span>趋势四问</div>
+        <table>
+          <thead><tr><th>问题</th><th>结论</th></tr></thead>
+          <tbody>
+            <tr><td>方向：过去 3-5 年往哪走？</td><td>{{TQ_DIRECTION}}</td></tr>
+            <tr><td>速度：变化在加速还是减速？</td><td>{{TQ_SPEED}}</td></tr>
+            <tr><td>波动：稳定还是大幅波动？</td><td>{{TQ_VOLATILITY}}</td></tr>
+            <tr><td>一致性：与相关指标是否同步？</td><td>{{TQ_CONSISTENCY}}</td></tr>
+          </tbody>
+        </table>
+        <div class="st"><span class="no">4</span>异常检测（五种模式）</div>
+        <table>
+          <thead><tr><th>模式</th><th>结果</th></tr></thead>
+          <tbody>
+            <tr><td>结构性断点</td><td>{{ANOM_BREAK}}</td></tr>
+            <tr><td>趋势反转</td><td>{{ANOM_REVERSAL}}</td></tr>
+            <tr><td>季节性异常</td><td>{{ANOM_SEASONAL}}</td></tr>
+            <tr><td>背离信号</td><td>{{ANOM_DIVERGENCE}}</td></tr>
+            <tr><td>波动率突变</td><td>{{ANOM_VOLATILITY}}</td></tr>
+          </tbody>
+        </table>
+        <div class="st"><span class="no">5</span>现金流组合判断</div>
+        <table>
+          <thead><tr><th>期间</th><th class="num">经营</th><th class="num">投资</th><th class="num">筹资</th><th>组合含义</th></tr></thead>
+          <tbody>
+            <tr><td>本报告期</td><td class="num">{{CF_O}}</td><td class="num">{{CF_I}}</td><td class="num">{{CF_F}}</td><td>{{CF_MEANING}}</td></tr>
+            <tr><td>上年同期</td><td class="num">{{CF_O_P}}</td><td class="num">{{CF_I_P}}</td><td class="num">{{CF_F_P}}</td><td>{{CF_MEANING_P}}</td></tr>
+          </tbody>
+        </table>
+        <div class="concl"><span class="lb">分析结论</span>{{FIN_CONCLUSION}}</div>
+      </div>
+    </div>
+
+    <!-- ⚖ 正反合 -->
+    <div class="card full" id="dialectic" style="border-top:3px solid var(--gold)">
+      <div class="card-hd"><span class="no" style="background:var(--gold)">⚖</span><span class="ttl">关键判断 · 正反合</span><span class="sub">{{DIA_TOPIC}} 的完整论证（底层逻辑 #3）</span></div>
+      <div class="card-bd">
+        <div class="dia">
+          <div class="dia-col pro">
+            <h5>正方证据</h5>
+            <ul><li>{{DIA_PRO_1}}</li><li>{{DIA_PRO_2}}</li><li>{{DIA_PRO_3}}</li><li>{{DIA_PRO_4}}</li></ul>
+          </div>
+          <div class="dia-col con">
+            <h5>最强反方（替代解释）</h5>
+            <ul><li>{{DIA_CON_1}}</li><li>{{DIA_CON_2}}</li><li>{{DIA_CON_3}}</li><li>{{DIA_CON_4}}</li></ul>
+          </div>
+          <div class="dia-col syn">
+            <h5>合（收敛判断）</h5>
+            <ul><li>{{DIA_SYN_1}}</li><li>{{DIA_SYN_2}}</li><li>{{DIA_SYN_3}}</li><li>{{DIA_SYN_4}}</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- D 同业 -->
+    <div class="card m-peer" id="d">
+      <div class="card-hd"><span class="no">D</span><span class="ttl">同业对比</span><span class="sub">分析一家公司就是分析一个行业</span></div>
+      <div class="card-bd">
+        <p class="note" style="margin-top:0"><b>Peer 组：</b>{{PEER_SET}}（选择标准：{{PEER_CRITERIA}}）</p>
+        <div class="st"><span class="no">1</span>多维对标</div>
+        <table>
+          <thead><tr><th>维度</th><th>本公司</th><th>{{PEER_1}}</th><th>{{PEER_2}}</th><th>{{PEER_3}}</th></tr></thead>
+          <tbody>
+            <tr><td>营收增速</td><td class="num">{{P_REV_S}}</td><td class="num">{{P_REV_1}}</td><td class="num">{{P_REV_2}}</td><td class="num">{{P_REV_3}}</td></tr>
+            <tr><td>毛利率</td><td class="num">{{P_GM_S}}</td><td class="num">{{P_GM_1}}</td><td class="num">{{P_GM_2}}</td><td class="num">{{P_GM_3}}</td></tr>
+            <tr><td>净利率</td><td class="num">{{P_NPM_S}}</td><td class="num">{{P_NPM_1}}</td><td class="num">{{P_NPM_2}}</td><td class="num">{{P_NPM_3}}</td></tr>
+            <tr><td>ROE</td><td class="num">{{P_ROE_S}}</td><td class="num">{{P_ROE_1}}</td><td class="num">{{P_ROE_2}}</td><td class="num">{{P_ROE_3}}</td></tr>
+            <tr><td>Forward PE</td><td class="num">{{P_PE_S}}</td><td class="num">{{P_PE_1}}</td><td class="num">{{P_PE_2}}</td><td class="num">{{P_PE_3}}</td></tr>
+            <tr><td>产品/技术卡位</td><td>{{P_TECH_S}}</td><td>{{P_TECH_1}}</td><td>{{P_TECH_2}}</td><td>{{P_TECH_3}}</td></tr>
+            <tr><td>客户结构</td><td>{{P_CUST_S}}</td><td>{{P_CUST_1}}</td><td>{{P_CUST_2}}</td><td>{{P_CUST_3}}</td></tr>
+          </tbody>
+        </table>
+        <p class="note">产业链利润分配：上游 {{CHAIN_UPSTREAM}} / 中游（本公司）{{CHAIN_MID}} / 下游 {{CHAIN_DOWNSTREAM}}</p>
+        <div class="concl"><span class="lb">差距归因</span>{{PEER_INSIGHT}}</div>
+      </div>
+    </div>
+
+    <!-- E 非财务 -->
+    <div class="card m-nf" id="e">
+      <div class="card-hd"><span class="no">E</span><span class="ttl">非财务与交叉验证</span><span class="sub">行业指标 · 领先滞后标注</span></div>
+      <div class="card-bd">
+        <div class="st"><span class="no">1</span>行业特定运营指标</div>
+        <table>
+          <thead><tr><th>指标</th><th class="num">读数</th><th>属性</th><th>预示</th></tr></thead>
+          <tbody>
+            <tr><td>{{NF_1_N}}</td><td class="num">{{NF_1_V}}</td><td><span class="tag tag-info">{{NF_1_A}}</span></td><td>{{NF_1_I}}</td></tr>
+            <tr><td>{{NF_2_N}}</td><td class="num">{{NF_2_V}}</td><td><span class="tag tag-info">{{NF_2_A}}</span></td><td>{{NF_2_I}}</td></tr>
+            <tr><td>{{NF_3_N}}</td><td class="num">{{NF_3_V}}</td><td><span class="tag tag-info">{{NF_3_A}}</span></td><td>{{NF_3_I}}</td></tr>
+            <tr><td>{{NF_4_N}}</td><td class="num">{{NF_4_V}}</td><td><span class="tag tag-info">{{NF_4_A}}</span></td><td>{{NF_4_I}}</td></tr>
+          </tbody>
+        </table>
+        <div class="st"><span class="no">2</span>财务 × 非财务交叉验证</div>
+        <table>
+          <thead><tr><th>财务信号</th><th>非财务对照</th><th>一致性</th><th>推断与行动</th></tr></thead>
+          <tbody>
+            <tr><td>{{XV_1_F}}</td><td>{{XV_1_N}}</td><td>{{XV_1_R}}</td><td>{{XV_1_A}}</td></tr>
+            <tr><td>{{XV_2_F}}</td><td>{{XV_2_N}}</td><td>{{XV_2_R}}</td><td>{{XV_2_A}}</td></tr>
+            <tr><td>{{XV_3_F}}</td><td>{{XV_3_N}}</td><td>{{XV_3_R}}</td><td>{{XV_3_A}}</td></tr>
+          </tbody>
+        </table>
+        <p class="note">矛盾信号：{{NF_CONFLICT}}</p>
+      </div>
+    </div>
+
+    <!-- F 舞弊 -->
+    <div class="card m-fraud" id="f">
+      <div class="card-hd"><span class="no">F</span><span class="ttl">舞弊识别专项</span><span class="sub">铁三角 · 定量模型 · 红旗</span></div>
+      <div class="card-bd">
+        <div class="st"><span class="no">1</span>现金流铁三角（最快检验法）</div>
+        <div class="tri">
+          <div class="tri-card"><div class="t">利润</div><div class="v">{{TRI_PROFIT}}</div></div>
+          <div class="tri-card"><div class="t">经营现金流</div><div class="v">{{TRI_OCF}}</div></div>
+          <div class="tri-card"><div class="t">应收+存货变动</div><div class="v">{{TRI_WC}}</div></div>
+        </div>
+        <p class="note">{{TRI_VERDICT}}</p>
+        <div class="st"><span class="no">2</span>定量模型</div>
+        <table>
+          <thead><tr><th>模型</th><th>状态</th></tr></thead>
+          <tbody>
+            <tr><td>Beneish M-Score</td><td>{{MS_STATUS}}</td></tr>
+            <tr><td>Altman Z-Score</td><td>{{ZSCORE_STATUS}}</td></tr>
+          </tbody>
+        </table>
+        <div class="st"><span class="no">3</span>红旗重点排查</div>
+        <table>
+          <thead><tr><th>红旗项</th><th>结果</th></tr></thead>
+          <tbody>
+            <tr><td>应收增速 &gt; 收入增速</td><td>{{RF_AR}}</td></tr>
+            <tr><td>现金流长期背离利润</td><td>{{RF_CASH}}</td></tr>
+            <tr><td>毛利率异常跳变</td><td>{{RF_GM}}</td></tr>
+            <tr><td>审计师/CFO 更换</td><td>{{RF_AUDITOR}}</td></tr>
+            <tr><td>关联交易异常</td><td>{{RF_RPT}}</td></tr>
+            <tr><td>存货异常堆积</td><td>{{RF_INV}}</td></tr>
+          </tbody>
+        </table>
+        <div class="concl"><span class="lb">舞弊风险判定</span>{{FRAUD_VERDICT}}</div>
+      </div>
+    </div>
+
+    <!-- M 管理层 -->
+    <div class="card m-mgmt" id="m">
+      <div class="card-hd"><span class="no">M</span><span class="ttl">管理层与指引评估</span><span class="sub">四维 · 指引质量 · 三方对账</span></div>
+      <div class="card-bd">
+        <div class="st"><span class="no">1</span>四维评估</div>
+        <table>
+          <thead><tr><th>维度</th><th>评价</th></tr></thead>
+          <tbody>
+            <tr><td>能力（资本配置/战略）</td><td>{{MG_CAPABILITY}}</td></tr>
+            <tr><td>诚信（历史信誉/利益输送）</td><td>{{MG_INTEGRITY}}</td></tr>
+            <tr><td>股东导向（分红/回购/激励）</td><td>{{MG_SHAREHOLDER}}</td></tr>
+            <tr><td>稳定性（高管更换频率）</td><td>{{MG_STABILITY}}</td></tr>
+          </tbody>
+        </table>
+        <div class="st"><span class="no">2</span>指引质量评估</div>
+        <table>
+          <thead><tr><th>评估项</th><th>结论</th></tr></thead>
+          <tbody>
+            <tr><td>历史指引兑现率</td><td>{{MG_TRACK_RECORD}}</td></tr>
+            <tr><td>指引 vs 一致预期 vs 我的判断</td><td>{{MG_THREE_WAY}}</td></tr>
+            <tr><td>指引可信度加权</td><td>{{MG_WEIGHT}}</td></tr>
+          </tbody>
+        </table>
+        <div class="concl"><span class="lb">治理判定</span>{{MG_CONCLUSION}}</div>
+      </div>
+    </div>
+
+    <!-- G 估值 -->
+    <div class="card full m-val" id="g">
+      <div class="card-hd"><span class="no">G</span><span class="ttl">估值</span><span class="sub">DCF 假设 · 敏感性 · 三情景 · 可比 · 三方对账</span></div>
+      <div class="card-bd">
+        <p class="note" style="margin-top:0"><b>方法选择：</b>{{VAL_METHOD_RATIONALE}}（主模型 {{VAL_PRIMARY}} + 验证 {{VAL_VALIDATE}}，禁用 {{VAL_BANNED}}）</p>
+        <div class="st"><span class="no">1</span>DCF 关键假设与敏感性</div>
+        <div class="sens">
+          <table>
+            <thead><tr><th>假设</th><th class="num">取值</th><th>依据</th></tr></thead>
+            <tbody>
+              <tr><td>无风险利率 Rf</td><td class="num">{{DC_RF}}</td><td>{{DC_RF_S}}</td></tr>
+              <tr><td>股权风险溢价 ERP</td><td class="num">{{DC_ERP}}</td><td>{{DC_ERP_S}}</td></tr>
+              <tr><td>Beta</td><td class="num">{{DC_BETA}}</td><td>{{DC_BETA_S}}</td></tr>
+              <tr><td>股权成本 Ke</td><td class="num">{{DC_KE}}</td><td>{{DC_KE_S}}</td></tr>
+              <tr><td>WACC</td><td class="num">{{DC_WACC}}</td><td>{{DC_WACC_S}}</td></tr>
+              <tr><td>预测期增速 g</td><td class="num">{{DC_G}}</td><td>{{DC_G_S}}</td></tr>
+              <tr><td>永续增长率</td><td class="num">{{DC_TERM_G}}</td><td>{{DC_TERM_G_S}}</td></tr>
+            </tbody>
+          </table>
+          <table>
+            <thead><tr><th colspan="2">目标价敏感性（WACC × 永续 g）</th></tr></thead>
+            <tbody>
+              <tr><td class="rowlab">g \ WACC</td></tr>
+              <tr><td class="rowlab" style="padding-top:0">{{SENS_W_LABEL}}</td></tr>
+              <tr><td>{{SENS_R1}}</td></tr>
+              <tr><td>{{SENS_R2}}</td></tr>
+              <tr><td>{{SENS_R3}}</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">{{DCF_NOTE}}</p>
+        <div class="st"><span class="no">2</span>三情景分析（{{SCENARIO_YEAR}}）</div>
+        <table class="scenario">
+          <thead><tr><th>情景</th><th class="num">净利假设</th><th class="num">EPS</th><th class="num">目标 PE</th><th class="num">目标价</th><th class="num">概率</th></tr></thead>
+          <tbody>
+            <tr><td class="hl">乐观</td><td class="num">{{SC_BULL_ASSUME}}</td><td class="num">{{SC_BULL_EPS}}</td><td class="num">{{SC_BULL_PE}}</td><td class="num">{{SC_BULL_TP}}</td><td class="num">{{SC_BULL_P}}</td></tr>
+            <tr><td class="hl">中性（基准）</td><td class="num">{{SC_BASE_ASSUME}}</td><td class="num">{{SC_BASE_EPS}}</td><td class="num">{{SC_BASE_PE}}</td><td class="num">{{SC_BASE_TP}}</td><td class="num">{{SC_BASE_P}}</td></tr>
+            <tr><td class="hl">悲观</td><td class="num">{{SC_BEAR_ASSUME}}</td><td class="num">{{SC_BEAR_EPS}}</td><td class="num">{{SC_BEAR_PE}}</td><td class="num">{{SC_BEAR_TP}}</td><td class="num">{{SC_BEAR_P}}</td></tr>
+          </tbody>
+        </table>
+        <p class="note">概率加权目标价 ≈ <b>{{WEIGHTED_TP}}</b>（乐观×{{SC_BULL_P}} + 中性×{{SC_BASE_P}} + 悲观×{{SC_BEAR_P}}）</p>
+        <div class="st"><span class="no">3</span>可比估值与三方对账</div>
+        <table>
+          <thead><tr><th>倍数</th><th class="num">本公司</th><th class="num">{{PEER_1}}</th><th class="num">{{PEER_2}}</th><th class="num">行业中值</th></tr></thead>
+          <tbody>
+            <tr><td>Forward PE</td><td class="num">{{CMP_PE_S}}</td><td class="num">{{CMP_PE_1}}</td><td class="num">{{CMP_PE_2}}</td><td class="num">{{CMP_PE_M}}</td></tr>
+            <tr><td>PEG</td><td class="num">{{CMP_PEG_S}}</td><td class="num">{{CMP_PEG_1}}</td><td class="num">{{CMP_PEG_2}}</td><td class="num">{{CMP_PEG_M}}</td></tr>
+          </tbody>
+        </table>
+        <table>
+          <thead><tr><th>三方对账</th><th>判断</th><th>分歧点</th></tr></thead>
+          <tbody>
+            <tr><td>我的估值区间</td><td>{{VAL_MINE}}</td><td>{{VAL_MINE_GAP}}</td></tr>
+            <tr><td>卖方一致预期</td><td>{{VAL_SELL}}</td><td>{{VAL_SELL_GAP}}</td></tr>
+            <tr><td>市场当前定价</td><td>{{VAL_MARKET}}</td><td>{{VAL_MARKET_GAP}}</td></tr>
+          </tbody>
+        </table>
+        <div class="concl"><span class="lb">估值结论</span>{{VAL_CONCLUSION}}</div>
+      </div>
+    </div>
+
+    <!-- H 分歧 -->
+    <div class="card m-debate" id="h">
+      <div class="card-hd"><span class="no">H</span><span class="ttl">关键分歧与裁决</span><span class="sub">多空证据强度标注</span></div>
+      <div class="card-bd">
+        <div class="debate">
+          <div class="debate-card bull">
+            <h4>▲ 多方逻辑</h4>
+            <ul><li>{{BULL_1}}</li><li>{{BULL_2}}</li><li>{{BULL_3}}</li></ul>
+          </div>
+          <div class="debate-card bear">
+            <h4>▼ 空方逻辑</h4>
+            <ul><li>{{BEAR_1}}</li><li>{{BEAR_2}}</li><li>{{BEAR_3}}</li></ul>
+          </div>
+        </div>
+        <p class="note">分歧图景：{{DEBATE_PICTURE}}（市场定价处于 {{DEBATE_POSITION}}）</p>
+        <div class="verdict"><span class="lb">裁决标准</span>{{ARBITRATION}}</div>
+      </div>
+    </div>
+
+    <!-- I 综合 -->
+    <div class="card m-syn" id="i">
+      <div class="card-hd"><span class="no">I</span><span class="ttl">综合判断</span><span class="sub">评分 · 监控四类 · 残余三组 · 降级</span></div>
+      <div class="card-bd">
+        <div class="st"><span class="no">1</span>综合评分卡</div>
+        <div class="score-row"><span class="dim">数据可信度</span><div class="bar"><i style="width:{{S_1}}%"></i></div><span class="sc">{{S_1}} · {{S_1_WHY}}</span></div>
+        <div class="score-row"><span class="dim">舞弊风险（反向）</span><div class="bar"><i style="width:{{S_2}}%"></i></div><span class="sc">{{S_2}} · {{S_2_WHY}}</span></div>
+        <div class="score-row"><span class="dim">财务健康</span><div class="bar"><i style="width:{{S_3}}%"></i></div><span class="sc">{{S_3}} · {{S_3_WHY}}</span></div>
+        <div class="score-row"><span class="dim">成长质量</span><div class="bar"><i style="width:{{S_4}}%"></i></div><span class="sc">{{S_4}} · {{S_4_WHY}}</span></div>
+        <div class="score-row"><span class="dim">行业竞争力</span><div class="bar"><i style="width:{{S_5}}%"></i></div><span class="sc">{{S_5}} · {{S_5_WHY}}</span></div>
+        <div class="score-row"><span class="dim">非财务趋势</span><div class="bar"><i style="width:{{S_6}}%"></i></div><span class="sc">{{S_6}} · {{S_6_WHY}}</span></div>
+        <div class="score-row"><span class="dim">估值吸引力</span><div class="bar"><i style="width:{{S_7}}%"></i></div><span class="sc">{{S_7}} · {{S_7_WHY}}</span></div>
+        <p class="note">权重：可信度 20% / 舞弊 15% / 健康 15% / 成长 10% / 竞争力 15% / 非财务 10% / 估值 15% · 加权 ≈ {{WEIGHTED_SCORE}}/10 · 一票否决：舞弊 &lt;3 直接否决</p>
+        <div class="st"><span class="no">2</span>监控变量（四类）</div>
+        <table class="monitor-table">
+          <thead><tr><th>类型</th><th>具体指标</th><th>信号含义</th></tr></thead>
+          <tbody>
+            <tr><td>领先</td><td>{{MON_LEAD_1}}</td><td>{{MON_LEAD_1_S}}</td></tr>
+            <tr><td>领先</td><td>{{MON_LEAD_2}}</td><td>{{MON_LEAD_2_S}}</td></tr>
+            <tr><td>同步</td><td>{{MON_SYNC_1}}</td><td>{{MON_SYNC_1_S}}</td></tr>
+            <tr><td>同步</td><td>{{MON_SYNC_2}}</td><td>{{MON_SYNC_2_S}}</td></tr>
+            <tr><td>滞后</td><td>{{MON_LAG_1}}</td><td>{{MON_LAG_1_S}}</td></tr>
+            <tr><td>证伪</td><td>{{MON_FALSE_1}}</td><td>{{MON_FALSE_1_S}}</td></tr>
+            <tr><td>证伪</td><td>{{MON_FALSE_2}}</td><td>{{MON_FALSE_2_S}}</td></tr>
+          </tbody>
+        </table>
+        <p class="residual-note"><b>残余不确定性：</b>数据冲突 {{RES_CONFLICT}} / 信息真空 {{RES_GAP}} / 推断项 {{RES_INFERENCE}}</p>
+        <p class="residual-note"><b>降级声明：</b>{{DEGRADE}}</p>
+      </div>
+    </div>
+
+    <!-- J 风险 -->
+    <div class="card full" id="j" style="border-top:3px solid var(--line)">
+      <div class="card-hd"><span class="no" style="background:var(--muted)">J</span><span class="ttl">风险与催化剂</span><span class="sub">风险矩阵（概率/影响/时间窗/缓解）</span></div>
+      <div class="card-bd">
+        <div class="st"><span class="no">1</span>风险矩阵</div>
+        <table>
+          <thead><tr><th>风险</th><th>概率</th><th>影响</th><th>时间窗</th><th>缓解因素</th></tr></thead>
+          <tbody>
+            <tr><td>{{RK_1}}</td><td>{{RK_1_P}}</td><td>{{RK_1_I}}</td><td>{{RK_1_T}}</td><td>{{RK_1_M}}</td></tr>
+            <tr><td>{{RK_2}}</td><td>{{RK_2_P}}</td><td>{{RK_2_I}}</td><td>{{RK_2_T}}</td><td>{{RK_2_M}}</td></tr>
+            <tr><td>{{RK_3}}</td><td>{{RK_3_P}}</td><td>{{RK_3_I}}</td><td>{{RK_3_T}}</td><td>{{RK_3_M}}</td></tr>
+            <tr><td>{{RK_4}}</td><td>{{RK_4_P}}</td><td>{{RK_4_I}}</td><td>{{RK_4_T}}</td><td>{{RK_4_M}}</td></tr>
+          </tbody>
+        </table>
+        <div class="st"><span class="no">2</span>催化剂</div>
+        <table>
+          <thead><tr><th>催化剂</th><th>触发条件</th><th>影响方向</th></tr></thead>
+          <tbody>
+            <tr><td>{{CT_1}}</td><td>{{CT_1_T}}</td><td>{{CT_1_D}}</td></tr>
+            <tr><td>{{CT_2}}</td><td>{{CT_2_T}}</td><td>{{CT_2_D}}</td></tr>
+            <tr><td>{{CT_3}}</td><td>{{CT_3_T}}</td><td>{{CT_3_D}}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ◆ 快照 -->
+    <div class="card full" style="border-top:3px solid var(--line)">
+      <div class="card-hd"><span class="no" style="background:var(--muted)">◆</span><span class="ttl">审计快照 · 关键比率 · 行业 · 舆情</span></div>
+      <div class="card-bd">
+        <div class="info-grid">
+          <div class="info-card">
+            <h4>审计快照</h4>
+            <div class="info-row"><span>报告期</span><span class="v">{{SIDE_PERIOD}}</span></div>
+            <div class="info-row"><span>披露日</span><span class="v">{{SIDE_REPORT_DATE}}</span></div>
+            <div class="info-row"><span>审计意见</span><span class="v">{{SIDE_AUDIT}}</span></div>
+            <div class="info-row"><span>数据源</span><span class="v">{{SIDE_SOURCE}}</span></div>
+            <div class="info-row"><span>勾稽</span><span class="v">{{SIDE_RECON}}</span></div>
+            <div class="info-row"><span>数据可信度</span><span class="v">{{SIDE_TRUST}}</span></div>
+          </div>
+          <div class="info-card">
+            <h4>关键比率</h4>
+            <div class="info-row"><span>毛利率</span><span class="v">{{R_GM}}</span></div>
+            <div class="info-row"><span>净利率</span><span class="v">{{R_NPM}}</span></div>
+            <div class="info-row"><span>净现比</span><span class="v">{{R_CASH}}</span></div>
+            <div class="info-row"><span>ROE/ROA</span><span class="v">{{R_ROE}}</span></div>
+            <div class="info-row"><span>PE(TTM)/PB</span><span class="v">{{R_PE}}</span></div>
+          </div>
+          <div class="info-card">
+            <h4>行业与商业模式</h4>
+            <div class="info-row"><span>生命周期</span><span class="v">{{SIDE_IND_LIFE}}</span></div>
+            <div class="info-row"><span>商业模式类型</span><span class="v">{{SIDE_BIZ_TYPE}}</span></div>
+            <div class="info-row"><span>关键运营指标</span><span class="v">{{SIDE_BIZ_KPI}}</span></div>
+            <div class="info-row"><span>产业链位置</span><span class="v">{{SIDE_CHAIN}}</span></div>
+            <div class="info-row"><span>行业陷阱</span><span class="v">{{SIDE_TRAP}}</span></div>
+          </div>
+          <div class="info-card">
+            <h4>市场舆情</h4>
+            <p class="info-note">{{SIDE_SENTIMENT}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /grid -->
+
+  <!-- ===== 一句话 ===== -->
+  <div class="oneline">
+    <span class="label">核心结论</span>
+    <p>{{ONE_LINER_SUMMARY}}</p>
+  </div>
+
+  <div class="footer">
+    <span>数据来源：[{{SOURCE_FILES}}] · 数据抓取日 {{FETCH_DATE}}</span>
+    <span>由 twu-financial-analysis v1.0.0 生成 · 非投资建议</span>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Startup Directory Launch Strategy 产品发布、收录与曝光｜简诗 AI"
+  short_description: "围绕“Startup Directory Launch Strategy 产品发布、收录与曝光”提供具体执行方法，涵盖活动目标、参与流程、执行跟踪和复盘优化。"
+  default_prompt: "使用 $sales-launch-directory 完成“Startup Directory Launch Strategy 产品发布、收录与曝光”任务。"

@@ -1,0 +1,6 @@
+{
+  "branch": "task_vte",
+  "description": "VTE 专病诊疗技能——从临床交互中蒸馏的经验",
+  "skills": [],
+  "_skill_schema_note": "每条技能结构：{ id, trigger, content, evidence, source_date, source_case, utility, adoptions, status, tags[] }"
+}

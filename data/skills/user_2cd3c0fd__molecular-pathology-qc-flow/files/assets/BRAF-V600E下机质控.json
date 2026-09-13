@@ -1,0 +1,354 @@
+{
+  "$schema": "../references/qc-flow.schema.json",
+  "schema_version": "1.1",
+  "diagram": {
+    "name": "BRAF V600E下机质控",
+    "id": "braf_qc_flow",
+    "technology": "PCR",
+    "method": "未确定",
+    "project": "BRAF V600E",
+    "qc_stage": "下机质控与结果判读",
+    "stages": [
+      "下机数据质控",
+      "结果判读"
+    ],
+    "sources": [
+      {
+        "id": "user_braf_drawio",
+        "type": "user-file",
+        "title": "BRAF_V600E下机质控_流程图.drawio",
+        "version": "未提供",
+        "last_verified": "2026-08-27",
+        "path": "D:/yingpeWork/主对话/BRAF_V600E下机质控_流程图.drawio",
+        "scope_note": "Ct 和 ΔCt 阈值仅复现用户样例对应的方法、试剂或 SOP，不作为 BRAF 通用规则。",
+        "evidence_status": "confirmed"
+      }
+    ],
+    "layout": {
+      "mode": "flow",
+      "page_width": 1100,
+      "page_height": 1380,
+      "auto_size": true,
+      "show_source_note": true,
+      "center_x": 530,
+      "start_y": 70,
+      "level_gap": 145,
+      "lane_gap": 320,
+      "margin": 40
+    }
+  },
+  "measurements": [
+    {
+      "id": "fam_ct",
+      "name": "FAM Ct",
+      "unit": "Ct",
+      "description": "用户样例中的 BRAF 靶标通道读数。",
+      "evidence_refs": [
+        "user_braf_drawio"
+      ]
+    },
+    {
+      "id": "vic_ct",
+      "name": "VIC Ct",
+      "unit": "Ct",
+      "description": "用户样例中的 VIC 通道读数。",
+      "evidence_refs": [
+        "user_braf_drawio"
+      ]
+    },
+    {
+      "id": "delta_ct",
+      "name": "ΔCt",
+      "unit": "Ct",
+      "description": "按用户样例计算 FAM Ct − VIC Ct。",
+      "evidence_refs": [
+        "user_braf_drawio"
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "label": "PCR 下机数据",
+      "stage": "下机数据质控",
+      "evidence_refs": [
+        "user_braf_drawio"
+      ],
+      "x": 430,
+      "y": 70,
+      "width": 200,
+      "height": 44
+    },
+    {
+      "id": "fam_direct",
+      "type": "decision",
+      "label": "FAM Ct ≤ 24？",
+      "stage": "下机数据质控",
+      "condition": {
+        "measurement": "fam_ct",
+        "operator": "LE",
+        "value": 24,
+        "unit": "Ct",
+        "expression": "FAM Ct ≤ 24",
+        "missing_policy": "next_branch"
+      },
+      "evidence_refs": [
+        "user_braf_drawio"
+      ],
+      "x": 420,
+      "y": 180,
+      "width": 220,
+      "height": 80
+    },
+    {
+      "id": "fam_gray",
+      "type": "decision",
+      "label": "FAM 有 Ct 且<br>24 < Ct < 35？",
+      "stage": "下机数据质控",
+      "condition": {
+        "measurement": "fam_ct",
+        "operator": "BETWEEN_OPEN",
+        "lower": 24,
+        "upper": 35,
+        "unit": "Ct",
+        "expression": "FAM 有 Ct 且 24 < Ct < 35",
+        "missing_policy": "next_branch"
+      },
+      "evidence_refs": [
+        "user_braf_drawio"
+      ],
+      "x": 410,
+      "y": 340,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "id": "vic_gray",
+      "type": "decision",
+      "label": "VIC Ct ≤ 20？",
+      "stage": "下机数据质控",
+      "condition": {
+        "measurement": "vic_ct",
+        "operator": "LE",
+        "value": 20,
+        "unit": "Ct",
+        "expression": "VIC Ct ≤ 20",
+        "missing_policy": "invalid"
+      },
+      "evidence_refs": [
+        "user_braf_drawio"
+      ],
+      "x": 390,
+      "y": 530,
+      "width": 280,
+      "height": 90
+    },
+    {
+      "id": "delta_proc",
+      "type": "process",
+      "label": "计算 ΔCt = FAM Ct − VIC Ct",
+      "stage": "下机数据质控",
+      "evidence_refs": [
+        "user_braf_drawio"
+      ],
+      "x": 380,
+      "y": 690,
+      "width": 300,
+      "height": 50
+    },
+    {
+      "id": "delta",
+      "type": "decision",
+      "label": "ΔCt ≤ 13？",
+      "stage": "结果判读",
+      "condition": {
+        "measurement": "delta_ct",
+        "operator": "LE",
+        "value": 13,
+        "unit": "Ct",
+        "expression": "ΔCt ≤ 13",
+        "missing_policy": "invalid"
+      },
+      "evidence_refs": [
+        "user_braf_drawio"
+      ],
+      "x": 440,
+      "y": 800,
+      "width": 180,
+      "height": 80
+    },
+    {
+      "id": "end_neg",
+      "type": "negative",
+      "label": "⚪ 未检出突变（阴性）",
+      "stage": "结果判读",
+      "terminal_result": "negative",
+      "evidence_refs": [
+        "user_braf_drawio"
+      ],
+      "x": 430,
+      "y": 950,
+      "width": 200,
+      "height": 50
+    },
+    {
+      "id": "basic_neg",
+      "type": "negative",
+      "label": "⚪ 未检出突变",
+      "stage": "结果判读",
+      "terminal_result": "negative",
+      "evidence_refs": [
+        "user_braf_drawio"
+      ],
+      "x": 150,
+      "y": 360,
+      "width": 150,
+      "height": 50
+    },
+    {
+      "id": "gray_invalid",
+      "type": "invalid",
+      "label": "❌ 结果无效<br>增加上样量 / 重新提取",
+      "stage": "结果判读",
+      "terminal_result": "invalid",
+      "evidence_refs": [
+        "user_braf_drawio"
+      ],
+      "x": 80,
+      "y": 548,
+      "width": 210,
+      "height": 55
+    },
+    {
+      "id": "direct_pos",
+      "type": "positive",
+      "label": "✅ BRAF V600E 阳性<br>（VIC 不参考，直接出报告）",
+      "stage": "结果判读",
+      "terminal_result": "positive",
+      "evidence_refs": [
+        "user_braf_drawio"
+      ],
+      "x": 745,
+      "y": 190,
+      "width": 210,
+      "height": 60
+    },
+    {
+      "id": "delta_pos",
+      "type": "positive",
+      "label": "✅ BRAF V600E 阳性<br>（灰区 ΔCt 判阳）",
+      "stage": "结果判读",
+      "terminal_result": "positive",
+      "evidence_refs": [
+        "user_braf_drawio"
+      ],
+      "x": 755,
+      "y": 810,
+      "width": 190,
+      "height": 60
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "start",
+      "target": "fam_direct",
+      "label": "",
+      "branch": "next",
+      "evidence_refs": [
+        "user_braf_drawio"
+      ]
+    },
+    {
+      "id": "e6",
+      "source": "fam_direct",
+      "target": "direct_pos",
+      "label": "是（直接阳性）",
+      "branch": "yes",
+      "evidence_refs": [
+        "user_braf_drawio"
+      ]
+    },
+    {
+      "id": "e7",
+      "source": "fam_direct",
+      "target": "fam_gray",
+      "label": "否",
+      "branch": "no",
+      "evidence_refs": [
+        "user_braf_drawio"
+      ]
+    },
+    {
+      "id": "e8",
+      "source": "fam_gray",
+      "target": "basic_neg",
+      "label": "否（无 Ct 或 Ct ≥ 35）",
+      "branch": "no",
+      "evidence_refs": [
+        "user_braf_drawio"
+      ]
+    },
+    {
+      "id": "e9",
+      "source": "fam_gray",
+      "target": "vic_gray",
+      "label": "是（灰区）",
+      "branch": "yes",
+      "evidence_refs": [
+        "user_braf_drawio"
+      ]
+    },
+    {
+      "id": "e12",
+      "source": "vic_gray",
+      "target": "gray_invalid",
+      "label": "否",
+      "branch": "no",
+      "evidence_refs": [
+        "user_braf_drawio"
+      ]
+    },
+    {
+      "id": "e13",
+      "source": "vic_gray",
+      "target": "delta_proc",
+      "label": "是",
+      "branch": "yes",
+      "evidence_refs": [
+        "user_braf_drawio"
+      ]
+    },
+    {
+      "id": "e14",
+      "source": "delta_proc",
+      "target": "delta",
+      "label": "",
+      "branch": "next",
+      "evidence_refs": [
+        "user_braf_drawio"
+      ]
+    },
+    {
+      "id": "e15",
+      "source": "delta",
+      "target": "delta_pos",
+      "label": "是",
+      "branch": "yes",
+      "evidence_refs": [
+        "user_braf_drawio"
+      ]
+    },
+    {
+      "id": "e16",
+      "source": "delta",
+      "target": "end_neg",
+      "label": "否",
+      "branch": "no",
+      "evidence_refs": [
+        "user_braf_drawio"
+      ]
+    }
+  ]
+}

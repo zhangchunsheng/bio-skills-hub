@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "encounter": {
+    "patient_name": "测试患者D",
+    "patient_age": "50 岁",
+    "patient_gender": "女",
+    "patient_contact": "13800000004",
+    "patient_id": "TEST-2026-004",
+    "admission_time": "2026-08-15T08:00:00",
+    "primary_diagnosis": ["高血压"],
+    "allergies": [],
+    "info_sources": ["病历资料"],
+    "encounter_id": "ENC-TEST-004",
+    "suspected_other_patient": false
+  },
+  "sources": [
+    {"source_id": "src-001", "file_name": "长期医嘱单.pdf", "file_type": "pdf", "clinical_timepoint": "入院后 D2", "page_or_image": "p.1"}
+  ],
+  "drug_records": [
+    {
+      "record_id": "drug-001",
+      "original_name": "苯磺酸氨氯地平片",
+      "generic_name": "氨氯地平",
+      "dosage_form": "片剂",
+      "strength": "5 mg",
+      "route": "口服",
+      "dose": "5 mg",
+      "frequency": "每日 1 次",
+      "indication": "高血压",
+      "start_time": "2026-08-15",
+      "patient_brought": false,
+      "source_id": "src-001",
+      "category": "inpatient_long_term",
+      "evidence_status": "physician_confirmed",
+      "open_questions": []
+    }
+  ],
+  "reconciliation_outcomes": [
+    {
+      "drug_record_id": "drug-001",
+      "result": "继续用药",
+      "reason": "test",
+      "decided_by_role": "physician_confirmed"
+    }
+  ],
+  "open_questions": []
+}

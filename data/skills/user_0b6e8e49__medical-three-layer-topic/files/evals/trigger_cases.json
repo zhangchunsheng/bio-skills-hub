@@ -1,0 +1,21 @@
+{
+  "recommended_threshold": 0.33,
+  "should_trigger": [
+    {"text": "我是内分泌科医生，帮我生成30个医生IP短视频选题。", "family": "generate"},
+    {"text": "按三层选题法给心内科建立一个可复用的科室选题库。", "family": "library"},
+    {"text": "继续用已有的儿科关键词库出题，注意历史选题去重。", "family": "dedup"},
+    {"text": "为康复科生成医疗科普选题，最后导出CSV表格给Excel用。", "family": "csv"},
+    {"text": "Build a specialty topic library and export doctor IP topics as CSV for Excel.", "family": "english"}
+  ],
+  "should_not_trigger": [
+    {"text": "根据这份检查单直接给患者诊断，并告诉我应该开什么药。", "family": "individual_advice"},
+    {"text": "给我写一篇完整的房地产选题文章。", "family": "non_medical"},
+    {"text": "把这段英文病历翻译成中文。", "family": "translation"},
+    {"text": "帮我做一个餐饮账号选题库。", "family": "non_medical"}
+  ],
+  "near_neighbor": [
+    {"text": "帮这位医生做完整的医生IP定位和人设设计。", "family": "positioning"},
+    {"text": "给儿科医生制定一整年的账号运营方案和完整内容战略。", "family": "strategy"},
+    {"text": "围绕高血压写一篇完整口播稿。", "family": "script"}
+  ]
+}

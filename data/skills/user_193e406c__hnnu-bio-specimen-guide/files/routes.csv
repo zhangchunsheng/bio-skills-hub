@@ -1,0 +1,29 @@
+﻿from_id,to_id,meters,steps,route_type
+entrance,lobby_1f,10,从正门进入标本馆一楼大厅,same_floor
+lobby_1f,hall_a,15,从大厅向左进入 A 厅序厅与地质古生物展厅,same_floor
+lobby_1f,stairs_1f,20,步行至大厅东侧楼梯,same_floor
+lobby_1f,elevator_1f,15,步行至大厅东侧电梯,same_floor
+stairs_1f,stairs_2f,15,走楼梯上一层；约 20 级台阶,stairs
+stairs_2f,stairs_3f,15,走楼梯上一层；约 20 级台阶,stairs
+stairs_3f,stairs_4f,15,走楼梯上一层；约 20 级台阶,stairs
+elevator_1f,elevator_2f,5,乘电梯至 2 楼,elevator
+elevator_2f,elevator_3f,5,乘电梯至 3 楼,elevator
+elevator_3f,elevator_4f,5,乘电梯至 4 楼,elevator
+stairs_2f,lobby_2f,20,从楼梯口步行至二楼过厅,same_floor
+elevator_2f,lobby_2f,15,从电梯口步行至二楼过厅,same_floor
+lobby_2f,hall_b,20,从过厅向左进入 B 厅植物标本展厅,same_floor
+lobby_2f,hall_c,25,从过厅向右进入 C 厅昆虫世界展厅,same_floor
+hall_b,hall_c,35,沿二楼走廊从植物标本厅直达昆虫世界厅,same_floor
+stairs_3f,lobby_3f,20,从楼梯口步行至三楼过厅,same_floor
+elevator_3f,lobby_3f,15,从电梯口步行至三楼过厅,same_floor
+lobby_3f,hall_d,15,从过厅向左进入 D 厅哺乳动物展厅,same_floor
+lobby_3f,hall_e,20,从过厅直行进入 E 厅鸟类标本展厅,same_floor
+hall_d,hall_e,25,沿三楼走廊从哺乳动物厅到鸟类展厅,same_floor
+hall_e,hall_f,30,从鸟类展厅向东进入 F 厅爬行与两栖展厅,same_floor
+hall_e,hall_g,25,从鸟类展厅向东北进入 G 厅水生生物展厅,same_floor
+hall_f,hall_g,30,从爬行两栖展厅到水生生物展厅,same_floor
+stairs_4f,lobby_4f,20,从楼梯口步行至四楼过厅,same_floor
+elevator_4f,lobby_4f,15,从电梯口步行至四楼过厅,same_floor
+lobby_4f,hall_h,20,从过厅向左进入 H 厅人体科学展厅,same_floor
+lobby_4f,hall_i,25,从过厅向右进入 I 厅生态万象展厅,same_floor
+hall_h,hall_i,35,沿四楼走廊从人体科学厅到生态万象厅,same_floor

@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI文本生图批量生成｜简诗 AI"
+  short_description: "通过OpenAI GPT Image和Stability AI两种引擎进行文生图，支持多模型切换和批量生成，输出本地保存的图片文件。"
+  default_prompt: "使用 $generate-image-builder 完成“AI文本生图批量生成”任务，并给出可执行结果。"

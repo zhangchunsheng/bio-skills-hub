@@ -1,0 +1,15 @@
+{
+  "name": "generate-subtitles",
+  "displayName": "字幕工坊 视频转写 时间轴生成",
+  "encoding_fallback": [
+    "utf-8",
+    "gbk",
+    "gb18030"
+  ],
+  "features": [
+    "cli",
+    "selftest",
+    "dry-run",
+    "error-handling"
+  ]
+}

@@ -1,0 +1,330 @@
+{
+  "meta": {
+    "skill_name": "novelty-vs-feasibility-assessor",
+    "evaluated_on": "2026-03-23",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Evidence Insight",
+    "execution_mode": "A",
+    "complexity": "Moderate",
+    "n_inputs": 5
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": null
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": null
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": null
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No code generated; Mode A skill"
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 90,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": null
+      },
+      "reliability": {
+        "score": 10,
+        "max": 12,
+        "note": "Forced start/narrow/redesign/stop decision is excellent; live evidence basis caveat needed"
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": null
+      },
+      "agent_usability": {
+        "score": 15,
+        "max": 16,
+        "note": null
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": null
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": null
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": null
+      },
+      "agent_specific": {
+        "score": 16,
+        "max": 20,
+        "note": "Decision-forcing output (not just assessment) is a unique and highly actionable deliverable"
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 87.0,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 25,
+      "total": 25
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Canonical input for novelty-vs-feasibility-assessor",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 36,
+        "specialized": 54,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for canonical input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 2 for canonical input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 3 for canonical input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 4 for canonical input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 5 for canonical input",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Variant A input for novelty-vs-feasibility-assessor",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 36,
+        "specialized": 54,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for variant a input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 2 for variant a input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 3 for variant a input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 4 for variant a input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 5 for variant a input",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "Variant B input for novelty-vs-feasibility-assessor",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for variant b input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 2 for variant b input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 3 for variant b input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 4 for variant b input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 5 for variant b input",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "Edge input for novelty-vs-feasibility-assessor",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 34,
+        "specialized": 51,
+        "total": 85,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for edge input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 2 for edge input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 3 for edge input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 4 for edge input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 5 for edge input",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Stress input for novelty-vs-feasibility-assessor",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 34,
+        "specialized": 51,
+        "total": 85,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for stress input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 2 for stress input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 3 for stress input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 4 for stress input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 5 for stress input",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 36.0,
+    "dynamic_weighted": 52.2,
+    "score": 88,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Forced concrete decision output (start/narrow/redesign/stop) converts assessment into action",
+    "True novelty vs pseudo-novelty separation prevents wasted effort on cosmetically novel but substantively weak topics",
+    "Explicit resource feasibility audit before novelty assessment prevents over-optimistic recommendations",
+    "Prohibition on fabricating publication precedents and dataset availability prevents false feasibility signals"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Evidence density claims not consistently labeled as training-knowledge based",
+      "observed_in": [],
+      "problem": "Novelty and saturation assessments rely on training knowledge without explicit uncertainty labeling.",
+      "root_cause": "No training-knowledge caveat mandated for evidence-based assessments.",
+      "fix": "Add caveat: all novelty and saturation claims must be labeled '[Based on training knowledge — verify with current literature search]'."
+    },
+    {
+      "priority": "P2",
+      "title": "No guidance on reassessment timeline when decision is 'narrow'",
+      "observed_in": [],
+      "problem": "When the recommended decision is 'narrow', no guidance is given on when to reassess whether the narrowed topic is still viable.",
+      "root_cause": "Decision output focuses on current state but not on temporal reassessment.",
+      "fix": "Add a reassessment note: when 'narrow' or 'redesign' is recommended, suggest a 3-6 month reassessment timeline with specific trigger conditions for re-evaluation."
+    }
+  ]
+}

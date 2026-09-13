@@ -1,0 +1,4 @@
+interface:
+  display_name: "医疗器械质量项目交付风险"
+  short_description: "从里程碑、依赖和资源识别交付风险"
+  default_prompt: "Use $medical-device-project-delivery-radar for paid 医疗器械质量 项目交付风险."

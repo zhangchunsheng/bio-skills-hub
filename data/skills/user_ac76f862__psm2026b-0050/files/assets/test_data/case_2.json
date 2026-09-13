@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "encounter": {
+    "patient_name": "测试患者B",
+    "patient_age": "45 岁",
+    "patient_gender": "女",
+    "patient_contact": "13800000002",
+    "patient_id": "TEST-2026-002",
+    "admission_time": "2026-08-10T10:00:00",
+    "transfer_in_time": null,
+    "discharge_time": null,
+    "transfer_out_time": null,
+    "primary_diagnosis": ["高血压"],
+    "allergies": [],
+    "info_sources": ["病历资料"],
+    "encounter_id": "ENC-TEST-002",
+    "suspected_other_patient": false
+  },
+  "sources": [
+    {"source_id": "src-001", "file_name": "入院记录.pdf", "file_type": "pdf", "clinical_timepoint": "入院当天", "doc_date": "2026-08-10", "page_or_image": "p.1"}
+  ],
+  "drug_records": [
+    {
+      "record_id": "drug-001",
+      "original_name": "苯磺酸氨氯地平片",
+      "generic_name": "氨氯地平",
+      "brand_name": null,
+      "dosage_form": "片剂",
+      "strength": "5 mg",
+      "route": "口服",
+      "dose": "5 mg",
+      "frequency": "每日 1 次",
+      "administration_time": "固定时间",
+      "indication": "高血压",
+      "start_time": "2026-08-10",
+      "stop_time": null,
+      "stop_reason": null,
+      "patient_brought": false,
+      "adherence": "良好",
+      "source_id": "src-001",
+      "page_or_image": "p.1",
+      "category": "inpatient_long_term",
+      "current_status": "继续用药",
+      "evidence_status": "direct_visible",
+      "open_questions": []
+    }
+  ],
+  "discrepancies": [],
+  "reconciliation_outcomes": [
+    {
+      "drug_record_id": "drug-001",
+      "result": "继续用药",
+      "reason": "高血压基础治疗，入院后继续",
+      "decided_at": null,
+      "decided_by_role": "pharmacist_suggestion",
+      "source_id": "src-001"
+    }
+  ],
+  "open_questions": []
+}

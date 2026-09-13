@@ -1,0 +1,9 @@
+{
+  "done": [
+    "task1",
+    "task2"
+  ],
+  "pending": [
+    "task3"
+  ]
+}

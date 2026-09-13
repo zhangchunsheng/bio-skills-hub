@@ -1,0 +1,23 @@
+{
+  "slug": "bio-teacher-all-in-one",
+  "name": "bio-teacher-all-in-one",
+  "displayName": "初高中生物教师全能助手",
+  "version": "1.0.0",
+  "description": "融合十大IMA知识库（高中教材2025+2026/新课标2025修订版解读/初中教材2025/疑难问题集/硕博论文/期刊文献/高考真题2016-2026/AI应用/大学教材/云南中考真题）蒸馏出的初高中生物教师全能技能，内置学习目标ABCD叙写模板，覆盖教学设计、命题、试题分析、疑难解答、论文写作、备考策略六大工作流。课标依据一律以《普通高中生物学课程标准（2025年修订版）》为准（初中学段按2022年版2025年修订）。",
+  "author": "昆明高中生物赵老斯",
+  "agent_created": true,
+  "created_at": "2026-08-28",
+  "references": [
+    "references/01-高中教材体系.md",
+    "references/02-新课标解读.md",
+    "references/03-初中教材体系.md",
+    "references/04-疑难问题精粹.md",
+    "references/05-硕博论文研究地图.md",
+    "references/06-期刊文献导航.md",
+    "references/07-高考真题与命题规律.md",
+    "references/08-生成式AI应用.md",
+    "references/09-大学教材纵深知识.md",
+    "references/10-云南中考备考.md",
+    "references/11-学习目标叙写ABCD模板.md"
+  ]
+}

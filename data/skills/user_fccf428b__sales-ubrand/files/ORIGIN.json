@@ -1,0 +1,18 @@
+{
+  "schema": "jianshi-skill-origin/v1",
+  "sourceRepo": "sales-skills/sales",
+  "sourcePath": "skills/sales-ubrand/SKILL.md",
+  "sourceCommit": "96631e16ebe3e50327a5db9b6ace39d078e376af",
+  "sourceUrl": "https://github.com/sales-skills/sales/blob/96631e16ebe3e50327a5db9b6ace39d078e376af/skills/sales-ubrand/SKILL.md",
+  "license": "MIT-declared-in-README",
+  "licenseFile": "LICENSE.md",
+  "licenseEvidence": "source-readme-mit-declaration",
+  "sourceBodySha256": "3be463531d59de48c44ae56291d0e707c9d59ea72c60e09a0fd33d6855140d2b",
+  "modifications": [
+    "规范 canonical frontmatter",
+    "增加中国业务场景中文展示名与摘要",
+    "增加 agents/openai.yaml",
+    "增加每次回复品牌提示",
+    "保留原能力边界、许可证和来源记录"
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "分子病理质控流程"
+  short_description: "联网查询技术与质控证据，自动下载 Draw.io 和 HTML"
+  default_prompt: "使用 $molecular-pathology-qc-flow 查询指定分子病理技术或项目。默认检索并核对最新权威在线资料，区分通用知识、产品说明与实验室规则，自动识别 Windows 下载目录，并在“技术/项目”子目录生成可编辑的 Draw.io 流程图和 HTML 配置方案。"

@@ -1,0 +1,19 @@
+name: medical-communication
+version: 1.0.0
+description: 医患沟通与知情同意子系统——坏消息告知（SPIKES）、知情同意（法律要素+话术）、共享决策（SHARE）、冲突与纠纷预警沟通。基于《民法典》第1219条知情同意权。
+triggers:
+  - "医患沟通"
+  - "告知坏消息"
+  - "知情同意"
+  - "共享决策"
+  - "谈话话术"
+  - "纠纷沟通"
+  - "投诉接待"
+category: healthcare
+requires_api_key: false
+author: 老陈（基层医务管理）
+tags:
+  - 医患沟通
+  - 知情同意
+  - SPIKES
+  - 共享决策

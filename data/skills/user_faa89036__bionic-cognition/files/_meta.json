@@ -1,0 +1,17 @@
+{
+  "name": "bionic-cognition",
+  "display_name": "前额叶指挥官 · 意图识别与策略决策",
+  "version": "1.0.0",
+  "description": "意图解码+策略优化+复杂度分级，三层认知架构 | Intent decoding, strategy optimization, and complexity grading",
+  "author": "local",
+  "type": "bionic",
+  "tags": ["cognition", "strategy", "complexity", "bionic"],
+  "emoji": "🧠",
+  "created_at": "2026-04-16",
+  "updated_at": "2026-04-16",
+  "dependencies": [],
+  "scripts": [
+    "scripts/intent_decoder.py",
+    "scripts/strategy_optimizer.py"
+  ]
+}

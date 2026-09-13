@@ -1,0 +1,46 @@
+{
+  "company": "康诺亚",
+  "company_en": "KeyMed",
+  "cde_company": "康诺亚",
+  "ticker": "02162.HK",
+  "description": "",
+  "updated": "2026-08-20",
+  "pipeline_molecules": [
+    {
+      "name_cn": "司普奇拜单抗",
+      "name_en": "stapokibart",
+      "code": "CM310",
+      "brand_cn": "康悦达",
+      "type": "创新药",
+      "note": "IL-4Rα"
+    }
+  ],
+  "bd_partners": [
+    {
+      "name_cn": "阿斯利康",
+      "name_en": "AstraZeneca",
+      "ticker": "AZN",
+      "region": "",
+      "deal": ""
+    }
+  ],
+  "watch_keywords": [
+    "stapokibart",
+    "CM310",
+    "司普奇拜单抗",
+    "CMG901",
+    "AZD0901",
+    "Claudin 18.2",
+    "CLDN18.2",
+    "CM326",
+    "CM313",
+    "CM338",
+    "CM369",
+    "CM355",
+    "CM336",
+    "CM350",
+    "KeyMed",
+    "康诺亚",
+    "康悦达"
+  ]
+}

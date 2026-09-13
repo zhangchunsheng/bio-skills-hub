@@ -1,0 +1,41 @@
+{
+  "description": "提示词配置文件 - 支持通用分析和述职规范分析两种模式",
+  "active_mode": "generic",
+  "modes": {
+    "generic": {
+      "name": "通用商业分析",
+      "description": "McKinsey风格的穿透式分析，适用于各类经营复盘与规划报告",
+      "prompts": {
+        "page_analysis": "prompts/generic_page_analysis_prompt.txt",
+        "chapter_analysis": "prompts/generic_chapter_analysis_prompt.txt",
+        "overall_analysis": "prompts/generic_overall_analysis_prompt.txt",
+        "transcript_analysis": "prompts/transcript_prompt.txt"
+      },
+      "features": {
+        "scoring": false,
+        "framework_check": false,
+        "deep_analysis": true,
+        "root_cause": true,
+        "strategy_assessment": true
+      }
+    },
+    "review": {
+      "name": "述职规范分析",
+      "description": "针对中国营销本部述职报告的规范检视，包含框架检查和官方评分",
+      "prompts": {
+        "page_analysis": "prompts/single_page_prompt.txt",
+        "chapter_analysis": "prompts/chapter_analysis_prompt.txt",
+        "overall_analysis": "prompts/overall_prompt.txt",
+        "transcript_analysis": "prompts/transcript_prompt.txt"
+      },
+      "features": {
+        "scoring": true,
+        "framework_check": true,
+        "deep_analysis": false,
+        "root_cause": false,
+        "strategy_assessment": false
+      }
+    }
+  },
+  "usage_note": "修改 active_mode 为 'generic' 或 'review' 来切换分析模式"
+}

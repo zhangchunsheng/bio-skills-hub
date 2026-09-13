@@ -1,0 +1,4 @@
+interface:
+  display_name: "亚马逊套图生成规范 / Amazon Image Set"
+  short_description: "规划 Amazon 主图、附属图及多端 A+，并按能力生成与验收"
+  default_prompt: "使用 $generate-amazon-image-set 规划并验收这款商品的完整 Amazon 套图。"

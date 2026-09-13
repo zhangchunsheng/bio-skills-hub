@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>动图学生物—高中生物交互学习实验室 · 离线版（全中文 · 可商用）</title>
+<style>
+  :root{
+    --bg:#f4f6fb; --panel:#ffffff; --ink:#1f2937; --muted:#6b7280;
+    --line:#e5e7eb; --accent:#6366f1; --accent2:#06b6d4;
+    --good:#10b981; --gold:#f59e0b; --shadow:0 8px 28px rgba(31,41,55,.10);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+  a{color:var(--accent);text-decoration:none}
+  .topbar{position:sticky;top:0;z-index:30;background:linear-gradient(110deg,var(--accent),var(--accent2));color:#fff;
+    padding:12px 20px;display:flex;align-items:center;gap:16px;box-shadow:var(--shadow)}
+  .topbar h1{font-size:18px;margin:0;font-weight:800;letter-spacing:.5px}
+  .topbar .tag{font-size:12px;opacity:.9}
+  .topbar .spacer{flex:1}
+  .stat{background:rgba(255,255,255,.18);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:700;display:flex;gap:6px;align-items:center}
+  .progress-wrap{min-width:160px}
+  .progress-track{height:8px;background:rgba(255,255,255,.3);border-radius:999px;overflow:hidden;margin-top:4px}
+  .progress-fill{height:100%;width:0;background:#fff;transition:width .4s ease}
+  .search{background:#fff;border:none;border-radius:10px;padding:8px 12px;font-size:14px;width:200px;outline:none;color:var(--ink)}
+  .layout{display:flex;min-height:calc(100vh - 64px)}
+  .sidebar{width:280px;flex:none;background:var(--panel);border-right:1px solid var(--line);overflow-y:auto;max-height:calc(100vh - 64px);position:sticky;top:64px}
+  .sidebar .sb-head{padding:14px 16px;font-weight:800;color:var(--muted);font-size:13px;letter-spacing:1px}
+  .vol{padding:8px 12px}
+  .vol-name{font-weight:800;font-size:14px;padding:8px 10px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:8px}
+  .vol-name .dot{width:10px;height:10px;border-radius:50%}
+  .chap{padding:6px 10px 6px 24px}
+  .chap-name{font-size:13px;color:var(--ink);cursor:pointer;padding:6px 8px;border-radius:8px;display:flex;justify-content:space-between;align-items:center}
+  .chap-name:hover{background:var(--bg)}
+  .chap-name.active{background:linear-gradient(110deg,rgba(99,102,241,.12),rgba(6,182,212,.12));font-weight:700}
+  .badge{font-size:11px;background:var(--bg);color:var(--muted);border-radius:999px;padding:1px 8px}
+  .main{flex:1;padding:22px 28px;overflow-x:hidden}
+  .hero{background:linear-gradient(120deg,#eef2ff,#ecfeff);border-radius:18px;padding:22px 26px;box-shadow:var(--shadow);margin-bottom:20px}
+  .hero h2{margin:0 0 6px;font-size:22px}
+  .hero p{margin:0;color:var(--muted);font-size:14px}
+  .vol-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:18px}
+  .vol-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow);cursor:pointer;transition:transform .15s}
+  .vol-card:hover{transform:translateY(-3px)}
+  .vol-card .vc-top{display:flex;align-items:center;gap:10px;font-weight:800}
+  .vol-card .vc-bar{height:6px;background:var(--bg);border-radius:999px;margin:12px 0 6px;overflow:hidden}
+  .vol-card .vc-bar i{display:block;height:100%;border-radius:999px}
+  .vol-card small{color:var(--muted)}
+  .chap-head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  .chap-head .pill{font-size:12px;font-weight:800;color:#fff;border-radius:999px;padding:4px 12px}
+  .chap-head h2{margin:0;font-size:22px}
+  .sec{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px;box-shadow:var(--shadow);margin:16px 0}
+  .sec.learned{border-color:var(--good)}
+  .sec-top{display:flex;align-items:flex-start;gap:10px;justify-content:space-between}
+  .sec h3{margin:0 0 4px;font-size:17px}
+  .sec .pts{margin:10px 0;padding-left:0;list-style:none}
+  .sec .pts li{position:relative;padding:4px 0 4px 22px;font-size:14px;color:#374151}
+  .sec .pts li:before{content:"▹";position:absolute;left:4px;color:var(--accent)}
+  .formula{background:#0f172a;color:#e2e8f0;border-radius:12px;padding:12px 14px;margin:10px 0;font-family:"Cambria","Times New Roman",serif;font-size:16px;overflow-x:auto}
+  .formula b{color:#fbbf24}
+  .sim-box{margin-top:12px;border:1px dashed var(--line);border-radius:12px;padding:10px;background:#fafbff}
+  .sim-meta{font-size:12px;color:var(--muted);margin-bottom:8px}
+  .btn{border:none;border-radius:10px;padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer;background:var(--accent);color:#fff;transition:filter .15s}
+  .btn:hover{filter:brightness(1.08)}
+  .btn.ghost{background:#eef2ff;color:var(--accent)}
+  .btn.green{background:var(--good)}
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
+  .learned-flag{font-size:12px;font-weight:800;color:var(--good);display:none}
+  .sec.learned .learned-flag{display:inline}
+  .sec.learned .btn.green{background:var(--good);opacity:.85}
+  .cv-wrap{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start}
+  .cv-box{flex:1;min-width:300px}
+  canvas{background:#0b1220;border-radius:10px;width:100%;display:block}
+  .ctl{display:flex;flex-direction:column;gap:8px;min-width:210px}
+  .ctl label{font-size:13px;color:#374151;display:flex;justify-content:space-between}
+  .ctl input[type=range]{width:100%}
+  .ctl select{width:100%;padding:6px;border-radius:8px;border:1px solid var(--line);font-size:13px}
+  .readout{font-size:13px;color:#0f172a;background:#ecfeff;border-radius:8px;padding:6px 10px;margin-top:6px}
+  #toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(40px);background:#111827;color:#fff;padding:12px 20px;border-radius:12px;font-size:14px;opacity:0;transition:.35s;z-index:60;box-shadow:var(--shadow)}
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .empty{color:var(--muted);text-align:center;padding:40px}
+  .lic-note{font-size:12px;color:var(--muted);background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:10px 12px;margin-top:10px}
+  @media(max-width:880px){.sidebar{display:none}.main{padding:16px}.search{width:140px}}
+
+.quiz-head{font-size:14px;font-weight:700;color:#4f46e5;margin:14px 0 4px;padding:6px 0;border-top:1px dashed #e5e7eb}
+.quiz-card{background:#f8fafc;border:1px solid #e5e7eb;border-radius:12px;padding:12px 14px;margin:10px 0}
+.quiz-q{font-weight:700;margin:10px 0 6px;font-size:14px;line-height:1.5}
+.opt{display:block;width:100%;text-align:left;background:#fff;border:1px solid #e5e7eb;border-radius:9px;padding:9px 12px;margin:6px 0;font:inherit;cursor:pointer;color:#1f2937;transition:.12s}
+.opt:hover{background:#eef2ff;border-color:#c7d2fe}
+.opt.ok{background:#dcfce7;border-color:#86efac;color:#166534}
+.opt.no{background:#fee2e2;border-color:#fca5a5;color:#991b1b}
+.quiz-fb{margin:8px 0 2px;font-size:13px;line-height:1.65;color:#374151;background:#fff;border-left:3px solid #6366f1;padding:8px 12px;border-radius:0 8px 8px 0}
+.voicebtn{background:#eef2ff;color:#4f46e5;border:1px solid #c7d2fe;border-radius:999px;padding:6px 13px;font:inherit;font-size:13px;cursor:pointer;white-space:nowrap;transition:.15s}
+.voicebtn:hover{background:#e0e7ff}
+.voicebtn.mini{margin-top:6px}
+
+</style>
+</head>
+<body>
+<div class="topbar">
+  <h1>🧬 动图学生物—高中生物交互学习实验室</h1>
+  <span class="tag">离线版 · 全中文界面</span>
+  <div class="spacer"></div>
+  <input class="search" id="search" placeholder="搜索知识点…">
+</div>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar"><div class="sb-head">📚 课程目录</div><div id="tree"></div></aside>
+  <main class="main" id="main"></main>
+</div>
+<div id="toast"></div>
+
+<script>
+/* ============ 课程数据：人教版 高中生物（2019版） ============
+   每个知识点均配有「原创、自包含、离线、全中文」的交互仿真（kind 对应下方 SIMS 注册表）。
+   无任何外部网络依赖、不调用任何第三方在线资源，全部动画代码为本应用原创，可商用。
+*/
+const S = (k)=>({t:'sim', kind:k});
+const NONE = ()=>({t:'sim', kind:'none'});
+
+const CURRICULUM = [
+ { id:'b1', name:'必修一 分子与细胞', color:'#10b981', chapters:[
+   { name:'第1章 走近细胞', sections:[
+     { title:'细胞学说及其建立', pts:['细胞是生物体结构和功能的基本单位','细胞学说：一切动植物由细胞发育而来','新细胞由老细胞分裂产生','魏尔肖提出"细胞来自细胞"'],
+       f:['细胞学说揭示<b>统一性</b>'], sim:NONE() },
+     { title:'细胞的多样性和统一性', pts:['原核细胞无核膜包被的细胞核','真核细胞有真正的细胞核','蓝细菌（蓝藻）含叶绿素能光合作用','原核与真核均以 DNA 为遗传物质'],
+       f:['原核：<b>无核膜</b> 有拟核','真核：<b>有核膜</b>'], sim:NONE() },
+   ]},
+   { name:'第2章 组成细胞的分子', sections:[
+     { title:'蛋白质——生命活动的主要承担者', pts:['蛋白质是生命活动的主要承担者','基本单位：氨基酸（约20种）','氨基酸通过肽键连接成多肽','结构多样性决定功能多样性','高温使蛋白质变性空间结构破坏'],
+       f:['脱水缩合：<b>肽键 = −NH−CO−</b>','m个氨基酸→n条肽链：肽键数=m−n'], sim:NONE() },
+     { title:'核酸——遗传信息的携带者', pts:['核酸包括 DNA 与 RNA','DNA 主要分布细胞核，RNA 主要在细胞质','核苷酸是核酸的基本单位','核苷酸由五碳糖+磷酸+含氮碱基组成'],
+       f:['DNA 含碱基 <b>A T G C</b>','RNA 含碱基 A U G C'], sim:NONE() },
+     { title:'糖类和脂质', pts:['糖类是主要能源物质','单糖（葡萄糖）、二糖、多糖（淀粉/糖原/纤维素）','脂肪是良好储能物质','磷脂构成生物膜','固醇包括胆固醇、性激素、VD'],
+       f:['葡萄糖 <b>C₆H₁₂O₆</b>','淀粉是植物储能多糖'], sim:NONE() },
+     { title:'无机物——水和无机盐', pts:['水在细胞中有自由水和结合水','自由水比例高代谢旺盛','无机盐大多以离子形式存在','Fe 是血红蛋白成分，Mg 是叶绿素成分'],
+       f:['自由水 / 结合水 比值影响代谢'], sim:NONE() },
+     { title:'检测生物组织中的化合物', pts:['还原糖与斐林试剂水浴生成砖红色沉淀','脂肪被苏丹Ⅲ染成橘黄色','蛋白质与双缩脲试剂呈紫色','淀粉遇碘变蓝'],
+       f:['还原糖 + 斐林试剂 → <b>砖红</b>'], sim:NONE() },
+   ]},
+   { name:'第3章 细胞的基本结构', sections:[
+     { title:'细胞膜的结构和功能', pts:['细胞膜将细胞与外界分隔开','控制物质进出细胞','进行细胞间信息交流','磷脂双分子层构成基本支架','蛋白质以不同方式镶嵌其中（流动镶嵌模型）'],
+       f:['流动镶嵌模型：<b>磷脂双分子层</b>+蛋白质'], sim:S('membrane') },
+     { title:'细胞器之间的分工合作', pts:['线粒体是有氧呼吸主要场所','内质网是蛋白质加工、脂质合成场所','高尔基体参与分泌、植物细胞壁形成','溶酶体含多种水解酶','核糖体是蛋白质合成场所','生物膜系统协调配合'],
+       f:['分泌蛋白：核糖体→内质网→高尔基体'], sim:NONE() },
+     { title:'细胞核的结构和功能', pts:['细胞核是遗传信息库','核膜为双层膜，有核孔','核仁与 rRNA、核糖体形成有关','染色质由 DNA 和蛋白质组成','细胞代谢的控制中心'],
+       f:['染色体 = DNA + 蛋白质（间期=<b>染色质</b>）'], sim:NONE() },
+   ]},
+   { name:'第4章 细胞的物质输入和输出', sections:[
+     { title:'水进出细胞的原理（渗透作用）', pts:['半透膜两侧浓度差导致渗透','外界溶液浓度>细胞质壁分离','外界溶液浓度<细胞质壁分离复原','成熟植物细胞发生质壁分离','动物细胞吸水涨破/失水皱缩'],
+       f:['渗透：水从 <b>低渗</b> → <b>高渗</b>'], sim:S('transport') },
+     { title:'主动运输与胞吞、胞吐', pts:['自由扩散顺浓度梯度不需载体','协助扩散需载体不耗能','主动运输逆浓度梯度需载体和能量','大分子通过胞吞、胞吐进出','胞吞胞吐依赖膜的流动性'],
+       f:['主动运输：<b>逆梯度+载体+ATP</b>'], sim:S('transport') },
+   ]},
+   { name:'第5章 细胞的能量供应和利用', sections:[
+     { title:'降低化学反应活化能的酶', pts:['酶是活细胞产生的有机物（多为蛋白质）','酶降低化学反应活化能','高效性、专一性、作用条件温和','最适温度约37℃，最适pH因酶而异','高温/过酸过碱使酶失活'],
+       f:['酶降低 <b>活化能 Eₐ</b> 加快反应'], sim:S('enzyme') },
+     { title:'细胞的能量"货币"ATP', pts:['ATP 是生物体直接能源物质','ATP 结构：A−P~P~P','远离 A 的高能磷酸键易水解','ATP 与 ADP 快速相互转化','光合作用和细胞呼吸均合成 ATP'],
+       f:['ATP ⇌ ADP + Pi + 能量'], sim:NONE() },
+     { title:'细胞呼吸的原理和应用', pts:['有氧呼吸分三阶段释放大量能量','第一阶段在细胞质基质','第二、三阶段在线粒体','产物为 CO₂ 和 H₂O','无氧呼吸产物为乳酸或酒精和 CO₂','葡萄糖是主要呼吸底物'],
+       f:['C₆H₁₂O₆+6O₂→<b>6CO₂+6H₂O+能量</b>'], sim:S('respiration') },
+     { title:'光合作用与能量转化', pts:['光合色素吸收红光和蓝紫光','光反应在类囊体薄膜产生 ATP/NADPH/O₂','暗反应在叶绿体基质固定 CO₂','卡尔文循环生成糖类','光照和 CO₂ 影响光合速率','光合作用是能量来源和碳氧平衡基础'],
+       f:['6CO₂+12H₂O→<b>C₆H₁₂O₆+6O₂+6H₂O</b>'], sim:S('photosynthesis') },
+   ]},
+   { name:'第6章 细胞的生命历程', sections:[
+     { title:'细胞增殖——有丝分裂', pts:['细胞周期包括间期和分裂期','间期完成 DNA 复制和有关蛋白质合成','前期核膜核仁消失、染色体出现','中期染色体排列在赤道板','后期着丝点分裂姐妹染色单体分开','末期细胞一分为二，染色体数不变'],
+       f:['有丝分裂保持 <b>亲子代染色体数恒定</b>'], sim:S('mitosis') },
+     { title:'细胞的分化、衰老和凋亡', pts:['细胞分化使细胞趋向专门化','基因选择性表达导致分化','细胞全能性：已分化细胞仍有全套遗传信息','衰老细胞水分减少、酶活性降低','细胞凋亡由基因决定（程序性死亡）'],
+       f:['分化本质：<b>基因选择性表达</b>'], sim:NONE() },
+     { title:'细胞的癌变', pts:['癌细胞能无限增殖','形态结构发生显著变化','细胞膜糖蛋白减少易分散转移','原癌基因和抑癌基因发生突变','致癌因子分物理、化学、病毒三类'],
+       f:['癌变：<b>原癌基因+抑癌基因突变</b>'], sim:S('mutation') },
+   ]},
+ ]},
+
+ { id:'b2', name:'必修二 遗传与进化', color:'#6366f1', chapters:[
+   { name:'第1章 遗传因子的发现', sections:[
+     { title:'孟德尔的豌豆杂交实验（一）——分离定律', pts:['孟德尔用豌豆作材料，人工杂交','提出"遗传因子"假说','F₁ 只表现显性性状','F₂ 出现 3:1 性状分离比','分离定律：等位基因随同源染色体分开而分离'],
+       f:['F₂ 表型比 <b>3 : 1</b>','Aa × Aa → 1AA:2Aa:1aa'], sim:S('mendel1') },
+     { title:'孟德尔的豌豆杂交实验（二）——自由组合定律', pts:['两对相对性状独立遗传','F₁ 为双杂合子（YyRr）','F₂ 表型比 9:3:3:1','自由组合定律：非同源染色体上的非等位基因自由组合','先分离后组合'],
+       f:['F₂ 表型比 <b>9 : 3 : 3 : 1</b>'], sim:S('mendel2') },
+   ]},
+   { name:'第2章 基因和染色体的关系', sections:[
+     { title:'减数分裂和受精作用', pts:['减数分裂染色体复制一次、分裂两次','同源染色体联会形成四分体','减数第一次分裂同源染色体分离','减数第二次分裂姐妹染色单体分开','配子染色体数为体细胞一半','受精作用恢复染色体数目'],
+       f:['配子染色体数 = 体细胞 <b>一半</b>'], sim:S('meiosis') },
+     { title:'基因在染色体上', pts:['萨顿提出基因在染色体上（类比推理）','摩尔根用果蝇证明基因在染色体上','白眼基因位于 X 染色体','一条染色体上有许多基因','基因在染色体上呈线性排列'],
+       f:['摩尔根：<b>基因位于染色体上</b>'], sim:S('linkage') },
+     { title:'伴性遗传', pts:['伴 X 隐性：男性患者多于女性','红绿色盲为伴 X 隐性遗传','抗维生素 D 佝偻病为伴 X 显性','伴 Y 遗传只传男','位于性染色体上的基因随性染色体传递'],
+       f:['伴X隐性：<b>交叉遗传</b>'], sim:S('linkage') },
+   ]},
+   { name:'第3章 基因的本质', sections:[
+     { title:'DNA是主要的遗传物质', pts:['格里菲思肺炎链球菌转化实验','艾弗里证明 DNA 是转化因子','噬菌体侵染实验证明 DNA 是遗传物质','少数病毒以 RNA 为遗传物质','"主要"因多数生物遗传物质是 DNA'],
+       f:['DNA 是 <b>主要遗传物质</b>'], sim:NONE() },
+     { title:'DNA的结构——双螺旋', pts:['DNA 由两条反向平行脱氧核苷酸链组成','脱氧核糖和磷酸交替构成骨架','碱基排列在内侧','A 与 T 配对，G 与 C 配对','氢键维持碱基配对','DNA 结构具有多样性与特异性'],
+       f:['碱基互补配对：<b>A=T，G≡C</b>'], sim:S('dna') },
+     { title:'DNA的复制——半保留复制', pts:['复制发生在间期','解旋酶解开双螺旋','以每条母链为模板合成子链','特点：半保留、边解旋边复制','需要模板、原料、能量和酶','DNA 复制保证遗传信息连续性'],
+       f:['复制方式：<b>半保留复制</b>'], sim:S('replication') },
+   ]},
+   { name:'第4章 基因的表达', sections:[
+     { title:'转录——DNA→mRNA', pts:['转录在细胞核（拟核）中进行','以 DNA 一条链为模板','核糖核苷酸为原料合成 RNA','RNA 聚合酶催化','产物有 mRNA、tRNA、rRNA','碱基配对 A−U、T−A、G−C'],
+       f:['转录产物：<b>mRNA / tRNA / rRNA</b>'], sim:S('transcription') },
+     { title:'翻译——mRNA→蛋白质', pts:['翻译在核糖体上进行','mRNA 上三个相邻碱基为一个密码子','tRNA 反密码子识别密码子','一种 tRNA 转运一种氨基酸','脱水缩合形成肽链','密码子具有通用性和简并性'],
+       f:['密码子：mRNA 上 <b>3 个相邻碱基</b>'], sim:S('translation') },
+     { title:'基因表达与性状的关系', pts:['基因通过控制蛋白质结构直接控制性状','基因通过控制酶合成间接控制代谢','基因的选择性表达决定细胞分化','表观遗传：DNA 甲基化等不改变序列','中心法则概括遗传信息传递方向'],
+       f:['中心法则：DNA→RNA→<b>蛋白质</b>'], sim:NONE() },
+   ]},
+   { name:'第5章 基因突变及其他变异', sections:[
+     { title:'基因突变和基因重组', pts:['基因突变是 DNA 碱基序列的改变','发生在 DNA 复制时（间期）','基因突变产生新等位基因，是变异根本来源','基因重组发生在减Ⅰ（自由组合、交叉互换）','诱变育种利用基因突变'],
+       f:['突变：碱基对 <b>替换/增添/缺失</b>'], sim:S('mutation') },
+     { title:'染色体变异', pts:['染色体结构变异：缺失、重复、倒位、易位','染色体数目变异：个别增减、成倍增减','单倍体、二倍体、多倍体','秋水仙素诱导多倍体','21三体综合征为染色体数目异常'],
+       f:['结构变异：<b>缺失·重复·倒位·易位</b>'], sim:S('mutation') },
+     { title:'人类遗传病', pts:['单基因遗传病受一对等位基因控制','多基因遗传病易受环境影响','染色体异常遗传病','调查遗传方式在患者家系中进行','遗传咨询和产前诊断可降低发病率'],
+       f:['单基因 / 多基因 / 染色体异常'], sim:NONE() },
+   ]},
+   { name:'第6章 生物的进化', sections:[
+     { title:'生物有共同祖先的证据', pts:['化石是研究进化最直接的证据','比较解剖学：同源器官','胚胎学证据','分子生物学证据（DNA 相似性）','所有生物共用一套遗传密码'],
+       f:['化石是 <b>最直接</b> 的进化证据'], sim:NONE() },
+     { title:'自然选择与适应的形成', pts:['变异是不定向的，选择是定向的','有利变异个体生存并繁殖','自然选择定向改变基因频率','微小有利变异逐代积累形成适应','达尔文提出自然选择学说'],
+       f:['自然选择：<b>定向改变基因频率</b>'], sim:S('evolution') },
+     { title:'种群基因频率的改变与进化', pts:['种群是生物进化的基本单位','基因库与基因频率','突变和基因重组提供原材料','隔离是物种形成的必要条件','生殖隔离一旦形成即成为新物种','哈迪-温伯格平衡描述理想种群'],
+       f:['p²+2pq+q²=<b>1</b>（哈迪-温伯格）'], sim:S('hardy') },
+     { title:'隔离在物种形成中的作用', pts:['地理隔离使种群间不能基因交流','长期地理隔离可能导致生殖隔离','生殖隔离包括合子前和合子后隔离','新物种形成标志是生殖隔离','共同进化发生在生物与无机环境之间'],
+       f:['物种形成标志：<b>生殖隔离</b>'], sim:S('evolution') },
+   ]},
+ ]},
+
+ { id:'xb1', name:'选择性必修一 稳态与调节', color:'#06b6d4', chapters:[
+   { name:'第1章 人体的内环境与稳态', sections:[
+     { title:'细胞生活的环境——内环境', pts:['内环境由血浆、组织液、淋巴液组成','细胞外液是细胞生活的直接环境','内环境理化性质包括渗透压、pH、温度','血浆渗透压主要与无机盐、蛋白质有关','HCO₃⁻/HPO₄²⁻ 维持 pH 稳定'],
+       f:['内环境 = 血浆+组织液+<b>淋巴</b>'], sim:S('homeostasis') },
+     { title:'内环境的稳态', pts:['稳态是理化性质和成分相对稳定','神经—体液—免疫调节网络是主要调节机制','稳态是机体进行正常生命活动的必要条件','稳态遭破坏会出现代谢紊乱','人体维持稳态的调节能力有限'],
+       f:['稳态：<b>动态平衡</b> 的相对稳定'], sim:S('homeostasis') },
+   ]},
+   { name:'第2章 神经调节', sections:[
+     { title:'神经调节的结构基础', pts:['神经系统由脑、脊髓和周围神经组成','神经元包括细胞体、树突、轴突','神经纤维受刺激产生兴奋','反射弧：感受器→传入神经→神经中枢→传出神经→效应器','兴奋在反射弧上传导'],
+       f:['反射结构基础：<b>反射弧</b>'], sim:S('neuron') },
+     { title:'神经冲动的产生和传导', pts:['静息电位内负外正（K⁺外流）','动作电位内正外负（Na⁺内流）','兴奋在神经纤维上双向传导','兴奋在突触处单向传递','神经递质作用于后膜引起兴奋或抑制'],
+       f:['静息：<b>K⁺外流</b>；动作：<b>Na⁺内流</b>'], sim:S('neuron') },
+     { title:'神经系统的分级调节', pts:['大脑皮层是最高级中枢','下丘脑有体温、水盐、血糖调节中枢','脑干控制呼吸、心跳','脊髓是低级中枢受脑调控','各级中枢分级调控'],
+       f:['高级中枢：<b>大脑皮层</b>'], sim:NONE() },
+     { title:'人脑的高级功能', pts:['语言功能是人脑特有高级功能','W区受损不能写字，V区受损不能看懂','H区受损听不懂，S区受损不能讲话','短期记忆与海马区有关','学习与记忆是脑的高级功能'],
+       f:['语言中枢位于 <b>大脑皮层</b>'], sim:NONE() },
+   ]},
+   { name:'第3章 体液调节', sections:[
+     { title:'激素与内分泌系统', pts:['内分泌腺无导管，激素直接进入血液','下丘脑、垂体、甲状腺等构成内分泌系统','激素微量高效、通过体液运输','靶器官、靶细胞有特异性受体','研究激素常用切除与移植法'],
+       f:['激素：<b>微量、高效、特异性</b>'], sim:S('hormone') },
+     { title:'激素调节的过程', pts:['血糖来源：食物、肝糖原分解、非糖转化','血糖去路：氧化供能、合成糖原、转化','胰岛素降低血糖，胰高血糖素升高血糖','甲状腺激素分级调节（下丘脑—垂体—甲状腺）','反馈调节维持激素稳定'],
+       f:['血糖调节：<b>胰岛素↓ / 胰高血糖素↑</b>'], sim:S('hormone') },
+     { title:'神经调节与体液调节的关系', pts:['神经调节迅速、准确、短暂','体液调节作用较缓慢、范围广','体温调节是神经—体液共同调节','水盐平衡主要依赖抗利尿激素','两者相互协调维持稳态'],
+       f:['体温调节：<b>神经-体液</b> 共同作用'], sim:NONE() },
+   ]},
+   { name:'第4章 免疫调节', sections:[
+     { title:'免疫系统的组成和功能', pts:['免疫系统包括免疫器官、细胞、活性物质','第一道防线：皮肤、黏膜','第二道防线：体液中的杀菌物质和吞噬细胞','第三道防线：特异性免疫','免疫监视、防御、自稳三大功能'],
+       f:['三道防线：<b>非特异+特异</b>'], sim:S('immune') },
+     { title:'特异性免疫——体液免疫与细胞免疫', pts:['病原体经抗原呈递细胞处理','B细胞受刺激增殖分化为浆细胞','浆细胞产生抗体消灭抗原（体液免疫）','细胞毒性T细胞裂解靶细胞（细胞免疫）','记忆细胞再次入侵时快速反应','二次免疫更快更强'],
+       f:['体液：<b>浆细胞→抗体</b>','细胞：<b>效应T→靶细胞裂解</b>'], sim:S('immune') },
+     { title:'免疫失调和免疫学应用', pts:['过敏反应是已免疫机体再次接触抗原','自身免疫病攻击自身组织','艾滋病由 HIV 破坏辅助性T细胞引起','接种疫苗获得特异性免疫','器官移植需降低免疫排斥'],
+       f:['过敏：<b>再次接触同种抗原</b>'], sim:NONE() },
+   ]},
+   { name:'第5章 植物生命活动的调节', sections:[
+     { title:'植物生长素（发现与作用）', pts:['胚芽鞘尖端产生生长素','生长素促进细胞伸长生长','单侧光引起生长素分布不均导致向光性','极性运输从形态学上端到下端','生长素在低浓度促进、高浓度抑制'],
+       f:['向光性：<b>生长素分布不均</b>'], sim:S('auxin') },
+     { title:'生长素的生理作用——两重性', pts:['低浓度促进生长，高浓度抑制生长','顶端优势：顶芽优先生长','不同器官对生长素敏感程度不同','根>芽>茎','生长素类似物用于除草、促生根'],
+       f:['两重性：<b>低促高抑</b>'], sim:S('auxin') },
+     { title:'其他植物激素', pts:['赤霉素促进茎伸长和种子萌发','细胞分裂素促进细胞分裂','脱落酸促进叶和果实脱落','乙烯促进果实成熟','植物激素相互协调共同调节'],
+       f:['五类激素：<b>生长素·赤霉素·细胞分裂素·脱落酸·乙烯</b>'], sim:NONE() },
+   ]},
+ ]},
+
+ { id:'xb2', name:'选择性必修二 生物与环境', color:'#f59e0b', chapters:[
+   { name:'第1章 种群及其动态', sections:[
+     { title:'种群的数量特征', pts:['种群密度是最基本的数量特征','出生率、死亡率决定种群数量变化','迁入率、迁出率影响种群数量','年龄结构可预测种群变化趋势','性别比例影响出生率'],
+       f:['种群密度：<b>最基本数量特征</b>'], sim:NONE() },
+     { title:'种群数量的变化', pts:['理想条件下呈 J 形增长','资源和空间有限时呈 S 形增长','环境容纳量 K 值代表环境最大承载','K/2 时种群增长速率最大','研究种群数量变化有实践意义'],
+       f:['J形：<b>N=N₀λᵗ</b>；S形：有 <b>K值</b>'], sim:S('population') },
+     { title:'影响种群数量变化的因素', pts:['非生物因素：光、温、水、食物','生物因素：种内竞争、捕食、寄生','密度制约因素随密度增大而增强','非密度制约因素如气候','这些因素共同调节种群数量'],
+       f:['调节因素分 <b>密度/非密度制约</b>'], sim:NONE() },
+   ]},
+   { name:'第2章 群落及其演替', sections:[
+     { title:'群落的结构', pts:['群落是同一时间内聚集的所有生物','物种丰富度是群落重要特征','种间关系：捕食、竞争、寄生、互利共生','垂直结构提高利用光等资源能力','水平结构常呈镶嵌分布'],
+       f:['种间关系：<b>捕食·竞争·寄生·共生</b>'], sim:NONE() },
+     { title:'群落的主要类型', pts:['荒漠群落物种少、耐旱','草原群落以多年生草本为主','森林群落垂直结构明显','湿地、苔原等各有特点','不同群落适应不同环境'],
+       f:['主要类型：<b>荒漠·草原·森林</b>'], sim:NONE() },
+     { title:'群落的演替', pts:['初生演替从没有植被的裸地开始','裸岩→地衣→苔藓→草本→灌木→森林','次生演替在原有土壤条件下进行','人类活动可改变演替速度和方向','演替是群落结构由简单到复杂的过程'],
+       f:['初生演替：<b>裸岩→森林</b>'], sim:S('succession') },
+   ]},
+   { name:'第3章 生态系统及其稳定性', sections:[
+     { title:'生态系统的结构', pts:['生态系统由生物群落与无机环境组成','生产者是生态系统的基石','消费者加速物质循环','分解者将有机物归还无机环境','营养结构为食物链和食物网'],
+       f:['组成：<b>生产者·消费者·分解者+非生物</b>'], sim:S('ecosystem') },
+     { title:'生态系统的能量流动', pts:['能量源头是太阳能','生产者固定太阳能为输入','沿食物链单向流动、逐级递减','传递效率约10%–20%','研究能量流动助益资源利用'],
+       f:['能量传递效率：<b>10%–20%</b>'], sim:S('ecosystem') },
+     { title:'生态系统的物质循环——碳循环', pts:['碳在无机环境与生物群落间循环','CO₂ 是碳循环主要形式','光合作用使碳进入生物群落','呼吸作用和分解作用使碳返回无机环境','化石燃料燃烧加剧温室效应','物质循环具有全球性'],
+       f:['碳主要以 <b>CO₂</b> 形式循环'], sim:S('carboncycle') },
+     { title:'生态系统的信息传递', pts:['信息包括物理、化学、行为信息','信息传递调节种间关系','利于种群繁衍','维持生态系统稳定','信息传递是双向的'],
+       f:['信息类型：<b>物理·化学·行为</b>'], sim:NONE() },
+     { title:'生态系统的稳定性', pts:['抵抗力稳定性抵抗干扰保持原状','恢复力稳定性受破坏后恢复原状','自我调节能力是基础','负反馈调节是主要机制','物种丰富度高抵抗力稳定性强'],
+       f:['基础：<b>负反馈调节</b>'], sim:NONE() },
+   ]},
+ ]},
+
+ { id:'xb3', name:'选择性必修三 生物技术与工程', color:'#ef4444', chapters:[
+   { name:'第1章 发酵工程', sections:[
+     { title:'传统发酵技术的应用', pts:['果酒利用酵母菌无氧呼吸','果醋利用醋酸菌好氧发酵','腐乳制作依赖毛霉等微生物','泡菜制作依赖乳酸菌','传统发酵多为天然菌种混合发酵'],
+       f:['酵母菌：<b>无氧→酒精</b>'], sim:NONE() },
+     { title:'微生物的培养技术及应用', pts:['培养基提供微生物营养','培养基分液体和固体','无菌技术包括灭菌和消毒','平板划线、稀释涂布分离纯化','培养特定微生物需相应条件'],
+       f:['纯化：<b>平板划线/稀释涂布</b>'], sim:NONE() },
+     { title:'发酵工程及其应用', pts:['发酵工程包括菌种选择到产物分离','需通气或厌氧等条件控制','产品有单细胞蛋白、抗生素等','发酵工程用于食品、医药','需对产物分离提纯'],
+       f:['流程：<b>菌种→发酵→分离提纯</b>'], sim:NONE() },
+   ]},
+   { name:'第2章 细胞工程', sections:[
+     { title:'植物细胞工程', pts:['植物组织培养利用细胞全能性','脱分化形成愈伤组织','再分化形成胚状体或丛芽','植物体细胞杂交克服远缘杂交不亲和','作物脱毒常取茎尖培养'],
+       f:['原理：<b>植物细胞全能性</b>'], sim:NONE() },
+     { title:'动物细胞工程', pts:['动物细胞培养需无菌、适宜温度','胰蛋白酶分散细胞','核移植产生克隆动物','动物细胞融合制备单克隆抗体','单克隆抗体特异性强、灵敏度高'],
+       f:['单克隆抗体：<b>杂交瘤细胞</b> 产生'], sim:NONE() },
+     { title:'胚胎工程', pts:['体外受精与胚胎移植','早期胚胎培养需特定培养液','胚胎分割属无性繁殖','胚胎干细胞具发育全能性','胚胎工程用于优良畜种繁育'],
+       f:['技术：<b>体外受精·胚胎移植·分割</b>'], sim:NONE() },
+   ]},
+   { name:'第3章 基因工程', sections:[
+     { title:'重组DNA技术的基本工具', pts:['限制酶识别特定序列并切割','DNA连接酶连接黏性末端','载体常用质粒','目的基因需与载体拼接','工具酶与载体是操作基础'],
+       f:['工具：<b>限制酶·DNA连接酶·载体</b>'], sim:NONE() },
+     { title:'DNA的粗提取与鉴定', pts:['食盐溶解DNA，酒精沉淀DNA','二苯胺试剂沸水浴鉴定DNA','植物细胞加洗涤剂破坏膜','提取需去除蛋白质等杂质','DNA不溶于酒精而某些蛋白质溶'],
+       f:['鉴定：<b>二苯胺+沸水浴→蓝</b>'], sim:NONE() },
+     { title:'基因工程的应用', pts:['转基因作物提高抗逆、产量','基因工程药物如胰岛素','基因治疗针对缺陷基因','基因芯片用于检测','需关注安全性与伦理'],
+       f:['应用：<b>转基因·药物·基因治疗</b>'], sim:NONE() },
+   ]},
+   { name:'第4章 生物技术的安全性与伦理问题', sections:[
+     { title:'生物技术的安全与伦理', pts:['转基因生物存在生态安全争议','克隆人引发伦理争议','设计试管婴儿需严格规范','基因信息隐私应受保护','应在伦理框架下发展技术'],
+       f:['原则：<b>在伦理框架内审慎发展</b>'], sim:NONE() },
+   ]},
+ ]},
+];
+
+/* ============ 状态 ============ */
+const STORE='hsbio_offline_v1';
+let progress = JSON.parse(localStorage.getItem(STORE)||'{}');
+const allSections = [];
+CURRICULUM.forEach(v=>v.chapters.forEach(c=>c.sections.forEach(s=>{
+  s._vid=v.id; s._vname=v.name; s._cname=c.name; allSections.push(s);
+})));
+const total = allSections.length;
+function learnedCount(){return Object.keys(progress).filter(k=>progress[k]).length;}
+function save(){localStorage.setItem(STORE,JSON.stringify(progress));}
+
+/* ============ 渲染：侧边栏 ============ */
+function renderTree(){
+  const tree=document.getElementById('tree');
+  tree.innerHTML='';
+  CURRICULUM.forEach(v=>{
+    const vol=document.createElement('div'); vol.className='vol';
+    const vn=document.createElement('div'); vn.className='vol-name';
+    vn.innerHTML=`<span class="dot" style="background:${v.color}"></span>${v.name}`;
+    vol.appendChild(vn);
+    v.chapters.forEach((c,ci)=>{
+      const chap=document.createElement('div'); chap.className='chap';
+      const cn=document.createElement('div'); cn.className='chap-name';
+      cn.innerHTML=`<span>${c.name}</span>`;
+      cn.onclick=()=>{document.querySelectorAll('.chap-name').forEach(x=>x.classList.remove('active'));cn.classList.add('active');renderChapter(v,ci);window.scrollTo({top:0,behavior:'smooth'});};
+      chap.appendChild(cn); vol.appendChild(chap);
+    });
+    tree.appendChild(vol);
+  });
+}
+
+/* ============ 渲染：首页 ============ */
+function renderHome(){
+  const _m=document.getElementById('main'); _m._cur=null; _m._search=null; _m.innerHTML=`
+   <div class="hero">
+     <h2>🧬 用交互仿真，把整本高中生物"玩"懂</h2>
+     <p>覆盖人教版高中生物全部 ${total} 个核心知识点（必修一《分子与细胞》、必修二《遗传与进化》、选择性必修一《稳态与调节》、选择性必修二《生物与环境》、选择性必修三《生物技术与工程》）。所有仿真均为<b>原创、自包含、可离线、全中文</b>动画，无外部网络依赖。</p>
+   </div>
+   <div class="vol-grid" id="vgrid"></div>`;
+  const grid=document.getElementById('vgrid');
+  CURRICULUM.forEach((v,vi)=>{
+    const secs=[]; v.chapters.forEach(c=>c.sections.forEach(s=>secs.push(s)));
+    const card=document.createElement('div'); card.className='vol-card';
+    card.innerHTML=`<div class="vc-top"><span class="dot" style="width:12px;height:12px;border-radius:50%;background:${v.color};display:inline-block"></span>${v.name}</div>`;
+    card.onclick=()=>renderChapter(v,0);
+    grid.appendChild(card);
+  });
+}
+
+/* ============ 渲染：章节 ============ */
+function renderChapter(v,ci){
+  const c=v.chapters[ci];
+  const main=document.getElementById('main'); main._search=null;
+  let html=`<div class="chap-head"><span class="pill" style="background:${v.color}">${v.name}</span><h2>${c.name}</h2></div>`;
+  c.sections.forEach((s,si)=>{
+    html+=`<section class="sec" id="sec-${si}">
+      <div class="sec-top"><div><h3>${s.title}</h3></div></div>
+      <ul class="pts">${s.pts.map(p=>`<li>${p}</li>`).join('')}</ul>
+      <div class="formula">${s.f.join('&nbsp;&nbsp;|&nbsp;&nbsp;')}</div>
+      <div class="sim-box" id="sim-${si}"></div>
+    </section>`;
+  });
+  main.innerHTML=html;
+  main._cur={v,ci,c};
+  c.sections.forEach((s,si)=>loadSim(si));
+}
+
+/* ============ 仿真加载（懒加载，全部离线原创） ============ */
+function curSections(){const m=document.getElementById('main');return m._cur?m._cur.c.sections:[];}
+function loadSim(si){
+  const s=curSections()[si]; if(!s) return;
+  const box=document.getElementById('sim-'+si);
+  if(box.dataset.loaded) return;
+  box.dataset.loaded='1';
+  const kind=s.sim.kind;
+  if(kind==='none'){
+    box.innerHTML=`<div class="sim-meta">📖 本节以概念与公式讲解为主，配套上方要点。</div>`;
+    return;
+  }
+  box.innerHTML=`<div class="sim-meta">🧩 内置交互仿真 · 离线可用 · 全中文界面 · 可商用</div><div id="cv-${si}"></div>`;
+  buildCustom('cv-'+si, kind);
+}
+
+/* ============ 通用画布/控件助手 ============ */
+function alive(cv){return cv && document.body.contains(cv);}
+function gv(id){var e=document.getElementById(id);return e?parseFloat(e.value):0;}
+function st(id,t){var e=document.getElementById(id);if(e)e.textContent=t;}
+function mount(id,w,h,ctl){
+  const m=document.getElementById(id); if(!m) return null;
+  m.innerHTML=`<div class="cv-wrap"><div class="cv-box"><canvas id="${id}c" width="${w}" height="${h}"></canvas></div><div class="ctl">${ctl}</div></div>`;
+  const cv=document.getElementById(id+'c');
+  const ctx=cv?cv.getContext('2d'):null;
+  return ctx?{cv:cv,ctx:ctx,w:w,h:h}:null;
+}
+function slider(id,label,min,max,val,unit){unit=unit||'';return `<label>${label} <span id="${id}v">${val}</span> ${unit}</label><input type="range" id="${id}" min="${min}" max="${max}" value="${val}">`;}
+function sel(id,label,opts){var o=opts.map(x=>`<option value="${x.v}">${x.t}</option>`).join('');return `<label>${label}</label><select id="${id}">${o}</select>`;}
+function arrow(ctx,x1,y1,x2,y2,color,wd){
+  ctx.strokeStyle=color;ctx.fillStyle=color;ctx.lineWidth=wd||2;
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+  const a=Math.atan2(y2-y1,x2-x1),s=7;
+  ctx.beginPath();ctx.moveTo(x2,y2);
+  ctx.lineTo(x2-s*Math.cos(a-0.4),y2-s*Math.sin(a-0.4));
+  ctx.lineTo(x2-s*Math.cos(a+0.4),y2-s*Math.sin(a+0.4));
+  ctx.closePath();ctx.fill();
+}
+function txt(ctx,s,x,y,color,size){ctx.fillStyle=color||'#e2e8f0';ctx.font=(size||12)+'px sans-serif';ctx.fillText(s,x,y);}
+
+/* ============ 画布仿真注册表（全部原创、离线、中文） ============ */
+function buildCustom(mountId, kind){
+  const fn=SIMS[kind];
+  if(fn) fn(mountId);
+  else { const m=document.getElementById(mountId); if(m) m.innerHTML='<div class="sim-meta">📖 本节以概念与公式讲解为主。</div>'; }
+}
+
+/* ---------- 细胞膜：流动镶嵌模型 ---------- */
+function buildMembrane(id){
+  const p=mount(id,440,300,slider(id+'-T','温度',0,60,37,'°C')+slider(id+'-chol','胆固醇比例',0,100,40,'%')+'<div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p; let t=0;
+  const lips=[]; for(let i=0;i<22;i++){lips.push({x:20+i*20,y:130});}
+  (function draw(){
+    if(!alive(cv))return;
+    const T=gv(id+'-T'),chol=gv(id+'-chol'); st(id+'-T'+'v',T); st(id+'-chol'+'v',chol);
+    const speed=(T-37)*0.003 + 0.01;
+    ctx.clearRect(0,0,440,300);
+    ctx.fillStyle='rgba(16,185,129,.08)'; ctx.fillRect(0,118,440,84);
+    for(let i=0;i<lips.length;i++){const l=lips[i]; l.x+=speed; if(l.x>440)l.x-=440;
+      ctx.fillStyle='#f59e0b'; ctx.beginPath();ctx.arc(l.x,126,7,0,7);ctx.fill();
+      ctx.strokeStyle='#94a3b8';ctx.beginPath();ctx.moveTo(l.x,133);ctx.lineTo(l.x,158);ctx.stroke();
+      ctx.fillStyle='#f59e0b'; ctx.beginPath();ctx.arc(l.x,194,7,0,7);ctx.fill();
+      ctx.strokeStyle='#94a3b8';ctx.beginPath();ctx.moveTo(l.x,187);ctx.lineTo(l.x,162);ctx.stroke();
+    }
+    ctx.fillStyle='#6366f1'; ctx.fillRect(120,108,22,124);
+    ctx.fillStyle='#06b6d4'; ctx.fillRect(300,140,18,60);
+    txt(ctx,'整合蛋白',108,104,'#6366f1',11);
+    txt(ctx,'外周蛋白',298,134,'#06b6d4',11);
+    let note = T>45?'流动性过高，膜不稳定':(T<10?'流动性过低，膜变僵硬':'流动性适中');
+    st(id+'-r','磷脂双分子层构成基本支架，蛋白质镶嵌/贯穿；' + T + '°C ' + note + '；胆固醇比例 ' + chol + '%');
+    t+=0.02;
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- 物质跨膜运输 ---------- */
+function buildTransport(id){
+  const p=mount(id,440,300,sel(id+'-mode','运输方式',[{v:'free',t:'自由扩散'},{v:'fac',t:'协助扩散'},{v:'active',t:'主动运输'}])+slider(id+'-conc','膜外浓度',10,100,80,'%')+'<div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p;
+  const parts=[];
+  for(let i=0;i<30;i++){parts.push({x:Math.random()*440,y:Math.random()*260+20,vx:(Math.random()-0.5)*0.6});}
+  (function draw(){
+    if(!alive(cv))return;
+    const mode=document.getElementById(id+'-mode').value;
+    const conc=gv(id+'-conc'); st(id+'-conc'+'v',conc);
+    const dir=(mode==='active')?1:-1;
+    ctx.clearRect(0,0,440,300);
+    ctx.fillStyle='#1e293b'; ctx.fillRect(217,0,8,300);
+    if(mode!=='free'){ ctx.fillStyle='#6366f1'; ctx.fillRect(217,118,8,64); }
+    for(const pt of parts){
+      pt.x += pt.vx + dir*0.25;
+      if(pt.x>215 && pt.x<225){
+        const through=(mode==='free')||(pt.y>118&&pt.y<182);
+        if(!through){ pt.vx*=-1; pt.x+=pt.vx; }
+      }
+      if(pt.x<8){pt.x=8;pt.vx*=-1;} if(pt.x>432){pt.x=432;pt.vx*=-1;}
+      ctx.fillStyle = mode==='active'?'#ef4444':'#38bdf8';
+      ctx.beginPath();ctx.arc(pt.x,pt.y,4,0,7);ctx.fill();
+    }
+    txt(ctx,'膜外(高浓)',250,30,'#cbd5e1',11);
+    txt(ctx,'膜内',20,30,'#cbd5e1',11);
+    let note;
+    if(mode==='free') note='自由扩散：顺浓度梯度，不需载体、不耗能（如 O₂、CO₂）';
+    else if(mode==='fac') note='协助扩散：顺浓度梯度，需通道蛋白、不耗能（如葡萄糖进红细胞）';
+    else note='主动运输：逆浓度梯度，需载体并消耗 ATP（如 Na⁺/K⁺ 泵）';
+    st(id+'-r',note);
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- 酶活性（温度/pH 曲线） ---------- */
+function buildEnzyme(id){
+  const p=mount(id,440,300,slider(id+'-T','温度',0,90,37,'°C')+slider(id+'-pH','pH',1,14,7,'')+'<div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p; let t=0;
+  (function draw(){
+    if(!alive(cv))return;
+    const T=gv(id+'-T'),pH=gv(id+'-pH'); st(id+'-T'+'v',T); st(id+'-pH'+'v',pH);
+    const aT=Math.exp(-Math.pow((T-37)/15,2));
+    const aP=Math.exp(-Math.pow((pH-7)/2.5,2));
+    const act=aT*aP*100;
+    const denat = T>60;
+    ctx.clearRect(0,0,440,300);
+    ctx.strokeStyle='#475569';ctx.beginPath();ctx.moveTo(40,260);ctx.lineTo(420,260);ctx.moveTo(40,260);ctx.lineTo(40,40);ctx.stroke();
+    ctx.strokeStyle='#38bdf8';ctx.beginPath();
+    for(let i=0;i<=80;i++){const tt=0+i*90/80;const a=Math.exp(-Math.pow((tt-37)/15,2));const gx=40+tt*4;const gy=260-a*200;if(i===0)ctx.moveTo(gx,gy);else ctx.lineTo(gx,gy);}
+    ctx.stroke();
+    ctx.strokeStyle='#f59e0b';ctx.beginPath();
+    for(let i=0;i<=80;i++){const pp=1+i*13/80;const a=Math.exp(-Math.pow((pp-7)/2.5,2));const gx=40+pp*28;const gy=260-a*200;if(i===0)ctx.moveTo(gx,gy);else ctx.lineTo(gx,gy);}
+    ctx.stroke();
+    ctx.fillStyle='#fbbf24';ctx.beginPath();ctx.arc(40+T*4,260-act/100*200,5,0,7);ctx.fill();
+    txt(ctx,'蓝：温度→活性 (最适≈37℃)',60,55,'#38bdf8',11);
+    txt(ctx,'橙：pH→活性 (最适≈7)',60,72,'#f59e0b',11);
+    st(id+'-r','当前活性≈'+act.toFixed(0)+'%  '+(denat?'高温使酶空间结构破坏而失活':'适宜范围内活性随温度升高而增强'));
+    t+=0.02;
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- 细胞呼吸（有氧/无氧） ---------- */
+function buildRespiration(id){
+  const p=mount(id,460,320,sel(id+'-mode','呼吸类型',[{v:'aerobic',t:'有氧呼吸'},{v:'anaerobic',t:'无氧呼吸'}])+slider(id+'-sub','葡萄糖',1,10,5,'分子')+'<div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p; let t=0;
+  (function draw(){
+    if(!alive(cv))return;
+    const mode=document.getElementById(id+'-mode').value;
+    const sub=gv(id+'-sub'); st(id+'-sub'+'v',sub);
+    ctx.clearRect(0,0,460,320);
+    ctx.strokeStyle='#475569';ctx.beginPath();ctx.arc(230,160,140,0,7);ctx.stroke();
+    ctx.fillStyle='rgba(99,102,241,.25)';ctx.beginPath();ctx.ellipse(300,160,60,40,0,0,7);ctx.fill();
+    ctx.strokeStyle='#6366f1';ctx.beginPath();ctx.ellipse(300,160,60,40,0,0,7);ctx.stroke();
+    txt(ctx,'线粒体',286,160,'#6366f1',11);
+    const gx=110+ (t*40)%170, gy=110;
+    ctx.fillStyle='#f59e0b';ctx.beginPath();ctx.arc(gx,gy,8,0,7);ctx.fill();
+    txt(ctx,'葡萄糖→丙酮酸(细胞质基质)',40,40,'#f59e0b',11);
+    if(mode==='aerobic'){
+      ctx.fillStyle='#38bdf8';ctx.beginPath();ctx.arc(300,160+Math.sin(t*3)*8,6,0,7);ctx.fill();
+      for(let i=0;i<4;i++){ctx.fillStyle='#f472b6';ctx.beginPath();ctx.arc(380,90+i*20,3,0,7);ctx.fill();}
+      txt(ctx,'有氧: 丙酮酸→CO₂+H₂O+大量ATP',150,260,'#38bdf8',11);
+      txt(ctx,'释放CO₂',372,80,'#f472b6',11);
+      st(id+'-r','有氧呼吸：C₆H₁₂O₆+6O₂→6CO₂+6H₂O+大量ATP（场所：细胞质基质+线粒体，三阶段）');
+    } else {
+      ctx.fillStyle='#ef4444';ctx.beginPath();ctx.arc(160,200,6,0,7);ctx.fill();
+      txt(ctx,'无氧: 乳酸(动物) 或 酒精+CO₂(植物)，少量ATP',120,260,'#ef4444',11);
+      st(id+'-r','无氧呼吸：C₆H₁₂O₆→2C₃H₆O₃(乳酸) 或 2C₂H₅OH+2CO₂（细胞质基质，少量ATP）');
+    }
+    t+=0.02;
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- 光合作用（光反应+暗反应） ---------- */
+function buildPhotosynthesis(id){
+  const p=mount(id,460,320,slider(id+'-light','光照强度',0,10,6,'（相对）')+slider(id+'-co2','CO₂浓度',0,10,6,'（相对）')+'<div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p; let t=0;
+  (function draw(){
+    if(!alive(cv))return;
+    const L=gv(id+'-light'),C=gv(id+'-co2'); st(id+'-light'+'v',L); st(id+'-co2'+'v',C);
+    ctx.clearRect(0,0,460,320);
+    ctx.strokeStyle='#10b981';ctx.beginPath();ctx.ellipse(230,160,180,120,0,0,7);ctx.stroke();
+    txt(ctx,'叶绿体',200,50,'#10b981',12);
+    ctx.fillStyle='rgba(6,182,212,.3)';for(let i=0;i<4;i++)ctx.fillRect(80,90+i*16,140,8);
+    txt(ctx,'类囊体(光反应): 水光解→O₂+ATP+NADPH',50,80,'#06b6d4',11);
+    txt(ctx,'基质(暗反应/卡尔文循环): CO₂固定→C₃→糖',60,250,'#f59e0b',11);
+    for(let i=0;i<L;i++){const bx=150+(i*23)%120; const by=120-((t*30+i*15)%60); ctx.fillStyle='#38bdf8';ctx.beginPath();ctx.arc(bx,by,3,0,7);ctx.fill();}
+    for(let i=0;i<C;i++){const bx=200+(i*29)%120; const by=200+((t*20+i*13)%50); ctx.fillStyle='#fbbf24';ctx.beginPath();ctx.arc(bx,by,3,0,7);ctx.fill();}
+    const rate=Math.min(10,L*0.5+C*0.5);
+    st(id+'-r','光合速率≈'+rate.toFixed(1)+'（受光照与CO₂限制）；光反应为暗反应提供 ATP/NADPH');
+    t+=0.03;
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- 有丝分裂 ---------- */
+function buildMitosis(id){
+  const p=mount(id,440,320,sel(id+'-phase','时期',[{v:'inter',t:'间期'},{v:'pro',t:'前期'},{v:'meta',t:'中期'},{v:'ana',t:'后期'},{v:'tel',t:'末期'}])+'<div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p; let t=0;
+  function drawChrom(x,y,rot,col){
+    ctx.save();ctx.translate(x,y);ctx.rotate(rot||0);
+    ctx.strokeStyle=col;ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(-4,-26);ctx.lineTo(-4,26);ctx.moveTo(4,-26);ctx.lineTo(4,26);ctx.stroke();
+    ctx.restore();
+  }
+  (function draw(){
+    if(!alive(cv))return;
+    const ph=document.getElementById(id+'-phase').value;
+    ctx.clearRect(0,0,440,320);
+    ctx.strokeStyle='#475569';ctx.beginPath();ctx.arc(220,160,120,0,7);ctx.stroke();
+    if(ph!=='inter'){ctx.strokeStyle='#94a3b8';ctx.beginPath();ctx.moveTo(220,160);ctx.lineTo(120,160);ctx.moveTo(220,160);ctx.lineTo(320,160);ctx.stroke();}
+    let desc='';
+    if(ph==='inter'){ desc='间期：DNA复制，每条染色体含2条姐妹染色单体（染色体数2n）'; drawChrom(220,160,0,'#6366f1'); }
+    else if(ph==='pro'){ desc='前期：核膜核仁消失，染色体螺旋化、缩短变粗'; drawChrom(175,135,0.35,'#6366f1'); drawChrom(265,185,-0.25,'#6366f1'); }
+    else if(ph==='meta'){ desc='中期：着丝点排列在赤道板上（观察染色体最佳时期）'; drawChrom(220,160,0,'#6366f1'); }
+    else if(ph==='ana'){ desc='后期：着丝点分裂，姐妹染色单体移向两极'; drawChrom(135,160,0,'#06b6d4'); drawChrom(305,160,0,'#ef4444'); }
+    else { desc='末期：细胞一分为二，形成两个子细胞（染色体数2n）'; ctx.beginPath();ctx.arc(150,160,70,0,7);ctx.arc(290,160,70,0,7);ctx.stroke(); drawChrom(150,160,0,'#6366f1'); drawChrom(290,160,0,'#6366f1'); }
+    st(id+'-r',desc);
+    t+=0.02;
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- 减数分裂 ---------- */
+function buildMeiosis(id){
+  const p=mount(id,440,340,sel(id+'-stage','时期',[{v:'zy',t:'减I前期(联会)'},{v:'m1',t:'减I中期'},{v:'a1',t:'减I后期'},{v:'m2',t:'减II中期'},{v:'a2',t:'减II后期'}])+'<div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p; let t=0;
+  function ch(x,y,col){ctx.strokeStyle=col;ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(x,y-18);ctx.lineTo(x,y+18);ctx.stroke();}
+  (function draw(){
+    if(!alive(cv))return;
+    const stg=document.getElementById(id+'-stage').value;
+    ctx.clearRect(0,0,440,340);
+    ctx.strokeStyle='#475569';ctx.beginPath();ctx.arc(220,170,140,0,7);ctx.stroke();
+    let desc='';
+    if(stg==='zy'){ desc='减I前期：同源染色体联会形成四分体，可发生交叉互换'; ch(200,150,'#6366f1');ch(240,150,'#06b6d4');ch(200,190,'#6366f1');ch(240,190,'#06b6d4'); }
+    else if(stg==='m1'){ desc='减I中期：四分体排列在赤道板两侧'; ch(180,170,'#6366f1');ch(180,170,'#06b6d4');ch(260,170,'#6366f1');ch(260,170,'#06b6d4'); }
+    else if(stg==='a1'){ desc='减I后期：同源染色体分离（非同源染色体自由组合）'; ch(130,170,'#6366f1');ch(130,170,'#06b6d4');ch(310,170,'#6366f1');ch(310,170,'#06b6d4'); }
+    else if(stg==='m2'){ desc='减II中期：着丝点排列在赤道板'; ch(170,170,'#6366f1');ch(270,170,'#06b6d4'); }
+    else { desc='减II后期：着丝点分裂，姐妹染色单体移向两极，形成4个子细胞'; ch(120,170,'#6366f1');ch(320,170,'#06b6d4'); }
+    st(id+'-r',desc+'（结果：配子染色体数为体细胞一半）');
+    t+=0.02;
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- DNA 双螺旋结构 ---------- */
+function buildDna(id){
+  const p=mount(id,460,300,slider(id+'-pairs','碱基对数',4,16,10,'对')+slider(id+'-spin','转速',0,2,1,'')+'<div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p; let ang=0;
+  const cols=['#ef4444','#3b82f6','#10b981','#f59e0b'];
+  const bases=['A','T','G','C'];
+  (function draw(){
+    if(!alive(cv))return;
+    const n=Math.round(gv(id+'-pairs')),sp=gv(id+'-spin'); st(id+'-pairs'+'v',n); st(id+'-spin'+'v',sp);
+    ctx.clearRect(0,0,460,300);
+    const cx=230, cy=150, amp=70;
+    for(let i=0;i<n;i++){
+      const ph=i*0.5+ang;
+      const x1=cx+amp*Math.sin(ph), x2=cx+amp*Math.sin(ph+Math.PI);
+      const y=30+i*(240/n);
+      ctx.strokeStyle='#cbd5e1';ctx.beginPath();ctx.moveTo(x1,y);ctx.lineTo(x2,y);ctx.stroke();
+      ctx.fillStyle=cols[i%4];ctx.beginPath();ctx.arc(x1,y,5,0,7);ctx.fill();
+      ctx.fillStyle=cols[(i+2)%4];ctx.beginPath();ctx.arc(x2,y,5,0,7);ctx.fill();
+      txt(ctx,bases[i%4],x1-3,y-8,'#e2e8f0',10);
+      txt(ctx,bases[(i+2)%4],x2-3,y-8,'#e2e8f0',10);
+    }
+    st(id+'-r','两条反向平行链，A=T、G≡C 碱基互补配对；共 '+n+' 个碱基对');
+    ang+=0.01*sp; if(ang>2*Math.PI)ang-=2*Math.PI;
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- DNA 半保留复制 ---------- */
+function buildReplication(id){
+  const p=mount(id,460,300,slider(id+'-speed','复制速度',0,3,1,'')+'<button class="btn ghost" id="'+id+'-go">↺ 重新开始</button><div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p; let prog=0;
+  const go=document.getElementById(id+'-go'); if(go) go.onclick=()=>{prog=0;};
+  (function draw(){
+    if(!alive(cv))return;
+    const sp=gv(id+'-speed'); st(id+'-speed'+'v',sp);
+    prog+=0.004*sp; if(prog>1)prog=1;
+    ctx.clearRect(0,0,460,300);
+    const y1=120,y2=180, x0=40, x1=420, fork=x0+(x1-x0)*prog;
+    // 母链（蓝）与新链（红）
+    ctx.strokeStyle='#3b82f6';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(x0,y1);ctx.lineTo(x1,y1);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(x0,y2);ctx.lineTo(x1,y2);ctx.stroke();
+    ctx.strokeStyle='#ef4444';ctx.beginPath();ctx.moveTo(x0,y1);ctx.lineTo(fork,y1);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(x0,y2);ctx.lineTo(fork,y2);ctx.stroke();
+    // 已解开区画新链
+    if(prog>0){
+      ctx.strokeStyle='#10b981';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(fork,y1);ctx.lineTo(x1,y1);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(fork,y2);ctx.lineTo(x1,y2);ctx.stroke();
+      ctx.fillStyle='#10b981';ctx.beginPath();ctx.arc(fork,y1,6,0,7);ctx.fill();ctx.beginPath();ctx.arc(fork,y2,6,0,7);ctx.fill();
+    }
+    txt(ctx,'母链(蓝)',x0,y1-12,'#3b82f6',11);
+    txt(ctx,'新链(红→绿完成)',x0,y2+22,'#ef4444',11);
+    st(id+'-r','半保留复制：每条母链作模板合成新链，子代 DNA 各含一条母链和一条新链（进度 '+Math.round(prog*100)+'%）');
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- 转录 ---------- */
+function buildTranscription(id){
+  const p=mount(id,460,300,slider(id+'-rate','合成速度',0,3,1,'')+'<div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p; let pos=0;
+  (function draw(){
+    if(!alive(cv))return;
+    const r=gv(id+'-rate'); st(id+'-rate'+'v',r);
+    pos+=0.6*r; if(pos>360)pos=0;
+    ctx.clearRect(0,0,460,300);
+    // DNA 两条链（未解开区）
+    const yL=130,yR=170;
+    ctx.strokeStyle='#3b82f6';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(40,yL);ctx.lineTo(420,yL);ctx.stroke();
+    ctx.strokeStyle='#6366f1';ctx.beginPath();ctx.moveTo(40,yR);ctx.lineTo(420,yR);ctx.stroke();
+    // 解旋泡 + RNA 聚合酶
+    if(pos>0){
+      ctx.fillStyle='rgba(245,158,11,.25)';ctx.beginPath();ctx.ellipse(pos,150,40,30,0,0,7);ctx.fill();
+      ctx.fillStyle='#f59e0b';ctx.beginPath();ctx.arc(pos,150,12,0,7);ctx.fill();txt(ctx,'RNA聚合酶',pos-30,110,'#f59e0b',11);
+      // 正在延长的 mRNA（沿上方向）
+      ctx.strokeStyle='#ef4444';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(pos,150);ctx.lineTo(pos,70);ctx.stroke();
+      for(let i=0;i<6;i++){ctx.fillStyle='#ef4444';ctx.beginPath();ctx.arc(pos,(70+i*12),3,0,7);ctx.fill();}
+    }
+    // 已合成 mRNA
+    ctx.strokeStyle='#ef4444';ctx.beginPath();
+    for(let x=40;x<pos;x+=8){const yy=90+10*Math.sin(x*0.3);if(x===40)ctx.moveTo(x,yy);else ctx.lineTo(x,yy);}
+    ctx.stroke();
+    txt(ctx,'模板链(蓝)→mRNA(红) 按 A-U、T-A 配对',50,250,'#cbd5e1',11);
+    st(id+'-r','RNA 聚合酶沿 DNA 模板移动，按碱基互补合成 mRNA（进度 '+Math.round(pos/360*100)+'%）');
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- 翻译 ---------- */
+function buildTranslation(id){
+  const p=mount(id,460,300,slider(id+'-rate','翻译速度',0,3,1,'')+'<div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p; let pos=40;
+  const codons=['AUG','UUU','GGC','CGA','UAA'];
+  (function draw(){
+    if(!alive(cv))return;
+    const r=gv(id+'-rate'); st(id+'-rate'+'v',r);
+    pos+=0.6*r; if(pos>420)pos=40;
+    ctx.clearRect(0,0,460,300);
+    // mRNA 链
+    ctx.strokeStyle='#ef4444';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(30,120);ctx.lineTo(430,120);ctx.stroke();
+    for(let i=0;i<codons.length;i++){txt(ctx,codons[i],40+i*70,115,'#fca5a5',11);}
+    // 核糖体
+    ctx.fillStyle='rgba(99,102,241,.6)';ctx.beginPath();ctx.arc(pos,120,18,0,7);ctx.fill();
+    // tRNA + 氨基酸
+    if(pos<420){
+      ctx.strokeStyle='#10b981';ctx.lineWidth=3;arrow(ctx,pos,100,pos,120,'#10b981',3);
+      ctx.fillStyle='#10b981';ctx.beginPath();ctx.arc(pos,95,9,0,7);ctx.fill();
+      txt(ctx,'tRNA+AA',pos-18,82,'#10b981',11);
+    }
+    // 肽链生长
+    ctx.strokeStyle='#f59e0b';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(40,200);ctx.lineTo(40+(pos-40),200);ctx.stroke();
+    const n=Math.floor((pos-40)/70);
+    for(let i=0;i<n;i++){ctx.fillStyle='#f59e0b';ctx.beginPath();ctx.arc(60+i*70,200,8,0,7);ctx.fill();}
+    txt(ctx,'核糖体沿 mRNA 移动，tRNA 反密码子识别密码子，肽链延伸',30,250,'#cbd5e1',11);
+    st(id+'-r','翻译：核糖体读取密码子，tRNA 携带氨基酸按碱基互补配对合成肽链（'+n+' 个氨基酸）');
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- 基因分离定律（3:1） ---------- */
+function buildMendel1(id){
+  const p=mount(id,440,300,slider(id+'-n','已统计后代数',10,400,200,'')+'<button class="btn ghost" id="'+id+'-go">↺ 重新统计</button><div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p; let tall=0,dwarf=0,tg=0;
+  const go=document.getElementById(id+'-go'); if(go) go.onclick=()=>{tall=0;dwarf=0;tg=0;};
+  (function draw(){
+    if(!alive(cv))return;
+    const N=Math.round(gv(id+'-n')); st(id+'-n'+'v',N);
+    while(tg<N){ const gt=Math.random()<0.75?1:0; if(gt)tall++;else dwarf++; tg++; }
+    ctx.clearRect(0,0,440,300);
+    const maxc=Math.max(tall,dwarf,1);
+    ctx.fillStyle='#10b981';ctx.fillRect(80,260-(tall/maxc)*200,80,(tall/maxc)*200);
+    ctx.fillStyle='#f59e0b';ctx.fillRect(260,260-(dwarf/maxc)*200,80,(dwarf/maxc)*200);
+    txt(ctx,'高茎',100,250,'#fff',12); txt(ctx,'矮茎',280,250,'#fff',12);
+    const ratio = dwarf>0? (tall/dwarf).toFixed(2):'∞';
+    st(id+'-r','F₂: 高茎 '+tall+' : 矮茎 '+dwarf+' ≈ '+ratio+' : 1（理论 3 : 1）');
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- 自由组合定律（9:3:3:1） ---------- */
+function buildMendel2(id){
+  const p=mount(id,460,320,slider(id+'-n','已统计后代数',10,400,200,'')+'<button class="btn ghost" id="'+id+'-go">↺ 重新统计</button><div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p; let a=0,b=0,c=0,d=0,tg=0;
+  const go=document.getElementById(id+'-go'); if(go) go.onclick=()=>{a=0;b=0;c=0;d=0;tg=0;};
+  (function draw(){
+    if(!alive(cv))return;
+    const N=Math.round(gv(id+'-n')); st(id+'-n'+'v',N);
+    while(tg<N){ const r=Math.random(); if(r<0.5625)a++;else if(r<0.75)b++;else if(r<0.9375)c++;else d++; tg++; }
+    ctx.clearRect(0,0,460,320);
+    const maxc=Math.max(a,b,c,d,1);
+    const bw=70;
+    const data=[['黄圆',a,'#10b981'],['黄皱',b,'#f59e0b'],['绿圆',c,'#06b6d4'],['绿皱',d,'#ef4444']];
+    data.forEach((e,i)=>{ctx.fillStyle=e[2];ctx.fillRect(40+i*bw+20,280-(e[1]/maxc)*230,bw-20,(e[1]/maxc)*230);txt(ctx,e[0],40+i*bw+22,272,'#fff',11);});
+    st(id+'-r','F₂: 黄圆 '+a+' 黄皱 '+b+' 绿圆 '+c+' 绿皱 '+d+'（理论 9 : 3 : 3 : 1）');
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- 基因在染色体（摩尔根果蝇） ---------- */
+function buildLinkage(id){
+  const p=mount(id,440,300,sel(id+'-gen','世代/类型',[{v:'p',t:'P：红眼♀×白眼♂'},{v:'f1',t:'F₁：全红眼'},{v:'f2',t:'F₂：白眼仅限雄性'}])+'<div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p;
+  function fly(x,y,sex,white){ctx.strokeStyle='#334155';ctx.beginPath();ctx.ellipse(x,y,22,12,0,0,7);ctx.stroke();
+    ctx.fillStyle=sex==='m'?'#94a3b8':'#f472b6';ctx.beginPath();ctx.arc(x+18,y,5,0,7);ctx.fill();
+    ctx.fillStyle=white?'#fff':'#ef4444';ctx.beginPath();ctx.arc(x,y,5,0,7);ctx.fill();}
+  (function draw(){
+    if(!alive(cv))return;
+    const g=document.getElementById(id+'-gen').value;
+    ctx.clearRect(0,0,440,300);
+    if(g==='p'){ fly(120,100,'f',false); fly(320,100,'m',true); st(id+'-r','P：XᴡXᴡ(红眼♀) × XʷY(白眼♂)，红眼对白眼为显性'); }
+    else if(g==='f1'){ fly(120,100,'f',false); fly(320,100,'m',false); st(id+'-r','F₁：XᴡXʷ(红眼♀) × XᴡY(红眼♂)，全为红眼'); }
+    else { fly(90,90,'f',false); fly(200,90,'f',false); fly(310,90,'m',false); fly(90,210,'m',true); fly(200,210,'m',true); st(id+'-r','F₂：雌性全红眼，雄性半红半白——证明白眼基因位于 X 染色体上'); }
+    txt(ctx,'♀',150,80,'#cbd5e1',12); txt(ctx,'♂',350,80,'#cbd5e1',12);
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- 基因突变 / 染色体变异 ---------- */
+function buildMutation(id){
+  const p=mount(id,460,300,sel(id+'-type','类型',[{v:'gene',t:'基因突变(碱基替换)'},{v:'chr',t:'染色体结构变异'}])+'<div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p; let t=0;
+  const seq=['A','T','G','C','A','T','G','C','A','T'];
+  (function draw(){
+    if(!alive(cv))return;
+    const ty=document.getElementById(id+'-type').value;
+    ctx.clearRect(0,0,460,300);
+    if(ty==='gene'){
+      const mut=Math.floor((Math.sin(t)*0.5+0.5)*10)%10;
+      for(let i=0;i<10;i++){ctx.fillStyle=i===mut?'#ef4444':'#3b82f6';ctx.beginPath();ctx.arc(60+i*36,110,13,0,7);ctx.fill();txt(ctx,seq[i],60+i*36-4,114,'#fff',12);}
+      txt(ctx,'↑ 此处碱基发生替换(突变)',60+mut*36-30,145,'#ef4444',11);
+      st(id+'-r','基因突变：DNA 碱基对替换/增添/缺失，改变基因结构，产生新等位基因（多数有害）');
+    } else {
+      // 正常染色体 vs 缺失/重复/易位
+      ctx.strokeStyle='#10b981';ctx.lineWidth=10;ctx.beginPath();ctx.moveTo(50,110);ctx.lineTo(400,110);ctx.stroke();
+      for(let i=0;i<7;i++){ctx.fillStyle='#f59e0b';ctx.fillRect(60+i*48,100,44,20);}
+      txt(ctx,'正常染色体',50,90,'#10b981',11);
+      ctx.strokeStyle='#ef4444';ctx.lineWidth=10;ctx.beginPath();ctx.moveTo(50,200);ctx.lineTo(320,200);ctx.stroke();
+      for(let i=0;i<5;i++){ctx.fillStyle='#f59e0b';ctx.fillRect(60+i*48,190,44,20);}
+      txt(ctx,'缺失片段后',50,180,'#ef4444',11);
+      st(id+'-r','染色体结构变异：缺失、重复、倒位、易位，会改变基因数目或排列顺序');
+    }
+    t+=0.02;
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- 哈迪-温伯格平衡 ---------- */
+function buildHardy(id){
+  const p=mount(id,460,300,slider(id+'-p','A 基因频率 p',0,100,60,'%')+'<div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p;
+  (function draw(){
+    if(!alive(cv))return;
+    const pct=gv(id+'-p'); st(id+'-p'+'v',pct);
+    const p=pct/100, q=1-p;
+    const AA=p*p, Aa=2*p*q, aa=q*q;
+    ctx.clearRect(0,0,460,300);
+    const maxc=Math.max(AA,Aa,aa,0.01);
+    const data=[['AA',AA,'#10b981'],['Aa',Aa,'#f59e0b'],['aa',aa,'#ef4444']];
+    data.forEach((e,i)=>{const h=e[1]/maxc*220;ctx.fillStyle=e[2];ctx.fillRect(80+i*110,260-h,70,h);txt(ctx,e[0],90+i*110,250,'#fff',12);txt(ctx,(e[1]*100).toFixed(1)+'%',90+i*110,260-h-10,'#e2e8f0',11);});
+    st(id+'-r','p='+p.toFixed(2)+' q='+q.toFixed(2)+'；AA=p²='+(AA*100).toFixed(1)+'%  Aa=2pq='+(Aa*100).toFixed(1)+'%  aa=q²='+(aa*100).toFixed(1)+'%（理想种群基因频率不变）');
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- 自然选择改变基因频率 ---------- */
+function buildEvolution(id){
+  const p=mount(id,460,300,sel(id+'-sel','选择类型',[{v:'dark',t:'定向选择(深色有利)'},{v:'light',t:'定向选择(浅色有利)'},{v:'stab',t:'稳定选择'}])+'<div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p; let mean=50, gen=0;
+  (function draw(){
+    if(!alive(cv))return;
+    const s=document.getElementById(id+'-sel').value;
+    const target = s==='dark'?85:(s==='light'?15:50);
+    mean += (target-mean)*0.03; gen++;
+    ctx.clearRect(0,0,460,300);
+    // 钟形分布
+    ctx.strokeStyle='#38bdf8';ctx.beginPath();
+    for(let x=10;x<=450;x+=4){const d=(x-mean)/30;const y=260-Math.exp(-d*d)*200;if(x===10)ctx.moveTo(x,y);else ctx.lineTo(x,y);}
+    ctx.stroke();
+    // 目标箭头
+    ctx.fillStyle='#ef4444';ctx.beginPath();ctx.arc(target/100*440+10,60,5,0,7);ctx.fill();
+    txt(ctx,'适应环境性状',target/100*440-20,52,'#ef4444',11);
+    st(id+'-r','第 '+gen+' 代：有利变异个体被保留，种群性状均值→'+mean.toFixed(0)+'，基因频率定向改变');
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- 内环境稳态 / 血糖调节 ---------- */
+function buildHomeostasis(id){
+  const p=mount(id,460,300,slider(id+'-meal','进食量',0,10,3,'（相对）')+'<button class="btn ghost" id="'+id+'-go">🍚 进食</button><div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p; let g=90, meal=0;
+  const go=document.getElementById(id+'-go'); if(go) go.onclick=()=>{meal=gv(id+'-meal');};
+  (function draw(){
+    if(!alive(cv))return;
+    const m=gv(id+'-meal'); st(id+'-meal'+'v',m);
+    if(meal>0){ g+=meal*0.4; meal-=0.04; if(meal<0)meal=0; }
+    if(g>90){ g-=0.5; } else if(g<90){ g+=0.5; }
+    g=Math.max(60,Math.min(160,g));
+    ctx.clearRect(0,0,460,300);
+    // 血糖曲线
+    ctx.strokeStyle='#475569';ctx.beginPath();ctx.moveTo(40,260);ctx.lineTo(440,260);ctx.stroke();
+    ctx.strokeStyle='#f59e0b';ctx.beginPath();
+    for(let i=0;i<=100;i++){const x=40+i*4;const y=260-(g-60)/100*200;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}
+    ctx.stroke();
+    ctx.fillStyle='#ef4444';ctx.beginPath();ctx.arc(40+ (g-60)/100*400,260-(g-60)/100*200,5,0,7);ctx.fill();
+    txt(ctx,'正常范围≈90',330,255,'#10b981',11);
+    const ins = g>90?'胰岛素分泌↑(降)':'胰高血糖素分泌↑(升)';
+    st(id+'-r','血糖 '+g.toFixed(0)+' mg/dL；'+ins+'，通过负反馈维持稳态');
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- 神经元 静息/动作电位 ---------- */
+function buildNeuron(id){
+  const p=mount(id,460,300,slider(id+'-stim','刺激强度',0,10,6,'（相对）')+'<button class="btn ghost" id="'+id+'-go">⚡ 刺激</button><div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p; let t=0, ap=false, phase=0;
+  const go=document.getElementById(id+'-go'); if(go) go.onclick=()=>{ap=true;phase=0;};
+  function Vm(ph){ if(ph<0.2)return -70; if(ph<0.4)return -70+ (ph-0.2)/0.2*110; if(ph<0.6)return 40-(ph-0.4)/0.2*110; return -70+(phase-0.6)/0.4*0; }
+  (function draw(){
+    if(!alive(cv))return;
+    const stim=gv(id+'-stim'); st(id+'-stim'+'v',stim);
+    if(ap){ phase+=0.01; if(phase>=1){ap=false;} }
+    const v= ap? Vm(phase):-70;
+    ctx.clearRect(0,0,460,300);
+    // 轴突
+    ctx.strokeStyle='#475569';ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(40,210);ctx.lineTo(420,210);ctx.stroke();
+    // 电位图
+    ctx.strokeStyle='#10b981';ctx.beginPath();ctx.moveTo(40,160);ctx.lineTo(420,160);ctx.stroke();
+    const y=160 - (v+70)/110*100;
+    ctx.fillStyle='#fbbf24';ctx.beginPath();ctx.arc(230,y,5,0,7);ctx.fill();
+    ctx.strokeStyle='#fbbf24';ctx.beginPath();ctx.moveTo(230,160);ctx.lineTo(230,y);ctx.stroke();
+    txt(ctx,'静息 -70mV (K⁺外流)',250,150,'#94a3b8',11);
+    if(ap) txt(ctx,'动作电位 +40mV (Na⁺内流)',250,y-8,'#ef4444',11);
+    st(id+'-r','膜电位 '+v.toFixed(0)+' mV：静息时 K⁺ 外流(内负外正)，受刺激 Na⁺ 内流产生动作电位');
+    t+=0.02;
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- 突触传递 ---------- */
+function buildSynapse(id){
+  const p=mount(id,440,300,slider(id+'-rate','冲动频率',0,3,1,'')+'<div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p; let t=0;
+  const ves=[]; for(let i=0;i<6;i++)ves.push({y:60+i*14,rel:false});
+  (function draw(){
+    if(!alive(cv))return;
+    const r=gv(id+'-rate'); st(id+'-rate'+'v',r);
+    ctx.clearRect(0,0,440,300);
+    // 突触前膜
+    ctx.strokeStyle='#6366f1';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(40,160);ctx.lineTo(200,160);ctx.stroke();
+    ctx.fillStyle='rgba(99,102,241,.3)';ctx.fillRect(40,80,160,80);
+    txt(ctx,'突触前膜(轴突末梢)',40,72,'#6366f1',11);
+    // 囊泡
+    for(const vv of ves){ if((t* r)>vv.y/20 && !vv.rel){vv.rel=true;} ctx.fillStyle=vv.rel?'rgba(245,158,11,.3)':'#f59e0b';ctx.beginPath();ctx.arc(150,vv.y,7,0,7);ctx.fill(); if(vv.rel){vv.y+=3; if(vv.y>150)vv.rel=false;} }
+    // 突触间隙
+    txt(ctx,'突触间隙',210,150,'#cbd5e1',11);
+    // 突触后膜 + 受体
+    ctx.strokeStyle='#10b981';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(290,60);ctx.lineTo(290,260);ctx.stroke();
+    txt(ctx,'突触后膜(受体)',250,52,'#10b981',11);
+    // 神经递质穿过间隙
+    for(let i=0;i<5;i++){const yy=160+((t*30*i)%100); ctx.fillStyle='#38bdf8';ctx.beginPath();ctx.arc(220+ (i*4),yy,3,0,7);ctx.fill();}
+    if(t>20)t=0;
+    st(id+'-r','突触前膜释放神经递质→扩散过间隙→与后膜受体结合，引发后膜电位变化（单向传递）');
+    t+=0.02+0.01*r;
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- 激素分级调节 ---------- */
+function buildHormone(id){
+  const p=mount(id,440,320,sel(id+'-axis','调节轴',[{v:'th',t:'下丘脑-垂体-甲状腺'},{v:'ad',t:'下丘脑-垂体-肾上腺'},{v:'go',t:'下丘脑-垂体-性腺'}])+'<div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p; let t=0;
+  (function draw(){
+    if(!alive(cv))return;
+    const ax=document.getElementById(id+'-axis').value;
+    ctx.clearRect(0,0,440,320);
+    const names={th:['下丘脑','垂体','甲状腺'],ad:['下丘脑','垂体','肾上腺皮质'],go:['下丘脑','垂体','性腺']};
+    const ns=names[ax];
+    const ys=[60,150,240];
+    for(let i=0;i<3;i++){ctx.fillStyle='#6366f1';ctx.beginPath();ctx.arc(120,ys[i],26,0,7);ctx.fill();txt(ctx,ns[i],150,ys[i]+4,'#e2e8f0',13);}
+    // 信号向下传递 + 反馈
+    for(let i=0;i<2;i++){arrow(ctx,120,ys[i]+26,120,ys[i+1]-26,'#f59e0b',2);
+      const yy=ys[i]+40+ (t*40)%50; ctx.fillStyle='#f59e0b';ctx.beginPath();ctx.arc(120,yy,3,0,7);ctx.fill();}
+    arrow(ctx,120,ys[2]-26+ (t*30)%40,120,50,'#ef4444',2);
+    txt(ctx,'↓ 促激素释放激素/促激素',150,110,'#f59e0b',11);
+    txt(ctx,'↑ 靶腺激素(负反馈)',150,30,'#ef4444',11);
+    const note={th:'甲状腺激素促进代谢、促生长发育；分级调节+负反馈',ad:'肾上腺皮质激素调节水盐/糖代谢',go:'性激素促进生殖器官发育和生殖细胞形成'};
+    st(id+'-r',ax.toUpperCase()+' 轴：'+note[ax]);
+    t+=0.02;
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- 免疫（体液/细胞） ---------- */
+function buildImmune(id){
+  const p=mount(id,460,300,sel(id+'-type','免疫类型',[{v:'hum',t:'体液免疫'},{v:'cell',t:'细胞免疫'}])+'<div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p; let t=0;
+  function cell(x,y,c,label){ctx.fillStyle=c;ctx.beginPath();ctx.arc(x,y,18,0,7);ctx.fill();txt(ctx,label,x-8,y+4,'#fff',11);}
+  (function draw(){
+    if(!alive(cv))return;
+    const ty=document.getElementById(id+'-type').value;
+    ctx.clearRect(0,0,460,300);
+    cell(80,80,'#6366f1','抗原');
+    if(ty==='hum'){
+      cell(220,80,'#06b6d4','B细胞');
+      cell(340,80,'#f59e0b','浆细胞');
+      for(let i=0;i<8;i++){const bx=340+(i*8)%80; const by=110+((t*30+i*10)%120); ctx.fillStyle='#ef4444';ctx.beginPath();ctx.arc(bx,by,3,0,7);ctx.fill();}
+      txt(ctx,'抗体(消灭抗原)',345,110,'#ef4444',11);
+      st(id+'-r','体液免疫：抗原→B细胞增殖分化→浆细胞→分泌抗体，与抗原特异性结合');
+    } else {
+      cell(220,80,'#10b981','T细胞');
+      cell(340,80,'#ef4444','效应T');
+      cell(340,200,'#94a3b8','靶细胞');
+      arrow(ctx,340,98,340,182,'#ef4444',2);
+      txt(ctx,'裂解靶细胞',300,150,'#ef4444',11);
+      st(id+'-r','细胞免疫：抗原→细胞毒性T细胞增殖分化→效应T细胞裂解被感染靶细胞');
+    }
+    t+=0.02;
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- 生长素两重性 / 向光性 ---------- */
+function buildAuxin(id){
+  const p=mount(id,440,300,slider(id+'-conc','生长素浓度',0,10,4,'（相对）')+'<div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p; let t=0;
+  (function draw(){
+    if(!alive(cv))return;
+    const c=gv(id+'-conc'); st(id+'-conc'+'v',c);
+    // 两重性曲线：低促高抑（倒U）
+    const eff = c<=5? c/5 : Math.max(0,1-(c-5)/5);
+    ctx.clearRect(0,0,440,300);
+    ctx.strokeStyle='#475569';ctx.beginPath();ctx.moveTo(40,260);ctx.lineTo(420,260);ctx.moveTo(40,260);ctx.lineTo(40,60);ctx.stroke();
+    ctx.strokeStyle='#10b981';ctx.beginPath();
+    for(let i=0;i<=100;i++){const cc=i/10; const e=cc<=5?cc/5:Math.max(0,1-(cc-5)/5);const gx=40+cc*36;const gy=260-e*180;if(i===0)ctx.moveTo(gx,gy);else ctx.lineTo(gx,gy);}
+    ctx.stroke();
+    ctx.fillStyle='#fbbf24';ctx.beginPath();ctx.arc(40+c*36,260-eff*180,5,0,7);ctx.fill();
+    txt(ctx,'低浓度促进 / 高浓度抑制(两重性)',60,50,'#10b981',11);
+    // 向光性茎弯曲
+    const bend=Math.sin(t)*0.3 + c*0.05;
+    ctx.strokeStyle='#6366f1';ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(360,260);ctx.quadraticCurveTo(360-bend*40,160,360-bend*60,80);ctx.stroke();
+    txt(ctx,'向光侧生长慢→弯曲',300,275,'#6366f1',11);
+    st(id+'-r','浓度 '+c+'：效应 '+(eff*100).toFixed(0)+'%（>5 转为抑制）；单侧光使背光侧生长素多、生长快而致向光弯曲');
+    t+=0.02;
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- 种群增长（J形/S形） ---------- */
+function buildPopulation(id){
+  const p=mount(id,440,300,sel(id+'-mode','增长模型',[{v:'J',t:'J形增长(理想)'},{v:'S',t:'S形增长(现实)'}])+slider(id+'-K','环境容纳量K',50,300,200,'')+'<div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p; let t=0;
+  (function draw(){
+    if(!alive(cv))return;
+    const mode=document.getElementById(id+'-mode').value;
+    const K=gv(id+'-K'); st(id+'-K'+'v',K);
+    t+=0.01; if(t>12)t=0;
+    ctx.clearRect(0,0,440,300);
+    ctx.strokeStyle='#475569';ctx.beginPath();ctx.moveTo(40,260);ctx.lineTo(420,260);ctx.moveTo(40,260);ctx.lineTo(40,40);ctx.stroke();
+    // K 线
+    const ky=260-K/300*200;
+    ctx.strokeStyle='#ef4444';ctx.setLineDash([5,5]);ctx.beginPath();ctx.moveTo(40,ky);ctx.lineTo(420,ky);ctx.stroke();ctx.setLineDash([]);
+    txt(ctx,'K='+K,360,ky-6,'#ef4444',11);
+    // 曲线
+    ctx.strokeStyle='#10b981';ctx.beginPath();
+    for(let i=0;i<=200;i++){const tt=i/20; let N; if(mode==='J'){N=10*Math.exp(0.3*tt);}else{N=K/(1+((K-10)/10)*Math.exp(-0.3*tt));}
+      const gx=40+tt*30; const gy=260-N/300*200; if(i===0)ctx.moveTo(gx,gy);else ctx.lineTo(gx,gy);}
+    ctx.stroke();
+    const Nt = mode==='J'? 10*Math.exp(0.3*t*20) : K/(1+((K-10)/10)*Math.exp(-0.3*t*20));
+    const gx=40+t*20*30, gy=260-Math.min(Nt,300)/300*200;
+    ctx.fillStyle='#fbbf24';ctx.beginPath();ctx.arc(gx,gy,4,0,7);ctx.fill();
+    st(id+'-r',(mode==='J'?'J形：N=N₀λᵗ，无K限制':'S形：受K限制，K/2时增长最快')+'，当前 N≈'+Math.min(Nt,300).toFixed(0));
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- 群落演替 ---------- */
+function buildSuccession(id){
+  const p=mount(id,460,280,slider(id+'-speed','演替速度',0,3,1,'')+'<div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p; let t=0;
+  const stages=['裸岩','地衣','苔藓','草本','灌木','森林'];
+  (function draw(){
+    if(!alive(cv))return;
+    const sp=gv(id+'-speed'); st(id+'-speed'+'v',sp);
+    const idx=Math.min(5,Math.floor(t)%6);
+    t+=0.01*sp; if(t>6)t=0;
+    ctx.clearRect(0,0,460,280);
+    // 山石
+    ctx.fillStyle='#64748b';ctx.beginPath();ctx.moveTo(40,240);ctx.lineTo(120,200);ctx.lineTo(220,240);ctx.fill();
+    if(idx>=1){ctx.fillStyle='#94a3b8';for(let i=0;i<6;i++){ctx.beginPath();ctx.arc(60+i*25,220,5,0,7);ctx.fill();}}
+    if(idx>=2){ctx.fillStyle='#10b981';for(let i=0;i<5;i++){ctx.beginPath();ctx.arc(60+i*30,210,8,0,7);ctx.fill();}}
+    if(idx>=3){ctx.fillStyle='#22c55e';for(let i=0;i<6;i++){ctx.fillRect(55+i*30,170,4,40);}}
+    if(idx>=4){ctx.fillStyle='#15803d';for(let i=0;i<4;i++){ctx.beginPath();ctx.arc(70+i*40,150,16,0,7);ctx.fill();}}
+    if(idx>=5){ctx.fillStyle='#166534';ctx.beginPath();ctx.moveTo(200,80);ctx.lineTo(150,240);ctx.lineTo(250,240);ctx.fill();}
+    txt(ctx,'当前阶段：'+stages[idx],40,40,'#e2e8f0',14);
+    st(id+'-r','初生演替：'+stages.slice(0,idx+1).join(' → ')+'（结构由简单到复杂，物种丰富度增加）');
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- 生态系统能量流动（金字塔） ---------- */
+function buildEcosystem(id){
+  const p=mount(id,460,300,slider(id+'-eff','传递效率',5,30,10,'%')+'<div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p; let t=0;
+  (function draw(){
+    if(!alive(cv))return;
+    const eff=gv(id+'-eff')/100; st(id+'-eff'+'v',(eff*100).toFixed(0));
+    ctx.clearRect(0,0,460,300);
+    const levels=['生产者','初级消费者','次级消费者','三级消费者'];
+    let e=100; const xs=[];
+    for(let i=0;i<4;i++){
+      const w=Math.max(10,e/100*300);
+      const x=(460-w)/2; xs.push(x);
+      ctx.fillStyle=['#10b981','#22c55e','#f59e0b','#ef4444'][i];
+      ctx.beginPath();
+      ctx.moveTo(x,40+i*60);ctx.lineTo(x+w,40+i*60);ctx.lineTo(x+w*0.7+ (460-w*0.7)/2- w*0.15,80+i*60);ctx.lineTo((460-w*0.7)/2+w*0.15,80+i*60);ctx.closePath();ctx.fill();
+      txt(ctx,levels[i]+' '+e.toFixed(0)+'%',x+10,65+i*60,'#fff',11);
+      e=e*eff;
+    }
+    txt(ctx,'能量沿食物链单向流动、逐级递减',40,285,'#cbd5e1',11);
+    st(id+'-r','相邻营养级传递效率≈'+(eff*100).toFixed(0)+'%（10%–20%）；能量金字塔不可倒置');
+    t+=0.02;
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ---------- 碳循环 ---------- */
+function buildCarboncycle(id){
+  const p=mount(id,460,300,slider(id+'-co2','大气CO₂',0,10,5,'（相对）')+'<div class="readout" id="'+id+'-r"></div>');
+  if(!p)return; const {cv,ctx}=p; let t=0;
+  (function draw(){
+    if(!alive(cv))return;
+    const co2=gv(id+'-co2'); st(id+'-co2'+'v',co2);
+    ctx.clearRect(0,0,460,300);
+    // 大气
+    ctx.fillStyle='rgba(99,102,241,.15)';ctx.fillRect(0,0,460,80);
+    txt(ctx,'大气 CO₂',20,30,'#6366f1',13);
+    // 植物
+    ctx.fillStyle='#10b981';ctx.beginPath();ctx.moveTo(100,250);ctx.lineTo(70,250);ctx.lineTo(100,180);ctx.lineTo(130,250);ctx.fill();
+    txt(ctx,'植物(生产者)',60,270,'#10b981',11);
+    // 动物
+    ctx.fillStyle='#f59e0b';ctx.beginPath();ctx.arc(260,230,18,0,7);ctx.fill();txt(ctx,'动物',255,260,'#f59e0b',11);
+    // 土壤/化石
+    ctx.fillStyle='#64748b';ctx.fillRect(0,270,460,30);txt(ctx,'土壤/化石燃料',20,290,'#e2e8f0',11);
+    // 流动箭头 + 粒子
+    // 光合：大气→植物
+    arrow(ctx,100,80,100,180,'#10b981',2);
+    for(let i=0;i<co2;i++){const yy=80+((t*30+i*13)%100);ctx.fillStyle='#10b981';ctx.beginPath();ctx.arc(100,yy,2,0,7);ctx.fill();}
+    // 呼吸/分解：植物/动物→大气
+    arrow(ctx,130,180,160,80,'#ef4444',2);
+    arrow(ctx,260,210,300,80,'#ef4444',2);
+    // 燃烧：土壤→大气
+    arrow(ctx,230,270,300,80,'#f472b6',2);
+    txt(ctx,'光合固碳 ↓  呼吸/分解/燃烧释碳 ↑',150,120,'#cbd5e1',11);
+    st(id+'-r','碳以 CO₂ 在无机环境与生物群落间循环；大气 CO₂ 水平 '+co2.toFixed(0)+'，失衡加剧温室效应');
+    t+=0.02;
+    requestAnimationFrame(draw);
+  })();
+}
+
+/* ============ SIMS 注册表（键=kind，值=builder；保留 none 兜底） ============ */
+const SIMS={
+  membrane:buildMembrane, transport:buildTransport, enzyme:buildEnzyme, respiration:buildRespiration,
+  photosynthesis:buildPhotosynthesis, mitosis:buildMitosis, meiosis:buildMeiosis, dna:buildDna,
+  replication:buildReplication, transcription:buildTranscription, translation:buildTranslation,
+  mendel1:buildMendel1, mendel2:buildMendel2, linkage:buildLinkage, mutation:buildMutation,
+  hardy:buildHardy, evolution:buildEvolution, homeostasis:buildHomeostasis, neuron:buildNeuron,
+  synapse:buildSynapse, hormone:buildHormone, immune:buildImmune, auxin:buildAuxin,
+  population:buildPopulation, succession:buildSuccession, ecosystem:buildEcosystem, carboncycle:buildCarboncycle,
+  none:function(id){const m=document.getElementById(id);if(m)m.innerHTML='<div class="sim-meta">📖 本节以概念与公式讲解为主。</div>';}
+};
+
+
+
+/* 掌握/积分功能已移除：仿真直接展示，不再需要"我学会了"按钮与分数记录 */
+
+
+
+let toastT;
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600);}
+
+/* ============ 搜索 ============ */
+document.getElementById('search').addEventListener('input',e=>{
+  const q=e.target.value.trim().toLowerCase();
+  if(!q){renderHome();return;}
+  const hits=allSections.filter(s=>(s.title+s._cname+s._vname+s.pts.join('')).toLowerCase().includes(q));
+  const main=document.getElementById('main'); main._cur=null;
+  if(!hits.length){main.innerHTML='<div class="empty">未找到匹配的知识点，换个词试试～</div>';return;}
+  let html='<div class="hero"><h2>🔍 搜索结果：'+hits.length+' 个匹配</h2></div>';
+  hits.forEach((s,i)=>{
+    html+=`<section class="sec">
+      <div class="sec-top"><div><h3>${s.title}</h3><small style="color:var(--muted)">${s._vname} · ${s._cname}</small></div></div>
+      <ul class="pts">${s.pts.map(p=>`<li>${p}</li>`).join('')}</ul>
+      <div class="formula">${s.f.join('&nbsp;&nbsp;|&nbsp;&nbsp;')}</div>
+      <div class="sim-box" id="ssim-${i}"></div></section>`;
+  });
+  main.innerHTML=html; main._search=hits;
+  hits.forEach((s,i)=>loadSearchSim(i));
+});
+function loadSearchSim(i){const s=document.getElementById('main')._search[i];const box=document.getElementById('ssim-'+i);if(box.dataset.loaded)return;box.dataset.loaded='1';
+  if(s.sim.kind==='none'){box.innerHTML='<div class="sim-meta">📖 本节以概念与公式讲解为主。</div>';return;}
+  box.innerHTML=`<div class="sim-meta">🧩 内置交互仿真 · 离线可用 · 全中文界面 · 可商用</div><div id="scv-${i}"></div>`;
+  buildCustom('scv-'+i, s.sim.kind);
+}
+
+/* ============ 初始化 ============ */
+renderTree(); renderHome();
+/* ===== 深度链接：命中知识点直开仿真 / ?q= 预搜索 ===== */
+(function(){
+  try{
+    var ps=new URLSearchParams(location.search);
+    var kp=ps.get('kp'), q=ps.get('q');
+    function openByTitle(t){
+      if(!t) return false;
+      t=decodeURIComponent(t).trim().toLowerCase();
+      var s=null;
+      for(var i=0;i<allSections.length;i++){
+        var x=allSections[i];
+        var hay=(x.title||'')+' '+(x._cname||'')+' '+(x._vname||'')+' '+((x.pts||[]).join(' '));
+        if(hay.toLowerCase().indexOf(t)>=0){ s=x; break; }
+      }
+      if(!s) return false;
+      var v=null;
+      for(var a=0;a<CURRICULUM.length;a++){ if(CURRICULUM[a].id===s._vid){ v=CURRICULUM[a]; break; } }
+      if(!v) return false;
+      var ci=0;
+      for(var b=0;b<v.chapters.length;b++){ if(v.chapters[b].name===s._cname){ ci=b; break; } }
+      renderChapter(v,ci);
+      var secs=v.chapters[ci].sections, si=secs.indexOf(s);
+      var run=function(){
+        var box=document.getElementById('sim-'+si);
+        if(box && !box.dataset.loaded) loadSim(si);
+        var sec=document.getElementById('sec-'+si);
+        if(sec) sec.scrollIntoView({behavior:'smooth',block:'start'});
+      };
+      if(window.requestAnimationFrame) window.requestAnimationFrame(run); else setTimeout(run,0);
+      return true;
+    }
+    if(kp && openByTitle(kp)) return;
+    if(q){ var sb=document.getElementById('search'); if(sb){ sb.value=decodeURIComponent(q); sb.dispatchEvent(new Event('input')); } }
+  }catch(e){}
+})();
+
+</script>
+<script>
+const QUIZ = {"细胞学说及其建立":[{"opts":["生态系统的稳定性","细胞学说及其建立","DNA是主要的遗传物质","翻译——mRNA→蛋白质"],"correct":1,"why":["该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「细胞是生物体结构和功能的基本单位」这一结论对应下列哪个知识点？","explain":"「细胞是生物体结构和功能的基本单位」是「细胞学说及其建立」的核心内容：细胞是生物体结构和功能的基本单位"},{"opts":["细胞学说：一切动植物由细胞发育而来","无机盐大多以离子形式存在","次生演替在原有土壤条件下进行","内环境理化性质包括渗透压、pH、温度"],"correct":0,"why":["","该说法属于其他知识点，并非「细胞学说及其建立」的内容。","该说法属于其他知识点，并非「细胞学说及其建立」的内容。","该说法属于其他知识点，并非「细胞学说及其建立」的内容。"],"q":"关于「细胞学说及其建立」，下列说法符合该知识点的是？","explain":"「细胞学说及其建立」包含这一要点：细胞学说：一切动植物由细胞发育而来"},{"opts":["细胞全能性：已分化细胞仍有全套遗传信息","生长素促进细胞伸长生长","传统发酵多为天然菌种混合发酵","新细胞由老细胞分裂产生"],"correct":3,"why":["这描述对应的是别的知识点，不属于「细胞学说及其建立」。","这描述对应的是别的知识点，不属于「细胞学说及其建立」。","这描述对应的是别的知识点，不属于「细胞学说及其建立」。",""],"q":"下列关于「细胞学说及其建立」的理解，正确的是？","explain":"「细胞学说及其建立」的要点之一是：新细胞由老细胞分裂产生"}],"细胞的多样性和统一性":[{"opts":["减数分裂和受精作用","细胞的多样性和统一性","DNA是主要的遗传物质","人脑的高级功能"],"correct":1,"why":["该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「原核细胞无核膜包被的细胞核」这一结论对应下列哪个知识点？","explain":"「原核细胞无核膜包被的细胞核」是「细胞的多样性和统一性」的核心内容：原核细胞无核膜包被的细胞核"},{"opts":["真核细胞有真正的细胞核","生长素在低浓度促进、高浓度抑制","胚胎干细胞具发育全能性","前期核膜核仁消失、染色体出现"],"correct":0,"why":["","该说法属于其他知识点，并非「细胞的多样性和统一性」的内容。","该说法属于其他知识点，并非「细胞的多样性和统一性」的内容。","该说法属于其他知识点，并非「细胞的多样性和统一性」的内容。"],"q":"关于「细胞的多样性和统一性」，下列说法符合该知识点的是？","explain":"「细胞的多样性和统一性」包含这一要点：真核细胞有真正的细胞核"},{"opts":["提取需去除蛋白质等杂质","蓝细菌（蓝藻）含叶绿素能光合作用","过敏反应是已免疫机体再次接触抗原","H区受损听不懂，S区受损不能讲话"],"correct":1,"why":["这描述对应的是别的知识点，不属于「细胞的多样性和统一性」。","","这描述对应的是别的知识点，不属于「细胞的多样性和统一性」。","这描述对应的是别的知识点，不属于「细胞的多样性和统一性」。"],"q":"下列关于「细胞的多样性和统一性」的理解，正确的是？","explain":"「细胞的多样性和统一性」的要点之一是：蓝细菌（蓝藻）含叶绿素能光合作用"}],"蛋白质——生命活动的主要承担者":[{"opts":["检测生物组织中的化合物","生态系统的物质循环——碳循环","激素与内分泌系统","蛋白质——生命活动的主要承担者"],"correct":3,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。",""],"q":"「蛋白质是生命活动的主要承担者」这一结论对应下列哪个知识点？","explain":"「蛋白质是生命活动的主要承担者」是「蛋白质——生命活动的主要承担者」的核心内容：蛋白质是生命活动的主要承担者"},{"opts":["魏尔肖提出\"细胞来自细胞\"","极性运输从形态学上端到下端","协助扩散需载体不耗能","基本单位：氨基酸（约20种）"],"correct":3,"why":["该说法属于其他知识点，并非「蛋白质——生命活动的主要承担者」的内容。","该说法属于其他知识点，并非「蛋白质——生命活动的主要承担者」的内容。","该说法属于其他知识点，并非「蛋白质——生命活动的主要承担者」的内容。",""],"q":"关于「蛋白质——生命活动的主要承担者」，下列说法符合该知识点的是？","explain":"「蛋白质——生命活动的主要承担者」包含这一要点：基本单位：氨基酸（约20种）"},{"opts":["提出\"遗传因子\"假说","兴奋在反射弧上传导","培养基分液体和固体","氨基酸通过肽键连接成多肽"],"correct":3,"why":["这描述对应的是别的知识点，不属于「蛋白质——生命活动的主要承担者」。","这描述对应的是别的知识点，不属于「蛋白质——生命活动的主要承担者」。","这描述对应的是别的知识点，不属于「蛋白质——生命活动的主要承担者」。",""],"q":"下列关于「蛋白质——生命活动的主要承担者」的理解，正确的是？","explain":"「蛋白质——生命活动的主要承担者」的要点之一是：氨基酸通过肽键连接成多肽"}],"核酸——遗传信息的携带者":[{"opts":["核酸——遗传信息的携带者","基因突变和基因重组","细胞增殖——有丝分裂","DNA是主要的遗传物质"],"correct":0,"why":["","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「核酸包括 DNA 与 RNA」这一结论对应下列哪个知识点？","explain":"「核酸包括 DNA 与 RNA」是「核酸——遗传信息的携带者」的核心内容：核酸包括 DNA 与 RNA"},{"opts":["mRNA 上三个相邻碱基为一个密码子","ATP 结构：A−P~P~P","魏尔肖提出\"细胞来自细胞\"","DNA 主要分布细胞核，RNA 主要在细胞质"],"correct":3,"why":["该说法属于其他知识点，并非「核酸——遗传信息的携带者」的内容。","该说法属于其他知识点，并非「核酸——遗传信息的携带者」的内容。","该说法属于其他知识点，并非「核酸——遗传信息的携带者」的内容。",""],"q":"关于「核酸——遗传信息的携带者」，下列说法符合该知识点的是？","explain":"「核酸——遗传信息的携带者」包含这一要点：DNA 主要分布细胞核，RNA 主要在细胞质"},{"opts":["核苷酸是核酸的基本单位","中心法则概括遗传信息传递方向","静息电位内负外正（K⁺外流）","微小有利变异逐代积累形成适应"],"correct":0,"why":["","这描述对应的是别的知识点，不属于「核酸——遗传信息的携带者」。","这描述对应的是别的知识点，不属于「核酸——遗传信息的携带者」。","这描述对应的是别的知识点，不属于「核酸——遗传信息的携带者」。"],"q":"下列关于「核酸——遗传信息的携带者」的理解，正确的是？","explain":"「核酸——遗传信息的携带者」的要点之一是：核苷酸是核酸的基本单位"}],"糖类和脂质":[{"opts":["糖类和脂质","DNA的复制——半保留复制","细胞器之间的分工合作","生态系统的能量流动"],"correct":0,"why":["","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「糖类是主要能源物质」这一结论对应下列哪个知识点？","explain":"「糖类是主要能源物质」是「糖类和脂质」的核心内容：糖类是主要能源物质"},{"opts":["B细胞受刺激增殖分化为浆细胞","单糖（葡萄糖）、二糖、多糖（淀粉/糖原/纤维素）","生长素在低浓度促进、高浓度抑制","动物细胞培养需无菌、适宜温度"],"correct":1,"why":["该说法属于其他知识点，并非「糖类和脂质」的内容。","","该说法属于其他知识点，并非「糖类和脂质」的内容。","该说法属于其他知识点，并非「糖类和脂质」的内容。"],"q":"关于「糖类和脂质」，下列说法符合该知识点的是？","explain":"「糖类和脂质」包含这一要点：单糖（葡萄糖）、二糖、多糖（淀粉/糖原/纤维素）"},{"opts":["裸岩→地衣→苔藓→草本→灌木→森林","DNA连接酶连接黏性末端","脂肪是良好储能物质","学习与记忆是脑的高级功能"],"correct":2,"why":["这描述对应的是别的知识点，不属于「糖类和脂质」。","这描述对应的是别的知识点，不属于「糖类和脂质」。","","这描述对应的是别的知识点，不属于「糖类和脂质」。"],"q":"下列关于「糖类和脂质」的理解，正确的是？","explain":"「糖类和脂质」的要点之一是：脂肪是良好储能物质"}],"无机物——水和无机盐":[{"opts":["生物技术的安全与伦理","无机物——水和无机盐","基因在染色体上","特异性免疫——体液免疫与细胞免疫"],"correct":1,"why":["该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「水在细胞中有自由水和结合水」这一结论对应下列哪个知识点？","explain":"「水在细胞中有自由水和结合水」是「无机物——水和无机盐」的核心内容：水在细胞中有自由水和结合水"},{"opts":["最适温度约37℃，最适pH因酶而异","染色质由 DNA 和蛋白质组成","自由水比例高代谢旺盛","减数分裂染色体复制一次、分裂两次"],"correct":2,"why":["该说法属于其他知识点，并非「无机物——水和无机盐」的内容。","该说法属于其他知识点，并非「无机物——水和无机盐」的内容。","","该说法属于其他知识点，并非「无机物——水和无机盐」的内容。"],"q":"关于「无机物——水和无机盐」，下列说法符合该知识点的是？","explain":"「无机物——水和无机盐」包含这一要点：自由水比例高代谢旺盛"},{"opts":["有利变异个体生存并繁殖","F₁ 只表现显性性状","无机盐大多以离子形式存在","限制酶识别特定序列并切割"],"correct":2,"why":["这描述对应的是别的知识点，不属于「无机物——水和无机盐」。","这描述对应的是别的知识点，不属于「无机物——水和无机盐」。","","这描述对应的是别的知识点，不属于「无机物——水和无机盐」。"],"q":"下列关于「无机物——水和无机盐」的理解，正确的是？","explain":"「无机物——水和无机盐」的要点之一是：无机盐大多以离子形式存在"}],"检测生物组织中的化合物":[{"opts":["激素与内分泌系统","检测生物组织中的化合物","细胞的能量\"货币\"ATP","生物技术的安全与伦理"],"correct":1,"why":["该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「还原糖与斐林试剂水浴生成砖红色沉淀」这一结论对应下列哪个知识点？","explain":"「还原糖与斐林试剂水浴生成砖红色沉淀」是「检测生物组织中的化合物」的核心内容：还原糖与斐林试剂水浴生成砖红色沉淀"},{"opts":["一种 tRNA 转运一种氨基酸","脂肪被苏丹Ⅲ染成橘黄色","胚芽鞘尖端产生生长素","植物组织培养利用细胞全能性"],"correct":1,"why":["该说法属于其他知识点，并非「检测生物组织中的化合物」的内容。","","该说法属于其他知识点，并非「检测生物组织中的化合物」的内容。","该说法属于其他知识点，并非「检测生物组织中的化合物」的内容。"],"q":"关于「检测生物组织中的化合物」，下列说法符合该知识点的是？","explain":"「检测生物组织中的化合物」包含这一要点：脂肪被苏丹Ⅲ染成橘黄色"},{"opts":["蛋白质与双缩脲试剂呈紫色","无氧呼吸产物为乳酸或酒精和 CO₂","生物膜系统协调配合","信息传递是双向的"],"correct":0,"why":["","这描述对应的是别的知识点，不属于「检测生物组织中的化合物」。","这描述对应的是别的知识点，不属于「检测生物组织中的化合物」。","这描述对应的是别的知识点，不属于「检测生物组织中的化合物」。"],"q":"下列关于「检测生物组织中的化合物」的理解，正确的是？","explain":"「检测生物组织中的化合物」的要点之一是：蛋白质与双缩脲试剂呈紫色"}],"细胞膜的结构和功能":[{"opts":["神经系统的分级调节","细胞膜的结构和功能","生物技术的安全与伦理","水进出细胞的原理（渗透作用）"],"correct":1,"why":["该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「细胞膜将细胞与外界分隔开」这一结论对应下列哪个知识点？","explain":"「细胞膜将细胞与外界分隔开」是「细胞膜的结构和功能」的核心内容：细胞膜将细胞与外界分隔开"},{"opts":["变异是不定向的，选择是定向的","新物种形成标志是生殖隔离","控制物质进出细胞","伴 Y 遗传只传男"],"correct":2,"why":["该说法属于其他知识点，并非「细胞膜的结构和功能」的内容。","该说法属于其他知识点，并非「细胞膜的结构和功能」的内容。","","该说法属于其他知识点，并非「细胞膜的结构和功能」的内容。"],"q":"关于「细胞膜的结构和功能」，下列说法符合该知识点的是？","explain":"「细胞膜的结构和功能」包含这一要点：控制物质进出细胞"},{"opts":["种群是生物进化的基本单位","进行细胞间信息交流","生物膜系统协调配合","下丘脑、垂体、甲状腺等构成内分泌系统"],"correct":1,"why":["这描述对应的是别的知识点，不属于「细胞膜的结构和功能」。","","这描述对应的是别的知识点，不属于「细胞膜的结构和功能」。","这描述对应的是别的知识点，不属于「细胞膜的结构和功能」。"],"q":"下列关于「细胞膜的结构和功能」的理解，正确的是？","explain":"「细胞膜的结构和功能」的要点之一是：进行细胞间信息交流"}],"细胞器之间的分工合作":[{"opts":["生态系统的结构","影响种群数量变化的因素","激素与内分泌系统","细胞器之间的分工合作"],"correct":3,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。",""],"q":"「线粒体是有氧呼吸主要场所」这一结论对应下列哪个知识点？","explain":"「线粒体是有氧呼吸主要场所」是「细胞器之间的分工合作」的核心内容：线粒体是有氧呼吸主要场所"},{"opts":["器官移植需降低免疫排斥","内质网是蛋白质加工、脂质合成场所","消费者加速物质循环","目的基因需与载体拼接"],"correct":1,"why":["该说法属于其他知识点，并非「细胞器之间的分工合作」的内容。","","该说法属于其他知识点，并非「细胞器之间的分工合作」的内容。","该说法属于其他知识点，并非「细胞器之间的分工合作」的内容。"],"q":"关于「细胞器之间的分工合作」，下列说法符合该知识点的是？","explain":"「细胞器之间的分工合作」包含这一要点：内质网是蛋白质加工、脂质合成场所"},{"opts":["酶降低化学反应活化能","高尔基体参与分泌、植物细胞壁形成","动物细胞培养需无菌、适宜温度","DNA 主要分布细胞核，RNA 主要在细胞质"],"correct":1,"why":["这描述对应的是别的知识点，不属于「细胞器之间的分工合作」。","","这描述对应的是别的知识点，不属于「细胞器之间的分工合作」。","这描述对应的是别的知识点，不属于「细胞器之间的分工合作」。"],"q":"下列关于「细胞器之间的分工合作」的理解，正确的是？","explain":"「细胞器之间的分工合作」的要点之一是：高尔基体参与分泌、植物细胞壁形成"}],"细胞核的结构和功能":[{"opts":["染色体变异","细胞核的结构和功能","基因表达与性状的关系","基因突变和基因重组"],"correct":1,"why":["该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「细胞核是遗传信息库」这一结论对应下列哪个知识点？","explain":"「细胞核是遗传信息库」是「细胞核的结构和功能」的核心内容：细胞核是遗传信息库"},{"opts":["淀粉遇碘变蓝","酶降低化学反应活化能","中心法则概括遗传信息传递方向","核膜为双层膜，有核孔"],"correct":3,"why":["该说法属于其他知识点，并非「细胞核的结构和功能」的内容。","该说法属于其他知识点，并非「细胞核的结构和功能」的内容。","该说法属于其他知识点，并非「细胞核的结构和功能」的内容。",""],"q":"关于「细胞核的结构和功能」，下列说法符合该知识点的是？","explain":"「细胞核的结构和功能」包含这一要点：核膜为双层膜，有核孔"},{"opts":["根>芽>茎","核仁与 rRNA、核糖体形成有关","设计试管婴儿需严格规范","植物体细胞杂交克服远缘杂交不亲和"],"correct":1,"why":["这描述对应的是别的知识点，不属于「细胞核的结构和功能」。","","这描述对应的是别的知识点，不属于「细胞核的结构和功能」。","这描述对应的是别的知识点，不属于「细胞核的结构和功能」。"],"q":"下列关于「细胞核的结构和功能」的理解，正确的是？","explain":"「细胞核的结构和功能」的要点之一是：核仁与 rRNA、核糖体形成有关"}],"水进出细胞的原理（渗透作用）":[{"opts":["水进出细胞的原理（渗透作用）","生态系统的结构","种群的数量特征","生长素的生理作用——两重性"],"correct":0,"why":["","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「半透膜两侧浓度差导致渗透」这一结论对应下列哪个知识点？","explain":"「半透膜两侧浓度差导致渗透」是「水进出细胞的原理（渗透作用）」的核心内容：半透膜两侧浓度差导致渗透"},{"opts":["大脑皮层是最高级中枢","产物有 mRNA、tRNA、rRNA","外界溶液浓度>细胞质壁分离","以每条母链为模板合成子链"],"correct":2,"why":["该说法属于其他知识点，并非「水进出细胞的原理（渗透作用）」的内容。","该说法属于其他知识点，并非「水进出细胞的原理（渗透作用）」的内容。","","该说法属于其他知识点，并非「水进出细胞的原理（渗透作用）」的内容。"],"q":"关于「水进出细胞的原理（渗透作用）」，下列说法符合该知识点的是？","explain":"「水进出细胞的原理（渗透作用）」包含这一要点：外界溶液浓度>细胞质壁分离"},{"opts":["溶酶体含多种水解酶","细胞毒性T细胞裂解靶细胞（细胞免疫）","外界溶液浓度<细胞质壁分离复原","核糖体是蛋白质合成场所"],"correct":2,"why":["这描述对应的是别的知识点，不属于「水进出细胞的原理（渗透作用）」。","这描述对应的是别的知识点，不属于「水进出细胞的原理（渗透作用）」。","","这描述对应的是别的知识点，不属于「水进出细胞的原理（渗透作用）」。"],"q":"下列关于「水进出细胞的原理（渗透作用）」的理解，正确的是？","explain":"「水进出细胞的原理（渗透作用）」的要点之一是：外界溶液浓度<细胞质壁分离复原"}],"主动运输与胞吞、胞吐":[{"opts":["动物细胞工程","种群基因频率的改变与进化","DNA的粗提取与鉴定","主动运输与胞吞、胞吐"],"correct":3,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。",""],"q":"「自由扩散顺浓度梯度不需载体」这一结论对应下列哪个知识点？","explain":"「自由扩散顺浓度梯度不需载体」是「主动运输与胞吞、胞吐」的核心内容：自由扩散顺浓度梯度不需载体"},{"opts":["生物膜系统协调配合","协助扩散需载体不耗能","大脑皮层是最高级中枢","早期胚胎培养需特定培养液"],"correct":1,"why":["该说法属于其他知识点，并非「主动运输与胞吞、胞吐」的内容。","","该说法属于其他知识点，并非「主动运输与胞吞、胞吐」的内容。","该说法属于其他知识点，并非「主动运输与胞吞、胞吐」的内容。"],"q":"关于「主动运输与胞吞、胞吐」，下列说法符合该知识点的是？","explain":"「主动运输与胞吞、胞吐」包含这一要点：协助扩散需载体不耗能"},{"opts":["微小有利变异逐代积累形成适应","\"主要\"因多数生物遗传物质是 DNA","主动运输逆浓度梯度需载体和能量","静息电位内负外正（K⁺外流）"],"correct":2,"why":["这描述对应的是别的知识点，不属于「主动运输与胞吞、胞吐」。","这描述对应的是别的知识点，不属于「主动运输与胞吞、胞吐」。","","这描述对应的是别的知识点，不属于「主动运输与胞吞、胞吐」。"],"q":"下列关于「主动运输与胞吞、胞吐」的理解，正确的是？","explain":"「主动运输与胞吞、胞吐」的要点之一是：主动运输逆浓度梯度需载体和能量"}],"降低化学反应活化能的酶":[{"opts":["降低化学反应活化能的酶","核酸——遗传信息的携带者","激素与内分泌系统","主动运输与胞吞、胞吐"],"correct":0,"why":["","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「酶是活细胞产生的有机物（多为蛋白质）」这一结论对应下列哪个知识点？","explain":"「酶是活细胞产生的有机物（多为蛋白质）」是「降低化学反应活化能的酶」的核心内容：酶是活细胞产生的有机物（多为蛋白质）"},{"opts":["糖类是主要能源物质","酶降低化学反应活化能","能量源头是太阳能","细胞学说：一切动植物由细胞发育而来"],"correct":1,"why":["该说法属于其他知识点，并非「降低化学反应活化能的酶」的内容。","","该说法属于其他知识点，并非「降低化学反应活化能的酶」的内容。","该说法属于其他知识点，并非「降低化学反应活化能的酶」的内容。"],"q":"关于「降低化学反应活化能的酶」，下列说法符合该知识点的是？","explain":"「降低化学反应活化能的酶」包含这一要点：酶降低化学反应活化能"},{"opts":["暗反应在叶绿体基质固定 CO₂","高效性、专一性、作用条件温和","多基因遗传病易受环境影响","人类活动可改变演替速度和方向"],"correct":1,"why":["这描述对应的是别的知识点，不属于「降低化学反应活化能的酶」。","","这描述对应的是别的知识点，不属于「降低化学反应活化能的酶」。","这描述对应的是别的知识点，不属于「降低化学反应活化能的酶」。"],"q":"下列关于「降低化学反应活化能的酶」的理解，正确的是？","explain":"「降低化学反应活化能的酶」的要点之一是：高效性、专一性、作用条件温和"}],"细胞的能量\"货币\"ATP":[{"opts":["孟德尔的豌豆杂交实验（二）——自由组合定律","细胞的能量\"货币\"ATP","细胞学说及其建立","基因突变和基因重组"],"correct":1,"why":["该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「ATP 是生物体直接能源物质」这一结论对应下列哪个知识点？","explain":"「ATP 是生物体直接能源物质」是「细胞的能量\"货币\"ATP」的核心内容：ATP 是生物体直接能源物质"},{"opts":["ATP 结构：A−P~P~P","染色体数目变异：个别增减、成倍增减","碳在无机环境与生物群落间循环","磷脂双分子层构成基本支架"],"correct":0,"why":["","该说法属于其他知识点，并非「细胞的能量\"货币\"ATP」的内容。","该说法属于其他知识点，并非「细胞的能量\"货币\"ATP」的内容。","该说法属于其他知识点，并非「细胞的能量\"货币\"ATP」的内容。"],"q":"关于「细胞的能量\"货币\"ATP」，下列说法符合该知识点的是？","explain":"「细胞的能量\"货币\"ATP」包含这一要点：ATP 结构：A−P~P~P"},{"opts":["基因治疗针对缺陷基因","光合色素吸收红光和蓝紫光","血浆渗透压主要与无机盐、蛋白质有关","远离 A 的高能磷酸键易水解"],"correct":3,"why":["这描述对应的是别的知识点，不属于「细胞的能量\"货币\"ATP」。","这描述对应的是别的知识点，不属于「细胞的能量\"货币\"ATP」。","这描述对应的是别的知识点，不属于「细胞的能量\"货币\"ATP」。",""],"q":"下列关于「细胞的能量\"货币\"ATP」的理解，正确的是？","explain":"「细胞的能量\"货币\"ATP」的要点之一是：远离 A 的高能磷酸键易水解"}],"细胞呼吸的原理和应用":[{"opts":["种群的数量特征","细胞呼吸的原理和应用","细胞核的结构和功能","DNA的复制——半保留复制"],"correct":1,"why":["该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「有氧呼吸分三阶段释放大量能量」这一结论对应下列哪个知识点？","explain":"「有氧呼吸分三阶段释放大量能量」是「细胞呼吸的原理和应用」的核心内容：有氧呼吸分三阶段释放大量能量"},{"opts":["特点：半保留、边解旋边复制","碱基排列在内侧","第一阶段在细胞质基质","各级中枢分级调控"],"correct":2,"why":["该说法属于其他知识点，并非「细胞呼吸的原理和应用」的内容。","该说法属于其他知识点，并非「细胞呼吸的原理和应用」的内容。","","该说法属于其他知识点，并非「细胞呼吸的原理和应用」的内容。"],"q":"关于「细胞呼吸的原理和应用」，下列说法符合该知识点的是？","explain":"「细胞呼吸的原理和应用」包含这一要点：第一阶段在细胞质基质"},{"opts":["信息包括物理、化学、行为信息","生产者固定太阳能为输入","载体常用质粒","第二、三阶段在线粒体"],"correct":3,"why":["这描述对应的是别的知识点，不属于「细胞呼吸的原理和应用」。","这描述对应的是别的知识点，不属于「细胞呼吸的原理和应用」。","这描述对应的是别的知识点，不属于「细胞呼吸的原理和应用」。",""],"q":"下列关于「细胞呼吸的原理和应用」的理解，正确的是？","explain":"「细胞呼吸的原理和应用」的要点之一是：第二、三阶段在线粒体"}],"光合作用与能量转化":[{"opts":["动物细胞工程","光合作用与能量转化","DNA的粗提取与鉴定","种群的数量特征"],"correct":1,"why":["该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「光合色素吸收红光和蓝紫光」这一结论对应下列哪个知识点？","explain":"「光合色素吸收红光和蓝紫光」是「光合作用与能量转化」的核心内容：光合色素吸收红光和蓝紫光"},{"opts":["Fe 是血红蛋白成分，Mg 是叶绿素成分","短期记忆与海马区有关","光反应在类囊体薄膜产生 ATP/NADPH/O₂","达尔文提出自然选择学说"],"correct":2,"why":["该说法属于其他知识点，并非「光合作用与能量转化」的内容。","该说法属于其他知识点，并非「光合作用与能量转化」的内容。","","该说法属于其他知识点，并非「光合作用与能量转化」的内容。"],"q":"关于「光合作用与能量转化」，下列说法符合该知识点的是？","explain":"「光合作用与能量转化」包含这一要点：光反应在类囊体薄膜产生 ATP/NADPH/O₂"},{"opts":["基因通过控制蛋白质结构直接控制性状","A 与 T 配对，G 与 C 配对","暗反应在叶绿体基质固定 CO₂","低浓度促进生长，高浓度抑制生长"],"correct":2,"why":["这描述对应的是别的知识点，不属于「光合作用与能量转化」。","这描述对应的是别的知识点，不属于「光合作用与能量转化」。","","这描述对应的是别的知识点，不属于「光合作用与能量转化」。"],"q":"下列关于「光合作用与能量转化」的理解，正确的是？","explain":"「光合作用与能量转化」的要点之一是：暗反应在叶绿体基质固定 CO₂"}],"细胞增殖——有丝分裂":[{"opts":["糖类和脂质","生态系统的信息传递","细胞增殖——有丝分裂","特异性免疫——体液免疫与细胞免疫"],"correct":2,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「细胞周期包括间期和分裂期」这一结论对应下列哪个知识点？","explain":"「细胞周期包括间期和分裂期」是「细胞增殖——有丝分裂」的核心内容：细胞周期包括间期和分裂期"},{"opts":["CO₂ 是碳循环主要形式","胚胎工程用于优良畜种繁育","间期完成 DNA 复制和有关蛋白质合成","致癌因子分物理、化学、病毒三类"],"correct":2,"why":["该说法属于其他知识点，并非「细胞增殖——有丝分裂」的内容。","该说法属于其他知识点，并非「细胞增殖——有丝分裂」的内容。","","该说法属于其他知识点，并非「细胞增殖——有丝分裂」的内容。"],"q":"关于「细胞增殖——有丝分裂」，下列说法符合该知识点的是？","explain":"「细胞增殖——有丝分裂」包含这一要点：间期完成 DNA 复制和有关蛋白质合成"},{"opts":["长期地理隔离可能导致生殖隔离","前期核膜核仁消失、染色体出现","果醋利用醋酸菌好氧发酵","减数第二次分裂姐妹染色单体分开"],"correct":1,"why":["这描述对应的是别的知识点，不属于「细胞增殖——有丝分裂」。","","这描述对应的是别的知识点，不属于「细胞增殖——有丝分裂」。","这描述对应的是别的知识点，不属于「细胞增殖——有丝分裂」。"],"q":"下列关于「细胞增殖——有丝分裂」的理解，正确的是？","explain":"「细胞增殖——有丝分裂」的要点之一是：前期核膜核仁消失、染色体出现"}],"细胞的分化、衰老和凋亡":[{"opts":["神经调节的结构基础","细胞的分化、衰老和凋亡","DNA的复制——半保留复制","细胞的癌变"],"correct":1,"why":["该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「细胞分化使细胞趋向专门化」这一结论对应下列哪个知识点？","explain":"「细胞分化使细胞趋向专门化」是「细胞的分化、衰老和凋亡」的核心内容：细胞分化使细胞趋向专门化"},{"opts":["化石燃料燃烧加剧温室效应","培养基分液体和固体","兴奋在反射弧上传导","基因选择性表达导致分化"],"correct":3,"why":["该说法属于其他知识点，并非「细胞的分化、衰老和凋亡」的内容。","该说法属于其他知识点，并非「细胞的分化、衰老和凋亡」的内容。","该说法属于其他知识点，并非「细胞的分化、衰老和凋亡」的内容。",""],"q":"关于「细胞的分化、衰老和凋亡」，下列说法符合该知识点的是？","explain":"「细胞的分化、衰老和凋亡」包含这一要点：基因选择性表达导致分化"},{"opts":["不同器官对生长素敏感程度不同","魏尔肖提出\"细胞来自细胞\"","细胞全能性：已分化细胞仍有全套遗传信息","磷脂双分子层构成基本支架"],"correct":2,"why":["这描述对应的是别的知识点，不属于「细胞的分化、衰老和凋亡」。","这描述对应的是别的知识点，不属于「细胞的分化、衰老和凋亡」。","","这描述对应的是别的知识点，不属于「细胞的分化、衰老和凋亡」。"],"q":"下列关于「细胞的分化、衰老和凋亡」的理解，正确的是？","explain":"「细胞的分化、衰老和凋亡」的要点之一是：细胞全能性：已分化细胞仍有全套遗传信息"}],"细胞的癌变":[{"opts":["群落的结构","减数分裂和受精作用","群落的演替","细胞的癌变"],"correct":3,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。",""],"q":"「癌细胞能无限增殖」这一结论对应下列哪个知识点？","explain":"「癌细胞能无限增殖」是「细胞的癌变」的核心内容：癌细胞能无限增殖"},{"opts":["脱分化形成愈伤组织","形态结构发生显著变化","一条染色体上有许多基因","特点：半保留、边解旋边复制"],"correct":1,"why":["该说法属于其他知识点，并非「细胞的癌变」的内容。","","该说法属于其他知识点，并非「细胞的癌变」的内容。","该说法属于其他知识点，并非「细胞的癌变」的内容。"],"q":"关于「细胞的癌变」，下列说法符合该知识点的是？","explain":"「细胞的癌变」包含这一要点：形态结构发生显著变化"},{"opts":["后期着丝点分裂姐妹染色单体分开","细胞学说：一切动植物由细胞发育而来","神经元包括细胞体、树突、轴突","细胞膜糖蛋白减少易分散转移"],"correct":3,"why":["这描述对应的是别的知识点，不属于「细胞的癌变」。","这描述对应的是别的知识点，不属于「细胞的癌变」。","这描述对应的是别的知识点，不属于「细胞的癌变」。",""],"q":"下列关于「细胞的癌变」的理解，正确的是？","explain":"「细胞的癌变」的要点之一是：细胞膜糖蛋白减少易分散转移"}],"孟德尔的豌豆杂交实验（一）——分离定律":[{"opts":["自然选择与适应的形成","孟德尔的豌豆杂交实验（一）——分离定律","主动运输与胞吞、胞吐","细胞的多样性和统一性"],"correct":1,"why":["该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「孟德尔用豌豆作材料，人工杂交」这一结论对应下列哪个知识点？","explain":"「孟德尔用豌豆作材料，人工杂交」是「孟德尔的豌豆杂交实验（一）——分离定律」的核心内容：孟德尔用豌豆作材料，人工杂交"},{"opts":["暗反应在叶绿体基质固定 CO₂","以 DNA 一条链为模板","提出\"遗传因子\"假说","神经调节迅速、准确、短暂"],"correct":2,"why":["该说法属于其他知识点，并非「孟德尔的豌豆杂交实验（一）——分离定律」的内容。","该说法属于其他知识点，并非「孟德尔的豌豆杂交实验（一）——分离定律」的内容。","","该说法属于其他知识点，并非「孟德尔的豌豆杂交实验（一）——分离定律」的内容。"],"q":"关于「孟德尔的豌豆杂交实验（一）——分离定律」，下列说法符合该知识点的是？","explain":"「孟德尔的豌豆杂交实验（一）——分离定律」包含这一要点：提出\"遗传因子\"假说"},{"opts":["出生率、死亡率决定种群数量变化","F₁ 只表现显性性状","无机盐大多以离子形式存在","染色质由 DNA 和蛋白质组成"],"correct":1,"why":["这描述对应的是别的知识点，不属于「孟德尔的豌豆杂交实验（一）——分离定律」。","","这描述对应的是别的知识点，不属于「孟德尔的豌豆杂交实验（一）——分离定律」。","这描述对应的是别的知识点，不属于「孟德尔的豌豆杂交实验（一）——分离定律」。"],"q":"下列关于「孟德尔的豌豆杂交实验（一）——分离定律」的理解，正确的是？","explain":"「孟德尔的豌豆杂交实验（一）——分离定律」的要点之一是：F₁ 只表现显性性状"}],"孟德尔的豌豆杂交实验（二）——自由组合定律":[{"opts":["孟德尔的豌豆杂交实验（二）——自由组合定律","生态系统的稳定性","胚胎工程","DNA的复制——半保留复制"],"correct":0,"why":["","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「两对相对性状独立遗传」这一结论对应下列哪个知识点？","explain":"「两对相对性状独立遗传」是「孟德尔的豌豆杂交实验（二）——自由组合定律」的核心内容：两对相对性状独立遗传"},{"opts":["森林群落垂直结构明显","F₁ 为双杂合子（YyRr）","细胞核是遗传信息库","第三道防线：特异性免疫"],"correct":1,"why":["该说法属于其他知识点，并非「孟德尔的豌豆杂交实验（二）——自由组合定律」的内容。","","该说法属于其他知识点，并非「孟德尔的豌豆杂交实验（二）——自由组合定律」的内容。","该说法属于其他知识点，并非「孟德尔的豌豆杂交实验（二）——自由组合定律」的内容。"],"q":"关于「孟德尔的豌豆杂交实验（二）——自由组合定律」，下列说法符合该知识点的是？","explain":"「孟德尔的豌豆杂交实验（二）——自由组合定律」包含这一要点：F₁ 为双杂合子（YyRr）"},{"opts":["能量源头是太阳能","减数第二次分裂姐妹染色单体分开","不同器官对生长素敏感程度不同","F₂ 表型比 9:3:3:1"],"correct":3,"why":["这描述对应的是别的知识点，不属于「孟德尔的豌豆杂交实验（二）——自由组合定律」。","这描述对应的是别的知识点，不属于「孟德尔的豌豆杂交实验（二）——自由组合定律」。","这描述对应的是别的知识点，不属于「孟德尔的豌豆杂交实验（二）——自由组合定律」。",""],"q":"下列关于「孟德尔的豌豆杂交实验（二）——自由组合定律」的理解，正确的是？","explain":"「孟德尔的豌豆杂交实验（二）——自由组合定律」的要点之一是：F₂ 表型比 9:3:3:1"}],"减数分裂和受精作用":[{"opts":["神经调节的结构基础","种群的数量特征","主动运输与胞吞、胞吐","减数分裂和受精作用"],"correct":3,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。",""],"q":"「减数分裂染色体复制一次、分裂两次」这一结论对应下列哪个知识点？","explain":"「减数分裂染色体复制一次、分裂两次」是「减数分裂和受精作用」的核心内容：减数分裂染色体复制一次、分裂两次"},{"opts":["同源染色体联会形成四分体","卡尔文循环生成糖类","中心法则概括遗传信息传递方向","乙烯促进果实成熟"],"correct":0,"why":["","该说法属于其他知识点，并非「减数分裂和受精作用」的内容。","该说法属于其他知识点，并非「减数分裂和受精作用」的内容。","该说法属于其他知识点，并非「减数分裂和受精作用」的内容。"],"q":"关于「减数分裂和受精作用」，下列说法符合该知识点的是？","explain":"「减数分裂和受精作用」包含这一要点：同源染色体联会形成四分体"},{"opts":["演替是群落结构由简单到复杂的过程","生殖隔离一旦形成即成为新物种","兴奋在反射弧上传导","减数第一次分裂同源染色体分离"],"correct":3,"why":["这描述对应的是别的知识点，不属于「减数分裂和受精作用」。","这描述对应的是别的知识点，不属于「减数分裂和受精作用」。","这描述对应的是别的知识点，不属于「减数分裂和受精作用」。",""],"q":"下列关于「减数分裂和受精作用」的理解，正确的是？","explain":"「减数分裂和受精作用」的要点之一是：减数第一次分裂同源染色体分离"}],"基因在染色体上":[{"opts":["无机物——水和无机盐","隔离在物种形成中的作用","基因在染色体上","神经冲动的产生和传导"],"correct":2,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「萨顿提出基因在染色体上（类比推理）」这一结论对应下列哪个知识点？","explain":"「萨顿提出基因在染色体上（类比推理）」是「基因在染色体上」的核心内容：萨顿提出基因在染色体上（类比推理）"},{"opts":["葡萄糖是主要呼吸底物","森林群落垂直结构明显","两者相互协调维持稳态","摩尔根用果蝇证明基因在染色体上"],"correct":3,"why":["该说法属于其他知识点，并非「基因在染色体上」的内容。","该说法属于其他知识点，并非「基因在染色体上」的内容。","该说法属于其他知识点，并非「基因在染色体上」的内容。",""],"q":"关于「基因在染色体上」，下列说法符合该知识点的是？","explain":"「基因在染色体上」包含这一要点：摩尔根用果蝇证明基因在染色体上"},{"opts":["器官移植需降低免疫排斥","以 DNA 一条链为模板","细胞学说：一切动植物由细胞发育而来","白眼基因位于 X 染色体"],"correct":3,"why":["这描述对应的是别的知识点，不属于「基因在染色体上」。","这描述对应的是别的知识点，不属于「基因在染色体上」。","这描述对应的是别的知识点，不属于「基因在染色体上」。",""],"q":"下列关于「基因在染色体上」的理解，正确的是？","explain":"「基因在染色体上」的要点之一是：白眼基因位于 X 染色体"}],"伴性遗传":[{"opts":["伴性遗传","孟德尔的豌豆杂交实验（一）——分离定律","微生物的培养技术及应用","激素调节的过程"],"correct":0,"why":["","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「伴 X 隐性：男性患者多于女性」这一结论对应下列哪个知识点？","explain":"「伴 X 隐性：男性患者多于女性」是「伴性遗传」的核心内容：伴 X 隐性：男性患者多于女性"},{"opts":["垂直结构提高利用光等资源能力","红绿色盲为伴 X 隐性遗传","需关注安全性与伦理","氨基酸通过肽键连接成多肽"],"correct":1,"why":["该说法属于其他知识点，并非「伴性遗传」的内容。","","该说法属于其他知识点，并非「伴性遗传」的内容。","该说法属于其他知识点，并非「伴性遗传」的内容。"],"q":"关于「伴性遗传」，下列说法符合该知识点的是？","explain":"「伴性遗传」包含这一要点：红绿色盲为伴 X 隐性遗传"},{"opts":["成熟植物细胞发生质壁分离","抗维生素 D 佝偻病为伴 X 显性","遗传咨询和产前诊断可降低发病率","二苯胺试剂沸水浴鉴定DNA"],"correct":1,"why":["这描述对应的是别的知识点，不属于「伴性遗传」。","","这描述对应的是别的知识点，不属于「伴性遗传」。","这描述对应的是别的知识点，不属于「伴性遗传」。"],"q":"下列关于「伴性遗传」的理解，正确的是？","explain":"「伴性遗传」的要点之一是：抗维生素 D 佝偻病为伴 X 显性"}],"DNA是主要的遗传物质":[{"opts":["生态系统的结构","DNA是主要的遗传物质","植物生长素（发现与作用）","细胞生活的环境——内环境"],"correct":1,"why":["该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「格里菲思肺炎链球菌转化实验」这一结论对应下列哪个知识点？","explain":"「格里菲思肺炎链球菌转化实验」是「DNA是主要的遗传物质」的核心内容：格里菲思肺炎链球菌转化实验"},{"opts":["艾弗里证明 DNA 是转化因子","两者相互协调维持稳态","植物细胞加洗涤剂破坏膜","森林群落垂直结构明显"],"correct":0,"why":["","该说法属于其他知识点，并非「DNA是主要的遗传物质」的内容。","该说法属于其他知识点，并非「DNA是主要的遗传物质」的内容。","该说法属于其他知识点，并非「DNA是主要的遗传物质」的内容。"],"q":"关于「DNA是主要的遗传物质」，下列说法符合该知识点的是？","explain":"「DNA是主要的遗传物质」包含这一要点：艾弗里证明 DNA 是转化因子"},{"opts":["长期地理隔离可能导致生殖隔离","产品有单细胞蛋白、抗生素等","噬菌体侵染实验证明 DNA 是遗传物质","演替是群落结构由简单到复杂的过程"],"correct":2,"why":["这描述对应的是别的知识点，不属于「DNA是主要的遗传物质」。","这描述对应的是别的知识点，不属于「DNA是主要的遗传物质」。","","这描述对应的是别的知识点，不属于「DNA是主要的遗传物质」。"],"q":"下列关于「DNA是主要的遗传物质」的理解，正确的是？","explain":"「DNA是主要的遗传物质」的要点之一是：噬菌体侵染实验证明 DNA 是遗传物质"}],"DNA的结构——双螺旋":[{"opts":["DNA的结构——双螺旋","生态系统的物质循环——碳循环","水进出细胞的原理（渗透作用）","隔离在物种形成中的作用"],"correct":0,"why":["","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「DNA 由两条反向平行脱氧核苷酸链组成」这一结论对应下列哪个知识点？","explain":"「DNA 由两条反向平行脱氧核苷酸链组成」是「DNA的结构——双螺旋」的核心内容：DNA 由两条反向平行脱氧核苷酸链组成"},{"opts":["病原体经抗原呈递细胞处理","核膜为双层膜，有核孔","脱氧核糖和磷酸交替构成骨架","自我调节能力是基础"],"correct":2,"why":["该说法属于其他知识点，并非「DNA的结构——双螺旋」的内容。","该说法属于其他知识点，并非「DNA的结构——双螺旋」的内容。","","该说法属于其他知识点，并非「DNA的结构——双螺旋」的内容。"],"q":"关于「DNA的结构——双螺旋」，下列说法符合该知识点的是？","explain":"「DNA的结构——双螺旋」包含这一要点：脱氧核糖和磷酸交替构成骨架"},{"opts":["碱基排列在内侧","暗反应在叶绿体基质固定 CO₂","复制发生在间期","两对相对性状独立遗传"],"correct":0,"why":["","这描述对应的是别的知识点，不属于「DNA的结构——双螺旋」。","这描述对应的是别的知识点，不属于「DNA的结构——双螺旋」。","这描述对应的是别的知识点，不属于「DNA的结构——双螺旋」。"],"q":"下列关于「DNA的结构——双螺旋」的理解，正确的是？","explain":"「DNA的结构——双螺旋」的要点之一是：碱基排列在内侧"}],"DNA的复制——半保留复制":[{"opts":["基因工程的应用","重组DNA技术的基本工具","特异性免疫——体液免疫与细胞免疫","DNA的复制——半保留复制"],"correct":3,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。",""],"q":"「复制发生在间期」这一结论对应下列哪个知识点？","explain":"「复制发生在间期」是「DNA的复制——半保留复制」的核心内容：复制发生在间期"},{"opts":["化石燃料燃烧加剧温室效应","解旋酶解开双螺旋","初生演替从没有植被的裸地开始","需通气或厌氧等条件控制"],"correct":1,"why":["该说法属于其他知识点，并非「DNA的复制——半保留复制」的内容。","","该说法属于其他知识点，并非「DNA的复制——半保留复制」的内容。","该说法属于其他知识点，并非「DNA的复制——半保留复制」的内容。"],"q":"关于「DNA的复制——半保留复制」，下列说法符合该知识点的是？","explain":"「DNA的复制——半保留复制」包含这一要点：解旋酶解开双螺旋"},{"opts":["需对产物分离提纯","以每条母链为模板合成子链","设计试管婴儿需严格规范","第二、三阶段在线粒体"],"correct":1,"why":["这描述对应的是别的知识点，不属于「DNA的复制——半保留复制」。","","这描述对应的是别的知识点，不属于「DNA的复制——半保留复制」。","这描述对应的是别的知识点，不属于「DNA的复制——半保留复制」。"],"q":"下列关于「DNA的复制——半保留复制」的理解，正确的是？","explain":"「DNA的复制——半保留复制」的要点之一是：以每条母链为模板合成子链"}],"转录——DNA→mRNA":[{"opts":["激素调节的过程","人脑的高级功能","转录——DNA→mRNA","生长素的生理作用——两重性"],"correct":2,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「转录在细胞核（拟核）中进行」这一结论对应下列哪个知识点？","explain":"「转录在细胞核（拟核）中进行」是「转录——DNA→mRNA」的核心内容：转录在细胞核（拟核）中进行"},{"opts":["基因的选择性表达决定细胞分化","以 DNA 一条链为模板","草原群落以多年生草本为主","诱变育种利用基因突变"],"correct":1,"why":["该说法属于其他知识点，并非「转录——DNA→mRNA」的内容。","","该说法属于其他知识点，并非「转录——DNA→mRNA」的内容。","该说法属于其他知识点，并非「转录——DNA→mRNA」的内容。"],"q":"关于「转录——DNA→mRNA」，下列说法符合该知识点的是？","explain":"「转录——DNA→mRNA」包含这一要点：以 DNA 一条链为模板"},{"opts":["长期地理隔离可能导致生殖隔离","裸岩→地衣→苔藓→草本→灌木→森林","核糖核苷酸为原料合成 RNA","mRNA 上三个相邻碱基为一个密码子"],"correct":2,"why":["这描述对应的是别的知识点，不属于「转录——DNA→mRNA」。","这描述对应的是别的知识点，不属于「转录——DNA→mRNA」。","","这描述对应的是别的知识点，不属于「转录——DNA→mRNA」。"],"q":"下列关于「转录——DNA→mRNA」的理解，正确的是？","explain":"「转录——DNA→mRNA」的要点之一是：核糖核苷酸为原料合成 RNA"}],"翻译——mRNA→蛋白质":[{"opts":["翻译——mRNA→蛋白质","细胞的多样性和统一性","核酸——遗传信息的携带者","影响种群数量变化的因素"],"correct":0,"why":["","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「翻译在核糖体上进行」这一结论对应下列哪个知识点？","explain":"「翻译在核糖体上进行」是「翻译——mRNA→蛋白质」的核心内容：翻译在核糖体上进行"},{"opts":["mRNA 上三个相邻碱基为一个密码子","碳在无机环境与生物群落间循环","生物膜系统协调配合","生殖隔离包括合子前和合子后隔离"],"correct":0,"why":["","该说法属于其他知识点，并非「翻译——mRNA→蛋白质」的内容。","该说法属于其他知识点，并非「翻译——mRNA→蛋白质」的内容。","该说法属于其他知识点，并非「翻译——mRNA→蛋白质」的内容。"],"q":"关于「翻译——mRNA→蛋白质」，下列说法符合该知识点的是？","explain":"「翻译——mRNA→蛋白质」包含这一要点：mRNA 上三个相邻碱基为一个密码子"},{"opts":["间期完成 DNA 复制和有关蛋白质合成","物质循环具有全球性","21三体综合征为染色体数目异常","tRNA 反密码子识别密码子"],"correct":3,"why":["这描述对应的是别的知识点，不属于「翻译——mRNA→蛋白质」。","这描述对应的是别的知识点，不属于「翻译——mRNA→蛋白质」。","这描述对应的是别的知识点，不属于「翻译——mRNA→蛋白质」。",""],"q":"下列关于「翻译——mRNA→蛋白质」的理解，正确的是？","explain":"「翻译——mRNA→蛋白质」的要点之一是：tRNA 反密码子识别密码子"}],"基因表达与性状的关系":[{"opts":["基因表达与性状的关系","群落的演替","水进出细胞的原理（渗透作用）","DNA的粗提取与鉴定"],"correct":0,"why":["","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「基因通过控制蛋白质结构直接控制性状」这一结论对应下列哪个知识点？","explain":"「基因通过控制蛋白质结构直接控制性状」是「基因表达与性状的关系」的核心内容：基因通过控制蛋白质结构直接控制性状"},{"opts":["外界溶液浓度<细胞质壁分离复原","基因通过控制酶合成间接控制代谢","作物脱毒常取茎尖培养","碱基配对 A−U、T−A、G−C"],"correct":1,"why":["该说法属于其他知识点，并非「基因表达与性状的关系」的内容。","","该说法属于其他知识点，并非「基因表达与性状的关系」的内容。","该说法属于其他知识点，并非「基因表达与性状的关系」的内容。"],"q":"关于「基因表达与性状的关系」，下列说法符合该知识点的是？","explain":"「基因表达与性状的关系」包含这一要点：基因通过控制酶合成间接控制代谢"},{"opts":["荒漠群落物种少、耐旱","化石是研究进化最直接的证据","基因的选择性表达决定细胞分化","神经—体液—免疫调节网络是主要调节机制"],"correct":2,"why":["这描述对应的是别的知识点，不属于「基因表达与性状的关系」。","这描述对应的是别的知识点，不属于「基因表达与性状的关系」。","","这描述对应的是别的知识点，不属于「基因表达与性状的关系」。"],"q":"下列关于「基因表达与性状的关系」的理解，正确的是？","explain":"「基因表达与性状的关系」的要点之一是：基因的选择性表达决定细胞分化"}],"基因突变和基因重组":[{"opts":["特异性免疫——体液免疫与细胞免疫","细胞膜的结构和功能","DNA的复制——半保留复制","基因突变和基因重组"],"correct":3,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。",""],"q":"「基因突变是 DNA 碱基序列的改变」这一结论对应下列哪个知识点？","explain":"「基因突变是 DNA 碱基序列的改变」是「基因突变和基因重组」的核心内容：基因突变是 DNA 碱基序列的改变"},{"opts":["负反馈调节是主要机制","水平结构常呈镶嵌分布","发生在 DNA 复制时（间期）","培养基提供微生物营养"],"correct":2,"why":["该说法属于其他知识点，并非「基因突变和基因重组」的内容。","该说法属于其他知识点，并非「基因突变和基因重组」的内容。","","该说法属于其他知识点，并非「基因突变和基因重组」的内容。"],"q":"关于「基因突变和基因重组」，下列说法符合该知识点的是？","explain":"「基因突变和基因重组」包含这一要点：发生在 DNA 复制时（间期）"},{"opts":["基因突变产生新等位基因，是变异根本来源","DNA不溶于酒精而某些蛋白质溶","果酒利用酵母菌无氧呼吸","淀粉遇碘变蓝"],"correct":0,"why":["","这描述对应的是别的知识点，不属于「基因突变和基因重组」。","这描述对应的是别的知识点，不属于「基因突变和基因重组」。","这描述对应的是别的知识点，不属于「基因突变和基因重组」。"],"q":"下列关于「基因突变和基因重组」的理解，正确的是？","explain":"「基因突变和基因重组」的要点之一是：基因突变产生新等位基因，是变异根本来源"}],"染色体变异":[{"opts":["细胞呼吸的原理和应用","无机物——水和无机盐","染色体变异","动物细胞工程"],"correct":2,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「染色体结构变异：缺失、重复、倒位、易位」这一结论对应下列哪个知识点？","explain":"「染色体结构变异：缺失、重复、倒位、易位」是「染色体变异」的核心内容：染色体结构变异：缺失、重复、倒位、易位"},{"opts":["神经—体液—免疫调节网络是主要调节机制","传递效率约10%–20%","信息传递是双向的","染色体数目变异：个别增减、成倍增减"],"correct":3,"why":["该说法属于其他知识点，并非「染色体变异」的内容。","该说法属于其他知识点，并非「染色体变异」的内容。","该说法属于其他知识点，并非「染色体变异」的内容。",""],"q":"关于「染色体变异」，下列说法符合该知识点的是？","explain":"「染色体变异」包含这一要点：染色体数目变异：个别增减、成倍增减"},{"opts":["单倍体、二倍体、多倍体","静息电位内负外正（K⁺外流）","控制物质进出细胞","利于种群繁衍"],"correct":0,"why":["","这描述对应的是别的知识点，不属于「染色体变异」。","这描述对应的是别的知识点，不属于「染色体变异」。","这描述对应的是别的知识点，不属于「染色体变异」。"],"q":"下列关于「染色体变异」的理解，正确的是？","explain":"「染色体变异」的要点之一是：单倍体、二倍体、多倍体"}],"人类遗传病":[{"opts":["重组DNA技术的基本工具","细胞增殖——有丝分裂","人类遗传病","孟德尔的豌豆杂交实验（二）——自由组合定律"],"correct":2,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「单基因遗传病受一对等位基因控制」这一结论对应下列哪个知识点？","explain":"「单基因遗传病受一对等位基因控制」是「人类遗传病」的核心内容：单基因遗传病受一对等位基因控制"},{"opts":["乙烯促进果实成熟","多基因遗传病易受环境影响","胚芽鞘尖端产生生长素","F₁ 只表现显性性状"],"correct":1,"why":["该说法属于其他知识点，并非「人类遗传病」的内容。","","该说法属于其他知识点，并非「人类遗传病」的内容。","该说法属于其他知识点，并非「人类遗传病」的内容。"],"q":"关于「人类遗传病」，下列说法符合该知识点的是？","explain":"「人类遗传病」包含这一要点：多基因遗传病易受环境影响"},{"opts":["染色体结构变异：缺失、重复、倒位、易位","腐乳制作依赖毛霉等微生物","生长素在低浓度促进、高浓度抑制","染色体异常遗传病"],"correct":3,"why":["这描述对应的是别的知识点，不属于「人类遗传病」。","这描述对应的是别的知识点，不属于「人类遗传病」。","这描述对应的是别的知识点，不属于「人类遗传病」。",""],"q":"下列关于「人类遗传病」的理解，正确的是？","explain":"「人类遗传病」的要点之一是：染色体异常遗传病"}],"生物有共同祖先的证据":[{"opts":["降低化学反应活化能的酶","自然选择与适应的形成","隔离在物种形成中的作用","生物有共同祖先的证据"],"correct":3,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。",""],"q":"「化石是研究进化最直接的证据」这一结论对应下列哪个知识点？","explain":"「化石是研究进化最直接的证据」是「生物有共同祖先的证据」的核心内容：化石是研究进化最直接的证据"},{"opts":["减数第二次分裂姐妹染色单体分开","表观遗传：DNA 甲基化等不改变序列","比较解剖学：同源器官","兴奋在神经纤维上双向传导"],"correct":2,"why":["该说法属于其他知识点，并非「生物有共同祖先的证据」的内容。","该说法属于其他知识点，并非「生物有共同祖先的证据」的内容。","","该说法属于其他知识点，并非「生物有共同祖先的证据」的内容。"],"q":"关于「生物有共同祖先的证据」，下列说法符合该知识点的是？","explain":"「生物有共同祖先的证据」包含这一要点：比较解剖学：同源器官"},{"opts":["核仁与 rRNA、核糖体形成有关","胚胎学证据","二苯胺试剂沸水浴鉴定DNA","基因库与基因频率"],"correct":1,"why":["这描述对应的是别的知识点，不属于「生物有共同祖先的证据」。","","这描述对应的是别的知识点，不属于「生物有共同祖先的证据」。","这描述对应的是别的知识点，不属于「生物有共同祖先的证据」。"],"q":"下列关于「生物有共同祖先的证据」的理解，正确的是？","explain":"「生物有共同祖先的证据」的要点之一是：胚胎学证据"}],"自然选择与适应的形成":[{"opts":["基因在染色体上","自然选择与适应的形成","细胞的癌变","细胞的分化、衰老和凋亡"],"correct":1,"why":["该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「变异是不定向的，选择是定向的」这一结论对应下列哪个知识点？","explain":"「变异是不定向的，选择是定向的」是「自然选择与适应的形成」的核心内容：变异是不定向的，选择是定向的"},{"opts":["基因芯片用于检测","多基因遗传病易受环境影响","有利变异个体生存并繁殖","沿食物链单向流动、逐级递减"],"correct":2,"why":["该说法属于其他知识点，并非「自然选择与适应的形成」的内容。","该说法属于其他知识点，并非「自然选择与适应的形成」的内容。","","该说法属于其他知识点，并非「自然选择与适应的形成」的内容。"],"q":"关于「自然选择与适应的形成」，下列说法符合该知识点的是？","explain":"「自然选择与适应的形成」包含这一要点：有利变异个体生存并繁殖"},{"opts":["基本单位：氨基酸（约20种）","人类活动可改变演替速度和方向","森林群落垂直结构明显","自然选择定向改变基因频率"],"correct":3,"why":["这描述对应的是别的知识点，不属于「自然选择与适应的形成」。","这描述对应的是别的知识点，不属于「自然选择与适应的形成」。","这描述对应的是别的知识点，不属于「自然选择与适应的形成」。",""],"q":"下列关于「自然选择与适应的形成」的理解，正确的是？","explain":"「自然选择与适应的形成」的要点之一是：自然选择定向改变基因频率"}],"种群基因频率的改变与进化":[{"opts":["孟德尔的豌豆杂交实验（一）——分离定律","光合作用与能量转化","转录——DNA→mRNA","种群基因频率的改变与进化"],"correct":3,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。",""],"q":"「种群是生物进化的基本单位」这一结论对应下列哪个知识点？","explain":"「种群是生物进化的基本单位」是「种群基因频率的改变与进化」的核心内容：种群是生物进化的基本单位"},{"opts":["高温使蛋白质变性空间结构破坏","基因库与基因频率","食盐溶解DNA，酒精沉淀DNA","萨顿提出基因在染色体上（类比推理）"],"correct":1,"why":["该说法属于其他知识点，并非「种群基因频率的改变与进化」的内容。","","该说法属于其他知识点，并非「种群基因频率的改变与进化」的内容。","该说法属于其他知识点，并非「种群基因频率的改变与进化」的内容。"],"q":"关于「种群基因频率的改变与进化」，下列说法符合该知识点的是？","explain":"「种群基因频率的改变与进化」包含这一要点：基因库与基因频率"},{"opts":["突变和基因重组提供原材料","F₁ 为双杂合子（YyRr）","核移植产生克隆动物","蛋白质是生命活动的主要承担者"],"correct":0,"why":["","这描述对应的是别的知识点，不属于「种群基因频率的改变与进化」。","这描述对应的是别的知识点，不属于「种群基因频率的改变与进化」。","这描述对应的是别的知识点，不属于「种群基因频率的改变与进化」。"],"q":"下列关于「种群基因频率的改变与进化」的理解，正确的是？","explain":"「种群基因频率的改变与进化」的要点之一是：突变和基因重组提供原材料"}],"隔离在物种形成中的作用":[{"opts":["神经系统的分级调节","基因突变和基因重组","隔离在物种形成中的作用","细胞呼吸的原理和应用"],"correct":2,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「地理隔离使种群间不能基因交流」这一结论对应下列哪个知识点？","explain":"「地理隔离使种群间不能基因交流」是「隔离在物种形成中的作用」的核心内容：地理隔离使种群间不能基因交流"},{"opts":["维持生态系统稳定","基因重组发生在减Ⅰ（自由组合、交叉互换）","长期地理隔离可能导致生殖隔离","负反馈调节是主要机制"],"correct":2,"why":["该说法属于其他知识点，并非「隔离在物种形成中的作用」的内容。","该说法属于其他知识点，并非「隔离在物种形成中的作用」的内容。","","该说法属于其他知识点，并非「隔离在物种形成中的作用」的内容。"],"q":"关于「隔离在物种形成中的作用」，下列说法符合该知识点的是？","explain":"「隔离在物种形成中的作用」包含这一要点：长期地理隔离可能导致生殖隔离"},{"opts":["细胞全能性：已分化细胞仍有全套遗传信息","生殖隔离包括合子前和合子后隔离","DNA 结构具有多样性与特异性","两对相对性状独立遗传"],"correct":1,"why":["这描述对应的是别的知识点，不属于「隔离在物种形成中的作用」。","","这描述对应的是别的知识点，不属于「隔离在物种形成中的作用」。","这描述对应的是别的知识点，不属于「隔离在物种形成中的作用」。"],"q":"下列关于「隔离在物种形成中的作用」的理解，正确的是？","explain":"「隔离在物种形成中的作用」的要点之一是：生殖隔离包括合子前和合子后隔离"}],"细胞生活的环境——内环境":[{"opts":["细胞生活的环境——内环境","人类遗传病","细胞呼吸的原理和应用","DNA的结构——双螺旋"],"correct":0,"why":["","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「内环境由血浆、组织液、淋巴液组成」这一结论对应下列哪个知识点？","explain":"「内环境由血浆、组织液、淋巴液组成」是「细胞生活的环境——内环境」的核心内容：内环境由血浆、组织液、淋巴液组成"},{"opts":["后期着丝点分裂姐妹染色单体分开","细胞外液是细胞生活的直接环境","基因通过控制酶合成间接控制代谢","磷脂构成生物膜"],"correct":1,"why":["该说法属于其他知识点，并非「细胞生活的环境——内环境」的内容。","","该说法属于其他知识点，并非「细胞生活的环境——内环境」的内容。","该说法属于其他知识点，并非「细胞生活的环境——内环境」的内容。"],"q":"关于「细胞生活的环境——内环境」，下列说法符合该知识点的是？","explain":"「细胞生活的环境——内环境」包含这一要点：细胞外液是细胞生活的直接环境"},{"opts":["白眼基因位于 X 染色体","碱基配对 A−U、T−A、G−C","遗传咨询和产前诊断可降低发病率","内环境理化性质包括渗透压、pH、温度"],"correct":3,"why":["这描述对应的是别的知识点，不属于「细胞生活的环境——内环境」。","这描述对应的是别的知识点，不属于「细胞生活的环境——内环境」。","这描述对应的是别的知识点，不属于「细胞生活的环境——内环境」。",""],"q":"下列关于「细胞生活的环境——内环境」的理解，正确的是？","explain":"「细胞生活的环境——内环境」的要点之一是：内环境理化性质包括渗透压、pH、温度"}],"内环境的稳态":[{"opts":["内环境的稳态","胚胎工程","生态系统的能量流动","种群基因频率的改变与进化"],"correct":0,"why":["","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「稳态是理化性质和成分相对稳定」这一结论对应下列哪个知识点？","explain":"「稳态是理化性质和成分相对稳定」是「内环境的稳态」的核心内容：稳态是理化性质和成分相对稳定"},{"opts":["神经—体液—免疫调节网络是主要调节机制","维持生态系统稳定","能量源头是太阳能","细胞代谢的控制中心"],"correct":0,"why":["","该说法属于其他知识点，并非「内环境的稳态」的内容。","该说法属于其他知识点，并非「内环境的稳态」的内容。","该说法属于其他知识点，并非「内环境的稳态」的内容。"],"q":"关于「内环境的稳态」，下列说法符合该知识点的是？","explain":"「内环境的稳态」包含这一要点：神经—体液—免疫调节网络是主要调节机制"},{"opts":["淀粉遇碘变蓝","稳态是机体进行正常生命活动的必要条件","核糖体是蛋白质合成场所","血浆渗透压主要与无机盐、蛋白质有关"],"correct":1,"why":["这描述对应的是别的知识点，不属于「内环境的稳态」。","","这描述对应的是别的知识点，不属于「内环境的稳态」。","这描述对应的是别的知识点，不属于「内环境的稳态」。"],"q":"下列关于「内环境的稳态」的理解，正确的是？","explain":"「内环境的稳态」的要点之一是：稳态是机体进行正常生命活动的必要条件"}],"神经调节的结构基础":[{"opts":["光合作用与能量转化","细胞的癌变","隔离在物种形成中的作用","神经调节的结构基础"],"correct":3,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。",""],"q":"「神经系统由脑、脊髓和周围神经组成」这一结论对应下列哪个知识点？","explain":"「神经系统由脑、脊髓和周围神经组成」是「神经调节的结构基础」的核心内容：神经系统由脑、脊髓和周围神经组成"},{"opts":["消费者加速物质循环","神经元包括细胞体、树突、轴突","少数病毒以 RNA 为遗传物质","ATP 与 ADP 快速相互转化"],"correct":1,"why":["该说法属于其他知识点，并非「神经调节的结构基础」的内容。","","该说法属于其他知识点，并非「神经调节的结构基础」的内容。","该说法属于其他知识点，并非「神经调节的结构基础」的内容。"],"q":"关于「神经调节的结构基础」，下列说法符合该知识点的是？","explain":"「神经调节的结构基础」包含这一要点：神经元包括细胞体、树突、轴突"},{"opts":["大脑皮层是最高级中枢","淀粉遇碘变蓝","单基因遗传病受一对等位基因控制","神经纤维受刺激产生兴奋"],"correct":3,"why":["这描述对应的是别的知识点，不属于「神经调节的结构基础」。","这描述对应的是别的知识点，不属于「神经调节的结构基础」。","这描述对应的是别的知识点，不属于「神经调节的结构基础」。",""],"q":"下列关于「神经调节的结构基础」的理解，正确的是？","explain":"「神经调节的结构基础」的要点之一是：神经纤维受刺激产生兴奋"}],"神经冲动的产生和传导":[{"opts":["种群数量的变化","神经冲动的产生和传导","植物生长素（发现与作用）","减数分裂和受精作用"],"correct":1,"why":["该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「静息电位内负外正（K⁺外流）」这一结论对应下列哪个知识点？","explain":"「静息电位内负外正（K⁺外流）」是「神经冲动的产生和传导」的核心内容：静息电位内负外正（K⁺外流）"},{"opts":["协助扩散需载体不耗能","理想条件下呈 J 形增长","RNA 聚合酶催化","动作电位内正外负（Na⁺内流）"],"correct":3,"why":["该说法属于其他知识点，并非「神经冲动的产生和传导」的内容。","该说法属于其他知识点，并非「神经冲动的产生和传导」的内容。","该说法属于其他知识点，并非「神经冲动的产生和传导」的内容。",""],"q":"关于「神经冲动的产生和传导」，下列说法符合该知识点的是？","explain":"「神经冲动的产生和传导」包含这一要点：动作电位内正外负（Na⁺内流）"},{"opts":["动物细胞培养需无菌、适宜温度","再分化形成胚状体或丛芽","自我调节能力是基础","兴奋在神经纤维上双向传导"],"correct":3,"why":["这描述对应的是别的知识点，不属于「神经冲动的产生和传导」。","这描述对应的是别的知识点，不属于「神经冲动的产生和传导」。","这描述对应的是别的知识点，不属于「神经冲动的产生和传导」。",""],"q":"下列关于「神经冲动的产生和传导」的理解，正确的是？","explain":"「神经冲动的产生和传导」的要点之一是：兴奋在神经纤维上双向传导"}],"神经系统的分级调节":[{"opts":["神经系统的分级调节","生物有共同祖先的证据","翻译——mRNA→蛋白质","生态系统的信息传递"],"correct":0,"why":["","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「大脑皮层是最高级中枢」这一结论对应下列哪个知识点？","explain":"「大脑皮层是最高级中枢」是「神经系统的分级调节」的核心内容：大脑皮层是最高级中枢"},{"opts":["RNA 聚合酶催化","地理隔离使种群间不能基因交流","下丘脑有体温、水盐、血糖调节中枢","两者相互协调维持稳态"],"correct":2,"why":["该说法属于其他知识点，并非「神经系统的分级调节」的内容。","该说法属于其他知识点，并非「神经系统的分级调节」的内容。","","该说法属于其他知识点，并非「神经系统的分级调节」的内容。"],"q":"关于「神经系统的分级调节」，下列说法符合该知识点的是？","explain":"「神经系统的分级调节」包含这一要点：下丘脑有体温、水盐、血糖调节中枢"},{"opts":["磷脂双分子层构成基本支架","H区受损听不懂，S区受损不能讲话","脑干控制呼吸、心跳","恢复力稳定性受破坏后恢复原状"],"correct":2,"why":["这描述对应的是别的知识点，不属于「神经系统的分级调节」。","这描述对应的是别的知识点，不属于「神经系统的分级调节」。","","这描述对应的是别的知识点，不属于「神经系统的分级调节」。"],"q":"下列关于「神经系统的分级调节」的理解，正确的是？","explain":"「神经系统的分级调节」的要点之一是：脑干控制呼吸、心跳"}],"人脑的高级功能":[{"opts":["细胞增殖——有丝分裂","人脑的高级功能","胚胎工程","孟德尔的豌豆杂交实验（二）——自由组合定律"],"correct":1,"why":["该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「语言功能是人脑特有高级功能」这一结论对应下列哪个知识点？","explain":"「语言功能是人脑特有高级功能」是「人脑的高级功能」的核心内容：语言功能是人脑特有高级功能"},{"opts":["诱变育种利用基因突变","兴奋在神经纤维上双向传导","发生在 DNA 复制时（间期）","W区受损不能写字，V区受损不能看懂"],"correct":3,"why":["该说法属于其他知识点，并非「人脑的高级功能」的内容。","该说法属于其他知识点，并非「人脑的高级功能」的内容。","该说法属于其他知识点，并非「人脑的高级功能」的内容。",""],"q":"关于「人脑的高级功能」，下列说法符合该知识点的是？","explain":"「人脑的高级功能」包含这一要点：W区受损不能写字，V区受损不能看懂"},{"opts":["分离定律：等位基因随同源染色体分开而分离","自我调节能力是基础","H区受损听不懂，S区受损不能讲话","利于种群繁衍"],"correct":2,"why":["这描述对应的是别的知识点，不属于「人脑的高级功能」。","这描述对应的是别的知识点，不属于「人脑的高级功能」。","","这描述对应的是别的知识点，不属于「人脑的高级功能」。"],"q":"下列关于「人脑的高级功能」的理解，正确的是？","explain":"「人脑的高级功能」的要点之一是：H区受损听不懂，S区受损不能讲话"}],"激素与内分泌系统":[{"opts":["自然选择与适应的形成","细胞核的结构和功能","激素与内分泌系统","孟德尔的豌豆杂交实验（一）——分离定律"],"correct":2,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「内分泌腺无导管，激素直接进入血液」这一结论对应下列哪个知识点？","explain":"「内分泌腺无导管，激素直接进入血液」是「激素与内分泌系统」的核心内容：内分泌腺无导管，激素直接进入血液"},{"opts":["过敏反应是已免疫机体再次接触抗原","下丘脑、垂体、甲状腺等构成内分泌系统","核糖核苷酸为原料合成 RNA","物种丰富度是群落重要特征"],"correct":1,"why":["该说法属于其他知识点，并非「激素与内分泌系统」的内容。","","该说法属于其他知识点，并非「激素与内分泌系统」的内容。","该说法属于其他知识点，并非「激素与内分泌系统」的内容。"],"q":"关于「激素与内分泌系统」，下列说法符合该知识点的是？","explain":"「激素与内分泌系统」包含这一要点：下丘脑、垂体、甲状腺等构成内分泌系统"},{"opts":["H区受损听不懂，S区受损不能讲话","外界溶液浓度>细胞质壁分离","化石燃料燃烧加剧温室效应","激素微量高效、通过体液运输"],"correct":3,"why":["这描述对应的是别的知识点，不属于「激素与内分泌系统」。","这描述对应的是别的知识点，不属于「激素与内分泌系统」。","这描述对应的是别的知识点，不属于「激素与内分泌系统」。",""],"q":"下列关于「激素与内分泌系统」的理解，正确的是？","explain":"「激素与内分泌系统」的要点之一是：激素微量高效、通过体液运输"}],"激素调节的过程":[{"opts":["转录——DNA→mRNA","检测生物组织中的化合物","激素调节的过程","影响种群数量变化的因素"],"correct":2,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「血糖来源：食物、肝糖原分解、非糖转化」这一结论对应下列哪个知识点？","explain":"「血糖来源：食物、肝糖原分解、非糖转化」是「激素调节的过程」的核心内容：血糖来源：食物、肝糖原分解、非糖转化"},{"opts":["成熟植物细胞发生质壁分离","血糖去路：氧化供能、合成糖原、转化","氨基酸通过肽键连接成多肽","DNA 主要分布细胞核，RNA 主要在细胞质"],"correct":1,"why":["该说法属于其他知识点，并非「激素调节的过程」的内容。","","该说法属于其他知识点，并非「激素调节的过程」的内容。","该说法属于其他知识点，并非「激素调节的过程」的内容。"],"q":"关于「激素调节的过程」，下列说法符合该知识点的是？","explain":"「激素调节的过程」包含这一要点：血糖去路：氧化供能、合成糖原、转化"},{"opts":["草原群落以多年生草本为主","培养基提供微生物营养","环境容纳量 K 值代表环境最大承载","胰岛素降低血糖，胰高血糖素升高血糖"],"correct":3,"why":["这描述对应的是别的知识点，不属于「激素调节的过程」。","这描述对应的是别的知识点，不属于「激素调节的过程」。","这描述对应的是别的知识点，不属于「激素调节的过程」。",""],"q":"下列关于「激素调节的过程」的理解，正确的是？","explain":"「激素调节的过程」的要点之一是：胰岛素降低血糖，胰高血糖素升高血糖"}],"神经调节与体液调节的关系":[{"opts":["孟德尔的豌豆杂交实验（二）——自由组合定律","生物技术的安全与伦理","神经调节与体液调节的关系","细胞膜的结构和功能"],"correct":2,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「神经调节迅速、准确、短暂」这一结论对应下列哪个知识点？","explain":"「神经调节迅速、准确、短暂」是「神经调节与体液调节的关系」的核心内容：神经调节迅速、准确、短暂"},{"opts":["体液调节作用较缓慢、范围广","泡菜制作依赖乳酸菌","少数病毒以 RNA 为遗传物质","F₂ 出现 3:1 性状分离比"],"correct":0,"why":["","该说法属于其他知识点，并非「神经调节与体液调节的关系」的内容。","该说法属于其他知识点，并非「神经调节与体液调节的关系」的内容。","该说法属于其他知识点，并非「神经调节与体液调节的关系」的内容。"],"q":"关于「神经调节与体液调节的关系」，下列说法符合该知识点的是？","explain":"「神经调节与体液调节的关系」包含这一要点：体液调节作用较缓慢、范围广"},{"opts":["体温调节是神经—体液共同调节","复制发生在间期","顶端优势：顶芽优先生长","碱基排列在内侧"],"correct":0,"why":["","这描述对应的是别的知识点，不属于「神经调节与体液调节的关系」。","这描述对应的是别的知识点，不属于「神经调节与体液调节的关系」。","这描述对应的是别的知识点，不属于「神经调节与体液调节的关系」。"],"q":"下列关于「神经调节与体液调节的关系」的理解，正确的是？","explain":"「神经调节与体液调节的关系」的要点之一是：体温调节是神经—体液共同调节"}],"免疫系统的组成和功能":[{"opts":["基因突变和基因重组","免疫系统的组成和功能","内环境的稳态","传统发酵技术的应用"],"correct":1,"why":["该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「免疫系统包括免疫器官、细胞、活性物质」这一结论对应下列哪个知识点？","explain":"「免疫系统包括免疫器官、细胞、活性物质」是「免疫系统的组成和功能」的核心内容：免疫系统包括免疫器官、细胞、活性物质"},{"opts":["第一道防线：皮肤、黏膜","无机盐大多以离子形式存在","还原糖与斐林试剂水浴生成砖红色沉淀","碱基排列在内侧"],"correct":0,"why":["","该说法属于其他知识点，并非「免疫系统的组成和功能」的内容。","该说法属于其他知识点，并非「免疫系统的组成和功能」的内容。","该说法属于其他知识点，并非「免疫系统的组成和功能」的内容。"],"q":"关于「免疫系统的组成和功能」，下列说法符合该知识点的是？","explain":"「免疫系统的组成和功能」包含这一要点：第一道防线：皮肤、黏膜"},{"opts":["W区受损不能写字，V区受损不能看懂","营养结构为食物链和食物网","先分离后组合","第二道防线：体液中的杀菌物质和吞噬细胞"],"correct":3,"why":["这描述对应的是别的知识点，不属于「免疫系统的组成和功能」。","这描述对应的是别的知识点，不属于「免疫系统的组成和功能」。","这描述对应的是别的知识点，不属于「免疫系统的组成和功能」。",""],"q":"下列关于「免疫系统的组成和功能」的理解，正确的是？","explain":"「免疫系统的组成和功能」的要点之一是：第二道防线：体液中的杀菌物质和吞噬细胞"}],"特异性免疫——体液免疫与细胞免疫":[{"opts":["激素调节的过程","孟德尔的豌豆杂交实验（二）——自由组合定律","特异性免疫——体液免疫与细胞免疫","伴性遗传"],"correct":2,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「病原体经抗原呈递细胞处理」这一结论对应下列哪个知识点？","explain":"「病原体经抗原呈递细胞处理」是「特异性免疫——体液免疫与细胞免疫」的核心内容：病原体经抗原呈递细胞处理"},{"opts":["细胞膜将细胞与外界分隔开","酶降低化学反应活化能","生长素促进细胞伸长生长","B细胞受刺激增殖分化为浆细胞"],"correct":3,"why":["该说法属于其他知识点，并非「特异性免疫——体液免疫与细胞免疫」的内容。","该说法属于其他知识点，并非「特异性免疫——体液免疫与细胞免疫」的内容。","该说法属于其他知识点，并非「特异性免疫——体液免疫与细胞免疫」的内容。",""],"q":"关于「特异性免疫——体液免疫与细胞免疫」，下列说法符合该知识点的是？","explain":"「特异性免疫——体液免疫与细胞免疫」包含这一要点：B细胞受刺激增殖分化为浆细胞"},{"opts":["浆细胞产生抗体消灭抗原（体液免疫）","孟德尔用豌豆作材料，人工杂交","恢复力稳定性受破坏后恢复原状","兴奋在突触处单向传递"],"correct":0,"why":["","这描述对应的是别的知识点，不属于「特异性免疫——体液免疫与细胞免疫」。","这描述对应的是别的知识点，不属于「特异性免疫——体液免疫与细胞免疫」。","这描述对应的是别的知识点，不属于「特异性免疫——体液免疫与细胞免疫」。"],"q":"下列关于「特异性免疫——体液免疫与细胞免疫」的理解，正确的是？","explain":"「特异性免疫——体液免疫与细胞免疫」的要点之一是：浆细胞产生抗体消灭抗原（体液免疫）"}],"免疫失调和免疫学应用":[{"opts":["糖类和脂质","免疫失调和免疫学应用","生长素的生理作用——两重性","细胞增殖——有丝分裂"],"correct":1,"why":["该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「过敏反应是已免疫机体再次接触抗原」这一结论对应下列哪个知识点？","explain":"「过敏反应是已免疫机体再次接触抗原」是「免疫失调和免疫学应用」的核心内容：过敏反应是已免疫机体再次接触抗原"},{"opts":["化石是研究进化最直接的证据","自身免疫病攻击自身组织","发酵工程包括菌种选择到产物分离","碳在无机环境与生物群落间循环"],"correct":1,"why":["该说法属于其他知识点，并非「免疫失调和免疫学应用」的内容。","","该说法属于其他知识点，并非「免疫失调和免疫学应用」的内容。","该说法属于其他知识点，并非「免疫失调和免疫学应用」的内容。"],"q":"关于「免疫失调和免疫学应用」，下列说法符合该知识点的是？","explain":"「免疫失调和免疫学应用」包含这一要点：自身免疫病攻击自身组织"},{"opts":["新物种形成标志是生殖隔离","高效性、专一性、作用条件温和","设计试管婴儿需严格规范","艾滋病由 HIV 破坏辅助性T细胞引起"],"correct":3,"why":["这描述对应的是别的知识点，不属于「免疫失调和免疫学应用」。","这描述对应的是别的知识点，不属于「免疫失调和免疫学应用」。","这描述对应的是别的知识点，不属于「免疫失调和免疫学应用」。",""],"q":"下列关于「免疫失调和免疫学应用」的理解，正确的是？","explain":"「免疫失调和免疫学应用」的要点之一是：艾滋病由 HIV 破坏辅助性T细胞引起"}],"植物生长素（发现与作用）":[{"opts":["植物生长素（发现与作用）","DNA的粗提取与鉴定","发酵工程及其应用","DNA是主要的遗传物质"],"correct":0,"why":["","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「胚芽鞘尖端产生生长素」这一结论对应下列哪个知识点？","explain":"「胚芽鞘尖端产生生长素」是「植物生长素（发现与作用）」的核心内容：胚芽鞘尖端产生生长素"},{"opts":["共同进化发生在生物与无机环境之间","二苯胺试剂沸水浴鉴定DNA","生长素促进细胞伸长生长","蛋白质是生命活动的主要承担者"],"correct":2,"why":["该说法属于其他知识点，并非「植物生长素（发现与作用）」的内容。","该说法属于其他知识点，并非「植物生长素（发现与作用）」的内容。","","该说法属于其他知识点，并非「植物生长素（发现与作用）」的内容。"],"q":"关于「植物生长素（发现与作用）」，下列说法符合该知识点的是？","explain":"「植物生长素（发现与作用）」包含这一要点：生长素促进细胞伸长生长"},{"opts":["植物细胞加洗涤剂破坏膜","单侧光引起生长素分布不均导致向光性","复制发生在间期","稳态遭破坏会出现代谢紊乱"],"correct":1,"why":["这描述对应的是别的知识点，不属于「植物生长素（发现与作用）」。","","这描述对应的是别的知识点，不属于「植物生长素（发现与作用）」。","这描述对应的是别的知识点，不属于「植物生长素（发现与作用）」。"],"q":"下列关于「植物生长素（发现与作用）」的理解，正确的是？","explain":"「植物生长素（发现与作用）」的要点之一是：单侧光引起生长素分布不均导致向光性"}],"生长素的生理作用——两重性":[{"opts":["水进出细胞的原理（渗透作用）","检测生物组织中的化合物","DNA的复制——半保留复制","生长素的生理作用——两重性"],"correct":3,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。",""],"q":"「低浓度促进生长，高浓度抑制生长」这一结论对应下列哪个知识点？","explain":"「低浓度促进生长，高浓度抑制生长」是「生长素的生理作用——两重性」的核心内容：低浓度促进生长，高浓度抑制生长"},{"opts":["顶端优势：顶芽优先生长","第三道防线：特异性免疫","生态系统由生物群落与无机环境组成","这些因素共同调节种群数量"],"correct":0,"why":["","该说法属于其他知识点，并非「生长素的生理作用——两重性」的内容。","该说法属于其他知识点，并非「生长素的生理作用——两重性」的内容。","该说法属于其他知识点，并非「生长素的生理作用——两重性」的内容。"],"q":"关于「生长素的生理作用——两重性」，下列说法符合该知识点的是？","explain":"「生长素的生理作用——两重性」包含这一要点：顶端优势：顶芽优先生长"},{"opts":["不同器官对生长素敏感程度不同","高效性、专一性、作用条件温和","早期胚胎培养需特定培养液","光合作用是能量来源和碳氧平衡基础"],"correct":0,"why":["","这描述对应的是别的知识点，不属于「生长素的生理作用——两重性」。","这描述对应的是别的知识点，不属于「生长素的生理作用——两重性」。","这描述对应的是别的知识点，不属于「生长素的生理作用——两重性」。"],"q":"下列关于「生长素的生理作用——两重性」的理解，正确的是？","explain":"「生长素的生理作用——两重性」的要点之一是：不同器官对生长素敏感程度不同"}],"其他植物激素":[{"opts":["人类遗传病","生态系统的结构","其他植物激素","细胞膜的结构和功能"],"correct":2,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「赤霉素促进茎伸长和种子萌发」这一结论对应下列哪个知识点？","explain":"「赤霉素促进茎伸长和种子萌发」是「其他植物激素」的核心内容：赤霉素促进茎伸长和种子萌发"},{"opts":["内质网是蛋白质加工、脂质合成场所","神经递质作用于后膜引起兴奋或抑制","细胞分裂素促进细胞分裂","原核与真核均以 DNA 为遗传物质"],"correct":2,"why":["该说法属于其他知识点，并非「其他植物激素」的内容。","该说法属于其他知识点，并非「其他植物激素」的内容。","","该说法属于其他知识点，并非「其他植物激素」的内容。"],"q":"关于「其他植物激素」，下列说法符合该知识点的是？","explain":"「其他植物激素」包含这一要点：细胞分裂素促进细胞分裂"},{"opts":["脱落酸促进叶和果实脱落","核糖核苷酸为原料合成 RNA","发生在 DNA 复制时（间期）","葡萄糖是主要呼吸底物"],"correct":0,"why":["","这描述对应的是别的知识点，不属于「其他植物激素」。","这描述对应的是别的知识点，不属于「其他植物激素」。","这描述对应的是别的知识点，不属于「其他植物激素」。"],"q":"下列关于「其他植物激素」的理解，正确的是？","explain":"「其他植物激素」的要点之一是：脱落酸促进叶和果实脱落"}],"种群的数量特征":[{"opts":["种群的数量特征","DNA的复制——半保留复制","生态系统的结构","激素调节的过程"],"correct":0,"why":["","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「种群密度是最基本的数量特征」这一结论对应下列哪个知识点？","explain":"「种群密度是最基本的数量特征」是「种群的数量特征」的核心内容：种群密度是最基本的数量特征"},{"opts":["出生率、死亡率决定种群数量变化","植物细胞加洗涤剂破坏膜","物种丰富度高抵抗力稳定性强","激素微量高效、通过体液运输"],"correct":0,"why":["","该说法属于其他知识点，并非「种群的数量特征」的内容。","该说法属于其他知识点，并非「种群的数量特征」的内容。","该说法属于其他知识点，并非「种群的数量特征」的内容。"],"q":"关于「种群的数量特征」，下列说法符合该知识点的是？","explain":"「种群的数量特征」包含这一要点：出生率、死亡率决定种群数量变化"},{"opts":["自身免疫病攻击自身组织","秋水仙素诱导多倍体","调查遗传方式在患者家系中进行","迁入率、迁出率影响种群数量"],"correct":3,"why":["这描述对应的是别的知识点，不属于「种群的数量特征」。","这描述对应的是别的知识点，不属于「种群的数量特征」。","这描述对应的是别的知识点，不属于「种群的数量特征」。",""],"q":"下列关于「种群的数量特征」的理解，正确的是？","explain":"「种群的数量特征」的要点之一是：迁入率、迁出率影响种群数量"}],"种群数量的变化":[{"opts":["种群数量的变化","其他植物激素","翻译——mRNA→蛋白质","隔离在物种形成中的作用"],"correct":0,"why":["","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「理想条件下呈 J 形增长」这一结论对应下列哪个知识点？","explain":"「理想条件下呈 J 形增长」是「种群数量的变化」的核心内容：理想条件下呈 J 形增长"},{"opts":["自身免疫病攻击自身组织","格里菲思肺炎链球菌转化实验","资源和空间有限时呈 S 形增长","次生演替在原有土壤条件下进行"],"correct":2,"why":["该说法属于其他知识点，并非「种群数量的变化」的内容。","该说法属于其他知识点，并非「种群数量的变化」的内容。","","该说法属于其他知识点，并非「种群数量的变化」的内容。"],"q":"关于「种群数量的变化」，下列说法符合该知识点的是？","explain":"「种群数量的变化」包含这一要点：资源和空间有限时呈 S 形增长"},{"opts":["传统发酵多为天然菌种混合发酵","线粒体是有氧呼吸主要场所","环境容纳量 K 值代表环境最大承载","碳在无机环境与生物群落间循环"],"correct":2,"why":["这描述对应的是别的知识点，不属于「种群数量的变化」。","这描述对应的是别的知识点，不属于「种群数量的变化」。","","这描述对应的是别的知识点，不属于「种群数量的变化」。"],"q":"下列关于「种群数量的变化」的理解，正确的是？","explain":"「种群数量的变化」的要点之一是：环境容纳量 K 值代表环境最大承载"}],"影响种群数量变化的因素":[{"opts":["影响种群数量变化的因素","水进出细胞的原理（渗透作用）","DNA的结构——双螺旋","神经调节与体液调节的关系"],"correct":0,"why":["","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「非生物因素：光、温、水、食物」这一结论对应下列哪个知识点？","explain":"「非生物因素：光、温、水、食物」是「影响种群数量变化的因素」的核心内容：非生物因素：光、温、水、食物"},{"opts":["共同进化发生在生物与无机环境之间","工具酶与载体是操作基础","F₁ 只表现显性性状","生物因素：种内竞争、捕食、寄生"],"correct":3,"why":["该说法属于其他知识点，并非「影响种群数量变化的因素」的内容。","该说法属于其他知识点，并非「影响种群数量变化的因素」的内容。","该说法属于其他知识点，并非「影响种群数量变化的因素」的内容。",""],"q":"关于「影响种群数量变化的因素」，下列说法符合该知识点的是？","explain":"「影响种群数量变化的因素」包含这一要点：生物因素：种内竞争、捕食、寄生"},{"opts":["垂直结构提高利用光等资源能力","细胞学说：一切动植物由细胞发育而来","密度制约因素随密度增大而增强","兴奋在突触处单向传递"],"correct":2,"why":["这描述对应的是别的知识点，不属于「影响种群数量变化的因素」。","这描述对应的是别的知识点，不属于「影响种群数量变化的因素」。","","这描述对应的是别的知识点，不属于「影响种群数量变化的因素」。"],"q":"下列关于「影响种群数量变化的因素」的理解，正确的是？","explain":"「影响种群数量变化的因素」的要点之一是：密度制约因素随密度增大而增强"}],"群落的结构":[{"opts":["伴性遗传","群落的结构","神经调节与体液调节的关系","孟德尔的豌豆杂交实验（一）——分离定律"],"correct":1,"why":["该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「群落是同一时间内聚集的所有生物」这一结论对应下列哪个知识点？","explain":"「群落是同一时间内聚集的所有生物」是「群落的结构」的核心内容：群落是同一时间内聚集的所有生物"},{"opts":["物种丰富度是群落重要特征","蛋白质是生命活动的主要承担者","DNA不溶于酒精而某些蛋白质溶","细胞膜糖蛋白减少易分散转移"],"correct":0,"why":["","该说法属于其他知识点，并非「群落的结构」的内容。","该说法属于其他知识点，并非「群落的结构」的内容。","该说法属于其他知识点，并非「群落的结构」的内容。"],"q":"关于「群落的结构」，下列说法符合该知识点的是？","explain":"「群落的结构」包含这一要点：物种丰富度是群落重要特征"},{"opts":["自由水比例高代谢旺盛","种间关系：捕食、竞争、寄生、互利共生","生殖隔离一旦形成即成为新物种","食盐溶解DNA，酒精沉淀DNA"],"correct":1,"why":["这描述对应的是别的知识点，不属于「群落的结构」。","","这描述对应的是别的知识点，不属于「群落的结构」。","这描述对应的是别的知识点，不属于「群落的结构」。"],"q":"下列关于「群落的结构」的理解，正确的是？","explain":"「群落的结构」的要点之一是：种间关系：捕食、竞争、寄生、互利共生"}],"群落的主要类型":[{"opts":["重组DNA技术的基本工具","群落的主要类型","核酸——遗传信息的携带者","胚胎工程"],"correct":1,"why":["该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「荒漠群落物种少、耐旱」这一结论对应下列哪个知识点？","explain":"「荒漠群落物种少、耐旱」是「群落的主要类型」的核心内容：荒漠群落物种少、耐旱"},{"opts":["格里菲思肺炎链球菌转化实验","遗传咨询和产前诊断可降低发病率","胚胎分割属无性繁殖","草原群落以多年生草本为主"],"correct":3,"why":["该说法属于其他知识点，并非「群落的主要类型」的内容。","该说法属于其他知识点，并非「群落的主要类型」的内容。","该说法属于其他知识点，并非「群落的主要类型」的内容。",""],"q":"关于「群落的主要类型」，下列说法符合该知识点的是？","explain":"「群落的主要类型」包含这一要点：草原群落以多年生草本为主"},{"opts":["产物有 mRNA、tRNA、rRNA","基因库与基因频率","森林群落垂直结构明显","乙烯促进果实成熟"],"correct":2,"why":["这描述对应的是别的知识点，不属于「群落的主要类型」。","这描述对应的是别的知识点，不属于「群落的主要类型」。","","这描述对应的是别的知识点，不属于「群落的主要类型」。"],"q":"下列关于「群落的主要类型」的理解，正确的是？","explain":"「群落的主要类型」的要点之一是：森林群落垂直结构明显"}],"群落的演替":[{"opts":["群落的演替","种群数量的变化","基因突变和基因重组","神经调节的结构基础"],"correct":0,"why":["","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「初生演替从没有植被的裸地开始」这一结论对应下列哪个知识点？","explain":"「初生演替从没有植被的裸地开始」是「群落的演替」的核心内容：初生演替从没有植被的裸地开始"},{"opts":["胚胎工程用于优良畜种繁育","核苷酸由五碳糖+磷酸+含氮碱基组成","末期细胞一分为二，染色体数不变","裸岩→地衣→苔藓→草本→灌木→森林"],"correct":3,"why":["该说法属于其他知识点，并非「群落的演替」的内容。","该说法属于其他知识点，并非「群落的演替」的内容。","该说法属于其他知识点，并非「群落的演替」的内容。",""],"q":"关于「群落的演替」，下列说法符合该知识点的是？","explain":"「群落的演替」包含这一要点：裸岩→地衣→苔藓→草本→灌木→森林"},{"opts":["次生演替在原有土壤条件下进行","DNA不溶于酒精而某些蛋白质溶","湿地、苔原等各有特点","下丘脑、垂体、甲状腺等构成内分泌系统"],"correct":0,"why":["","这描述对应的是别的知识点，不属于「群落的演替」。","这描述对应的是别的知识点，不属于「群落的演替」。","这描述对应的是别的知识点，不属于「群落的演替」。"],"q":"下列关于「群落的演替」的理解，正确的是？","explain":"「群落的演替」的要点之一是：次生演替在原有土壤条件下进行"}],"生态系统的结构":[{"opts":["生态系统的信息传递","无机物——水和无机盐","细胞器之间的分工合作","生态系统的结构"],"correct":3,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。",""],"q":"「生态系统由生物群落与无机环境组成」这一结论对应下列哪个知识点？","explain":"「生态系统由生物群落与无机环境组成」是「生态系统的结构」的核心内容：生态系统由生物群落与无机环境组成"},{"opts":["细胞分裂素促进细胞分裂","性别比例影响出生率","细胞全能性：已分化细胞仍有全套遗传信息","生产者是生态系统的基石"],"correct":3,"why":["该说法属于其他知识点，并非「生态系统的结构」的内容。","该说法属于其他知识点，并非「生态系统的结构」的内容。","该说法属于其他知识点，并非「生态系统的结构」的内容。",""],"q":"关于「生态系统的结构」，下列说法符合该知识点的是？","explain":"「生态系统的结构」包含这一要点：生产者是生态系统的基石"},{"opts":["食盐溶解DNA，酒精沉淀DNA","有氧呼吸分三阶段释放大量能量","胰岛素降低血糖，胰高血糖素升高血糖","消费者加速物质循环"],"correct":3,"why":["这描述对应的是别的知识点，不属于「生态系统的结构」。","这描述对应的是别的知识点，不属于「生态系统的结构」。","这描述对应的是别的知识点，不属于「生态系统的结构」。",""],"q":"下列关于「生态系统的结构」的理解，正确的是？","explain":"「生态系统的结构」的要点之一是：消费者加速物质循环"}],"生态系统的能量流动":[{"opts":["生态系统的能量流动","细胞核的结构和功能","免疫系统的组成和功能","基因工程的应用"],"correct":0,"why":["","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「能量源头是太阳能」这一结论对应下列哪个知识点？","explain":"「能量源头是太阳能」是「生态系统的能量流动」的核心内容：能量源头是太阳能"},{"opts":["比较解剖学：同源器官","脑干控制呼吸、心跳","一条染色体上有许多基因","生产者固定太阳能为输入"],"correct":3,"why":["该说法属于其他知识点，并非「生态系统的能量流动」的内容。","该说法属于其他知识点，并非「生态系统的能量流动」的内容。","该说法属于其他知识点，并非「生态系统的能量流动」的内容。",""],"q":"关于「生态系统的能量流动」，下列说法符合该知识点的是？","explain":"「生态系统的能量流动」包含这一要点：生产者固定太阳能为输入"},{"opts":["血浆渗透压主要与无机盐、蛋白质有关","神经元包括细胞体、树突、轴突","沿食物链单向流动、逐级递减","受精作用恢复染色体数目"],"correct":2,"why":["这描述对应的是别的知识点，不属于「生态系统的能量流动」。","这描述对应的是别的知识点，不属于「生态系统的能量流动」。","","这描述对应的是别的知识点，不属于「生态系统的能量流动」。"],"q":"下列关于「生态系统的能量流动」的理解，正确的是？","explain":"「生态系统的能量流动」的要点之一是：沿食物链单向流动、逐级递减"}],"生态系统的物质循环——碳循环":[{"opts":["种群数量的变化","生态系统的稳定性","生态系统的物质循环——碳循环","种群基因频率的改变与进化"],"correct":2,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「碳在无机环境与生物群落间循环」这一结论对应下列哪个知识点？","explain":"「碳在无机环境与生物群落间循环」是「生态系统的物质循环——碳循环」的核心内容：碳在无机环境与生物群落间循环"},{"opts":["研究激素常用切除与移植法","核仁与 rRNA、核糖体形成有关","特点：半保留、边解旋边复制","CO₂ 是碳循环主要形式"],"correct":3,"why":["该说法属于其他知识点，并非「生态系统的物质循环——碳循环」的内容。","该说法属于其他知识点，并非「生态系统的物质循环——碳循环」的内容。","该说法属于其他知识点，并非「生态系统的物质循环——碳循环」的内容。",""],"q":"关于「生态系统的物质循环——碳循环」，下列说法符合该知识点的是？","explain":"「生态系统的物质循环——碳循环」包含这一要点：CO₂ 是碳循环主要形式"},{"opts":["蛋白质是生命活动的主要承担者","光合作用使碳进入生物群落","果醋利用醋酸菌好氧发酵","酶是活细胞产生的有机物（多为蛋白质）"],"correct":1,"why":["这描述对应的是别的知识点，不属于「生态系统的物质循环——碳循环」。","","这描述对应的是别的知识点，不属于「生态系统的物质循环——碳循环」。","这描述对应的是别的知识点，不属于「生态系统的物质循环——碳循环」。"],"q":"下列关于「生态系统的物质循环——碳循环」的理解，正确的是？","explain":"「生态系统的物质循环——碳循环」的要点之一是：光合作用使碳进入生物群落"}],"生态系统的信息传递":[{"opts":["主动运输与胞吞、胞吐","无机物——水和无机盐","基因突变和基因重组","生态系统的信息传递"],"correct":3,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。",""],"q":"「信息包括物理、化学、行为信息」这一结论对应下列哪个知识点？","explain":"「信息包括物理、化学、行为信息」是「生态系统的信息传递」的核心内容：信息包括物理、化学、行为信息"},{"opts":["提出\"遗传因子\"假说","基因通过控制酶合成间接控制代谢","信息传递调节种间关系","根>芽>茎"],"correct":2,"why":["该说法属于其他知识点，并非「生态系统的信息传递」的内容。","该说法属于其他知识点，并非「生态系统的信息传递」的内容。","","该说法属于其他知识点，并非「生态系统的信息传递」的内容。"],"q":"关于「生态系统的信息传递」，下列说法符合该知识点的是？","explain":"「生态系统的信息传递」包含这一要点：信息传递调节种间关系"},{"opts":["噬菌体侵染实验证明 DNA 是遗传物质","果醋利用醋酸菌好氧发酵","利于种群繁衍","氢键维持碱基配对"],"correct":2,"why":["这描述对应的是别的知识点，不属于「生态系统的信息传递」。","这描述对应的是别的知识点，不属于「生态系统的信息传递」。","","这描述对应的是别的知识点，不属于「生态系统的信息传递」。"],"q":"下列关于「生态系统的信息传递」的理解，正确的是？","explain":"「生态系统的信息传递」的要点之一是：利于种群繁衍"}],"生态系统的稳定性":[{"opts":["激素与内分泌系统","植物生长素（发现与作用）","传统发酵技术的应用","生态系统的稳定性"],"correct":3,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。",""],"q":"「抵抗力稳定性抵抗干扰保持原状」这一结论对应下列哪个知识点？","explain":"「抵抗力稳定性抵抗干扰保持原状」是「生态系统的稳定性」的核心内容：抵抗力稳定性抵抗干扰保持原状"},{"opts":["恢复力稳定性受破坏后恢复原状","根>芽>茎","减数分裂染色体复制一次、分裂两次","稳态遭破坏会出现代谢紊乱"],"correct":0,"why":["","该说法属于其他知识点，并非「生态系统的稳定性」的内容。","该说法属于其他知识点，并非「生态系统的稳定性」的内容。","该说法属于其他知识点，并非「生态系统的稳定性」的内容。"],"q":"关于「生态系统的稳定性」，下列说法符合该知识点的是？","explain":"「生态系统的稳定性」包含这一要点：恢复力稳定性受破坏后恢复原状"},{"opts":["密度制约因素随密度增大而增强","染色体结构变异：缺失、重复、倒位、易位","一种 tRNA 转运一种氨基酸","自我调节能力是基础"],"correct":3,"why":["这描述对应的是别的知识点，不属于「生态系统的稳定性」。","这描述对应的是别的知识点，不属于「生态系统的稳定性」。","这描述对应的是别的知识点，不属于「生态系统的稳定性」。",""],"q":"下列关于「生态系统的稳定性」的理解，正确的是？","explain":"「生态系统的稳定性」的要点之一是：自我调节能力是基础"}],"传统发酵技术的应用":[{"opts":["基因突变和基因重组","传统发酵技术的应用","转录——DNA→mRNA","群落的演替"],"correct":1,"why":["该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「果酒利用酵母菌无氧呼吸」这一结论对应下列哪个知识点？","explain":"「果酒利用酵母菌无氧呼吸」是「传统发酵技术的应用」的核心内容：果酒利用酵母菌无氧呼吸"},{"opts":["远离 A 的高能磷酸键易水解","性别比例影响出生率","果醋利用醋酸菌好氧发酵","基因重组发生在减Ⅰ（自由组合、交叉互换）"],"correct":2,"why":["该说法属于其他知识点，并非「传统发酵技术的应用」的内容。","该说法属于其他知识点，并非「传统发酵技术的应用」的内容。","","该说法属于其他知识点，并非「传统发酵技术的应用」的内容。"],"q":"关于「传统发酵技术的应用」，下列说法符合该知识点的是？","explain":"「传统发酵技术的应用」包含这一要点：果醋利用醋酸菌好氧发酵"},{"opts":["生物膜系统协调配合","资源和空间有限时呈 S 形增长","腐乳制作依赖毛霉等微生物","密度制约因素随密度增大而增强"],"correct":2,"why":["这描述对应的是别的知识点，不属于「传统发酵技术的应用」。","这描述对应的是别的知识点，不属于「传统发酵技术的应用」。","","这描述对应的是别的知识点，不属于「传统发酵技术的应用」。"],"q":"下列关于「传统发酵技术的应用」的理解，正确的是？","explain":"「传统发酵技术的应用」的要点之一是：腐乳制作依赖毛霉等微生物"}],"微生物的培养技术及应用":[{"opts":["生长素的生理作用——两重性","激素与内分泌系统","微生物的培养技术及应用","生态系统的信息传递"],"correct":2,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「培养基提供微生物营养」这一结论对应下列哪个知识点？","explain":"「培养基提供微生物营养」是「微生物的培养技术及应用」的核心内容：培养基提供微生物营养"},{"opts":["培养基分液体和固体","受精作用恢复染色体数目","主动运输逆浓度梯度需载体和能量","血糖去路：氧化供能、合成糖原、转化"],"correct":0,"why":["","该说法属于其他知识点，并非「微生物的培养技术及应用」的内容。","该说法属于其他知识点，并非「微生物的培养技术及应用」的内容。","该说法属于其他知识点，并非「微生物的培养技术及应用」的内容。"],"q":"关于「微生物的培养技术及应用」，下列说法符合该知识点的是？","explain":"「微生物的培养技术及应用」包含这一要点：培养基分液体和固体"},{"opts":["无菌技术包括灭菌和消毒","信息传递是双向的","线粒体是有氧呼吸主要场所","传递效率约10%–20%"],"correct":0,"why":["","这描述对应的是别的知识点，不属于「微生物的培养技术及应用」。","这描述对应的是别的知识点，不属于「微生物的培养技术及应用」。","这描述对应的是别的知识点，不属于「微生物的培养技术及应用」。"],"q":"下列关于「微生物的培养技术及应用」的理解，正确的是？","explain":"「微生物的培养技术及应用」的要点之一是：无菌技术包括灭菌和消毒"}],"发酵工程及其应用":[{"opts":["染色体变异","发酵工程及其应用","生态系统的结构","DNA的复制——半保留复制"],"correct":1,"why":["该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「发酵工程包括菌种选择到产物分离」这一结论对应下列哪个知识点？","explain":"「发酵工程包括菌种选择到产物分离」是「发酵工程及其应用」的核心内容：发酵工程包括菌种选择到产物分离"},{"opts":["需通气或厌氧等条件控制","基因治疗针对缺陷基因","基因通过控制酶合成间接控制代谢","神经系统由脑、脊髓和周围神经组成"],"correct":0,"why":["","该说法属于其他知识点，并非「发酵工程及其应用」的内容。","该说法属于其他知识点，并非「发酵工程及其应用」的内容。","该说法属于其他知识点，并非「发酵工程及其应用」的内容。"],"q":"关于「发酵工程及其应用」，下列说法符合该知识点的是？","explain":"「发酵工程及其应用」包含这一要点：需通气或厌氧等条件控制"},{"opts":["物种丰富度高抵抗力稳定性强","产品有单细胞蛋白、抗生素等","细胞分化使细胞趋向专门化","原核细胞无核膜包被的细胞核"],"correct":1,"why":["这描述对应的是别的知识点，不属于「发酵工程及其应用」。","","这描述对应的是别的知识点，不属于「发酵工程及其应用」。","这描述对应的是别的知识点，不属于「发酵工程及其应用」。"],"q":"下列关于「发酵工程及其应用」的理解，正确的是？","explain":"「发酵工程及其应用」的要点之一是：产品有单细胞蛋白、抗生素等"}],"植物细胞工程":[{"opts":["细胞的能量\"货币\"ATP","种群数量的变化","植物细胞工程","植物生长素（发现与作用）"],"correct":2,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「植物组织培养利用细胞全能性」这一结论对应下列哪个知识点？","explain":"「植物组织培养利用细胞全能性」是「植物细胞工程」的核心内容：植物组织培养利用细胞全能性"},{"opts":["能量源头是太阳能","学习与记忆是脑的高级功能","脱分化形成愈伤组织","分离定律：等位基因随同源染色体分开而分离"],"correct":2,"why":["该说法属于其他知识点，并非「植物细胞工程」的内容。","该说法属于其他知识点，并非「植物细胞工程」的内容。","","该说法属于其他知识点，并非「植物细胞工程」的内容。"],"q":"关于「植物细胞工程」，下列说法符合该知识点的是？","explain":"「植物细胞工程」包含这一要点：脱分化形成愈伤组织"},{"opts":["再分化形成胚状体或丛芽","脑干控制呼吸、心跳","密码子具有通用性和简并性","湿地、苔原等各有特点"],"correct":0,"why":["","这描述对应的是别的知识点，不属于「植物细胞工程」。","这描述对应的是别的知识点，不属于「植物细胞工程」。","这描述对应的是别的知识点，不属于「植物细胞工程」。"],"q":"下列关于「植物细胞工程」的理解，正确的是？","explain":"「植物细胞工程」的要点之一是：再分化形成胚状体或丛芽"}],"动物细胞工程":[{"opts":["动物细胞工程","植物生长素（发现与作用）","细胞的多样性和统一性","基因工程的应用"],"correct":0,"why":["","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「动物细胞培养需无菌、适宜温度」这一结论对应下列哪个知识点？","explain":"「动物细胞培养需无菌、适宜温度」是「动物细胞工程」的核心内容：动物细胞培养需无菌、适宜温度"},{"opts":["研究能量流动助益资源利用","胰蛋白酶分散细胞","高效性、专一性、作用条件温和","真核细胞有真正的细胞核"],"correct":1,"why":["该说法属于其他知识点，并非「动物细胞工程」的内容。","","该说法属于其他知识点，并非「动物细胞工程」的内容。","该说法属于其他知识点，并非「动物细胞工程」的内容。"],"q":"关于「动物细胞工程」，下列说法符合该知识点的是？","explain":"「动物细胞工程」包含这一要点：胰蛋白酶分散细胞"},{"opts":["核移植产生克隆动物","不同器官对生长素敏感程度不同","物种丰富度高抵抗力稳定性强","白眼基因位于 X 染色体"],"correct":0,"why":["","这描述对应的是别的知识点，不属于「动物细胞工程」。","这描述对应的是别的知识点，不属于「动物细胞工程」。","这描述对应的是别的知识点，不属于「动物细胞工程」。"],"q":"下列关于「动物细胞工程」的理解，正确的是？","explain":"「动物细胞工程」的要点之一是：核移植产生克隆动物"}],"胚胎工程":[{"opts":["胚胎工程","种群基因频率的改变与进化","生物技术的安全与伦理","基因突变和基因重组"],"correct":0,"why":["","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「体外受精与胚胎移植」这一结论对应下列哪个知识点？","explain":"「体外受精与胚胎移植」是「胚胎工程」的核心内容：体外受精与胚胎移植"},{"opts":["信息传递调节种间关系","以 DNA 一条链为模板","泡菜制作依赖乳酸菌","早期胚胎培养需特定培养液"],"correct":3,"why":["该说法属于其他知识点，并非「胚胎工程」的内容。","该说法属于其他知识点，并非「胚胎工程」的内容。","该说法属于其他知识点，并非「胚胎工程」的内容。",""],"q":"关于「胚胎工程」，下列说法符合该知识点的是？","explain":"「胚胎工程」包含这一要点：早期胚胎培养需特定培养液"},{"opts":["胚胎分割属无性繁殖","核移植产生克隆动物","研究种群数量变化有实践意义","碱基配对 A−U、T−A、G−C"],"correct":0,"why":["","这描述对应的是别的知识点，不属于「胚胎工程」。","这描述对应的是别的知识点，不属于「胚胎工程」。","这描述对应的是别的知识点，不属于「胚胎工程」。"],"q":"下列关于「胚胎工程」的理解，正确的是？","explain":"「胚胎工程」的要点之一是：胚胎分割属无性繁殖"}],"重组DNA技术的基本工具":[{"opts":["细胞学说及其建立","重组DNA技术的基本工具","自然选择与适应的形成","细胞增殖——有丝分裂"],"correct":1,"why":["该说法对应的是别的知识点，不是这一结论的出处。","","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「限制酶识别特定序列并切割」这一结论对应下列哪个知识点？","explain":"「限制酶识别特定序列并切割」是「重组DNA技术的基本工具」的核心内容：限制酶识别特定序列并切割"},{"opts":["脊髓是低级中枢受脑调控","DNA连接酶连接黏性末端","应在伦理框架下发展技术","抵抗力稳定性抵抗干扰保持原状"],"correct":1,"why":["该说法属于其他知识点，并非「重组DNA技术的基本工具」的内容。","","该说法属于其他知识点，并非「重组DNA技术的基本工具」的内容。","该说法属于其他知识点，并非「重组DNA技术的基本工具」的内容。"],"q":"关于「重组DNA技术的基本工具」，下列说法符合该知识点的是？","explain":"「重组DNA技术的基本工具」包含这一要点：DNA连接酶连接黏性末端"},{"opts":["载体常用质粒","生长素在低浓度促进、高浓度抑制","白眼基因位于 X 染色体","中心法则概括遗传信息传递方向"],"correct":0,"why":["","这描述对应的是别的知识点，不属于「重组DNA技术的基本工具」。","这描述对应的是别的知识点，不属于「重组DNA技术的基本工具」。","这描述对应的是别的知识点，不属于「重组DNA技术的基本工具」。"],"q":"下列关于「重组DNA技术的基本工具」的理解，正确的是？","explain":"「重组DNA技术的基本工具」的要点之一是：载体常用质粒"}],"DNA的粗提取与鉴定":[{"opts":["孟德尔的豌豆杂交实验（二）——自由组合定律","影响种群数量变化的因素","细胞的能量\"货币\"ATP","DNA的粗提取与鉴定"],"correct":3,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。",""],"q":"「食盐溶解DNA，酒精沉淀DNA」这一结论对应下列哪个知识点？","explain":"「食盐溶解DNA，酒精沉淀DNA」是「DNA的粗提取与鉴定」的核心内容：食盐溶解DNA，酒精沉淀DNA"},{"opts":["性别比例影响出生率","二苯胺试剂沸水浴鉴定DNA","最适温度约37℃，最适pH因酶而异","生长素促进细胞伸长生长"],"correct":1,"why":["该说法属于其他知识点，并非「DNA的粗提取与鉴定」的内容。","","该说法属于其他知识点，并非「DNA的粗提取与鉴定」的内容。","该说法属于其他知识点，并非「DNA的粗提取与鉴定」的内容。"],"q":"关于「DNA的粗提取与鉴定」，下列说法符合该知识点的是？","explain":"「DNA的粗提取与鉴定」包含这一要点：二苯胺试剂沸水浴鉴定DNA"},{"opts":["二次免疫更快更强","植物细胞加洗涤剂破坏膜","核糖核苷酸为原料合成 RNA","营养结构为食物链和食物网"],"correct":1,"why":["这描述对应的是别的知识点，不属于「DNA的粗提取与鉴定」。","","这描述对应的是别的知识点，不属于「DNA的粗提取与鉴定」。","这描述对应的是别的知识点，不属于「DNA的粗提取与鉴定」。"],"q":"下列关于「DNA的粗提取与鉴定」的理解，正确的是？","explain":"「DNA的粗提取与鉴定」的要点之一是：植物细胞加洗涤剂破坏膜"}],"基因工程的应用":[{"opts":["细胞增殖——有丝分裂","传统发酵技术的应用","细胞核的结构和功能","基因工程的应用"],"correct":3,"why":["该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。",""],"q":"「转基因作物提高抗逆、产量」这一结论对应下列哪个知识点？","explain":"「转基因作物提高抗逆、产量」是「基因工程的应用」的核心内容：转基因作物提高抗逆、产量"},{"opts":["基因工程药物如胰岛素","细胞外液是细胞生活的直接环境","裸岩→地衣→苔藓→草本→灌木→森林","非密度制约因素如气候"],"correct":0,"why":["","该说法属于其他知识点，并非「基因工程的应用」的内容。","该说法属于其他知识点，并非「基因工程的应用」的内容。","该说法属于其他知识点，并非「基因工程的应用」的内容。"],"q":"关于「基因工程的应用」，下列说法符合该知识点的是？","explain":"「基因工程的应用」包含这一要点：基因工程药物如胰岛素"},{"opts":["基因治疗针对缺陷基因","胰蛋白酶分散细胞","信息传递调节种间关系","进行细胞间信息交流"],"correct":0,"why":["","这描述对应的是别的知识点，不属于「基因工程的应用」。","这描述对应的是别的知识点，不属于「基因工程的应用」。","这描述对应的是别的知识点，不属于「基因工程的应用」。"],"q":"下列关于「基因工程的应用」的理解，正确的是？","explain":"「基因工程的应用」的要点之一是：基因治疗针对缺陷基因"}],"生物技术的安全与伦理":[{"opts":["生物技术的安全与伦理","细胞器之间的分工合作","细胞的多样性和统一性","传统发酵技术的应用"],"correct":0,"why":["","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。","该说法对应的是别的知识点，不是这一结论的出处。"],"q":"「转基因生物存在生态安全争议」这一结论对应下列哪个知识点？","explain":"「转基因生物存在生态安全争议」是「生物技术的安全与伦理」的核心内容：转基因生物存在生态安全争议"},{"opts":["蛋白质是生命活动的主要承担者","真核细胞有真正的细胞核","培养基分液体和固体","克隆人引发伦理争议"],"correct":3,"why":["该说法属于其他知识点，并非「生物技术的安全与伦理」的内容。","该说法属于其他知识点，并非「生物技术的安全与伦理」的内容。","该说法属于其他知识点，并非「生物技术的安全与伦理」的内容。",""],"q":"关于「生物技术的安全与伦理」，下列说法符合该知识点的是？","explain":"「生物技术的安全与伦理」包含这一要点：克隆人引发伦理争议"},{"opts":["远离 A 的高能磷酸键易水解","浆细胞产生抗体消灭抗原（体液免疫）","设计试管婴儿需严格规范","果酒利用酵母菌无氧呼吸"],"correct":2,"why":["这描述对应的是别的知识点，不属于「生物技术的安全与伦理」。","这描述对应的是别的知识点，不属于「生物技术的安全与伦理」。","","这描述对应的是别的知识点，不属于「生物技术的安全与伦理」。"],"q":"下列关于「生物技术的安全与伦理」的理解，正确的是？","explain":"「生物技术的安全与伦理」的要点之一是：设计试管婴儿需严格规范"}]};
+
+function speak(text, btn){
+  if(!('speechSynthesis' in window)){ if(btn) btn.textContent='🔇 当前环境不支持语音'; return; }
+  try{
+    window.speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(text);
+    u.lang='zh-CN'; u.rate=0.98; u.pitch=1;
+    var vs=window.speechSynthesis.getVoices()||[];
+    for(var i=0;i<vs.length;i++){ if(/zh|Chinese|中文/i.test(vs[i].lang||'')){ u.voice=vs[i]; break; } }
+    if(btn){ var old=btn.textContent; btn.textContent='🔊 播放中…'; u.onend=function(){btn.textContent=old;}; u.onerror=function(){btn.textContent=old;}; }
+    window.speechSynthesis.speak(u);
+  }catch(e){ if(btn) btn.textContent='🔊 听讲解'; }
+}
+function buildTopicQuiz(container, title){
+  if(!container) return;
+  var qs = (window.QUIZ && window.QUIZ[title]) || (typeof QUIZ!=='undefined' && QUIZ[title]);
+  if(!qs || !qs.length) return;
+  var head=document.createElement('div'); head.className='quiz-head';
+  head.innerHTML='📝 随堂测验（'+qs.length+' 题）· 答错先看错因，再听语音讲解';
+  container.appendChild(head);
+  qs.forEach(function(qd, idx){
+    var box=document.createElement('div'); box.className='work quiz-card';
+    var qt=document.createElement('div'); qt.className='quiz-q'; qt.innerHTML=(idx+1)+'. '+qd.q; box.appendChild(qt);
+    var fb=document.createElement('div'); fb.className='quiz-fb'; fb.style.display='none';
+    qd.opts.forEach(function(opt, oi){
+      var b=document.createElement('button'); b.className='opt'; b.type='button'; b.textContent=opt;
+      b.addEventListener('click', function(){
+        if(b.classList.contains('ok')||b.classList.contains('no')) return;
+        var correct=(oi===qd.correct);
+        b.classList.add(correct?'ok':'no');
+        fb.style.display='block';
+        if(correct){ fb.innerHTML='✅ 正确！'+qd.explain; }
+        else {
+          fb.innerHTML='❌ 正确选项：'+qd.opts[qd.correct]+'。'+(qd.why[oi]||'')+' '+qd.explain;
+          var opts=box.querySelectorAll('.opt'); if(opts[qd.correct]) opts[qd.correct].classList.add('ok');
+        }
+      });
+      box.appendChild(b);
+    });
+    var hear=document.createElement('button'); hear.className='voicebtn mini'; hear.type='button'; hear.textContent='🔊 听讲解';
+    hear.addEventListener('click', function(){ speak(qd.q+'。'+(fb.textContent||qd.explain), hear); });
+    box.appendChild(hear); box.appendChild(fb); container.appendChild(box);
+  });
+}
+
+(function(){
+  function inj(sec){
+    if(sec.dataset.qz) return;
+    var h3=sec.querySelector('h3'); if(!h3) return;
+    sec.dataset.qz='1';
+    buildTopicQuiz(sec, h3.textContent.trim());
+  }
+  function run(){ document.querySelectorAll('.sec').forEach(inj); }
+  run();
+  var _m=document.getElementById('main');
+  if(_m){ try{ var _mo=new MutationObserver(run); _mo.observe(_m,{childList:true,subtree:true}); }catch(e){} }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', run);
+})();
+</script>
+</body>
+</html>

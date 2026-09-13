@@ -1,0 +1,59 @@
+{
+  "company": "科伦博泰",
+  "company_en": "Kelun-Biotech",
+  "cde_company": "科伦博泰",
+  "ticker": "06990.HK",
+  "description": "",
+  "updated": "2026-08-20",
+  "pipeline_molecules": [
+    {
+      "name_cn": "芦康沙妥珠单抗",
+      "name_en": "sacituzumab tirumotecan",
+      "code": "SKB264",
+      "brand_cn": "佳泰莱",
+      "type": "创新药",
+      "note": "核心资产，已在中国获批多项适应症，与默沙东全球合作（除大中华区）"
+    },
+    {
+      "name_cn": "博度曲妥珠单抗",
+      "name_en": "trastuzumab botidotin",
+      "code": "A166",
+      "brand_cn": "舒泰莱",
+      "type": "创新药",
+      "note": "中国首个国产HER2 ADC，NDA已获NMPA受理"
+    },
+    {
+      "name_cn": "塔戈利单抗",
+      "name_en": "tagitanlimab",
+      "code": "KL-A167",
+      "brand_cn": "科泰莱",
+      "type": "创新药",
+      "note": "全球首个获批鼻咽癌适应症的PD-L1单抗"
+    }
+  ],
+  "bd_partners": [
+    {
+      "name_cn": "Merck & Co. (默沙东/MSD)",
+      "name_en": "Merck & Co. (默沙东/MSD)",
+      "ticker": "MRK",
+      "region": "",
+      "deal": ""
+    }
+  ],
+  "watch_keywords": [
+    "sacituzumab tirumotecan",
+    "sac-TMT",
+    "trastuzumab botidotin",
+    "tagitanlimab",
+    "MK-2870",
+    "MK-1200",
+    "MK-3120",
+    "MK-6204",
+    "MK-2750",
+    "SKB264",
+    "SKB315",
+    "SKB410",
+    "SKB535",
+    "SKB571"
+  ]
+}

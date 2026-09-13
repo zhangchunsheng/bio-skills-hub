@@ -1,0 +1,21 @@
+{
+  "nodes": [
+    { "id": "e_idxdr", "label": "IDx-DR 自主AI眼底筛查", "type": "entry" },
+    { "id": "m_dl", "label": "深度学习/CNN", "type": "method" },
+    { "id": "m_xai", "label": "自主AI(无需专家解读)", "type": "method" },
+    { "id": "s_retina", "label": "糖尿病视网膜病变筛查", "type": "scene" },
+    { "id": "o_dd", "label": "Digital Diagnostics", "type": "org" },
+    { "id": "d_trial", "label": "NCT02963441(900例)", "type": "dataset" },
+    { "id": "met_acc", "label": "敏感度87.2%/特异度90.7%", "type": "metric" },
+    { "id": "reg_fda", "label": "FDA De Novo(2018)", "type": "approval" }
+  ],
+  "edges": [
+    { "source": "e_idxdr", "target": "m_dl", "relation": "采用" },
+    { "source": "e_idxdr", "target": "m_xai", "relation": "采用" },
+    { "source": "e_idxdr", "target": "s_retina", "relation": "场景" },
+    { "source": "e_idxdr", "target": "o_dd", "relation": "公司" },
+    { "source": "e_idxdr", "target": "d_trial", "relation": "数据" },
+    { "source": "e_idxdr", "target": "met_acc", "relation": "指标" },
+    { "source": "e_idxdr", "target": "reg_fda", "relation": "获批" }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "company": "君实生物",
+  "company_en": "Junshi",
+  "cde_company": "君实生物",
+  "ticker": "01877.HK",
+  "description": "",
+  "updated": "2026-08-20",
+  "pipeline_molecules": [
+    {
+      "name_cn": "特瑞普利单抗",
+      "name_en": "toripalimab",
+      "code": "JS001",
+      "brand_cn": "",
+      "type": "创新药",
+      "note": "PD-1"
+    },
+    {
+      "name_cn": "昂戈瑞西单抗",
+      "name_en": "ongericimab",
+      "code": "JS002",
+      "brand_cn": "",
+      "type": "创新药",
+      "note": "PCSK9"
+    },
+    {
+      "name_cn": "塞纳帕利",
+      "name_en": "senaparib",
+      "code": "JS109",
+      "brand_cn": "",
+      "type": "创新药",
+      "note": "PARP1/2"
+    },
+    {
+      "name_cn": "tifcemalimab",
+      "name_en": "tifcemalimab",
+      "code": "JS004",
+      "brand_cn": "",
+      "type": "创新药",
+      "note": "BTLA"
+    },
+    {
+      "name_cn": "roconkibart",
+      "name_en": "roconkibart",
+      "code": "JS005",
+      "brand_cn": "",
+      "type": "创新药",
+      "note": "IL-17A"
+    },
+    {
+      "name_cn": "氘瑞米德韦",
+      "name_en": "deuremidevir",
+      "code": "VV116/JT001",
+      "brand_cn": "",
+      "type": "创新药",
+      "note": "RdRp"
+    }
+  ],
+  "bd_partners": [
+    {
+      "name_cn": "Coherus BioSciences",
+      "name_en": "Coherus BioSciences",
+      "ticker": "CHRS",
+      "region": "",
+      "deal": ""
+    },
+    {
+      "name_cn": "Dr. Reddy's Laboratories",
+      "name_en": "Dr. Reddy's Laboratories",
+      "ticker": "RDY",
+      "region": "",
+      "deal": ""
+    }
+  ],
+  "watch_keywords": [
+    "toripalimab",
+    "ongericimab",
+    "senaparib",
+    "tifcemalimab",
+    "roconkibart",
+    "deuremidevir"
+  ]
+}

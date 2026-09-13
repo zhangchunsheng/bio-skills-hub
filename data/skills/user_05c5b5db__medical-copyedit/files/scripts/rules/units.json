@@ -1,0 +1,20 @@
+{
+  "scope": "national",
+  "layer_name": "国家标准（量和单位）",
+  "source": "GB 3100~3102",
+  "auto": true,
+  "rules": [
+    {"id": "UNIT-PPM", "category": "units", "severity": "warning", "pattern": "\\d\\s*ppm(?![A-Za-z])", "is_regex": true, "suggestion": "10⁻⁶ 或具体量（如 μL/L、mg/kg）", "message": "ppm 为非标准单位，应写 {suggestion}", "dedupe_key": "", "example": "浓度为5ppm", "counter_example": "浓度为 5 μL/L"},
+    {"id": "UNIT-PPB", "category": "units", "severity": "warning", "pattern": "\\d\\s*ppb(?![A-Za-z])", "is_regex": true, "suggestion": "10⁻⁹ 或具体量", "message": "ppb 为非标准单位，应写 {suggestion}", "dedupe_key": "", "example": "5ppb", "counter_example": "5 × 10⁻⁹"},
+    {"id": "UNIT-PPT", "category": "units", "severity": "warning", "pattern": "\\d\\s*ppt(?![A-Za-z])", "is_regex": true, "suggestion": "10⁻¹² 或具体量", "message": "ppt 为非标准单位，应写 {suggestion}", "dedupe_key": "", "example": "5ppt", "counter_example": "5 × 10⁻¹²"},
+    {"id": "UNIT-RPM", "category": "units", "severity": "warning", "pattern": "\\d\\s*rpm(?![A-Za-z])", "is_regex": true, "suggestion": "r/min（转每分）", "message": "rpm 应改为 {suggestion}", "dedupe_key": "", "example": "3000rpm离心", "counter_example": "3000 r/min 离心"},
+    {"id": "UNIT-CAL", "category": "units", "severity": "warning", "pattern": "\\d\\s*cal(?![A-Za-z])", "is_regex": true, "suggestion": "J（1 cal = 4.184 J）；大卡为 kcal", "message": "cal（卡）应换算为 {suggestion}", "dedupe_key": "", "example": "100cal", "counter_example": "418.4 J"},
+    {"id": "UNIT-M", "category": "units", "severity": "warning", "pattern": "\\d\\s*M(?![A-Za-z])", "is_regex": true, "suggestion": "mol/L", "message": "M（克分子浓度）应改为 {suggestion}", "dedupe_key": "", "example": "0.5M NaCl", "counter_example": "0.5 mol/L NaCl"},
+    {"id": "UNIT-EQ", "category": "units", "severity": "warning", "pattern": "(?<![A-Za-z])Eq(?![A-Za-z])", "is_regex": true, "suggestion": "mol 相关量", "message": "Eq（当量）应改为 {suggestion}", "dedupe_key": "", "example": "2Eq", "counter_example": "2 mol"},
+    {"id": "UNIT-N", "category": "units", "severity": "warning", "pattern": "当量浓度|\\d\\s*N(?![A-Za-z])\\s*(?:HCl|H2SO4|H₂SO₄|H2O2|NaOH|硫酸|盐酸)", "is_regex": true, "suggestion": "mol/L", "message": "当量浓度 N 应改为 {suggestion}", "dedupe_key": "", "example": "当量浓度 N", "counter_example": "1 mol/L"},
+    {"id": "UNIT-MUM", "category": "units", "severity": "warning", "pattern": "mμm", "is_regex": true, "suggestion": "nm", "message": "词头不可重叠，mμm 应改为 {suggestion}", "dedupe_key": "", "example": "mμm", "counter_example": "nm"},
+    {"id": "UNIT-KGS", "category": "units", "severity": "warning", "pattern": "\\d\\s*kgs(?![A-Za-z])", "is_regex": true, "suggestion": "kg", "message": "单位符号不用复数，kgs 应改为 {suggestion}", "dedupe_key": "", "example": "60kgs", "counter_example": "60 kg"},
+    {"id": "UNIT-MMHG", "category": "units", "severity": "warning", "pattern": "mmHg(?![A-Za-z])", "is_regex": true, "suggestion": "首次出现注明 1 mmHg ≈ 0.133 kPa（SI 单位 kPa 优先）", "message": "mmHg 可保留，但{suggestion}", "dedupe_key": "mmHg", "example": "120 mmHg", "counter_example": "16 kPa"},
+    {"id": "UNIT-CMH2O", "category": "units", "severity": "warning", "pattern": "cmH[₂2]O(?![A-Za-z])", "is_regex": true, "suggestion": "首次出现注明换算关系（SI 单位 kPa 优先）", "message": "cmH₂O 可保留，但{suggestion}", "dedupe_key": "cmH2O", "example": "cmH₂O", "counter_example": "0.98 kPa"}
+  ]
+}

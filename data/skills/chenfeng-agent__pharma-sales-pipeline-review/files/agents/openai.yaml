@@ -1,0 +1,4 @@
+interface:
+  display_name: "医药商业销售管道复盘"
+  short_description: "审查线索到成交的阶段、概率与下一步"
+  default_prompt: "Use $pharma-sales-pipeline-review for paid 医药商业 销售管道复盘."

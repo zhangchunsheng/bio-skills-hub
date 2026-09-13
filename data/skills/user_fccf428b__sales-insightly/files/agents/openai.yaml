@@ -1,0 +1,4 @@
+interface:
+  display_name: "Insightly 邮件营销与用户触达｜简诗 AI"
+  short_description: "围绕“Insightly 邮件营销与用户触达”提供具体执行方法，涵盖目标、渠道、预算、协同、指标和复盘优化。"
+  default_prompt: "使用 $sales-insightly 完成“Insightly 邮件营销与用户触达”任务。"

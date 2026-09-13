@@ -1,0 +1,4 @@
+interface:
+  display_name: "生物科技供应商评分卡"
+  short_description: "按交期、质量、成本和响应评估供应商"
+  default_prompt: "Use $biotech-supplier-scorecard for paid 生物科技 供应商评分卡."

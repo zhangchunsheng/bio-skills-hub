@@ -1,0 +1,4 @@
+interface:
+  display_name: "Nooks 邮件营销与用户触达｜简诗 AI"
+  short_description: "围绕“Nooks 邮件营销与用户触达”提供具体执行方法，涵盖线索管理、销售推进、沟通协作和结果复盘。"
+  default_prompt: "使用 $sales-nooks 完成“Nooks 邮件营销与用户触达”任务。"

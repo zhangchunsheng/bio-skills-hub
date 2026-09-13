@@ -1,0 +1,81 @@
+{
+  "company": "百济神州",
+  "company_en": "BeiGene",
+  "cde_company": "百济神州",
+  "ticker": "06160.HK",
+  "description": "",
+  "updated": "2026-08-20",
+  "pipeline_molecules": [
+    {
+      "name_cn": "泽布替尼",
+      "name_en": "zanubrutinib",
+      "code": "BGB-3111",
+      "brand_cn": "百悦泽",
+      "type": "创新药",
+      "note": "二代BTK抑制剂，全球超75个市场获批，年销超26亿美元"
+    },
+    {
+      "name_cn": "替雷利珠单抗",
+      "name_en": "tislelizumab",
+      "code": "BGB-A317",
+      "brand_cn": "百泽安",
+      "type": "创新药",
+      "note": "抗PD-1单抗，全球超50个市场获批，中国14项适应症"
+    },
+    {
+      "name_cn": "帕米帕利",
+      "name_en": "pamiparib",
+      "code": "BGB-290",
+      "brand_cn": "百汇泽",
+      "type": "创新药",
+      "note": "PARP抑制剂，中国获批"
+    },
+    {
+      "name_cn": "索托克拉",
+      "name_en": "sonrotoclax",
+      "code": "BGB-11417",
+      "brand_cn": "百悦达",
+      "type": "创新药",
+      "note": "BCL2抑制剂，中国获批，BIC潜力"
+    }
+  ],
+  "bd_partners": [
+    {
+      "name_cn": "安进",
+      "name_en": "Amgen",
+      "ticker": "AMGN",
+      "region": "中国",
+      "deal": "战略合作/引进产品（塔拉妥单抗tarlatamab等）"
+    },
+    {
+      "name_cn": "诺华",
+      "name_en": "Novartis",
+      "ticker": "NVS",
+      "region": "全球",
+      "deal": "合作（tislelizumab已终止收回权益；ociperlimab/TIGIT等）"
+    },
+    {
+      "name_cn": "Zymeworks",
+      "name_en": "Zymeworks",
+      "ticker": "ZYME",
+      "region": "亚洲/澳新",
+      "deal": "引进产品（泽尼达妥单抗zanidatamab，HER2双抗）"
+    },
+    {
+      "name_cn": "Jazz Pharmaceuticals",
+      "name_en": "Jazz Pharmaceuticals",
+      "ticker": "JAZZ",
+      "region": "全球",
+      "deal": "合作开发（zanidatamab分区商业化）"
+    }
+  ],
+  "watch_keywords": [
+    "zanubrutinib",
+    "tislelizumab",
+    "pamiparib",
+    "sonrotoclax",
+    "ociperlimab",
+    "zanidatamab",
+    "tarlatamab"
+  ]
+}

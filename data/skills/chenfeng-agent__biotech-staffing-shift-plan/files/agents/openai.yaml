@@ -1,0 +1,4 @@
+interface:
+  display_name: "生物科技排班与人力计划"
+  short_description: "依据业务峰值和岗位规则检查排班"
+  default_prompt: "Use $biotech-staffing-shift-plan for paid 生物科技 排班与人力计划."

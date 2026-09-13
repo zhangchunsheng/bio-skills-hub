@@ -1,0 +1,4 @@
+interface:
+  display_name: "Clinical Statistics Audit"
+  short_description: "Audit clinical statistics, reporting, and methods."
+  default_prompt: "Use $clinical-statistics-audit to audit this clinical study for statistical-method and reporting issues."

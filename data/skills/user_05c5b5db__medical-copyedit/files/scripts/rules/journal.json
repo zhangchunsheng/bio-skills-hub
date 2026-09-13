@@ -1,0 +1,21 @@
+{
+  "scope": "journal",
+  "layer_name": "目标期刊体例（人工核对清单）",
+  "source": "目标期刊投稿须知 / 编辑部体例",
+  "auto": false,
+  "note": "以下为常见期刊体例要求，多数无法以纯文本可靠自动判定，列作人工核对清单；可按目标期刊配置启用或修订。auto=false 表示脚本不自动扫描，仅在报告中列出供编辑核对。",
+  "rules": [
+    {"id": "JOU-AUTH", "category": "references", "severity": "info", "pattern": "", "is_regex": false, "suggestion": "作者超过 3 人一般列前 3 人后加「，等」", "message": "核对作者数：超过 3 人是否列前 3 人加「，等」（依本刊体例）", "example": "", "counter_example": ""},
+    {"id": "JOU-KEY", "category": "terminology", "severity": "info", "pattern": "", "is_regex": false, "suggestion": "关键词一般 3～8 个", "message": "核对关键词数量是否为 3～8 个", "example": "", "counter_example": ""},
+    {"id": "JOU-ABS", "category": "terminology", "severity": "info", "pattern": "", "is_regex": false, "suggestion": "摘要一般采用「目的、方法、结果、结论」结构式", "message": "核对摘要是否为结构式（目的/方法/结果/结论）", "example": "", "counter_example": ""},
+    {"id": "JOU-HEAD", "category": "terminology", "severity": "info", "pattern": "", "is_regex": false, "suggestion": "标题层级一般不超过 3 级", "message": "核对标题层级是否超过本刊规定的级数", "example": "", "counter_example": ""},
+    {"id": "JOU-TAB", "category": "terminology", "severity": "info", "pattern": "", "is_regex": false, "suggestion": "表格一般采用三线表", "message": "核对表格是否为三线表", "example": "", "counter_example": ""},
+    {"id": "JOU-FIG", "category": "terminology", "severity": "info", "pattern": "", "is_regex": false, "suggestion": "图片分辨率一般不低于 300 dpi", "message": "核对图片分辨率是否达到本刊要求（一般 ≥300 dpi）", "example": "", "counter_example": ""},
+    {"id": "JOU-JNAME", "category": "references", "severity": "info", "pattern": "", "is_regex": false, "suggestion": "期刊名用全称（依本刊要求）", "message": "核对期刊名是否使用全称", "example": "", "counter_example": ""},
+    {"id": "JOU-PAGE", "category": "references", "severity": "info", "pattern": "", "is_regex": false, "suggestion": "起止页一般补全百位（如 30-36，非 30-6）", "message": "核对起止页是否补全百位", "example": "", "counter_example": ""},
+    {"id": "JOU-DOI", "category": "references", "severity": "info", "pattern": "", "is_regex": false, "suggestion": "近 5 年参考文献建议补充 DOI", "message": "核对参考文献（尤其近 5 年）是否提供 DOI", "example": "", "counter_example": ""},
+    {"id": "JOU-CAP", "category": "terminology", "severity": "info", "pattern": "", "is_regex": false, "suggestion": "图/表须有中英文题注，并按正文出现顺序编号", "message": "核对图/表是否含中英文题注并按序编号", "example": "", "counter_example": ""},
+    {"id": "JOU-ETHIC", "category": "terminology", "severity": "info", "pattern": "", "is_regex": false, "suggestion": "人体研究须注明伦理审批批件号与知情同意", "message": "核对是否注明伦理审批与知情同意", "example": "", "counter_example": ""},
+    {"id": "JOU-STAT", "category": "stats", "severity": "info", "pattern": "", "is_regex": false, "suggestion": "统计学方法须注明检验水准 α 与所用软件", "message": "核对是否注明检验水准（如 α=0.05）与统计软件", "example": "", "counter_example": ""}
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "slug": "medical-exam-prep",
+  "name": "医院笔面试真题-小护圈",
+  "version": "1.0.0",
+  "source": "skillhub",
+  "iconSource": "letter:auto",
+  "examples_zh": [
+    "医院笔试内容有哪些",
+    "护士面试真题在哪看",
+    "医院招聘考公基还是专业知识",
+    "医院技能操作考什么"
+  ],
+  "examples_en": [
+    "hospital written exam content",
+    "nurse interview questions",
+    "hospital recruitment exam subjects"
+  ]
+}

@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{TITLE}}</title>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #f5f7fa;
+            color: #1a1a2e;
+            padding: 20px;
+            line-height: 1.5;
+        }
+        .container { max-width: 1280px; margin: 0 auto; }
+
+        /* 头部 */
+        .header {
+            background: white;
+            border-radius: 12px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border-top: 4px solid #4f46e5;
+        }
+        .header h1 { font-size: 24px; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; }
+        .header .subtitle { font-size: 14px; color: #64748b; }
+
+        /* 统计卡片 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 18px 20px;
+            text-align: center;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            border: 1px solid #e5e7eb;
+        }
+        .stat-number { font-size: 32px; font-weight: 700; color: #4f46e5; line-height: 1.1; }
+        .stat-label { font-size: 13px; color: #64748b; margin-top: 6px; }
+
+        /* 控制栏 */
+        .controls {
+            background: white;
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin-bottom: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            border: 1px solid #e5e7eb;
+        }
+        .controls label { font-size: 13px; color: #475569; font-weight: 500; }
+        .controls select, .controls input {
+            padding: 7px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 13px;
+            outline: none;
+            background: white;
+        }
+        .controls input:focus, .controls select:focus { border-color: #4f46e5; }
+        .controls input { width: 200px; }
+        .btn {
+            padding: 7px 14px;
+            border: 1px solid #d1d5db;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #475569;
+        }
+        .btn:hover { background: #f1f5f9; border-color: #4f46e5; color: #4f46e5; }
+        .btn-primary { background: #4f46e5; color: white; border-color: #4f46e5; }
+        .btn-primary:hover { background: #4338ca; color: white; }
+
+        /* 图谱容器 */
+        .graph-wrapper {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        #graph {
+            width: 100%;
+            height: 700px;
+            display: block;
+            background: white;
+        }
+
+        /* 图例 */
+        .legend-box {
+            background: white;
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            border: 1px solid #e5e7eb;
+        }
+        .legend-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin-bottom: 12px;
+        }
+        .legend-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #475569;
+        }
+        .legend-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+        }
+
+        /* 关系表 */
+        .relations-box {
+            background: white;
+            border-radius: 12px;
+            padding: 22px 24px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            border: 1px solid #e5e7eb;
+        }
+        .relations-box h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 14px;
+            color: #1a1a2e;
+        }
+        .relations-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        .relations-table th {
+            text-align: left;
+            padding: 10px 12px;
+            background: #f8fafc;
+            color: #475569;
+            font-weight: 600;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        .relations-table td {
+            padding: 9px 12px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #334155;
+        }
+        .relations-table tr:hover { background: #f8fafc; }
+
+        /* 节点详情面板 */
+        .info-panel {
+            position: fixed;
+            top: 80px;
+            right: 30px;
+            width: 280px;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            border: 1px solid #e5e7eb;
+            display: none;
+            z-index: 100;
+        }
+        .info-panel.active { display: block; }
+        .info-panel h3 { font-size: 16px; margin-bottom: 12px; color: #1a1a2e; }
+        .info-panel .close-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #94a3b8;
+        }
+        .info-row { font-size: 13px; margin-bottom: 8px; color: #475569; }
+        .info-row strong { color: #1a1a2e; }
+        .relation-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            background: #ede9fe;
+            color: #5b21b6;
+            border-radius: 12px;
+            font-size: 12px;
+            margin: 3px;
+        }
+
+        /* 工具提示 */
+        .tooltip {
+            position: fixed;
+            padding: 8px 12px;
+            background: rgba(15, 23, 42, 0.95);
+            color: white;
+            border-radius: 6px;
+            font-size: 12px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s;
+            z-index: 1000;
+            white-space: nowrap;
+        }
+        .tooltip.visible { opacity: 1; }
+
+        /* 边样式 */
+        .edge-label {
+            font-size: 11px;
+            fill: #64748b;
+            pointer-events: none;
+            font-weight: 500;
+        }
+        .edge-label-bg {
+            fill: white;
+            opacity: 0.85;
+        }
+
+        /* 节点标签 */
+        .node-label {
+            font-size: 12px;
+            font-weight: 600;
+            fill: #1a1a2e;
+            pointer-events: none;
+            text-anchor: middle;
+        }
+
+        /* 响应式 */
+        @media (max-width: 900px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .controls { flex-direction: column; align-items: stretch; }
+            .controls input { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            <h1>{{TITLE}}</h1>
+            <div class="subtitle">Medical Knowledge Graph · 实体关系可视化</div>
+        </div>
+
+        <!-- 统计卡片 -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">{{NODE_COUNT}}</div>
+                <div class="stat-label">实体节点</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{EDGE_COUNT}}</div>
+                <div class="stat-label">关系连接</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{TYPE_COUNT}}</div>
+                <div class="stat-label">实体类型</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{RELATION_COUNT}}</div>
+                <div class="stat-label">关系类型</div>
+            </div>
+        </div>
+
+        <!-- 控制栏 -->
+        <div class="controls">
+            <label>筛选类型：</label>
+            <select id="typeFilter" onchange="filterByType(this.value)">
+                <option value="all">全部</option>
+            </select>
+            <label>搜索：</label>
+            <input type="text" id="searchInput" placeholder="输入实体名称..." oninput="searchNodes(this.value)">
+            <button class="btn" onclick="resetView()">重置视图</button>
+            <button class="btn btn-primary" onclick="exportImage()">导出 SVG</button>
+            <span style="font-size:12px; color:#94a3b8; margin-left:auto;">💡 拖拽节点可固定位置，双击节点解除固定</span>
+        </div>
+
+        <!-- 图谱 -->
+        <div class="graph-wrapper">
+            <svg id="graph"></svg>
+        </div>
+
+        <!-- 图例 -->
+        <div class="legend-box">
+            <div class="legend-title">图例 Legend</div>
+            <div class="legend-grid" id="legend"></div>
+        </div>
+
+        <!-- 关系表 -->
+        <div class="relations-box">
+            <h2>核心关系列表</h2>
+            <table class="relations-table">
+                <thead>
+                    <tr>
+                        <th style="width: 35%">源实体</th>
+                        <th style="width: 22%">关系</th>
+                        <th style="width: 35%">目标实体</th>
+                    </tr>
+                </thead>
+                <tbody id="relationsTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 节点详情面板 -->
+    <div class="info-panel" id="infoPanel">
+        <button class="close-btn" onclick="closeInfoPanel()">✕</button>
+        <h3 id="infoTitle">节点详情</h3>
+        <div id="infoContent"></div>
+    </div>
+
+    <!-- 工具提示 -->
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        // ========== 数据 ==========
+        const graphData = {{GRAPH_DATA}};
+
+        // ========== 颜色配置 ==========
+        const nodeColors = {
+            '疾病':     { fill: '#dc2626', stroke: '#991b1b', label: '疾病 (Disease)' },
+            '药物':     { fill: '#10b981', stroke: '#047857', label: '药物 (Drug)' },
+            '基因':     { fill: '#8b5cf6', stroke: '#5b21b6', label: '基因/蛋白 (Gene)' },
+            '症状':     { fill: '#f59e0b', stroke: '#b45309', label: '症状 (Symptom)' },
+            '医疗程序': { fill: '#14b8a6', stroke: '#0f766e', label: '医疗程序 (Procedure)' },
+            '生物标志物':{ fill: '#3b82f6', stroke: '#1d4ed8', label: '生物标志物 (Biomarker)' },
+            '解剖结构': { fill: '#0ea5e9', stroke: '#0369a1', label: '解剖结构 (Anatomy)' },
+            '研究人群': { fill: '#84cc16', stroke: '#4d7c0f', label: '研究人群 (Population)' },
+            '实验动物': { fill: '#f97316', stroke: '#c2410c', label: '实验动物 (Animal Model)' },
+            '细胞系':   { fill: '#e879f9', stroke: '#a21caf', label: '细胞系 (Cell Line)' },
+            '信号通路': { fill: '#06b6d4', stroke: '#0e7490', label: '信号通路 (Pathway)' },
+            '代谢物':   { fill: '#22c55e', stroke: '#15803d', label: '代谢物 (Metabolite)' },
+            '器械仪器': { fill: '#64748b', stroke: '#334155', label: '器械仪器 (Device)' },
+            '结局指标': { fill: '#f43f5e', stroke: '#be123c', label: '结局指标 (Outcome)' },
+            'Unknown':  { fill: '#94a3b8', stroke: '#475569', label: '其他 (Other)' }
+        };
+
+        // ========== 初始化 ==========
+        const nodes = graphData.nodes.map(n => ({
+            ...n,
+            color: nodeColors[n.type] || nodeColors['Unknown']
+        }));
+        const edges = graphData.edges.map(e => ({...e}));
+
+        // 类型筛选下拉
+        const typeFilter = document.getElementById('typeFilter');
+        const usedTypes = [...new Set(nodes.map(n => n.type))];
+        usedTypes.forEach(t => {
+            const opt = document.createElement('option');
+            opt.value = t;
+            opt.textContent = (nodeColors[t] || nodeColors['Unknown']).label;
+            typeFilter.appendChild(opt);
+        });
+
+        // 图例
+        const legend = document.getElementById('legend');
+        usedTypes.forEach(t => {
+            const c = nodeColors[t] || nodeColors['Unknown'];
+            const item = document.createElement('div');
+            item.className = 'legend-item';
+            item.innerHTML = `<span class="legend-dot" style="background:${c.fill}"></span><span>${c.label}</span>`;
+            legend.appendChild(item);
+        });
+
+        // 关系表
+        const relationsBody = document.getElementById('relationsTableBody');
+        const nodeMap = {};
+        nodes.forEach(n => nodeMap[n.id] = n);
+        edges.forEach(e => {
+            const tr = document.createElement('tr');
+            const sId = typeof e.source === 'object' ? e.source.id : e.source;
+            const tId = typeof e.target === 'object' ? e.target.id : e.target;
+            const sLabel = nodeMap[sId] ? nodeMap[sId].label : sId;
+            const tLabel = nodeMap[tId] ? nodeMap[tId].label : tId;
+            tr.innerHTML = `
+                <td><strong>${sLabel}</strong></td>
+                <td><span class="relation-tag">${e.type || '关联'}</span></td>
+                <td><strong>${tLabel}</strong></td>
+            `;
+            relationsBody.appendChild(tr);
+        });
+
+        // ========== SVG 设置 ==========
+        const svg = d3.select('#graph');
+        const container = svg.append('g');
+        let width, height;
+
+        function updateDimensions() {
+            const rect = svg.node().getBoundingClientRect();
+            width = rect.width;
+            height = rect.height || 700;
+            svg.attr('viewBox', `0 0 ${width} ${height}`);
+        }
+        updateDimensions();
+        window.addEventListener('resize', () => {
+            updateDimensions();
+            simulation.force('center', d3.forceCenter(width / 2, height / 2));
+            simulation.alpha(0.3).restart();
+        });
+
+        // ========== 类型聚类布局 ==========
+        // 按类型分簇，沿圆周分布；类型内节点紧密聚集
+        const typeFociCount = usedTypes.length;
+        const clusterRadius = Math.min(width, height) * 0.32;
+        const typeFoci = {};
+        usedTypes.forEach((type, i) => {
+            const angle = (i / Math.max(1, typeFociCount)) * 2 * Math.PI - Math.PI / 2;
+            typeFoci[type] = {
+                x: width / 2 + clusterRadius * Math.cos(angle),
+                y: height / 2 + clusterRadius * Math.sin(angle)
+            };
+        });
+
+        const typeCounts = {};
+        nodes.forEach(n => { typeCounts[n.type] = (typeCounts[n.type] || 0) + 1; });
+
+        // 节点大小：度数越高越大
+        const degree = {};
+        edges.forEach(e => {
+            const sId = typeof e.source === 'object' ? e.source.id : e.source;
+            const tId = typeof e.target === 'object' ? e.target.id : e.target;
+            degree[sId] = (degree[sId] || 0) + 1;
+            degree[tId] = (degree[tId] || 0) + 1;
+        });
+        const maxDegree = Math.max(...Object.values(degree), 1);
+        nodes.forEach(n => {
+            const d = degree[n.id] || 0;
+            // 节点半径：度数越大越大，范围 12-30
+            n.radius = 12 + Math.min(18, d / maxDegree * 18);
+        });
+
+        const simulation = d3.forceSimulation(nodes)
+            .force('link', d3.forceLink(edges).id(d => d.id)
+                .distance(d => d.source.type === d.target.type ? 50 : 130)
+                .strength(0.4))
+            .force('charge', d3.forceManyBody().strength(-300))
+            .force('center', d3.forceCenter(width / 2, height / 2).strength(0.05))
+            .force('collision', d3.forceCollide().radius(d => d.radius + 6))
+            // 类型聚类力：将相同类型节点强力拉到同一区域
+            .force('x', d3.forceX(d => typeFoci[d.type] ? typeFoci[d.type].x : width / 2).strength(0.6))
+            .force('y', d3.forceY(d => typeFoci[d.type] ? typeFoci[d.type].y : height / 2).strength(0.6));
+
+        // 缩放
+        const zoom = d3.zoom()
+            .scaleExtent([0.2, 4])
+            .on('zoom', e => container.attr('transform', e.transform));
+        svg.call(zoom);
+
+        // ========== 绘制边 ==========
+        // 定义箭头标记
+        svg.append('defs').selectAll('marker')
+            .data(['arrow'])
+            .enter().append('marker')
+            .attr('id', 'arrow')
+            .attr('viewBox', '0 -5 10 10')
+            .attr('refX', 22)
+            .attr('refY', 0)
+            .attr('markerWidth', 6)
+            .attr('markerHeight', 6)
+            .attr('orient', 'auto')
+            .append('path')
+            .attr('d', 'M0,-5L10,0L0,5')
+            .attr('fill', '#cbd5e1');
+
+        const linksGroup = container.append('g').attr('class', 'links');
+        const links = linksGroup.selectAll('line')
+            .data(edges)
+            .enter().append('line')
+            .attr('stroke', '#cbd5e1')
+            .attr('stroke-width', 1.5)
+            .attr('stroke-opacity', 0.7)
+            .attr('marker-end', 'url(#arrow)');
+
+        // 边标签
+        const edgeLabelGroup = container.append('g').attr('class', 'edge-labels');
+        const edgeLabels = edgeLabelGroup.selectAll('g')
+            .data(edges)
+            .enter().append('g');
+        // 白色背景框（让标签在线条上更清晰）
+        edgeLabels.append('rect')
+            .attr('class', 'edge-label-bg')
+            .attr('fill', 'white')
+            .attr('opacity', 0.92)
+            .attr('rx', 3)
+            .attr('ry', 3);
+        edgeLabels.append('text')
+            .attr('class', 'edge-label')
+            .attr('text-anchor', 'middle')
+            .attr('dy', '0.35em')
+            .text(d => d.type || '');
+        // 根据文本长度动态设置背景框尺寸
+        edgeLabels.each(function(d) {
+            const g = d3.select(this);
+            const text = g.select('text').node();
+            if (text) {
+                const bbox = text.getBBox();
+                g.select('rect')
+                    .attr('x', bbox.x - 4)
+                    .attr('y', bbox.y - 2)
+                    .attr('width', bbox.width + 8)
+                    .attr('height', bbox.height + 4);
+            }
+        });
+
+        // ========== 绘制节点 ==========
+        const nodesGroup = container.append('g').attr('class', 'nodes');
+        const nodeElements = nodesGroup.selectAll('g')
+            .data(nodes)
+            .enter().append('g')
+            .style('cursor', 'pointer')
+            .call(d3.drag()
+                .on('start', dragstarted)
+                .on('drag', dragged)
+                .on('end', dragended));
+
+        // 节点圆形（纯色，无图标）
+        nodeElements.append('circle')
+            .attr('r', d => d.radius)
+            .attr('fill', d => d.color.fill)
+            .attr('stroke', d => d.color.stroke)
+            .attr('stroke-width', 2)
+            .on('mouseover', showTooltip)
+            .on('mousemove', moveTooltip)
+            .on('mouseout', hideTooltip)
+            .on('click', showNodeInfo)
+            .on('dblclick', unlockNode);
+
+        // 节点标签（在节点下方）
+        nodeElements.append('text')
+            .attr('class', 'node-label')
+            .attr('dy', d => d.radius + 14)
+            .text(d => d.label);
+
+        // 锁定标记（拖拽固定后显示一个小三角）
+        nodeElements.append('text')
+            .attr('class', 'lock-icon')
+            .attr('text-anchor', 'middle')
+            .attr('dy', d => -d.radius - 4)
+            .attr('font-size', '12px')
+            .attr('fill', '#64748b')
+            .style('opacity', 0)
+            .text('📌');
+
+        // ========== 力学更新 ==========
+        simulation.on('tick', () => {
+            links
+                .attr('x1', d => d.source.x)
+                .attr('y1', d => d.source.y)
+                .attr('x2', d => d.target.x)
+                .attr('y2', d => d.target.y);
+
+            edgeLabels.attr('transform', d => {
+                const x = (d.source.x + d.target.x) / 2;
+                const y = (d.source.y + d.target.y) / 2;
+                return `translate(${x},${y})`;
+            });
+
+            nodeElements.attr('transform', d => `translate(${d.x},${d.y})`);
+        });
+
+        // ========== 拖拽（松手后位置固定，双击节点解除固定）==========
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x; d.fy = d.y;
+        }
+        function dragged(event, d) {
+            d.fx = event.x; d.fy = event.y;
+        }
+        function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            // 不重置 fx/fy —— 节点保持在拖拽到的位置
+            // 标记为已固定，并显示图钉图标
+            d.locked = true;
+            d3.select(event.sourceEvent.target.parentNode)
+                .select('.lock-icon')
+                .style('opacity', 1);
+        }
+
+        // 双击节点解除固定
+        function unlockNode(event, d) {
+            event.stopPropagation();
+            if (d.locked) {
+                d.fx = null; d.fy = null;
+                d.locked = false;
+                d3.select(event.currentTarget.parentNode)
+                    .select('.lock-icon')
+                    .style('opacity', 0);
+                simulation.alphaTarget(0.3).restart();
+                setTimeout(() => simulation.alphaTarget(0), 500);
+            }
+        }
+
+        // ========== 工具提示 ==========
+        const tooltip = document.getElementById('tooltip');
+        function showTooltip(event, d) {
+            tooltip.innerHTML = `<strong>${d.label}</strong> · ${d.color.label}`;
+            tooltip.classList.add('visible');
+            moveTooltip(event);
+        }
+        function moveTooltip(event) {
+            tooltip.style.left = (event.clientX + 12) + 'px';
+            tooltip.style.top = (event.clientY + 12) + 'px';
+        }
+        function hideTooltip() {
+            tooltip.classList.remove('visible');
+        }
+
+        // ========== 节点信息面板 ==========
+        function showNodeInfo(event, d) {
+            event.stopPropagation();
+            const panel = document.getElementById('infoPanel');
+            document.getElementById('infoTitle').textContent = d.label;
+
+            const related = edges.filter(e =>
+                (e.source.id || e.source) === d.id || (e.target.id || e.target) === d.id
+            );
+
+            let html = `
+                <div class="info-row"><strong>类型：</strong>${d.color.label}</div>
+                <div class="info-row"><strong>关系数：</strong>${related.length}</div>
+            `;
+            if (related.length > 0) {
+                html += '<div class="info-row" style="margin-top:12px"><strong>关联实体：</strong></div><div>';
+                related.forEach(e => {
+                    const other = (e.source.id || e.source) === d.id ? e.target : e.source;
+                    const otherLabel = other.label || (nodeMap[other] ? nodeMap[other].label : other);
+                    const dir = (e.source.id || e.source) === d.id ? '→' : '←';
+                    html += `<span class="relation-tag">${dir} ${otherLabel} (${e.type || '关联'})</span>`;
+                });
+                html += '</div>';
+            }
+            document.getElementById('infoContent').innerHTML = html;
+            panel.classList.add('active');
+        }
+        function closeInfoPanel() {
+            document.getElementById('infoPanel').classList.remove('active');
+        }
+        svg.on('click', closeInfoPanel);
+
+        // ========== 搜索与筛选 ==========
+        function searchNodes(term) {
+            const t = (term || '').toLowerCase();
+            nodeElements.style('opacity', d => {
+                if (!t) return 1;
+                return d.label.toLowerCase().includes(t) ? 1 : 0.15;
+            });
+            links.style('opacity', d => {
+                if (!t) return 0.7;
+                const sMatch = d.source.label.toLowerCase().includes(t);
+                const tMatch = d.target.label.toLowerCase().includes(t);
+                return (sMatch || tMatch) ? 0.9 : 0.05;
+            });
+            edgeLabels.style('opacity', d => {
+                if (!t) return 1;
+                const sMatch = d.source.label.toLowerCase().includes(t);
+                const tMatch = d.target.label.toLowerCase().includes(t);
+                return (sMatch || tMatch) ? 1 : 0.05;
+            });
+        }
+
+        function filterByType(type) {
+            nodeElements.style('opacity', d => {
+                if (type === 'all') return 1;
+                return d.type === type ? 1 : 0.15;
+            });
+            links.style('opacity', d => {
+                if (type === 'all') return 0.7;
+                return (d.source.type === type || d.target.type === type) ? 0.9 : 0.05;
+            });
+            edgeLabels.style('opacity', d => {
+                if (type === 'all') return 1;
+                return (d.source.type === type || d.target.type === type) ? 1 : 0.05;
+            });
+        }
+
+        // ========== 控制函数 ==========
+        function resetView() {
+            svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity);
+            // 解除所有节点固定
+            nodes.forEach(n => { n.fx = null; n.fy = null; n.locked = false; });
+            nodeElements.select('.lock-icon').style('opacity', 0);
+            simulation.alpha(0.5).restart();
+            nodeElements.style('opacity', 1);
+            links.style('opacity', 0.7);
+            edgeLabels.style('opacity', 1);
+            document.getElementById('searchInput').value = '';
+            document.getElementById('typeFilter').value = 'all';
+            closeInfoPanel();
+        }
+
+        function exportImage() {
+            const svgEl = document.getElementById('graph');
+            const clone = svgEl.cloneNode(true);
+            const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            bg.setAttribute('width', '100%');
+            bg.setAttribute('height', '100%');
+            bg.setAttribute('fill', 'white');
+            clone.insertBefore(bg, clone.firstChild);
+            const data = new XMLSerializer().serializeToString(clone);
+            const blob = new Blob([data], { type: 'image/svg+xml;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'knowledge_graph.svg';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

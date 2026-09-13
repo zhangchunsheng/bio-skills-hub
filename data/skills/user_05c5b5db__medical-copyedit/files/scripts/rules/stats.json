@@ -1,0 +1,13 @@
+{
+  "scope": "professional",
+  "layer_name": "行业规范（统计学表述）",
+  "source": "统计学符号规范 / GB 3358",
+  "auto": true,
+  "rules": [
+    {"id": "STA-SIGNIF", "category": "stats", "severity": "warning", "pattern": "显著性差异|差异显著|有显著性|非常显著|极显著", "is_regex": true, "suggestion": "改为「差异有（无）统计学意义（P<0.05）」", "message": "统计学结论建议用「差异有（无）统计学意义」，避免「显著」旧表述（命中：{found}）", "example": "差异显著", "counter_example": "差异有统计学意义"},
+    {"id": "STA-LOWERP", "category": "stats", "severity": "warning", "pattern": "(?<![A-Za-z])p\\s*[<>=≠]", "is_regex": true, "suggestion": "改为大写斜体 P", "message": "P 值应大写斜体 P（命中：{found}）", "example": "p<0.05", "counter_example": "P<0.05"},
+    {"id": "STA-CHI", "category": "stats", "severity": "warning", "pattern": "x\\s*2\\s*检验|x²检验|X2检验|X²检验|x平方检验", "is_regex": true, "suggestion": "改为「χ²检验」", "message": "卡方应写作「χ²」（命中：{found}）", "example": "x2检验", "counter_example": "χ²检验"},
+    {"id": "STA-SE", "category": "stats", "severity": "info", "pattern": "±\\s*SE(?![A-Za-z])|±标准误", "is_regex": true, "suggestion": "核实 ± 后为 SD 还是 SE", "message": "出现「±SE/标准误」，请确认文中描述是否为标准差（SD）以免误用（命中：{found}）", "example": "均数±SE", "counter_example": "均数±SD"},
+    {"id": "STA-METHOD", "category": "stats", "severity": "info", "pattern": "P\\s*[<>=]|P值", "is_regex": true, "exclude_pattern": "t检验|χ²|卡方|方差分析|F检验|秩和|Mann|Kruskal|ANOVA|检验", "suggestion": "注明检验方法、统计量及自由度", "message": "出现 P 值但未说明所用统计学检验方法，建议补充（若方法已在上下文说明，本提示可忽略）（命中：{found}）", "example": "P<0.05", "counter_example": "t 检验显示 P<0.05"}
+  ]
+}

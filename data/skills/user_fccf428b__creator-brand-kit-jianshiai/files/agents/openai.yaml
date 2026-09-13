@@ -1,0 +1,4 @@
+interface:
+  display_name: "创作·品牌·KIT｜简诗 AI"
+  short_description: "围绕“创作·品牌·KIT”提供具体执行方法，涵盖主题创意、视觉结构、物料清单和落地检查。"
+  default_prompt: "使用 $creator-brand-kit-jianshiai 完成“创作·品牌·KIT”任务。"

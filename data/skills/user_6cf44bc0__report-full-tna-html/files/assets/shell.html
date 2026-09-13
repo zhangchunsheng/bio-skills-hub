@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>__TITLE__</title>
+<style>
+__CSS__
+</style>
+</head>
+<body>
+<div id="bar">
+  <button onclick="document.getElementById('side').classList.toggle('open')">☰ 目录</button>
+  <span class="ttl">__TITLE__</span>
+  <span class="sp"></span>
+  <button onclick="window.print()">打印 / 存为 PDF</button>
+</div>
+<nav id="side"><h4>目录</h4>
+__TOC__
+</nav>
+<main>
+__BODY__
+</main>
+<div id="lb"><img id="lbi" alt=""></div>
+<button id="top" title="回到顶部">↑</button>
+<script>
+document.addEventListener('click',function(e){
+  var t=e.target;
+  if(t.tagName==='IMG'&&t.closest('figure.fig')){
+    document.getElementById('lbi').src=t.src;
+    document.getElementById('lb').classList.add('on');
+  }else if(t.id==='lb'||t.id==='lbi'){
+    document.getElementById('lb').classList.remove('on');
+  }
+});
+document.getElementById('side').addEventListener('click',function(e){
+  if(e.target.tagName==='A'){this.classList.remove('open');}
+});
+document.getElementById('top').onclick=function(){window.scrollTo({top:0,behavior:'smooth'})};
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){document.getElementById('lb').classList.remove('on');}
+});
+</script>
+</body>
+</html>

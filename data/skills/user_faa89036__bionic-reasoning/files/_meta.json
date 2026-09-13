@@ -1,0 +1,18 @@
+{
+  "name": "bionic-reasoning",
+  "display_name": "逻辑炼金术 · 科学推理与因果验证",
+  "version": "1.0.0",
+  "description": "科学方法论+物理推理，严谨因果链与假设验证 | Scientific methodology meets physical reasoning for rigorous causality",
+  "author": "local",
+  "type": "bionic",
+  "tags": ["reasoning", "science", "physics", "validation", "bionic"],
+  "emoji": "🔬",
+  "created_at": "2026-04-16",
+  "updated_at": "2026-04-16",
+  "dependencies": [],
+  "scripts": [
+    "scripts/scientific_method.py",
+    "scripts/physics_reasoning.py",
+    "scripts/hypothesis_validator.py"
+  ]
+}

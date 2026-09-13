@@ -1,0 +1,46 @@
+{
+  "id": "tech",
+  "name_zh": "科技赛博风",
+  "name_en": "Tech / Cyber",
+  "version": "1.0.0",
+  "status": "ready",
+  "one_liner": "网格纸上的终端界面：靠纹理、等宽与单色霓虹表达赛博感，而不是靠暗底。",
+  "signature_moves": [
+    "细网格底纹（26px 网格，透明度 4.5%）——蓝图 / 终端质感",
+    "霓虹强调线：2px 渐变线 + 零偏移带色阴影（发光），只用于报头顶部",
+    "等宽终端标签：方括号包裹的小节名 [ PALETTE ]，大写 + 字距",
+    "方形角标（非圆形）：状态灯、体检级别、评分条端点统一用 1px 圆角方块",
+    "数据表格走等宽数字 + 隔行浅底，仪表盘读感",
+    "硬边小圆角（2-3px）+ 1px 细边框，无大圆角无投影",
+    "卡片缩略图用原页配色生成，不引用外部图片"
+  ],
+  "forbidden": [
+    "大面积深色底（交付物可读性红线；暗色版做法见 card.css.txt 末尾注释）",
+    "多于 2 种霓虹色",
+    "衬线字体做正文",
+    "大面积渐变铺底",
+    "圆形色块（会破坏终端几何感）"
+  ],
+  "best_for": [
+    "技术产品与开发者工具站点",
+    "数据看板 / 指标复盘一页纸",
+    "AI 与基础设施类项目展示"
+  ],
+  "criteria_refs": [
+    "Refactoring UI · Emulate a light source（发光=零偏移+带色阴影）",
+    "Refactoring UI · Greys don't have to be grey（灰阶带冷色温）",
+    "Refactoring UI · Establish a spacing and sizing system（26px 网格）",
+    "docs/design_criteria.md"
+  ],
+  "paired_skeletons": [
+    "inspiration_card",
+    "metrics_dashboard",
+    "content_hub_grid"
+  ],
+  "defaults": {
+    "grid": "26px",
+    "radius": 3,
+    "body_line_height": 1.62,
+    "container": 820
+  }
+}

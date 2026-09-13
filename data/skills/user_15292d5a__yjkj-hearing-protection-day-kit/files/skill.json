@@ -1,0 +1,49 @@
+{
+  "slug": "hearing-protection-day-kit",
+  "name": "Hearing Protection Day Kit",
+  "displayName": "Hearing Protection Day Kit",
+  "version": "1.0.1",
+  "type": "prompt-flow",
+  "description": "Create an everyday noisy-day readiness plan with expected loud blocks, protection choices, breaks, carry-kit checklist, and discomfort notes.",
+  "author": "Golden Bean / coder",
+  "license": "MIT-0",
+  "document_only": true,
+  "promptOnly": true,
+  "runtime": "none",
+  "execution": "noExec",
+  "no_code_execution": true,
+  "no_network": true,
+  "no_credentials": true,
+  "requires_api": false,
+  "category": "Health & Routine Support",
+  "triggerKeywords": [
+    "hearing protection day kit",
+    "ear protection checklist",
+    "noisy day plan",
+    "concert earplugs plan",
+    "loud commute ear protection",
+    "tool noise ear protection",
+    "carry earplugs checklist",
+    "noise exposure plan",
+    "hearing protection breaks",
+    "loud event preparation"
+  ],
+  "tags": [
+    "hearing",
+    "noise",
+    "preparedness",
+    "routine",
+    "health",
+    "checklist"
+  ],
+  "language": "en",
+  "contentType": "document-only",
+  "hasExecutableCode": false,
+  "requiresApi": false,
+  "file_count": 3,
+  "files": [
+    "SKILL.md",
+    "skill.json",
+    "ACCEPTANCE.md"
+  ]
+}

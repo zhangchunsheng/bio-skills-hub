@@ -1,0 +1,4 @@
+interface:
+  display_name: "生物科技项目交付风险"
+  short_description: "从里程碑、依赖和资源识别交付风险"
+  default_prompt: "Use $biotech-project-delivery-radar for paid 生物科技 项目交付风险."

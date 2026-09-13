@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI搜索引用增长顾问｜简诗 AI"
+  short_description: "优化内容在ChatGPT、Claude、Perplexity和AI搜索摘要中的被引用概率，提升品牌AI搜索曝光。"
+  default_prompt: "使用 $generative-engine-optimization-advisory 完成“AI搜索引用增长顾问”任务，并给出可执行结果。"

@@ -1,0 +1,17 @@
+{
+  "learner_profile": {
+    "primary_user": "",
+    "expertise_level": "vascular_surgeon",
+    "specialty": "vascular_surgery",
+    "specialization": "介入血管外科",
+    "learning_style": "expert",
+    "_specialty_note": "specialty 二分类（供 Step 4 推荐阅读分档）：vascular_surgery = 血管外科专家 → 推荐较新文献/最新指南/Meta/前沿RCT精读；non_vascular = 非血管外科专业 → 推荐基础大指南导读/基础PPT/综述讲义。首次使用为空时，先询问用户专业背景再回写。"
+  },
+  "learned_topics": [],
+  "review_schedule": {
+    "intervals_days": [1, 3, 7, 15, 30],
+    "after_30d_status": "may_have_forgotten",
+    "description": "经典艾宾浩斯间隔复习：1 天→3 天→7 天→15 天→30 天。超过 30 天视为可能遗忘，可重新推荐。"
+  },
+  "_topic_schema_note": "learned_topics 中每个主题的结构示例：{ topic_id, topic, category, sub_topics[], first_learned, last_reviewed, review_count, mastery_level, next_review_due, ebbinghaus_stage, source, last_source_type }"
+}

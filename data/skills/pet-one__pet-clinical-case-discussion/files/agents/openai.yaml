@@ -1,0 +1,7 @@
+interface:
+  display_name: "[宠物业务] 兽医病例讨论辅助"
+  short_description: "整理病例事实、鉴别方向、证据与待讨论问题，供兽医内部复核。"
+  default_prompt: "使用 $pet-clinical-case-discussion，仅基于已脱敏病例材料整理内部病例讨论清单，并保留待兽医确认项。"
+
+policy:
+  allow_implicit_invocation: true

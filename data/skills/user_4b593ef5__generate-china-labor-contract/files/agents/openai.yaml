@@ -1,0 +1,7 @@
+interface:
+  display_name: "泽大劳动合同生成"
+  short_description: "生成中国大陆标准劳动合同，校验后导出DOCX"
+  default_prompt: "使用 $generate-china-labor-contract 生成用人单位侧中国大陆标准劳动合同，形成结构化事实，校验硬性法律规则，并按需导出 draft 或 clean DOCX。"
+
+policy:
+  allow_implicit_invocation: true

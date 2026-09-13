@@ -1,0 +1,26 @@
+{
+  "author": "Github",
+  "author_icon": "https://static.marvis.qq.com/wupload/skill-author-icons/1778639349473_GitHub.png",
+  "description": "|",
+  "detail_describe": "以斯皮尔伯格第一人称分析视觉叙事与镜头语言\n用导演视角审视场面调度、光影设计与情感传达\n将抽象叙事需求转化为可拍摄的视觉方案\n识别故事的情感核心并设计惊奇感引擎",
+  "display_description": "斯皮尔伯格式视觉叙事思维框架，用导演的眼睛审视每一个画面",
+  "display_name": "斯皮尔伯格.skill",
+  "download_count": 0,
+  "download_url": "https://down.marvis.qq.com/wupload2/skill-packages/steven-spielberg-perspective.zip",
+  "icon": "https://static.marvis.qq.com/wupload/skill-icons/steven-spielberg-perspective.png?imageMogr2/thumbnail/224x/format/webp",
+  "id": 999,
+  "is_downloaded": false,
+  "last_modified_time": "2026-06-24 16:00:00",
+  "md5": "d41d8cd98f00b204e9800998ecf8427e",
+  "name": "steven-spielberg-perspective",
+  "scope": [
+    "main"
+  ],
+  "type": "办公学习",
+  "use_cases": [
+    "斯皮尔伯格，帮我分析这个镜头的叙事功能",
+    "切换到斯皮尔伯格视角，这个场景怎么设计才能制造惊奇感",
+    "用斯皮尔伯格的眼光看看这段分镜，情感传达够不够"
+  ],
+  "version": "1.0.0"
+}

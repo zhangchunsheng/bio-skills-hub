@@ -1,0 +1,18 @@
+# .consistency.yml — 自定义一致性规则（可选）
+# SCK validate 运行时自动加载。规则仅在实际填写后生效。
+#
+# 规则类型：
+#   count_match:       磁盘文件数 = 文档声明数
+#   cross_reference:   磁盘实体名是否在文档指定段落中出现
+#   content_count:     源文件内容匹配次数 = 文档声明数
+#
+# 详见 SCK 文档或参考科技公众号写作 skill
+#
+# 当前 skill 无需要交叉一致性校验的动态引用项，
+# 保留此文件作为占位，后续新增数据文件时可启用规则。
+#
+# custom_rules:
+#   - type: count_match
+#     source: "references/items/*.md"
+#     target: "SKILL.md"
+#     match: '(\d+)'

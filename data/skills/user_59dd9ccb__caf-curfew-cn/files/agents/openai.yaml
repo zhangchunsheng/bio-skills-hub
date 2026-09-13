@@ -1,0 +1,4 @@
+interface:
+  display_name: "咖了吗｜今晚还能喝吗"
+  short_description: "估算咖啡因睡前残留，并给出保守、简短且可执行的饮用建议"
+  default_prompt: "Use $caf-curfew-cn to 判断我现在是否还适合喝咖啡，并说明估算与不确定性。"

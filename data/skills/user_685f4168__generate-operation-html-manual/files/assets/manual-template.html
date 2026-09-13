@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="data:,">
+  <title>{{TITLE}}</title>
+  <style>
+    :root {
+      --navy:#0b2848; --blue:#155eef; --cyan:#0e7490; --ink:#172033;
+      --muted:#5d6b82; --line:#dce3ec; --soft:#f4f7fb; --blue-soft:#eef4ff;
+      --green:#087a55; --green-soft:#ecfdf3; --amber:#a15c00; --amber-soft:#fff8e8;
+      --red:#b42318; --red-soft:#fff1f0; --paper:#fff;
+      --shadow:0 16px 44px rgba(15,35,65,.10); --radius:14px;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;color:var(--ink);background:#eaf0f6;font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",Arial,sans-serif;font-size:15px;line-height:1.75}
+    a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
+    code,.mono{font-family:Consolas,"SFMono-Regular",monospace;font-size:.92em;background:#edf1f6;border-radius:5px;padding:.1em .35em;word-break:break-all}
+    button{font:inherit}.layout{display:grid;grid-template-columns:280px minmax(0,1fr);min-height:100vh}
+    .sidebar{position:sticky;top:0;height:100vh;overflow:auto;padding:28px 22px 32px;color:#dbe7f5;background:linear-gradient(165deg,#071d35 0%,#0b315a 70%,#0c4563 100%)}
+    .brand{margin-bottom:24px}.brand-kicker{color:#86d1ff;font-size:12px;letter-spacing:.16em}.brand-title{margin-top:7px;color:#fff;font-size:20px;font-weight:700;line-height:1.4}.brand-meta{margin-top:8px;color:#aebfd2;font-size:12px}
+    .nav-title{margin:18px 0 7px;color:#8aa6c1;font-size:11px;letter-spacing:.12em}.sidebar nav a{display:block;margin:2px 0;padding:7px 9px;color:#d5e2f0;border-radius:7px;font-size:13px;line-height:1.45}.sidebar nav a:hover,.sidebar nav a.active{color:#fff;background:rgba(255,255,255,.1);text-decoration:none}.sidebar nav a.sub{padding-left:22px;color:#bcd0e3;font-size:12px}
+    .sidebar-actions{margin-top:22px}.sidebar button{width:100%;padding:9px 12px;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:8px;cursor:pointer}
+    .main{min-width:0;padding:34px}.document{max-width:1160px;margin:0 auto;background:var(--paper);box-shadow:var(--shadow);border-radius:18px;overflow:hidden}
+    .cover{position:relative;min-height:540px;padding:76px 72px 56px;color:#fff;background:radial-gradient(circle at 82% 12%,rgba(69,198,255,.33),transparent 27%),linear-gradient(140deg,#071d35 0%,#0b315a 55%,#0f6982 100%);overflow:hidden}
+    .cover:after{content:"";position:absolute;right:-120px;bottom:-220px;width:520px;height:520px;border:70px solid rgba(255,255,255,.055);border-radius:50%}.eyebrow{color:#8edcff;font-size:13px;font-weight:700;letter-spacing:.18em}.cover h1{max-width:820px;margin:28px 0 18px;font-size:clamp(34px,5vw,58px);line-height:1.18;letter-spacing:-.02em}.subtitle{max-width:760px;margin:0;color:#dcebf6;font-size:20px}
+    .cover-grid{position:absolute;left:72px;right:72px;bottom:55px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.18);border-radius:12px;overflow:hidden;z-index:1}.cover-item{min-height:88px;padding:16px 18px;background:rgba(3,21,41,.44)}.cover-item span{display:block;color:#94b8d0;font-size:12px}.cover-item strong{display:block;margin-top:6px;color:#fff;font-size:15px}
+    .content{padding:42px 64px 72px}section{scroll-margin-top:24px}h2{margin:62px 0 18px;padding-bottom:11px;color:var(--navy);font-size:29px;line-height:1.35;border-bottom:2px solid var(--line)}h2 .num{margin-right:9px;color:var(--blue)}h3{margin:34px 0 12px;color:#163b63;font-size:21px;line-height:1.45}h4{margin:24px 0 8px;color:#284660;font-size:17px}p{margin:10px 0}ul,ol{margin:10px 0 14px;padding-left:1.45em}li{margin:5px 0}.lead{color:#30445d;font-size:17px}.small{color:var(--muted);font-size:13px}
+    .summary-grid,.route-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0}.card{padding:18px;background:var(--soft);border:1px solid var(--line);border-radius:12px}.card strong{display:block;margin-bottom:5px;color:var(--navy);font-size:17px}.card span{color:var(--muted);font-size:13px}
+    .callout{margin:18px 0;padding:15px 18px;border-left:4px solid var(--blue);background:var(--blue-soft);border-radius:0 10px 10px 0}.callout strong{color:#0c408f}.callout.good{border-color:var(--green);background:var(--green-soft)}.callout.good strong{color:var(--green)}.callout.warn{border-color:#e79a23;background:var(--amber-soft)}.callout.warn strong{color:var(--amber)}.callout.danger{border-color:var(--red);background:var(--red-soft)}.callout.danger strong{color:var(--red)}
+    .steps{counter-reset:step;display:grid;gap:13px;margin:18px 0}.step-card{position:relative;min-height:75px;padding:15px 18px 15px 68px;border:1px solid var(--line);border-radius:11px;background:#fff}.step-card:before{counter-increment:step;content:counter(step);position:absolute;top:16px;left:18px;display:grid;place-items:center;width:34px;height:34px;color:#fff;background:var(--blue);border-radius:9px;font-weight:700}.step-card strong{color:var(--navy)}
+    .flow{display:flex;align-items:stretch;gap:8px;margin:18px 0 24px;overflow-x:auto;padding:2px 0 5px}.flow-node{min-width:140px;flex:1;padding:13px 12px;text-align:center;color:#183653;background:#f3f7fb;border:1px solid #cfd9e5;border-radius:10px}.flow-node strong{display:block;color:var(--navy)}.flow-node.primary{color:#fff;background:var(--blue);border-color:var(--blue)}.flow-node.primary strong{color:#fff}.flow-node.branch{background:var(--amber-soft);border-color:#f2c96d}.flow-arrow{display:grid;place-items:center;color:#8191a5;font-size:20px}
+    .decision-flow{display:grid;gap:9px;margin:20px 0}.decision-row{display:grid;grid-template-columns:34px 1.15fr 42px 1fr;gap:10px;align-items:stretch}.decision-row .dot{display:grid;place-items:center;width:32px;height:32px;margin-top:11px;color:#fff;background:var(--blue);border-radius:50%;font-weight:700}.decision-box,.decision-result{padding:12px 15px;border-radius:10px}.decision-box{background:#fff;border:1px solid var(--line)}.decision-result{background:var(--soft)}.decision-arrow{display:grid;place-items:center;color:var(--muted);font-weight:700}
+    .lanes{display:grid;gap:10px;margin:18px 0}.lane{display:grid;grid-template-columns:150px 1fr;min-height:76px;border:1px solid var(--line);border-radius:11px;overflow:hidden}.lane-label{display:grid;place-items:center;padding:12px;color:#fff;background:var(--navy);font-weight:700}.lane-body{display:flex;align-items:center;gap:8px;padding:12px;overflow-x:auto}.lane-step{min-width:128px;padding:10px;text-align:center;background:var(--soft);border-radius:8px;font-size:13px}.lane-arrow{color:#8191a5}
+    .table-wrap{margin:15px 0 24px;overflow-x:auto;border:1px solid var(--line);border-radius:11px}table{width:100%;border-collapse:collapse;min-width:720px;font-size:13.5px;line-height:1.58}th{padding:11px 12px;color:#fff;text-align:left;background:var(--navy)}td{padding:11px 12px;vertical-align:top;border-top:1px solid var(--line)}tbody tr:nth-child(even){background:#f8fafc}
+    .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}.kpi{padding:17px;text-align:center;background:var(--soft);border:1px solid var(--line);border-radius:12px}.kpi strong{display:block;color:var(--blue);font-size:25px}.kpi span{color:var(--muted);font-size:12px}
+    .shot{margin:22px 0 30px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}.shot-head{display:flex;justify-content:space-between;gap:12px;padding:12px 15px;color:#dce9f5;background:var(--navy)}.shot-head strong{color:#fff}.shot-head code{color:#cfe3f5;background:rgba(255,255,255,.1)}.shot-stage{position:relative;display:grid;place-items:center;min-height:310px;padding:14px;background:#e8edf3}.shot-img{display:none;width:100%;height:auto;max-height:min(72vh,820px);object-fit:contain;border-radius:8px;background:#fff;box-shadow:0 10px 30px rgba(15,35,65,.16);cursor:zoom-in;transition:transform .18s ease}.shot-img:hover{transform:scale(1.006)}.shot.has-image .shot-img{display:block}.shot.has-image .shot-empty{display:none}.shot-empty{display:grid;place-items:center;min-height:280px;width:100%;padding:34px;color:var(--muted);text-align:center;border:2px dashed #aebccc;border-radius:10px;background:repeating-linear-gradient(135deg,#f9fbfd,#f9fbfd 13px,#f3f6f9 13px,#f3f6f9 26px)}.slot{display:inline-grid;place-items:center;min-width:110px;min-height:46px;padding:8px 16px;color:#fff;background:var(--blue);border-radius:9px;font-weight:700}.shot-empty p{max-width:580px}.shot figcaption{padding:12px 16px;color:var(--muted);font-size:13px;background:#f8fafc;border-top:1px solid var(--line)}
+    body.lightbox-open{overflow:hidden}.image-lightbox[hidden]{display:none}.image-lightbox{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:58px 24px 28px;overflow:auto;background:rgba(4,18,32,.9);cursor:zoom-out;backdrop-filter:blur(8px)}.lightbox-panel{display:grid;place-items:center;width:100%;min-height:100%}.lightbox-image{display:block;width:auto;height:auto;max-width:min(96vw,2200px);max-height:calc(100vh - 118px);object-fit:contain;border-radius:10px;background:#fff;box-shadow:0 24px 80px rgba(0,0,0,.48);cursor:default}.lightbox-caption{max-width:min(90vw,1200px);margin:14px auto 0;color:#e8f2fb;text-align:center;font-size:14px}.lightbox-close{position:fixed;top:14px;right:20px;z-index:1;display:grid;place-items:center;width:42px;height:42px;padding:0;color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);border-radius:50%;font-size:28px;cursor:pointer}.lightbox-close:focus-visible,.shot-img:focus-visible{outline:3px solid #8edcff;outline-offset:3px}
+    .footer{margin-top:64px;padding-top:20px;color:var(--muted);border-top:1px solid var(--line);font-size:12px}.page-break{break-before:page}
+    @media(max-width:980px){.layout{display:block}.sidebar{position:relative;height:auto;padding:18px 20px}.sidebar nav{display:flex;gap:5px;overflow-x:auto;padding-bottom:4px}.sidebar nav a{flex:0 0 auto}.sidebar-actions{margin-top:12px}.main{padding:0}.document{border-radius:0}.cover{padding:52px 28px 220px}.cover-grid{left:28px;right:28px;bottom:28px;grid-template-columns:repeat(2,1fr)}.content{padding:34px 28px 60px}.summary-grid,.route-grid{grid-template-columns:1fr 1fr}.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:620px){body{font-size:14px}.cover{min-height:600px;padding:42px 22px 260px}.cover-grid{left:22px;right:22px;grid-template-columns:1fr 1fr}.cover h1{font-size:34px}.content{padding:28px 20px 50px}h2{font-size:25px}.summary-grid,.route-grid,.kpi-grid{grid-template-columns:1fr}.flow{display:grid}.flow-arrow{transform:rotate(90deg)}.decision-row{grid-template-columns:30px 1fr}.decision-arrow{display:none}.decision-result{grid-column:2}.lane{grid-template-columns:1fr}.lane-label{place-items:start}.shot-head{display:block}.shot-head code{display:inline-block;margin-top:7px}.shot-stage{min-height:230px;padding:8px}}
+    @media print{@page{size:A4;margin:16mm 13mm 17mm}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}body{background:#fff;font-size:10.5pt;line-height:1.6}.layout{display:block}.sidebar{display:none}.main{padding:0}.document{max-width:none;box-shadow:none;border-radius:0}.cover{min-height:248mm;margin:-16mm -13mm -17mm;padding:52mm 24mm 35mm;break-after:page}.cover h1{font-size:32pt}.cover-grid{left:24mm;right:24mm;bottom:25mm}.content{padding:0}h2{break-after:avoid}.card,.step-card,.callout,.shot,.lane,.kpi,.table-wrap{break-inside:avoid}.shot-img{max-height:170mm;box-shadow:none;cursor:default}.shot-img:hover{transform:none}.image-lightbox{display:none!important}a{color:inherit;text-decoration:none}}
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-kicker">{{EYEBROW}}</div><div class="brand-title">{{TITLE}}</div><div class="brand-meta">{{VERSION}} · {{DATE}}</div></div>
+      <div class="nav-title">目录索引</div>
+      <nav aria-label="文档目录">
+        <a href="#overview">1. 阅读说明</a>
+        <a href="#routes">2. 实现方式</a>
+        <a class="sub" href="#route-a">2.1 路线 A</a>
+        <a class="sub" href="#route-b">2.2 路线 B</a>
+        <a href="#scenario">3. 场景操作</a>
+        <a href="#acceptance">4. 验收与维护</a>
+        <a href="#appendix">附录. 截图与速查</a>
+      </nav>
+      <div class="sidebar-actions"><button type="button" onclick="window.print()">打印 / 导出 PDF</button></div>
+    </aside>
+    <main class="main">
+      <article class="document">
+        <header class="cover">
+          <div class="eyebrow">{{EYEBROW}}</div>
+          <h1>{{TITLE}}</h1>
+          <p class="subtitle">{{SUBTITLE}}</p>
+          <div class="cover-grid">
+            <div class="cover-item"><span>适用对象</span><strong>{{AUDIENCE}}</strong></div>
+            <div class="cover-item"><span>文档版本</span><strong>{{VERSION}}</strong></div>
+            <div class="cover-item"><span>编制日期</span><strong>{{DATE}}</strong></div>
+            <div class="cover-item"><span>交付形式</span><strong>HTML · 可打印 · 可离线</strong></div>
+          </div>
+        </header>
+        <div class="content">
+          <section id="overview">
+            <h2><span class="num">1.</span>阅读说明</h2>
+            <p class="lead">用一句话说明这份手册帮助谁完成什么任务，以及完成后的可验证结果。</p>
+            <div class="summary-grid">
+              <div class="card"><strong>先判断</strong><span>识别输入、场景和适用路线。</span></div>
+              <div class="card"><strong>再执行</strong><span>按步骤操作并记录关键设置。</span></div>
+              <div class="card"><strong>后验证</strong><span>用验收问题确认结果并可回滚。</span></div>
+            </div>
+            <div class="callout good"><strong>使用原则：</strong>把最重要的决策和操作入口放在页面前半部分。</div>
+          </section>
+
+          <section id="routes">
+            <h2><span class="num">2.</span>实现方式总览</h2>
+            <p>先区分可选方式，再分别展开每条路线。下面的示例组件应替换为真实业务内容。</p>
+            <div class="route-grid">
+              <div class="card"><strong>路线 A · 稳定资料</strong><span>适合需要长期维护、可追溯和重复使用的内容。</span></div>
+              <div class="card"><strong>路线 B · 实时数据</strong><span>适合频繁变化、需按条件实时查询的数据。</span></div>
+              <div class="card"><strong>路线 C · 临时输入</strong><span>适合一次性文件或会话内临时分析。</span></div>
+            </div>
+            <div class="decision-flow">
+              <div class="decision-row"><div class="dot">1</div><div class="decision-box">内容是否需要长期复用？</div><div class="decision-arrow">→</div><div class="decision-result">是：进入路线 A；否：继续判断实时性。</div></div>
+              <div class="decision-row"><div class="dot">2</div><div class="decision-box">是否必须读取最新业务状态？</div><div class="decision-arrow">→</div><div class="decision-result">是：进入路线 B；否：使用路线 C。</div></div>
+            </div>
+          </section>
+
+          <section id="route-a">
+            <h2><span class="num">2.1</span>路线 A：完整操作步骤</h2>
+            <div class="flow" aria-label="路线 A 流程">
+              <div class="flow-node primary"><strong>准备输入</strong><span class="small">检查版本与范围</span></div><div class="flow-arrow">→</div>
+              <div class="flow-node"><strong>执行处理</strong><span class="small">设置关键参数</span></div><div class="flow-arrow">→</div>
+              <div class="flow-node"><strong>验证结果</strong><span class="small">测试典型问题</span></div><div class="flow-arrow">→</div>
+              <div class="flow-node branch"><strong>发布或回退</strong><span class="small">记录责任人与版本</span></div>
+            </div>
+            <div class="steps">
+              <div class="step-card"><strong>准备输入。</strong>说明文件、权限、负责人和前置条件。</div>
+              <div class="step-card"><strong>完成配置。</strong>写明需要点击的入口、填写的值和保存动作。</div>
+              <div class="step-card"><strong>验证输出。</strong>说明在哪里观察什么结果，以及失败时如何处理。</div>
+            </div>
+          </section>
+
+          <section id="route-b">
+            <h2><span class="num">2.2</span>路线 B：多角色协作流程</h2>
+            <div class="lanes">
+              <div class="lane"><div class="lane-label">业务人员</div><div class="lane-body"><div class="lane-step">提交需求</div><span class="lane-arrow">→</span><div class="lane-step">确认验收结果</div></div></div>
+              <div class="lane"><div class="lane-label">运维人员</div><div class="lane-body"><div class="lane-step">检查权限</div><span class="lane-arrow">→</span><div class="lane-step">配置与测试</div><span class="lane-arrow">→</span><div class="lane-step">发布并留档</div></div></div>
+              <div class="lane"><div class="lane-label">业务系统</div><div class="lane-body"><div class="lane-step">返回数据</div><span class="lane-arrow">→</span><div class="lane-step">记录调用状态</div></div></div>
+            </div>
+            <div class="callout warn"><strong>注意：</strong>明确超时、无权限、空结果和接口失败时的兜底路径。</div>
+          </section>
+
+          <section id="scenario">
+            <h2><span class="num">3.</span>场景操作：从触发到验收</h2>
+            <p class="lead">每个重要场景都应展开到可以照着执行，而不是只描述概念。</p>
+            <div class="summary-grid">
+              <div class="card"><strong>触发与输入</strong><span>谁发起、材料是什么、版本是否有效。</span></div>
+              <div class="card"><strong>动作与设置</strong><span>在哪个页面完成哪些步骤，参数如何选择。</span></div>
+              <div class="card"><strong>输出与异常</strong><span>成功标志、验收问题、失败处理与回滚。</span></div>
+            </div>
+            <div class="steps">
+              <div class="step-card"><strong>识别场景并选择路线。</strong>把选择依据写清楚。</div>
+              <div class="step-card"><strong>按顺序执行操作。</strong>节点名称必须是具体动作。</div>
+              <div class="step-card"><strong>运行代表性测试。</strong>至少覆盖正常、边界和无结果。</div>
+              <div class="step-card"><strong>记录配置并发布。</strong>留下版本、责任人和回滚点。</div>
+            </div>
+            <figure class="shot">
+              <div class="shot-head"><strong>S01 · 示例操作页面</strong><code>{{IMAGE_DIR}}/S01.png</code></div>
+              <div class="shot-stage"><img class="shot-img" data-src="{{IMAGE_DIR}}/S01.png" alt="示例操作页面中需要点击和检查的区域"><div class="shot-empty"><div><div class="slot">截图 S01</div><p>请截取页面标题、操作入口、关键设置和结果区域；隐藏账号、密钥与客户敏感信息。</p></div></div></div>
+              <figcaption>检查点：操作完成后，页面应显示明确的成功状态或可验证的输出。</figcaption>
+            </figure>
+          </section>
+
+          <section id="acceptance">
+            <h2><span class="num">4.</span>验收、维护与排障</h2>
+            <div class="kpi-grid"><div class="kpi"><strong>100%</strong><span>导航可达</span></div><div class="kpi"><strong>0</strong><span>失效图片</span></div><div class="kpi"><strong>3 类</strong><span>测试问题</span></div><div class="kpi"><strong>可回滚</strong><span>版本留档</span></div></div>
+            <div class="flow"><div class="flow-node"><strong>正常问题</strong><span class="small">验证主流程</span></div><div class="flow-arrow">→</div><div class="flow-node"><strong>边界问题</strong><span class="small">验证参数与权限</span></div><div class="flow-arrow">→</div><div class="flow-node"><strong>无结果问题</strong><span class="small">验证兜底</span></div><div class="flow-arrow">→</div><div class="flow-node primary"><strong>记录并发布</strong><span class="small">保留证据</span></div></div>
+            <div class="callout danger"><strong>上线红线：</strong>未完成权限检查、无结果兜底或版本回滚验证时，不进入正式环境。</div>
+          </section>
+
+          <section id="appendix" class="page-break">
+            <h2><span class="num">附录.</span>截图清单与配置速查</h2>
+            <div class="table-wrap"><table><thead><tr><th>编号</th><th>截图/材料</th><th>用途</th><th>检查点</th></tr></thead><tbody><tr><td>S01</td><td>示例操作页面</td><td>说明关键操作</td><td>入口、设置、状态完整可见</td></tr><tr><td>S02</td><td>结果或日志页面</td><td>证明执行结果</td><td>敏感数据已隐藏</td></tr></tbody></table></div>
+          </section>
+
+          <footer class="footer"><p><strong>文档说明：</strong>本文件为离线可用的单页 HTML 手册。参数和产品行为应以目标环境验证结果为准。</p><p>版本：{{VERSION}}　日期：{{DATE}}　适用对象：{{AUDIENCE}}</p></footer>
+        </div>
+      </article>
+    </main>
+  </div>
+  <div class="image-lightbox" id="image-lightbox" role="dialog" aria-modal="true" aria-label="截图放大预览" hidden>
+    <button class="lightbox-close" type="button" aria-label="关闭放大预览">&times;</button>
+    <div class="lightbox-panel"><div><img class="lightbox-image" alt=""><p class="lightbox-caption"></p></div></div>
+  </div>
+  <script>
+    const lightbox=document.getElementById('image-lightbox'),lightboxImage=lightbox.querySelector('.lightbox-image'),lightboxCaption=lightbox.querySelector('.lightbox-caption'),lightboxClose=lightbox.querySelector('.lightbox-close');let lastFocusedImage=null;
+    function openLightbox(image){lastFocusedImage=image;lightboxImage.src=image.currentSrc||image.src;lightboxImage.alt=image.alt||'截图放大预览';lightboxCaption.textContent=image.alt||'';lightbox.hidden=false;document.body.classList.add('lightbox-open');lightboxClose.focus()}
+    function closeLightbox(){if(lightbox.hidden)return;lightbox.hidden=true;lightboxImage.removeAttribute('src');document.body.classList.remove('lightbox-open');if(lastFocusedImage)lastFocusedImage.focus()}
+    lightboxClose.addEventListener('click',closeLightbox);lightbox.addEventListener('click',event=>{if(event.target===lightbox||event.target.classList.contains('lightbox-panel'))closeLightbox()});document.addEventListener('keydown',event=>{if(event.key==='Escape')closeLightbox()});
+    document.querySelectorAll('.shot').forEach(figure=>{const image=figure.querySelector('.shot-img'),source=image?.dataset?.src||'';if(!image||!source)return;image.tabIndex=0;image.setAttribute('role','button');image.setAttribute('aria-label','放大预览：'+(image.alt||'截图'));image.title='点击放大预览';image.addEventListener('click',()=>openLightbox(image));image.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(image)}});image.addEventListener('load',()=>figure.classList.add('has-image'));image.addEventListener('error',()=>figure.classList.remove('has-image'));image.src=source;if(image.complete&&image.naturalWidth>0)figure.classList.add('has-image')});
+    const sections=[...document.querySelectorAll('main section[id]')],links=[...document.querySelectorAll('.sidebar nav a')];if('IntersectionObserver'in window){const observer=new IntersectionObserver(entries=>{entries.filter(entry=>entry.isIntersecting).forEach(entry=>{links.forEach(link=>link.classList.toggle('active',link.getAttribute('href')==='#'+entry.target.id))})},{rootMargin:'-20% 0px -70% 0px'});sections.forEach(section=>observer.observe(section))}
+  </script>
+</body>
+</html>

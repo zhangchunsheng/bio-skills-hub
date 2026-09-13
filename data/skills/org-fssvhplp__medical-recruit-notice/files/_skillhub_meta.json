@@ -1,0 +1,23 @@
+{
+  "slug": "medical-recruit-notice",
+  "name": "医院招聘公告-小护圈",
+  "version": "1.0.0",
+  "source": "skillhub",
+  "skillId": "medical-recruit-notice",
+  "iconSource": "letter:auto",
+  "examples_zh": [
+    "四川医疗卫生招聘",
+    "北京护士招聘公告",
+    "华西医院招聘公告",
+    "市人民医院什么时候招聘",
+    "医院招多少人",
+    "医院报名条件",
+    "医院报名入口",
+    "医院招聘岗位表"
+  ],
+  "examples_en": [
+    "hospital recruitment notice",
+    "nurse recruitment announcement",
+    "hospital job application requirements"
+  ]
+}

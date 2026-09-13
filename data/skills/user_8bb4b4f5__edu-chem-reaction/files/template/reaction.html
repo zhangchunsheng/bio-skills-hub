@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>化学反应微观 3D 演示</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous"></script>
+    <style>
+        :root { --accent: #6366f1; --accent-soft: rgba(99,102,241,0.25); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #e2e8f0; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .acc-text { color: var(--accent); }
+        .acc-bg { background: var(--accent); }
+        .acc-grad { background: linear-gradient(90deg, var(--accent-soft), var(--accent)); }
+        input[type=range].acc-range { accent-color: var(--accent); }
+        .acc-ring:focus { outline: none; box-shadow: 0 0 0 2px var(--accent); }
+        .play-btn { background: var(--accent); }
+        .play-btn:hover { filter: brightness(1.08); }
+
+        /* Tailwind replacements */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: ui-sans-serif,system-ui,sans-serif; background: #eef2f7; color: #0f172a; min-height:100vh; display:flex; flex-direction:column; overflow:hidden; }
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .flex-1 { flex: 1 1 0%; min-height:0; }
+        .flex-shrink-0,.shrink-0 { flex-shrink: 0; }
+        .flex-wrap { flex-wrap: wrap; }
+        .grid { display: grid; }
+        .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .relative { position: relative; }
+        .absolute { position: absolute; }
+        .fixed { position: fixed; }
+        .inset-0 { top:0; right:0; left:0; bottom:0; }
+        .w-full { width: 100%; }
+        .h-full { height: 100%; }
+        .min-h-screen { min-height: 100vh; }
+        .max-w-\[90px\] { max-width: 90px; }
+        .p-3 { padding: 0.75rem; }
+        .p-4 { padding: 1rem; }
+        .p-5 { padding: 1.25rem; }
+        .p-6 { padding: 1.5rem; }
+        .px-2 { padding-left:0.5rem; padding-right:0.5rem; }
+        .px-2\.5 { padding-left:0.625rem; padding-right:0.625rem; }
+        .px-3 { padding-left:0.75rem; padding-right:0.75rem; }
+        .px-4 { padding-left:1rem; padding-right:1rem; }
+        .px-6 { padding-left:1.5rem; padding-right:1.5rem; }
+        .py-1 { padding-top:0.25rem; padding-bottom:0.25rem; }
+        .py-1\.5 { padding-top:0.375rem; padding-bottom:0.375rem; }
+        .py-2 { padding-top:0.5rem; padding-bottom:0.5rem; }
+        .py-2\.5 { padding-top:0.625rem; padding-bottom:0.625rem; }
+        .py-3 { padding-top:0.75rem; padding-bottom:0.75rem; }
+        .pl-2\.5 { padding-left:0.625rem; }
+        .pr-3 { padding-right:0.75rem; }
+        .mt-1 { margin-top:0.25rem; }
+        .mt-2 { margin-top:0.5rem; }
+        .mt-3 { margin-top:0.75rem; }
+        .mt-4 { margin-top:1rem; }
+        .mt-6 { margin-top:1.5rem; }
+        .mb-1 { margin-bottom:0.25rem; }
+        .mb-2 { margin-bottom:0.5rem; }
+        .mb-3 { margin-bottom:0.75rem; }
+        .mb-4 { margin-bottom:1rem; }
+        .gap-1\.5 { gap:0.375rem; }
+        .gap-2 { gap:0.5rem; }
+        .gap-2\.5 { gap:0.625rem; }
+        .gap-3 { gap:0.75rem; }
+        .gap-4 { gap:1rem; }
+        .space-x-1\.5 > * + * { margin-left:0.375rem; }
+        .space-x-2 > * + * { margin-left:0.5rem; }
+        .space-x-3 > * + * { margin-left:0.75rem; }
+        .space-y-4 > * + * { margin-top:1rem; }
+        .text-xs { font-size:0.75rem; line-height:1rem; }
+        .text-sm { font-size:0.875rem; line-height:1.25rem; }
+        .text-base { font-size:1rem; line-height:1.5rem; }
+        .text-lg { font-size:1.125rem; line-height:1.75rem; }
+        .text-xl { font-size:1.25rem; line-height:1.75rem; }
+        .text-\[10px\] { font-size:10px; }
+        .text-\[11px\] { font-size:11px; }
+        .font-bold { font-weight:700; }
+        .font-semibold { font-weight:600; }
+        .font-mono { font-family:'Courier New',monospace; }
+        .text-center { text-align:center; }
+        .text-white { color:#fff; }
+        .text-slate-900 { color:#0f172a; }
+        .text-slate-800 { color:#1e293b; }
+        .text-slate-700 { color:#334155; }
+        .text-slate-600 { color:#475569; }
+        .text-slate-500 { color:#64748b; }
+        .text-slate-400 { color:#94a3b8; }
+        .text-emerald-600 { color:#059669; }
+        .text-amber-700 { color:#b45309; }
+        .leading-relaxed { line-height:1.625; }
+        .leading-tight { line-height:1.25; }
+        .tracking-wide { letter-spacing:0.025em; }
+        .tracking-wider { letter-spacing:0.05em; }
+        .uppercase { text-transform:uppercase; }
+        .tabular-nums { font-variant-numeric:tabular-nums; }
+        .bg-white { background:#fff; }
+        .bg-white\/85 { background:rgba(255,255,255,0.85); }
+        .bg-slate-50 { background:#f8fafc; }
+        .bg-slate-100 { background:#f1f5f9; }
+        .bg-slate-200 { background:#e2e8f0; }
+        .bg-slate-300 { background:#cbd5e1; }
+        .bg-amber-50 { background:#fffbeb; }
+        .bg-amber-100 { background:#fef3c7; }
+        .bg-amber-500 { background:#f59e0b; }
+        .border { border:1px solid; }
+        .border-2 { border-width:2px; }
+        .border-t { border-top:1px solid; }
+        .border-b { border-bottom:1px solid; }
+        .border-l { border-left:1px solid; }
+        .border-slate-200 { border-color:#e2e8f0; }
+        .border-slate-300 { border-color:#cbd5e1; }
+        .border-amber-200 { border-color:#fde68a; }
+        .rounded { border-radius:0.25rem; }
+        .rounded-lg { border-radius:0.5rem; }
+        .rounded-xl { border-radius:0.75rem; }
+        .rounded-full { border-radius:9999px; }
+        .shadow-sm { box-shadow:0 1px 2px rgba(0,0,0,0.05); }
+        .shadow-lg { box-shadow:0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -4px rgba(0,0,0,0.1); }
+        .cursor-pointer { cursor:pointer; }
+        .cursor-grab { cursor:grab; }
+        .active\:cursor-grabbing:active { cursor:grabbing; }
+        .select-none { user-select:none; }
+        .overflow-hidden { overflow:hidden; }
+        .overflow-y-auto { overflow-y:auto; }
+        .overflow-x-auto { overflow-x:auto; }
+        .hidden { display:none; }
+        .opacity-0 { opacity:0; }
+        .z-10 { z-index:10; }
+        .z-20 { z-index:20; }
+        .z-30 { z-index:30; }
+        .transition-all { transition:all .3s; }
+        .transition-colors { transition:color .15s,background-color .15s,border-color .15s; }
+        .transition-opacity { transition:opacity .3s; }
+        .duration-300 { transition-duration:.3s; }
+        .appearance-none { appearance:none; -webkit-appearance:none; }
+        .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border-width:0; }
+        .inline-block { display:inline-block; }
+        .items-center { align-items:center; }
+        .justify-center { justify-content:center; }
+        .justify-between { justify-content:space-between; }
+        .pointer-events-none { pointer-events:none; }
+        .shrink-0 { flex-shrink:0; }
+        .backdrop-blur { backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px); }
+
+        @media (min-width:1024px) {
+            .lg\:flex-row { flex-direction:row; }
+            .lg\:w-\[480px\] { width:480px; }
+            .lg\:border-t-0 { border-top-width:0; }
+            .lg\:border-l { border-left-width:1px; }
+        }
+
+        .peer:checked ~ .peer-checked\:bg-amber-500 { background:#f59e0b; }
+        .peer:checked ~ .peer-checked\:after\:translate-x-full::after { transform:translateX(100%); }
+
+        /* Toggle switch common */
+        .toggle-switch { width:2.75rem; height:1.5rem; background:#cbd5e1; border-radius:9999px; position:relative; cursor:pointer; transition:background .2s; flex-shrink:0; }
+        .toggle-switch::after { content:''; position:absolute; top:2px; left:2px; width:1.25rem; height:1.25rem; background:#fff; border-radius:50%; transition:transform .2s; }
+        .toggle-switch.on { background:var(--accent); }
+        .toggle-switch.on::after { transform:translateX(1.25rem); }
+        .toggle-switch.amber.on { background:#f59e0b; }
+    </style>
+</head>
+<body>
+    <main class="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
+
+        <!-- 3D Viewport -->
+        <div class="flex-1 relative" style="background:#eef2f7;display:flex;flex-direction:column;min-height:45vh;">
+            <div id="labels-overlay" class="absolute inset-0 pointer-events-none z-20 overflow-hidden"></div>
+            <div id="canvas-container" class="flex-1 w-full h-full cursor-grab active:cursor-grabbing"></div>
+
+            <!-- Labels show / hide toggle -->
+            <button id="labels-toggle" class="absolute" style="top:1rem;left:1rem;z-index:30;background:rgba(255,255,255,0.85);border:1px solid #e2e8f0;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);font-size:0.75rem;padding:0.375rem 0.75rem 0.375rem 0.625rem;border-radius:0.5rem;color:#475569;box-shadow:0 1px 2px rgba(0,0,0,0.05);display:flex;align-items:center;gap:0.375rem;cursor:pointer;user-select:none;line-height:1rem;transition:background .15s;font-family:inherit;" title="显示 / 隐藏标签">
+                <svg id="labels-toggle-icon" style="width:0.875rem;height:0.875rem;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span id="labels-toggle-text">标签</span>
+            </button>
+
+            <!-- Energy diagram (optional) -->
+            <div id="energy-panel" class="absolute hidden" style="top:1rem;right:1rem;background:rgba(255,255,255,0.85);border:1px solid #e2e8f0;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border-radius:0.75rem;padding:0.75rem;user-select:none;box-shadow:0 1px 2px rgba(0,0,0,0.05);">
+                <div style="font-size:10px;font-weight:700;color:#64748b;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:0.25rem;" id="energy-title">能量·反应进程</div>
+                <canvas id="energy-canvas" width="200" height="110"></canvas>
+            </div>
+
+            <div class="absolute" style="bottom:1rem;left:1rem;background:rgba(255,255,255,0.85);border:1px solid #e2e8f0;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);font-size:0.75rem;padding:0.5rem 0.75rem;border-radius:0.5rem;color:#64748b;user-select:none;box-shadow:0 1px 2px rgba(0,0,0,0.05);">
+                <div style="display:flex;align-items:center;gap:0.375rem;">
+                    <svg style="width:0.875rem;height:0.875rem;color:#94a3b8;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
+                    <span id="drag-hint">拖拽旋转 · 滚轮缩放 · 右键平移</span>
+                </div>
+            </div>
+            <div style="position:absolute;bottom:0;left:0;right:0;height:4px;background:#e2e8f0;">
+                <div id="viewport-progress" class="acc-grad" style="height:100%;width:0%;transition:width .3s;"></div>
+            </div>
+        </div>
+
+        <!-- Right panel -->
+        <div style="width:100%;flex-shrink:0;background:#fff;border-top:1px solid #e2e8f0;display:flex;flex-direction:column;overflow-y:auto;" class="lg:w-[480px] lg:border-t-0 lg:border-l">
+            <div style="padding:1.5rem;border-bottom:1px solid #e2e8f0;background:#f8fafc;">
+                <h1 id="title" style="font-size:1.125rem;font-weight:700;letter-spacing:0.025em;color:#0f172a;">化学反应 3D 虚拟实验室</h1>
+                <p id="subtitle" class="acc-text" style="font-size:0.75rem;margin-top:0.25rem;"></p>
+                <div id="equation-container" style="background:#f1f5f9;border:1px solid #e2e8f0;border-radius:0.75rem;padding:0.5rem 0.75rem;margin-top:1rem;font-size:0.875rem;overflow-x:auto;"></div>
+            </div>
+
+            <!-- Stepper -->
+            <div style="padding:1.5rem;border-bottom:1px solid #e2e8f0;background:#f8fafc;">
+                <div class="relative">
+                    <div class="absolute" style="top:1rem;left:1.25rem;right:1.25rem;height:2px;background:#e2e8f0;">
+                        <div id="step-progress-line" class="acc-bg" style="height:100%;width:0%;transition:width .3s;"></div>
+                    </div>
+                    <div id="stepper" class="relative flex justify-between"></div>
+                </div>
+
+                <div style="margin-top:1.5rem;">
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;">
+                        <span id="progress-label" style="font-size:11px;font-weight:700;color:#64748b;letter-spacing:0.05em;text-transform:uppercase;">反应进度</span>
+                        <span id="progress-readout" class="acc-text" style="font-size:0.75rem;font-weight:700;font-family:'Courier New',monospace;font-variant-numeric:tabular-nums;">0%</span>
+                    </div>
+                    <input type="range" id="reaction-slider" min="0" max="100" value="0" class="acc-range acc-ring" style="width:100%;height:8px;background:#e2e8f0;border-radius:4px;appearance:none;-webkit-appearance:none;cursor:pointer;accent-color:var(--accent);">
+                    <p id="slider-hint" style="font-size:11px;color:#94a3b8;margin-top:0.5rem;line-height:1.625;"></p>
+                </div>
+
+                <div style="display:flex;align-items:center;gap:0.5rem;margin-top:1rem;">
+                    <button id="prev-btn" style="padding:0.625rem;background:#e2e8f0;border:none;border-radius:0.5rem;color:#475569;cursor:pointer;transition:background .15s;display:flex;align-items:center;justify-content:center;font-family:inherit;" title="上一步">
+                        <svg style="width:1.25rem;height:1.25rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+                    <button id="play-btn" class="play-btn" style="flex:1;padding:0.625rem 1rem;color:#fff;border:none;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;gap:0.375rem;cursor:pointer;box-shadow:0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -4px rgba(0,0,0,0.1);font-family:inherit;font-size:0.875rem;font-weight:600;">
+                        <svg style="width:1rem;height:1rem;fill:currentColor;" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <span id="play-text">自动演示</span>
+                    </button>
+                    <button id="next-btn" style="padding:0.625rem;background:#e2e8f0;border:none;border-radius:0.5rem;color:#475569;cursor:pointer;transition:background .15s;display:flex;align-items:center;justify-content:center;font-family:inherit;" title="下一步">
+                        <svg style="width:1.25rem;height:1.25rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+                    <button id="reset-btn" style="padding:0.625rem;background:#e2e8f0;border:none;border-radius:0.5rem;color:#475569;cursor:pointer;transition:background .15s;display:flex;align-items:center;justify-content:center;font-family:inherit;" title="复位">
+                        <svg style="width:1.25rem;height:1.25rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"></path></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div style="padding:1.5rem;flex:1;display:flex;flex-direction:column;gap:1rem;">
+                <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:0.75rem;padding:1rem;">
+                    <h2 style="font-size:1rem;font-weight:700;color:#0f172a;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.5rem;">
+                        <svg style="width:1rem;height:1rem;color:var(--accent);flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        <span id="step-title-text">—</span>
+                    </h2>
+                    <p id="explanation-text" style="font-size:0.875rem;color:#334155;line-height:1.625;min-height:140px;">加载中...</p>
+                </div>
+
+                <!-- Conservation counter -->
+                <div id="conservation-panel" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:0.75rem;padding:1rem;">
+                    <div style="display:flex;align-items:center;justify-content:space-between;">
+                        <span id="conservation-label" style="font-size:11px;font-weight:700;color:#64748b;letter-spacing:0.05em;text-transform:uppercase;">原子守恒</span>
+                        <span id="conservation-note" style="font-size:10px;color:#059669;">反应前后不变</span>
+                    </div>
+                    <div id="conservation-chips" style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.75rem;"></div>
+                </div>
+
+                <!-- Overlay toggles (flame / catalyst) -->
+                <div id="toggle-flame" class="hidden" style="padding:1rem;border-radius:0.75rem;background:#fffbeb;border:1px solid #fde68a;align-items:center;justify-content:space-between;">
+                    <div style="display:flex;align-items:center;gap:0.75rem;">
+                        <div style="width:2.5rem;height:2.5rem;border-radius:0.5rem;background:#fef3c7;display:flex;align-items:center;justify-content:center;color:#d97706;flex-shrink:0;">
+                            <svg style="width:1.5rem;height:1.5rem;" fill="currentColor" viewBox="0 0 24 24"><path d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177 7.547 7.547 0 01-1.705-1.715.75.75 0 00-1.152-.082A9 9 0 1015.68 4.534a7.46 7.46 0 01-2.717-2.248z"/></svg>
+                        </div>
+                        <div><h4 style="font-size:0.875rem;font-weight:700;color:#1e293b;" id="flame-title">燃烧火焰与高温</h4>
+                             <p style="font-size:0.75rem;color:#b45309;" id="flame-sub">显示反应放出的热与光</p></div>
+                    </div>
+                    <label style="position:relative;display:inline-flex;align-items:center;cursor:pointer;flex-shrink:0;">
+                        <input type="checkbox" id="flame-toggle" class="sr-only peer" checked>
+                        <div class="toggle-switch amber"></div>
+                    </label>
+                </div>
+
+                <div id="toggle-catalyst" class="hidden" style="padding:1rem;border-radius:0.75rem;background:#f1f5f9;border:1px solid #e2e8f0;align-items:center;justify-content:space-between;">
+                    <div style="display:flex;align-items:center;gap:0.75rem;">
+                        <div style="width:2.5rem;height:2.5rem;border-radius:0.5rem;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0;">
+                            <svg style="width:1.5rem;height:1.5rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <div><h4 style="font-size:0.875rem;font-weight:700;color:#1e293b;" id="catalyst-title">催化剂</h4>
+                             <p class="acc-text" style="font-size:0.75rem;" id="catalyst-sub">显示催化剂如何参与反应</p></div>
+                    </div>
+                    <label style="position:relative;display:inline-flex;align-items:center;cursor:pointer;flex-shrink:0;">
+                        <input type="checkbox" id="catalyst-toggle" class="sr-only peer" checked>
+                        <div class="toggle-switch"></div>
+                    </label>
+                </div>
+
+                <!-- Atom legend -->
+                <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:0.75rem;padding:1rem;">
+                    <span id="legend-label" style="font-size:11px;font-weight:700;color:#64748b;letter-spacing:0.05em;text-transform:uppercase;">原子图例</span>
+                    <div id="legend-grid" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.625rem;margin-top:0.75rem;font-size:0.75rem;"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+    // Inline OrbitControls for three.js r128 (MIT License)
+    (function(){if(typeof THREE==='undefined')return;var O=THREE.OrbitControls=function(e,t){this.object=e;this.domElement=t;this.enabled=true;this.target=new THREE.Vector3();this.minDistance=0;this.maxDistance=Infinity;this.minZoom=0;this.maxZoom=Infinity;this.minPolarAngle=0;this.maxPolarAngle=Math.PI;this.minAzimuthAngle=-Infinity;this.maxAzimuthAngle=Infinity;this.enableDamping=false;this.dampingFactor=0.05;this.enableZoom=true;this.zoomSpeed=1;this.enableRotate=true;this.rotateSpeed=1;this.enablePan=true;this.panSpeed=1;this.screenSpacePanning=false;this.keyPanSpeed=7;this.autoRotate=false;this.autoRotateSpeed=2;this.enableKeys=true;this.keys={LEFT:'ArrowLeft',UP:'ArrowUp',RIGHT:'ArrowRight',BOTTOM:'ArrowDown'};this.mouseButtons={LEFT:THREE.MOUSE?THREE.MOUSE.ROTATE:0,MIDDLE:THREE.MOUSE?THREE.MOUSE.DOLLY:1,RIGHT:THREE.MOUSE?THREE.MOUSE.PAN:2};this.touches={ONE:THREE.TOUCH?THREE.TOUCH.ROTATE:0,TWO:THREE.TOUCH?THREE.TOUCH.DOLLY_PAN:1};this._spherical=new THREE.Spherical();this._sphericalDelta=new THREE.Spherical();this._scale=1;this._panOffset=new THREE.Vector3();this._rotateStart=new THREE.Vector2();this._rotateEnd=new THREE.Vector2();this._rotateDelta=new THREE.Vector2();this._panStart=new THREE.Vector2();this._panEnd=new THREE.Vector2();this._panDelta=new THREE.Vector2();this._dollyStart=new THREE.Vector2();this._dollyEnd=new THREE.Vector2();this._dollyDelta=new THREE.Vector2();this._mouseChange=new THREE.Vector2();var P=this;function handleResize(){var n=P.domElement.clientWidth;P.domElement.style&&(P.domElement.style.width=n+'px')}
+    function getZoomScale(){return Math.pow(.95,P.zoomSpeed)}
+    function rotateLeft(a){P._sphericalDelta.theta-=a}
+    function rotateUp(a){P._sphericalDelta.phi-=a}
+    function panLeft(a,b){var c=new THREE.Vector3();c.crossVectors(P.object.up,new THREE.Vector3(0,0,1));c.applyQuaternion(P.object.quaternion);c.multiplyScalar(a*b);P._panOffset.add(c)}
+    function panUp(a,b){var c=new THREE.Vector3(0,1,0);c.applyQuaternion(P.object.quaternion);c.multiplyScalar(a*b);P._panOffset.add(c)}
+    function panIn(a,b,c){if(P.screenSpacePanning){panLeft(a,b);panUp(a,b)}else{panLeft(a,P.object.matrix.extractBasis?0.5*b:0);panUp(a,0.5*b)}}
+    function dollyIn(a){P._scale*=a}
+    function dollyOut(a){P._scale/=a}
+    this.update=function(){var e=P.object;var t=P.target;var s=e.position.distanceTo(t);var c=e.position.clone().sub(t).setFromSpherical(P._spherical);P._spherical.setFromVector3(c);P._sphericalDelta.theta+=P.autoRotate?P.autoRotateSpeed*2*Math.PI/60/60:0;P._spherical.theta+=P._sphericalDelta.theta;P._spherical.phi+=P._sphericalDelta.phi;P._spherical.theta=Math.max(P.minAzimuthAngle,Math.min(P.maxAzimuthAngle,P._spherical.theta));P._spherical.phi=Math.max(P.minPolarAngle,Math.min(P.maxPolarAngle,P._spherical.phi));P._spherical.makeSafe();var r=P._sphericalDelta.theta!==0||P._sphericalDelta.phi!==0||P._scale!==1;e.position.setFromSpherical(P._spherical).add(t);e.updateMatrix();P._sphericalDelta.set(0,0,0);P._scale=1;t.add(P._panOffset);P._panOffset.set(0,0,0);if(P.enableDamping){P._spherical.theta+=P._sphericalDelta.theta*P.dampingFactor;P._spherical.phi+=P._sphericalDelta.phi*P.dampingFactor}else{var d=P.object.position;d.x+=P._panOffset.x;d.y+=P._panOffset.y;d.z+=P._panOffset.z};t.copy(P.object.position).sub(c.setFromSpherical(P._spherical));return r};var q=new THREE.Vector3();var r=function(e){e.preventDefault();var t=P.domElement.getBoundingClientRect();P._rotateStart.set((e.clientX-t.left)/t.width*2-1,(e.clientY-t.top)/t.height*2-1)};var s=function(e){e.preventDefault();var t=P.domElement.getBoundingClientRect();var n=P._rotateStart;var i=new THREE.Vector2((e.clientX-t.left)/t.width*2-1,(e.clientY-t.top)/t.height*2-1);P._rotateDelta.subVectors(i,n);P._rotateDelta.x*=1;P._rotateDelta.y*=1;var a=P.rotateSpeed;rotateLeft(2*Math.PI*P._rotateDelta.x*a);rotateUp(2*Math.PI*P._rotateDelta.y*a);n.copy(i)};var u=function(e){var t=P.domElement.getBoundingClientRect();P._dollyStart.set((e.clientX-t.left)/t.width*2-1,(e.clientY-t.top)/t.height*2-1)};var v=function(e){var t=P.domElement.getBoundingClientRect();var n=new THREE.Vector2((e.clientX-t.left)/t.width*2-1,(e.clientY-t.top)/t.height*2-1);P._dollyDelta.subVectors(n,P._dollyStart);var i=Math.pow(P._dollyDelta.x,2)+Math.pow(P._dollyDelta.y,2);var a=Math.sqrt(i);var o=P.zoomSpeed;if(P._dollyDelta.y>0){dollyOut(getZoomScale())}else if(P._dollyDelta.y<0){dollyIn(getZoomScale())};P._dollyStart.copy(n)};var w=function(e){var t=P.domElement.getBoundingClientRect();P._panStart.set((e.clientX-t.left)/t.width*2-1,(e.clientY-t.top)/t.height*2-1)};var x=function(e){var t=P.domElement.getBoundingClientRect();P._panDelta.subVectors(new THREE.Vector2((e.clientX-t.left)/t.width*2-1,(e.clientY-t.top)/t.height*2-1),P._panStart);panLeft(P._panDelta.x,P.panSpeed);panUp(P._panDelta.y,P.panSpeed);P._panStart.copy(new THREE.Vector2((e.clientX-t.left)/t.width*2-1,(e.clientY-t.top)/t.height*2-1))};var y=function(e){if(!P.enabled)return;switch(e.button){case 0:if(!P.enableRotate)return;r(e);P.domElement.addEventListener('pointermove',s);break;case 1:if(!P.enableZoom)return;u(e);P.domElement.addEventListener('pointermove',v);break;case 2:if(!P.enablePan)return;w(e);P.domElement.addEventListener('pointermove',x);break}};var z=function(){P.domElement.removeEventListener('pointermove',s);P.domElement.removeEventListener('pointermove',v);P.domElement.removeEventListener('pointermove',x)};P.domElement.addEventListener('pointerdown',y);window.addEventListener('pointerup',z);P.domElement.addEventListener('wheel',function(e){if(!P.enabled||!P.enableZoom)return;e.preventDefault();var t=1;if(e.deltaY<0){dollyIn(getZoomScale())}else if(e.deltaY>0){dollyOut(getZoomScale())};P.update()},{passive:false,capture:true});P.domElement.style.touchAction='none'};O.prototype.constructor=THREE.OrbitControls;})();
+
+    const DATA = __REACTION_DATA__;
+    (function () {
+        const META = DATA.meta, COND = DATA.conditions || {}, UI = DATA.ui || {};
+        const ACCENTS = { amber:'#f59e0b', indigo:'#6366f1', emerald:'#10b981', sky:'#0ea5e9',
+            violet:'#8b5cf6', rose:'#f43f5e', cyan:'#06b6d4', red:'#ef4444', green:'#22c55e',
+            orange:'#f97316', blue:'#3b82f6', slate:'#64748b', teal:'#14b8a6' };
+        const ACC = ACCENTS[META.accent] || ACCENTS.indigo;
+        function hexToRgba(h, a) { const n = parseInt(h.slice(1), 16);
+            return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`; }
+        document.documentElement.style.setProperty('--accent', ACC);
+        document.documentElement.style.setProperty('--accent-soft', hexToRgba(ACC, 0.25));
+
+        // Light scene palette (single theme)
+        const SCENE_BG = 0xeef2f7, BOND_COLOR = 0x94a3b8;
+        const BROKEN_COLOR = 0xf59e0b, BROKEN_EMIT = 0xef4444, FORMED_COLOR = 0x34d399, FORMED_EMIT = 0x059669;
+
+        // Phase boundaries (approach / transition / separate)
+        const P1 = 0.4, P2 = 0.7;
+        function phaseOf(p) {
+            if (p < P1) return { phase: 1, t: p / P1 };
+            if (p <= P2) return { phase: 2, t: (p - P1) / (P2 - P1) };
+            return { phase: 3, t: (p - P2) / (1 - P2) };
+        }
+        const smooth = t => t * t * (3 - 2 * t);
+
+        // ---- State ----
+        let scene, camera, renderer, controls;
+        let webglReady = false;
+        let progress = 0, isPlaying = false, playRAF = null, slideRAF = null;
+        let showFlame = true, showCatalyst = true, showLabels = true;
+        const container = document.getElementById('canvas-container');
+        const atoms = {};       // id -> {el, mesh, start, end, cur, frag, flocal}
+        const fragments = {};    // id -> {catalyst, K0,K1,K2, curPos, curRot, sprite, light}
+        const bondList = [];     // {a,b,order,kind, cyls:[]}
+        let flameLight, flameSprite, transitionLight;
+        const electronSprites = [];
+        const electronRanges = []; // 与 DATA.electrons 对齐：每条定义的 {start, count}
+
+        // ===== Geometry helpers =====
+        const geomCache = {};
+        function sphereGeom(r) { const k = r.toFixed(3);
+            return geomCache[k] || (geomCache[k] = new THREE.SphereGeometry(r, 28, 28)); }
+        const cylGeo = new THREE.CylinderGeometry(1, 1, 1, 10);
+
+        function radialGlow(color) {
+            const c = document.createElement('canvas'); c.width = c.height = 64;
+            const x = c.getContext('2d'), g = x.createRadialGradient(32, 32, 0, 32, 32, 30);
+            g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(0.2, color);
+            g.addColorStop(0.5, hexToRgba(color, 0.4)); g.addColorStop(1, 'rgba(0,0,0,0)');
+            x.fillStyle = g; x.fillRect(0, 0, 64, 64);
+            return new THREE.CanvasTexture(c);
+        }
+
+        // ===== Build scene =====
+        function init3D() {
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(SCENE_BG);
+            scene.fog = new THREE.FogExp2(SCENE_BG, 0.022);
+            camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+            camera.position.set(0, 4, 13);
+            try {
+                renderer = new THREE.WebGLRenderer({ antialias: true, failIfMajorPerformanceCaveat: false, alpha: false });
+            } catch(e) {
+                document.getElementById('canvas-container').innerHTML =
+                    '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#64748b;padding:2rem;text-align:center;">' +
+                    '<div><svg style="width:3rem;height:3rem;margin:0 auto 0.75rem;color:#cbd5e1;display:block;" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+                    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>' +
+                    '<p style="font-weight:600;color:#475569;">您的浏览器不支持 WebGL</p>' +
+                    '<p style="font-size:0.75rem;margin-top:0.25rem;color:#94a3b8;">请使用支持 WebGL 的现代浏览器（Chrome / Firefox / Edge）打开此页面。</p></div></div>';
+                console.warn('WebGL not available:', e.message);
+                return;
+            }
+            if (!renderer) { return; }
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            container.appendChild(renderer.domElement);
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true; controls.dampingFactor = 0.05;
+            controls.maxDistance = 28; controls.minDistance = 3;
+
+            scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+            const dir = new THREE.DirectionalLight(0xffffff, 1.05);
+            dir.position.set(5, 12, 8); dir.castShadow = true;
+            dir.shadow.mapSize.set(2048, 2048); dir.shadow.bias = -0.001; scene.add(dir);
+            const fill = new THREE.DirectionalLight(0x93c5fd, 0.35); fill.position.set(-6, -5, -4); scene.add(fill);
+
+            transitionLight = new THREE.PointLight(0xffcc00, 0, 14);
+            transitionLight.position.set(0, 0.4, 0); scene.add(transitionLight);
+
+            if (COND.flame) {
+                flameLight = new THREE.PointLight(0xff7a18, 0, 16);
+                flameLight.position.set(0, 0.5, 0); scene.add(flameLight);
+                flameSprite = new THREE.Sprite(new THREE.SpriteMaterial({
+                    map: radialGlow('#ffae00'), color: 0xff8a00, transparent: true,
+                    blending: THREE.AdditiveBlending, opacity: 0 }));
+                flameSprite.scale.set(0.1, 0.1, 0.1); flameSprite.position.set(0, 0.5, 0); scene.add(flameSprite);
+            }
+
+            const grid = new THREE.GridHelper(34, 34, 0xcbd5e1, 0xe2e8f0); grid.position.y = -4.5; scene.add(grid);
+            const floor = new THREE.Mesh(new THREE.PlaneGeometry(60, 60), new THREE.ShadowMaterial({ opacity: 0.10 }));
+            floor.rotation.x = -Math.PI / 2; floor.position.y = -4.45; floor.receiveShadow = true; scene.add(floor);
+
+            webglReady = true;
+            buildAtoms(); buildFragments(); buildBonds(); buildElectrons();
+            window.addEventListener('resize', onResize);
+        }
+
+        // 原子描一圈深色边，在浅色背景上提升对比（教科书球棍图风）
+        const OUTLINE_MAT = new THREE.MeshBasicMaterial({ color: 0x334155, side: THREE.BackSide });
+        function buildAtoms() {
+            DATA.atoms.forEach(a => {
+                const mat = new THREE.MeshStandardMaterial({ color: a.color, roughness: 0.3, metalness: 0.05 });
+                const mesh = new THREE.Mesh(sphereGeom(a.radius), mat);
+                mesh.castShadow = mesh.receiveShadow = true; scene.add(mesh);
+                const outline = new THREE.Mesh(sphereGeom(a.radius), OUTLINE_MAT);
+                outline.scale.setScalar(1.07); mesh.add(outline);
+                atoms[a.id] = {
+                    el: a.el, mesh, radius: a.radius,
+                    start: new THREE.Vector3().fromArray(a.start),
+                    end: new THREE.Vector3().fromArray(a.end),
+                    cur: new THREE.Vector3().fromArray(a.start),
+                    frag: a.frag || null,
+                    flocal: a.flocal ? new THREE.Vector3().fromArray(a.flocal) : null,
+                };
+            });
+        }
+
+        function buildFragments() {
+            (DATA.fragments || []).forEach(f => {
+                const frag = { catalyst: !!f.catalyst, K0: f.K0, K1: f.K1, K2: f.K2,
+                    curPos: new THREE.Vector3(), curRot: [0, 0, 0] };
+                if (f.catalyst) {
+                    frag.sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+                        map: radialGlow('#0891b2'), color: 0x0891b2, transparent: true,
+                        blending: THREE.NormalBlending, opacity: 0.85 }));
+                    frag.sprite.scale.set(1.3, 1.3, 1.3); scene.add(frag.sprite);
+                    frag.light = new THREE.PointLight(0x22d3ee, 1.0, 4); scene.add(frag.light);
+                }
+                fragments[f.id] = frag;
+            });
+        }
+
+        function makeBondMat() {
+            return new THREE.MeshStandardMaterial({ color: BOND_COLOR, roughness: 0.4, metalness: 0.1,
+                transparent: true, opacity: 1, emissive: 0x000000, emissiveIntensity: 0 });
+        }
+        function buildBonds() {
+            const add = (b, kind) => {
+                const count = (b.order === 2) ? 2 : (b.order === 3 ? 3 : 1);
+                const cyls = [];
+                for (let i = 0; i < count; i++) {
+                    const m = new THREE.Mesh(cylGeo, makeBondMat()); m.castShadow = true; m.visible = false;
+                    scene.add(m); cyls.push(m);
+                }
+                bondList.push({ a: b.a, b: b.b, order: b.order, ionic: b.order === 'ionic', kind, cyls });
+            };
+            DATA.bonds.kept.forEach(b => add(b, 'kept'));
+            DATA.bonds.broken.forEach(b => add(b, 'broken'));
+            DATA.bonds.formed.forEach(b => add(b, 'formed'));
+        }
+
+        function buildElectrons() {
+            // 每个 electron 定义按其 count 生成对应数量的 sprite（默认 count=1）。
+            // 为 updateElectrons 记录每条定义在 electronSprites 里的起始下标与数量。
+            electronRanges.length = 0;
+            (DATA.electrons || []).forEach((d) => {
+                const n = Math.max(1, d.count || 1);
+                const start = electronSprites.length;
+                for (let k = 0; k < n; k++) {
+                    const s = new THREE.Sprite(new THREE.SpriteMaterial({
+                        map: radialGlow('#0e7490'), color: 0x0891b2, transparent: true,
+                        blending: THREE.NormalBlending, opacity: 0 }));
+                    s.scale.set(0.5, 0.5, 0.5); scene.add(s); electronSprites.push(s);
+                }
+                electronRanges.push({ start, count: n });
+            });
+        }
+
+        // ===== Position resolvers =====
+        function molBob(seed, time) {
+            let h = 0; for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) % 997;
+            const ph = h * 0.0063;
+            return new THREE.Vector3(Math.sin(time * 0.6 + ph) * 0.11,
+                Math.cos(time * 0.5 + ph) * 0.11, Math.sin(time * 0.4 + ph) * 0.09);
+        }
+        function morphPositions(p, time) {
+            const ph = phaseOf(p);
+            for (const id in atoms) {
+                const a = atoms[id];
+                if (ph.phase === 1) {
+                    a.cur.copy(a.start).add(molBob(a.frag || 'r', time));
+                } else if (ph.phase === 2) {
+                    const t = smooth(ph.t), amp = 0.1 * Math.sin(ph.t * Math.PI);
+                    a.cur.lerpVectors(a.start, a.end, t);
+                    a.cur.x += (Math.random() - 0.5) * amp;
+                    a.cur.y += (Math.random() - 0.5) * amp;
+                    a.cur.z += (Math.random() - 0.5) * amp;
+                } else {
+                    a.cur.copy(a.end).add(molBob(a.frag || 'p', time));
+                }
+                a.mesh.position.copy(a.cur);
+            }
+        }
+        const _eu = new THREE.Euler();
+        function lerpArr(A, B, t) { return [A[0]+(B[0]-A[0])*t, A[1]+(B[1]-A[1])*t, A[2]+(B[2]-A[2])*t]; }
+        function mechanismPositions(p, time) {
+            const ph = phaseOf(p);
+            for (const fid in fragments) {
+                const f = fragments[fid];
+                let pos, rot;
+                if (ph.phase === 1) { pos = lerpArr(f.K0.pos, f.K1.pos, ph.t); rot = lerpArr(f.K0.rot, f.K1.rot, ph.t); }
+                else if (ph.phase === 2) {
+                    const j = 0.045 * Math.sin(ph.t * Math.PI);
+                    pos = [f.K1.pos[0] + (Math.random()-0.5)*j, f.K1.pos[1] + (Math.random()-0.5)*j, f.K1.pos[2] + (Math.random()-0.5)*j];
+                    rot = f.K1.rot;
+                } else { pos = lerpArr(f.K1.pos, f.K2.pos, ph.t); rot = lerpArr(f.K1.rot, f.K2.rot, ph.t); }
+                f.curPos.set(pos[0], pos[1], pos[2]); f.curRot = rot;
+                if (f.sprite) { f.sprite.position.copy(f.curPos); f.light.position.copy(f.curPos);
+                    f.sprite.visible = f.light.visible = showCatalyst; }
+            }
+            for (const id in atoms) {
+                const a = atoms[id]; const f = fragments[a.frag];
+                if (!f || !a.flocal) { a.mesh.position.copy(a.cur); continue; }
+                _eu.set(f.curRot[0], f.curRot[1], f.curRot[2]);
+                a.cur.copy(a.flocal).applyEuler(_eu).add(f.curPos);
+                a.mesh.position.copy(a.cur);
+                if (f.catalyst) a.mesh.visible = showCatalyst;
+            }
+        }
+
+        // ===== Bonds =====
+        const _dir = new THREE.Vector3(), _mid = new THREE.Vector3(), _perp = new THREE.Vector3(),
+              _up = new THREE.Vector3(0, 1, 0);
+        function placeCyl(mesh, A, B, radius, opacity, color, emit, emitI) {
+            if (opacity <= 0.02) { mesh.visible = false; return; }
+            mesh.visible = true;
+            _dir.subVectors(B, A); const len = _dir.length();
+            mesh.scale.set(radius, len, radius);
+            _mid.addVectors(A, B).multiplyScalar(0.5); mesh.position.copy(_mid);
+            mesh.quaternion.setFromUnitVectors(_up, _dir.clone().normalize());
+            mesh.material.opacity = opacity; mesh.material.color.setHex(color);
+            mesh.material.emissive.setHex(emit); mesh.material.emissiveIntensity = emitI;
+        }
+        function drawBond(b, p) {
+            const A = atoms[b.a].cur, B = atoms[b.b].cur;
+            const ph = phaseOf(p);
+            let opacity = 1, color = BOND_COLOR, emit = 0x000000, emitI = 0, glow = false;
+            if (b.kind === 'broken') {
+                if (ph.phase === 1) opacity = 1;
+                else if (ph.phase === 2) { opacity = 1 - ph.t; glow = true; }
+                else opacity = 0;
+            } else if (b.kind === 'formed') {
+                if (ph.phase === 1) opacity = 0;
+                else if (ph.phase === 2) { opacity = ph.t; glow = true; }
+                else opacity = 1;
+            }
+            if (glow) {
+                const pulse = 1.0 + Math.sin(Date.now() * 0.01) * 0.5;
+                if (b.kind === 'broken') { color = BROKEN_COLOR; emit = BROKEN_EMIT; }
+                else { color = FORMED_COLOR; emit = FORMED_EMIT; }
+                emitI = pulse;
+            }
+            const baseR = b.ionic ? 0.035 : (b.order === 2 || b.order === 3 ? 0.06 : 0.08);
+            const op = b.ionic ? opacity * 0.5 : opacity;
+            if (b.cyls.length === 1) {
+                placeCyl(b.cyls[0], A, B, glow ? baseR * 0.85 : baseR, op, color, emit, emitI);
+            } else {
+                _dir.subVectors(B, A).normalize();
+                _perp.set(-_dir.y, _dir.x, 0);
+                if (_perp.lengthSq() < 0.01) _perp.set(0, -_dir.z, _dir.y);
+                _perp.normalize().multiplyScalar(0.14);
+                if (b.cyls.length === 2) {
+                    placeCyl(b.cyls[0], A.clone().add(_perp), B.clone().add(_perp), baseR, op, color, emit, emitI);
+                    placeCyl(b.cyls[1], A.clone().sub(_perp), B.clone().sub(_perp), baseR, op, color, emit, emitI);
+                } else {
+                    placeCyl(b.cyls[0], A, B, baseR, op, color, emit, emitI);
+                    placeCyl(b.cyls[1], A.clone().add(_perp), B.clone().add(_perp), baseR, op, color, emit, emitI);
+                    placeCyl(b.cyls[2], A.clone().sub(_perp), B.clone().sub(_perp), baseR, op, color, emit, emitI);
+                }
+            }
+        }
+
+        // ===== Overlays =====
+        function updateFlame(p) {
+            if (!COND.flame) return;
+            const ph = phaseOf(p);
+            let intensity = 0;
+            if (ph.phase === 2) intensity = Math.sin(ph.t * Math.PI);
+            else if (ph.phase === 3) intensity = Math.max(0, 1 - ph.t) * 0.3;
+            if (!showFlame) intensity = 0;
+            const flick = 0.85 + Math.sin(Date.now() * 0.03) * 0.15;
+            flameLight.intensity = intensity * 6 * flick;
+            flameSprite.material.opacity = intensity * flick;
+            const s = 0.5 + intensity * 5.5 * flick; flameSprite.scale.set(s, s, s);
+            flameSprite.visible = showFlame && intensity > 0.01;
+        }
+        function updateTransitionGlow(p) {
+            const ph = phaseOf(p);
+            const on = COND.transitionGlow || (DATA.fragments || []).length;
+            transitionLight.intensity = (on && ph.phase === 2) ? Math.sin(ph.t * Math.PI) * 2.5 : 0;
+        }
+        function updateElectrons(p) {
+            const defs = DATA.electrons || []; if (!defs.length) return;
+            const ph = phaseOf(p);
+            defs.forEach((d, i) => {
+                const range = electronRanges[i] || { start: i, count: 1 };
+                const missing = !atoms[d.from] || !atoms[d.to];
+                for (let k = 0; k < range.count; k++) {
+                    const s = electronSprites[range.start + k]; if (!s) continue;
+                    if (missing) { s.visible = false; continue; }
+                    if (ph.phase === 2) {
+                        const t = smooth(ph.t);
+                        s.position.lerpVectors(atoms[d.from].cur, atoms[d.to].cur, t);
+                        s.position.y += Math.sin(ph.t * Math.PI) * 0.6;
+                        // 多个电子时沿弧线横向错开，避免完全重叠
+                        if (range.count > 1) {
+                            const off = (k - (range.count - 1) / 2) * 0.18;
+                            s.position.x += off * Math.sin(ph.t * Math.PI);
+                        }
+                        s.material.opacity = Math.sin(ph.t * Math.PI);
+                        s.visible = true;
+                    } else { s.visible = false; }
+                }
+            });
+        }
+
+        // ===== Labels =====
+        const _v = new THREE.Vector3(), _camUp = new THREE.Vector3();
+        function buildLabels() {
+            const overlay = document.getElementById('labels-overlay');
+            (DATA.labels || []).forEach(l => {
+                const el = document.createElement('div');
+                el.id = 'lbl-' + l.id;
+                el.className = 'absolute';
+                const c = ({ red:'#ef4444', cyan:'#0891b2', blue:'#3b82f6', emerald:'#10b981', slate:'#475569',
+                    violet:'#8b5cf6', green:'#16a34a', sky:'#0ea5e9', orange:'#f97316' })[l.color] || ACC;
+                el.style.cssText = 'position:absolute;color:#fff;font-size:0.75rem;font-weight:600;padding:0.25rem 0.5rem;border-radius:0.25rem;box-shadow:0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -4px rgba(0,0,0,0.1);transform:translate(-50%,-100%);border:1px solid;transition:opacity .3s;background:'+hexToRgba(c,0.92)+';border-color:'+c;
+                el.textContent = l.text; el.dataset.phase = l.phase;
+                overlay.appendChild(el); l._el = el; l._ids = l.atoms;
+            });
+        }
+        function updateLabels(p) {
+            const rect = container.getBoundingClientRect();
+            const reactantPhase = p < 0.55;
+            _camUp.set(0, 1, 0).applyQuaternion(camera.quaternion);
+            (DATA.labels || []).forEach(l => {
+                const show = showLabels && (l.phase === 'reactant' ? reactantPhase : !reactantPhase);
+                const el = l._el;
+                if (!show) { el.style.opacity = '0'; return; }
+                let sx = 0, topY = Infinity, n = 0;
+                for (const id of l._ids) {
+                    const a = atoms[id];
+                    _v.copy(a.cur).project(camera);
+                    if (_v.z > 1) continue;
+                    sx += (_v.x * 0.5 + 0.5) * rect.width;
+                    _v.copy(a.cur).addScaledVector(_camUp, a.radius).project(camera);
+                    topY = Math.min(topY, (_v.y * -0.5 + 0.5) * rect.height);
+                    n++;
+                }
+                if (!n) { el.style.opacity = '0'; return; }
+                el.style.opacity = '1';
+                el.style.left = (sx / n) + 'px';
+                el.style.top = (topY - 6) + 'px';
+            });
+        }
+
+        // ===== Energy diagram =====
+        function drawEnergy(p) {
+            const E = DATA.energy; if (!E) return;
+            const cv = document.getElementById('energy-canvas'), x = cv.getContext('2d');
+            const W = cv.width, H = cv.height, pad = 14;
+            x.clearRect(0, 0, W, H);
+            const y0 = 0.72, act = E.activation != null ? E.activation : 0.7, dH = E.deltaH != null ? E.deltaH : -0.4;
+            const yEnd = y0 + dH;
+            const peakX = 0.45, peak = Math.max(y0, yEnd) + act * 0.5 + 0.1;
+            const Y = v => pad + (1 - v) * (H - 2 * pad);
+            const X = u => pad + u * (W - 2 * pad);
+            x.strokeStyle = ACC; x.lineWidth = 2; x.beginPath();
+            for (let i = 0; i <= 60; i++) {
+                const u = i / 60; let yv;
+                if (u < peakX) { const k = u / peakX; yv = y0 + (peak - y0) * (k * k * (3 - 2 * k)); }
+                else { const k = (u - peakX) / (1 - peakX); yv = peak + (yEnd - peak) * (k * k * (3 - 2 * k)); }
+                const px = X(u), py = Y(yv); i ? x.lineTo(px, py) : x.moveTo(px, py);
+            }
+            x.stroke();
+            const u = Math.min(1, p); let yv;
+            if (u < peakX) { const k = u / peakX; yv = y0 + (peak - y0) * (k * k * (3 - 2 * k)); }
+            else { const k = (u - peakX) / (1 - peakX); yv = peak + (yEnd - peak) * (k * k * (3 - 2 * k)); }
+            x.fillStyle = '#0f172a'; x.beginPath(); x.arc(X(u), Y(yv), 3.5, 0, 7); x.fill();
+            x.fillStyle = '#64748b'; x.font = '9px sans-serif';
+            x.fillText(E.reactantLabel || '反应物', pad, Y(y0) - 4);
+            x.fillText(E.productLabel || '产物', W - pad - 26, Y(yEnd) - 4);
+        }
+
+        // ===== Render loop =====
+        function animate() {
+            requestAnimationFrame(animate);
+            if (!webglReady) { return; }
+            controls.update();
+            const p = progress / 100, time = Date.now() * 0.001;
+            const pct = Math.round(progress);
+            document.getElementById('progress-readout').textContent = pct + '%';
+            document.getElementById('viewport-progress').style.width = pct + '%';
+
+            if (META.engine === 'mechanism') mechanismPositions(p, time); else morphPositions(p, time);
+            bondList.forEach(b => drawBond(b, p));
+            updateFlame(p); updateTransitionGlow(p); updateElectrons(p);
+            updateLabels(p); drawEnergy(p);
+            updateStep(p);
+            renderer.render(scene, camera);
+        }
+
+        // ===== Stepper / explanation =====
+        const steps = DATA.steps || [];
+        const STEP_INACTIVE = 'w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-all duration-300 bg-white border-slate-300 text-slate-400';
+        function buildStepper() {
+            const wrap = document.getElementById('stepper');
+            steps.forEach((s, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'flex flex-col items-center gap-2 cursor-pointer focus:outline-none';
+                btn.onclick = () => jumpToStep(i + 1);
+                btn.innerHTML = `<span id="step-circle-${i+1}" class="${STEP_INACTIVE}">${i+1}</span>
+                    <span id="step-label-${i+1}" class="text-xs transition-colors duration-300 text-slate-400 max-w-[90px] text-center leading-tight">${s.title || ('步骤'+(i+1))}</span>`;
+                wrap.appendChild(btn);
+            });
+        }
+        let lastStep = -1;
+        function stepIndexFor(p) {
+            if (steps.length <= 1) return 1;
+            if (p < P1) return 1;
+            if (p <= P2) return Math.min(2, steps.length);
+            return steps.length;
+        }
+        function updateStep(p) {
+            const n = stepIndexFor(p);
+            if (n === lastStep) return; lastStep = n;
+            for (let i = 1; i <= steps.length; i++) {
+                const circle = document.getElementById('step-circle-' + i);
+                const label = document.getElementById('step-label-' + i);
+                const on = i <= n;
+                circle.style.background = on ? ACC : '';
+                circle.style.borderColor = on ? ACC : '';
+                circle.className = on
+                    ? 'w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-all duration-300 text-white shadow-lg'
+                    : STEP_INACTIVE;
+                label.className = 'text-xs transition-colors duration-300 max-w-[90px] text-center leading-tight ' +
+                    (on ? 'text-slate-800 font-semibold' : 'text-slate-400');
+            }
+            document.getElementById('step-progress-line').style.width = (((n - 1) / Math.max(1, steps.length - 1)) * 100) + '%';
+            const s = steps[n - 1] || {};
+            document.getElementById('step-title-text').textContent = `${n}. ${s.title || ''}`;
+            document.getElementById('explanation-text').innerHTML = s.html || '';
+        }
+
+        // ===== Controls =====
+        function jumpToStep(n) {
+            const target = steps.length <= 1 ? 0 : Math.round(((n - 1) / (steps.length - 1)) * 100);
+            animateSliderTo(target);
+        }
+        function animateSliderTo(target) {
+            if (isPlaying) togglePlay();
+            if (slideRAF) cancelAnimationFrame(slideRAF);
+            const slider = document.getElementById('reaction-slider');
+            (function step() {
+                const cur = parseFloat(slider.value), diff = target - cur;
+                if (Math.abs(diff) < 2) { slider.value = target; progress = target; }
+                else { const nx = cur + Math.sign(diff) * 3; slider.value = nx; progress = nx; slideRAF = requestAnimationFrame(step); }
+            })();
+        }
+        function togglePlay() {
+            isPlaying = !isPlaying;
+            const btn = document.getElementById('play-btn'), txt = document.getElementById('play-text');
+            if (isPlaying) {
+                if (progress >= 100) { progress = 0; document.getElementById('reaction-slider').value = 0; }
+                txt.textContent = UI.pause || '暂停演示';
+                btn.firstElementChild.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`;
+                playLoop();
+            } else {
+                txt.textContent = UI.play || '自动演示';
+                btn.firstElementChild.innerHTML = `<path d="M8 5v14l11-7z"/>`;
+                if (playRAF) { cancelAnimationFrame(playRAF); playRAF = null; }
+            }
+        }
+        function playLoop() {
+            if (!isPlaying) return;
+            progress += 0.5;
+            if (progress >= 100) { progress = 100; document.getElementById('reaction-slider').value = 100; togglePlay(); return; }
+            document.getElementById('reaction-slider').value = progress;
+            playRAF = requestAnimationFrame(playLoop);
+        }
+        function onResize() {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        }
+
+        // ===== Static UI from data =====
+        function paintStaticUI() {
+            document.title = (META.title || '化学反应') + ' · 微观3D演示';
+            document.documentElement.lang = META.language || 'zh-CN';
+            document.getElementById('title').textContent = META.title || '';
+            document.getElementById('subtitle').textContent = META.subtitle || '';
+            document.getElementById('equation-container').innerHTML = '$$' + (META.equation || '') + '$$';
+            document.getElementById('drag-hint').textContent = UI.drag || '拖拽旋转 · 滚轮缩放 · 右键平移';
+            document.getElementById('energy-title').textContent = UI.energy || '能量·反应进程';
+            document.getElementById('progress-label').textContent = UI.progress || '反应进度';
+            document.getElementById('slider-hint').textContent = UI.hint || '';
+            document.getElementById('play-text').textContent = UI.play || '自动演示';
+            document.getElementById('legend-label').textContent = UI.legend || '原子图例';
+            document.getElementById('conservation-label').textContent = UI.conservation || '原子守恒';
+            document.getElementById('labels-toggle-text').textContent = UI.labels || '标签';
+            document.getElementById('labels-toggle').title = UI.labelsHint || '显示 / 隐藏标签';
+            // conservation chips
+            const chips = document.getElementById('conservation-chips');
+            const colorOf = {}; (DATA.legend || []).forEach(l => colorOf[l.el] = l.color);
+            Object.entries(DATA.elementCounts || {}).forEach(([el, n]) => {
+                const d = document.createElement('div');
+                d.className = 'flex items-center gap-1.5 px-2 py-1 rounded-lg bg-slate-100 border border-slate-200 text-xs';
+                d.innerHTML = `<span class="w-3 h-3 rounded-full inline-block" style="background:${colorOf[el]||'#94a3b8'}"></span>
+                    <span class="text-slate-700 font-mono">${el} ×${n}</span>`;
+                chips.appendChild(d);
+            });
+            // legend
+            const lg = document.getElementById('legend-grid');
+            (DATA.legend || []).forEach(l => {
+                const d = document.createElement('div'); d.className = 'flex items-center space-x-2 text-slate-700';
+                d.innerHTML = `<span class="w-3.5 h-3.5 rounded-full inline-block shrink-0" style="background:${l.color}"></span><span>${l.name} ${l.el}</span>`;
+                lg.appendChild(d);
+            });
+            if (COND.flame) {
+                const t = document.getElementById('toggle-flame'); t.classList.remove('hidden'); t.classList.add('flex');
+            }
+            if (COND.catalyst) {
+                const t = document.getElementById('toggle-catalyst'); t.classList.remove('hidden'); t.classList.add('flex');
+                document.getElementById('catalyst-title').textContent = (COND.catalyst.label || '催化剂');
+            }
+            if (DATA.energy) {
+                document.getElementById('energy-panel').classList.remove('hidden');
+                document.getElementById('energy-title').textContent = UI.energy || '能量·反应进程';
+            }
+        }
+
+        function bindEvents() {
+            const slider = document.getElementById('reaction-slider');
+            slider.addEventListener('input', e => {
+                if (isPlaying) togglePlay();
+                if (slideRAF) { cancelAnimationFrame(slideRAF); slideRAF = null; }
+                progress = parseFloat(e.target.value);
+            });
+            document.getElementById('play-btn').addEventListener('click', togglePlay);
+            document.getElementById('reset-btn').addEventListener('click', () => {
+                if (isPlaying) togglePlay();
+                if (slideRAF) { cancelAnimationFrame(slideRAF); slideRAF = null; }
+                progress = 0; slider.value = 0;
+                if (webglReady) { camera.position.set(0, 4, 13); controls.target.set(0, 0, 0); }
+            });
+            document.getElementById('prev-btn').addEventListener('click', () => jumpToStep(Math.max(1, stepIndexFor(progress / 100) - 1)));
+            document.getElementById('next-btn').addEventListener('click', () => jumpToStep(Math.min(steps.length, stepIndexFor(progress / 100) + 1)));
+            const ft = document.getElementById('flame-toggle');
+            if (ft) ft.addEventListener('change', e => { showFlame = e.target.checked; const ts=e.target.nextElementSibling; if(ts)ts.classList.toggle('on',e.target.checked); });
+            const ct = document.getElementById('catalyst-toggle');
+            if (ct) ct.addEventListener('change', e => { showCatalyst = e.target.checked; const ts=e.target.nextElementSibling; if(ts)ts.classList.toggle('on',e.target.checked); });
+            const EYE = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>`;
+            const EYE_OFF = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88"/>`;
+            const lt = document.getElementById('labels-toggle'), lti = document.getElementById('labels-toggle-icon');
+            lt.addEventListener('click', () => {
+                showLabels = !showLabels;
+                lti.innerHTML = showLabels ? EYE : EYE_OFF;
+                lt.classList.toggle('text-slate-400', !showLabels);
+                lt.classList.toggle('text-slate-600', showLabels);
+            });
+        }
+
+        window.onload = function () {
+            paintStaticUI(); buildStepper(); init3D(); buildLabels(); bindEvents();
+            // Init toggle switches
+            document.querySelectorAll('.toggle-switch').forEach(function(ts){ts.classList.add('on');});
+            updateStep(0); lastStep = -1;
+            animate();
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(document.body, { delimiters: [
+                    { left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }] });
+            }
+        };
+    })();
+    </script>
+</body>
+</html>

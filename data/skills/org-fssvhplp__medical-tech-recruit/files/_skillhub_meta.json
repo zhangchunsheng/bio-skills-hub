@@ -1,0 +1,25 @@
+{
+  "slug": "medical-tech-recruit",
+  "name": "医技科室招聘-小护圈",
+  "version": "1.0.0",
+  "source": "skillhub",
+  "iconSource": "letter:auto",
+  "examples_zh": [
+    "检验科招聘",
+    "影像科招聘",
+    "B超医生招聘",
+    "康复治疗师招聘",
+    "药房招聘",
+    "助产士招聘",
+    "ICU护士招聘",
+    "手术室护士招聘",
+    "病案室招聘",
+    "导医招聘"
+  ],
+  "examples_en": [
+    "lab technician hospital jobs",
+    "radiology department hiring",
+    "ICU nurse jobs",
+    "pharmacy jobs in hospital"
+  ]
+}

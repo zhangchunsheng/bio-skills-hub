@@ -1,0 +1,27 @@
+{
+  "name": "通用招投标采购助手",
+  "version": "1.0.0",
+  "author": "局内人·老K",
+  "category": "效率工具",
+  "description": "面向中小企业与投标新手的通用招投标采购辅助助手。解析招标文件结构、拆解评标办法、测算报价得分、生成投标检查清单与合规质疑框架，圈出废标雷区。覆盖公开招标、竞争性谈判、询价、电子卖场等通用采购方式，不绑定单一平台。",
+  "tags": ["招投标", "投标", "采购", "评标", "文件审查"],
+  "compatibility": "具备文件读写与执行 Python 脚本能力的对话式 AI 环境；Python 3.8+；核心脚本仅用标准库。可接受 PDF/Word/图片（需用户转文本）或直接粘贴的招标文件片段。",
+  "permissions": [
+    "读取用户提供的招标文件文本/片段",
+    "执行 scripts/bid_analyzer.py 做评分测算与废标检查",
+    "输出审查清单、测算表、质疑框架等结构化文本"
+  ],
+  "safety": "仅做合规投标辅助（文件审查、评分测算、废标避坑、合规质疑），不提供围标、串标、陪标、挂靠、伪造资质等违法内容。不读取文件以外数据，不上传文件到外部地址。",
+  "entry": "SKILL.md",
+  "scripts": ["scripts/bid_analyzer.py"],
+  "references": [
+    "references/采购术语词典.md",
+    "references/招标文件结构.md",
+    "references/评分标准详解.md",
+    "references/投标检查清单.md",
+    "references/质量检查清单.md"
+  ],
+  "hooks": ["hooks/guardrail.md"],
+  "license": "MIT",
+  "language": "zh-CN"
+}

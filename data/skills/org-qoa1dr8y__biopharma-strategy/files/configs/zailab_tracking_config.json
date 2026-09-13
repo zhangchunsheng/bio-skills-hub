@@ -1,0 +1,18 @@
+{
+  "company": "再鼎医药",
+  "company_en": "Zai Lab",
+  "cde_company": "再鼎医药",
+  "ticker": "09688.HK",
+  "description": "license-in 模式创新药，引进全球重磅品种大中华区权益，美股合作方众多（argenx/Viridian等）。",
+  "updated": "2026-08-20",
+  "pipeline_molecules": [
+    {"name_cn": "艾加莫德", "name_en": "efgartigimod", "code": "", "brand_cn": "卫伟迦", "type": "创新药", "note": "FcRn拮抗剂，从argenx引进中国权益，重症肌无力"},
+    {"name_cn": "尼拉帕利", "name_en": "niraparib", "code": "", "brand_cn": "则乐", "type": "创新药", "note": "PARP抑制剂，卵巢癌"},
+    {"name_cn": "瑞派替尼", "name_en": "repotrectinib", "code": "", "brand_cn": "", "type": "创新药", "note": "ROS1/TRK抑制剂，肺癌"}
+  ],
+  "bd_partners": [
+    {"name_cn": "argenx", "name_en": "argenx", "ticker": "ARGX", "region": "大中华区", "deal": "艾加莫德efgartigimod中国权益"},
+    {"name_cn": "Viridian Therapeutics", "name_en": "Viridian Therapeutics", "ticker": "VRDN", "region": "大中华区", "deal": "elegrobart(IGF-1R)中国权益"}
+  ],
+  "watch_keywords": ["efgartigimod", "niraparib", "repotrectinib", "zoci", "ZL-1310"]
+}

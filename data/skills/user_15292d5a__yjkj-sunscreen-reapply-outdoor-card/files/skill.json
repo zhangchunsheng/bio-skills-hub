@@ -1,0 +1,41 @@
+{
+  "slug": "sunscreen-reapply-outdoor-card",
+  "name": "Sunscreen Reapply Outdoor Card",
+  "displayName": "Sunscreen Reapply Outdoor Card",
+  "version": "1.0.1",
+  "type": "prompt-flow",
+  "description": "Create a pocket sunscreen reapply card with start time, label-based reminders, water or sweat resets, shade breaks, gear checklist, and severe-burn escalation boundaries.",
+  "author": "Golden Bean / coder",
+  "license": "MIT-0",
+  "category": "Health, Safety, and Preparedness",
+  "triggerKeywords": [
+    "sunscreen reapply schedule",
+    "sunscreen reminder card",
+    "outdoor sun protection checklist",
+    "beach sunscreen alarms",
+    "pool sunscreen plan",
+    "sports sunscreen reminders",
+    "gardening sun protection",
+    "UV protection card",
+    "shade break checklist",
+    "sun safety pocket card"
+  ],
+  "tags": [
+    "sunscreen",
+    "sun-protection",
+    "outdoor",
+    "routine",
+    "checklist",
+    "health-planning"
+  ],
+  "language": "en",
+  "contentType": "document-only",
+  "hasExecutableCode": false,
+  "requiresApi": false,
+  "file_count": 3,
+  "files": [
+    "SKILL.md",
+    "skill.json",
+    "ACCEPTANCE.md"
+  ]
+}

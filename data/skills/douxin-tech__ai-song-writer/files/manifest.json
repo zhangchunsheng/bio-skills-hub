@@ -1,0 +1,70 @@
+{
+  "skill_id": "ai_song_writer_v2_3",
+  "version": "2.5.0",
+  "name": "AI词曲创作引擎",
+  "name_en": "AI Songwriting Engine",
+  "description": "词曲律动一体写歌系统 V2.5：基于 McCartney、Leonard Cohen、Rick Rubin 等 50 位殿堂级词曲人创作原理，构建 9 步流水线（核心句先行→旋律 DNA→Groove 档案→和声叙事→词曲咬合→张力审计→Rubin 减法→六维评审），输出 5 层结构化词曲初稿 + 音频 Demo（MIDI + HTML 播放器）。覆盖流行/说唱/民谣/电子四套 Genre 子流水线。V2.5 修复 structure 嵌套格式 JSON 解析，支持三种 JSON 格式兼容输出。依据《著作权法》合规输出。",
+  "author": "AI创作实验室",
+  "category": "内容创作-音乐词曲",
+  "platforms": ["coze", "skillhub", "cursor"],
+  "api_dependency": [],
+  "trigger_words": [
+    "写歌", "写歌词", "创作歌曲", "编曲", "写首关于",
+    "大师级创作", "深度词曲", "旋律动机", "Hook", "短视频配乐"
+  ],
+  "input_params": [
+    "theme", "north_star_line", "create_mode", "song_form", "genre",
+    "genre_pipeline", "mood", "bpm", "length", "vocal", "character",
+    "conflict", "perspective", "narrative_arc", "emotion_image_map",
+    "creative_principles", "melody_dna", "groove_profile", "harmonic_narrative",
+    "disruption_level", "sound_texture", "silence_philosophy", "ambiguity_level",
+    "art_level", "allow_flaw", "compare_mode", "prosody_check"
+  ],
+  "output_formats": [
+    "creation_kernel_card",
+    "emotion_image_lyric",
+    "sound_texture_arrangement",
+    "master_review_rubin_verdict",
+    "json_metadata",
+    "audio_demo"
+  ],
+  "features": {
+    "quick_start": true,
+    "north_star_line": true,
+    "melody_dna": true,
+    "groove_profile": true,
+    "harmonic_narrative": true,
+    "song_form_fork": true,
+    "genre_pipelines": true,
+    "emotion_image_map": true,
+    "tension_audit": true,
+    "silence_philosophy": true,
+    "ambiguity_injection": true,
+    "sound_texture": true,
+    "creative_principles": true,
+    "prosody_check": true,
+    "rubin_subtraction": true,
+    "six_dimension_review": true,
+    "allow_flaw": true,
+    "compare_mode": true,
+    "audio_demo": true
+  },
+  "tools": {
+    "audio_demo_generator": {
+      "script": "tools/generate_demo.py",
+      "template": "tools/player_template.html",
+      "requirements": "tools/requirements.txt",
+      "dependencies": ["mido"],
+      "outputs": ["midi", "html"]
+    }
+  },
+  "copyright_statement": "AI生成词曲初稿，个人免费使用，商用需取得正规音乐版权备案",
+  "rate_limit": {
+    "free_daily": 100,
+    "premium_daily": 9999
+  },
+  "package": {
+    "root_file": "SKILL.md",
+    "max_size_mb": 10
+  }
+}

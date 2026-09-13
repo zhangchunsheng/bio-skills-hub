@@ -1,0 +1,72 @@
+{
+  "id": "xh-breakfast-cover-01",
+  "truth_mode": "C",
+  "content_objective": "小红书封面停留并解释工作日十分钟早餐",
+  "platform": "小红书",
+  "aspect_ratio": "3:4",
+  "asset_role": "cover",
+  "domain": "家庭生活与食品",
+  "audience": "25-40岁城市通勤人群",
+  "world_context": {
+    "country": "中国",
+    "city_context": "普通高密住宅社区",
+    "season": "初秋",
+    "clock_time": "工作日07:10",
+    "weather": "阴天柔和晨光"
+  },
+  "spatial_logic": {
+    "space_type": "小户型开放厨房",
+    "dimensions": "约6平方米",
+    "zones": [
+      "水槽",
+      "备餐台",
+      "冰箱",
+      "出入口"
+    ],
+    "affordance_check": "一人操作与另一人经过不冲突"
+  },
+  "subject_identity": "原创30岁左右城市通勤女性，普通身材，未化浓妆，浅灰家居针织与深色长裤",
+  "key_objects": [
+    "便当盒",
+    "全麦面包",
+    "煎蛋锅",
+    "保温杯",
+    "工作电脑包"
+  ],
+  "primary_action": "把完成的早餐装入便当盒",
+  "people_relations": "独居或伴侣未入镜；人物不看镜头，视线落在便当盒",
+  "camera": {
+    "location": "厨房入口外可站立位置",
+    "height": "1.45米",
+    "distance": "2.2米",
+    "angle": "轻侧俯",
+    "focal_length": "35mm等效",
+    "composition": "人物与早餐在右侧，左上保留标题安全区"
+  },
+  "lighting_materials": {
+    "sources": [
+      "北向窗柔光",
+      "台面下弱暖灯"
+    ],
+    "materials": [
+      "哑光白色柜门",
+      "浅灰石英台面",
+      "不锈钢锅",
+      "棉麻织物"
+    ],
+    "state": "轻微使用痕迹，卫生有序"
+  },
+  "text_strategy": {
+    "p0_text": "10分钟通勤早餐",
+    "render_strategy": "post_overlay",
+    "safe_zone": "左上20%-30%"
+  },
+  "continuity": {
+    "series_id": "xh-breakfast-series",
+    "lock": "同一人物、厨房、晨光与早餐",
+    "allowed_variations": "机位、步骤和主体占比"
+  },
+  "truth_boundary": "符合目标地域、行业与人群逻辑的原创真实感场景，不复刻具体地址、人物或事件。",
+  "public_use": true,
+  "public_use_note": "公开传播时标注AI生成/概念图，不作为健康效果证明。"
+}

@@ -1,0 +1,195 @@
+{
+  "form_name": "高血压患者临床信息采集表",
+  "business_type": "CLN",
+  "genre_type": "GUIDE",
+  "source_document": "中国高血压防治指南2023版",
+  "version": "1.0",
+  "fields": [
+    {
+      "id": "field_001",
+      "group": "基本信息",
+      "label": "患者姓名",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入患者姓名",
+      "options": [],
+      "validation": ""
+    },
+    {
+      "id": "field_002",
+      "group": "基本信息",
+      "label": "性别",
+      "type": "select",
+      "required": true,
+      "placeholder": "",
+      "options": [
+        {"value": "男", "label": "男"},
+        {"value": "女", "label": "女"}
+      ],
+      "validation": ""
+    },
+    {
+      "id": "field_003",
+      "group": "基本信息",
+      "label": "年龄（岁）",
+      "type": "number",
+      "required": true,
+      "placeholder": "请输入年龄",
+      "min": 0,
+      "max": 150,
+      "options": [],
+      "validation": ""
+    },
+    {
+      "id": "field_004",
+      "group": "基本信息",
+      "label": "住院号",
+      "type": "text",
+      "required": false,
+      "placeholder": "请输入住院号",
+      "options": [],
+      "validation": ""
+    },
+    {
+      "id": "field_005",
+      "group": "基本信息",
+      "label": "就诊日期",
+      "type": "date",
+      "required": true,
+      "placeholder": "",
+      "options": [],
+      "validation": ""
+    },
+    {
+      "id": "field_006",
+      "group": "基本信息",
+      "label": "就诊科室",
+      "type": "select",
+      "required": true,
+      "placeholder": "",
+      "options": [
+        {"value": "心内科", "label": "心内科"},
+        {"value": "内科", "label": "内科"},
+        {"value": "高血压专科", "label": "高血压专科"},
+        {"value": "急诊科", "label": "急诊科"},
+        {"value": "其他", "label": "其他"}
+      ],
+      "validation": ""
+    },
+    {
+      "id": "field_007",
+      "group": "诊断信息",
+      "label": "主诊断（ICD编码）",
+      "type": "text",
+      "required": true,
+      "placeholder": "如：原发性高血压 I10",
+      "options": [],
+      "validation": ""
+    },
+    {
+      "id": "field_008",
+      "group": "诊断信息",
+      "label": "高血压分级",
+      "type": "radio",
+      "required": true,
+      "placeholder": "",
+      "options": [
+        {"value": "1级", "label": "1级（140-159/90-99 mmHg）"},
+        {"value": "2级", "label": "2级（160-179/100-109 mmHg）"},
+        {"value": "3级", "label": "3级（≥180/≥110 mmHg）"}
+      ],
+      "validation": ""
+    },
+    {
+      "id": "field_009",
+      "group": "诊断信息",
+      "label": "心血管风险分层",
+      "type": "select",
+      "required": false,
+      "placeholder": "",
+      "options": [
+        {"value": "低危", "label": "低危"},
+        {"value": "中危", "label": "中危"},
+        {"value": "高危", "label": "高危"},
+        {"value": "很高危", "label": "很高危"}
+      ],
+      "validation": ""
+    },
+    {
+      "id": "field_010",
+      "group": "诊断信息",
+      "label": "并发症/合并症（可多选）",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [
+        {"value": "糖尿病", "label": "糖尿病"},
+        {"value": "冠心病", "label": "冠心病"},
+        {"value": "心力衰竭", "label": "心力衰竭"},
+        {"value": "脑卒中", "label": "脑卒中"},
+        {"value": "慢性肾病", "label": "慢性肾病"},
+        {"value": "高脂血症", "label": "高脂血症"},
+        {"value": "无", "label": "无"}
+      ],
+      "validation": ""
+    },
+    {
+      "id": "field_011",
+      "group": "治疗信息",
+      "label": "主要降压药物",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [
+        {"value": "ACEI", "label": "ACEI（如依那普利）"},
+        {"value": "ARB", "label": "ARB（如缬沙坦）"},
+        {"value": "CCB", "label": "CCB（如氨氯地平）"},
+        {"value": "利尿剂", "label": "利尿剂（如氢氯噻嗪）"},
+        {"value": "β受体阻滞剂", "label": "β受体阻滞剂（如美托洛尔）"},
+        {"value": "其他", "label": "其他"}
+      ],
+      "validation": ""
+    },
+    {
+      "id": "field_012",
+      "group": "治疗信息",
+      "label": "治疗方案描述",
+      "type": "textarea",
+      "required": false,
+      "placeholder": "请详细描述用药方案，包括药品名、剂量、频次及用药疗程",
+      "options": [],
+      "validation": ""
+    },
+    {
+      "id": "field_013",
+      "group": "检验检查信息",
+      "label": "检验检查结果",
+      "type": "matrix",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "initial_rows": 4,
+      "matrix_columns": [
+        {"type": "text", "label": "检查项目", "placeholder": "如血压/血糖/肌酐"},
+        {"type": "date", "label": "检查日期"},
+        {"type": "text", "label": "检查结果", "placeholder": "结果+单位"},
+        {"type": "text", "label": "参考范围"},
+        {"type": "select", "label": "是否异常", "options": [
+          {"value": "否", "label": "否"},
+          {"value": "是", "label": "是"}
+        ]}
+      ]
+    },
+    {
+      "id": "field_014",
+      "group": "检验检查信息",
+      "label": "检查报告附件",
+      "type": "file",
+      "required": false,
+      "accept": ".pdf,.jpg,.png",
+      "hint": "支持PDF/图片格式，单个文件不超过10MB",
+      "options": [],
+      "validation": ""
+    }
+  ]
+}

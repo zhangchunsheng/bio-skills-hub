@@ -1,0 +1,22 @@
+interface:
+  display_name: "医生IP三层选题"
+  short_description: "按科室建立三层关键词库、生成医生短视频选题并导出Excel兼容CSV"
+  default_prompt: "Use $medical-three-layer-topic to build a specialty topic library and export 30 doctor-IP short-video topics as CSV."
+compatibility:
+  canonical_format: "agent-skills"
+  adapter_targets:
+    - "openai"
+    - "generic"
+  activation:
+    mode: "manual"
+    paths: []
+  execution:
+    context: "inline"
+    shell: "bash"
+  trust:
+    source_tier: "local"
+    remote_inline_execution: "forbid"
+    remote_metadata_policy: "allow-metadata-only"
+  degradation:
+    openai: "native-skill-with-local-python-cli"
+    generic: "neutral-source-with-local-python-cli"

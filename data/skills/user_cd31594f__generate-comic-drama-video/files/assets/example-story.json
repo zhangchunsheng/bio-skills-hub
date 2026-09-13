@@ -1,0 +1,95 @@
+{
+  "$schema": "https://local.codex/skills/generate-comic-drama-video/story.schema.json",
+  "schema_version": "1.0",
+  "stage": "story_review",
+  "project": {
+    "title": "雨夜来客",
+    "theme": "一名记者在雨夜发现失踪多年的朋友归来",
+    "language": "zh-CN",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "max_duration_seconds": 900,
+    "max_scenes": 600,
+    "caption_max_characters": 24,
+    "image_size": "2048x1152"
+  },
+  "visual_style": {
+    "mode": "generated_anchor",
+    "reference_image": null,
+    "anchor_prompt": "雨夜都市悬疑故事的日式漫画风格基准画面",
+    "style_prompt": "细腻日式漫画插画，稳定线稿，电影感光影",
+    "composition_prompt": "横屏电影构图，人物面部清晰，保留自然景深",
+    "palette_prompt": "冷蓝雨夜为主，暖黄色灯光作为局部对比",
+    "avoid": "文字，字幕，水印，气泡，对话框，分格漫画，边框，拼贴"
+  },
+  "narrator": {
+    "provider": "local_kokoro",
+    "model": "kokoro-82m",
+    "voice": "zf_xiaobei",
+    "tone": "克制、悬疑",
+    "speed": 1.0,
+    "language": "zh"
+  },
+  "characters": [
+    {
+      "id": "lin_xia",
+      "name": "林夏",
+      "appearance": "二十八岁女性，黑色短发，眉眼锐利",
+      "wardrobe": "棕色长风衣，深色衬衫",
+      "personality": "冷静、敏锐，但对旧友仍有柔软的一面",
+      "sheet_prompt": "同一角色的正面、侧面和全身三视图，表情中性，服装一致"
+    }
+  ],
+  "audio": {
+    "sfx_enabled": false,
+    "sentence_gap_seconds": 0.25,
+    "scene_gap_seconds": 0.35,
+    "bgm": {
+      "enabled": false
+    }
+  },
+  "approvals": {
+    "story": "pending",
+    "style_and_characters": "pending",
+    "scene_images": "pending"
+  },
+  "scenes": [
+    {
+      "id": "scene_001",
+      "name": "雨中的等待",
+      "image_prompt": "深夜的旧车站，林夏独自站在雨棚下，望向被雨雾吞没的铁轨",
+      "character_ids": ["lin_xia"],
+      "narrations": [
+        {
+          "text": "那天晚上，林夏在一座早已停运的车站等人。",
+          "emotion": "低沉"
+        }
+      ],
+      "focus": { "x_percent": 45, "y_percent": 42 },
+      "motion": {
+        "type": "slow_zoom_in",
+        "scale_from": 1.03,
+        "scale_to": 1.1
+      }
+    },
+    {
+      "id": "scene_002",
+      "name": "旧友归来",
+      "image_prompt": "雨雾中出现一个熟悉的男人轮廓，林夏震惊地抬起头",
+      "character_ids": ["lin_xia"],
+      "narrations": [
+        {
+          "text": "走出雨幕的，却是一个已经失踪了七年的人。",
+          "emotion": "震惊但克制"
+        }
+      ],
+      "focus": { "x_percent": 52, "y_percent": 40 },
+      "motion": {
+        "type": "slow_zoom_out",
+        "scale_from": 1.1,
+        "scale_to": 1.03
+      }
+    }
+  ]
+}

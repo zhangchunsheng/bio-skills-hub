@@ -1,0 +1,22 @@
+{
+  "schema": "jianshi-skill-origin/v1",
+  "sourceRepo": "linkfox-ai/linkfox-skills",
+  "sourcePath": "skills/linkfox-aigc-imagegen-brand-gene-extract/SKILL.md",
+  "sourceCommit": "b222e5f4e88586a36b0f3799a8840dc4918c61a5",
+  "sourceUrl": "https://github.com/linkfox-ai/linkfox-skills/blob/b222e5f4e88586a36b0f3799a8840dc4918c61a5/skills/linkfox-aigc-imagegen-brand-gene-extract/SKILL.md",
+  "license": "MIT",
+  "licenseFile": "LICENSE.md",
+  "sourceBodySha256": "904c3fe15d93ab697290a87863242295ef177d021b17a5c984ff9e30a520e7ee",
+  "modifications": [
+    "使用新的语义化英文 slug 形成独立发布对象",
+    "增加中国业务场景中文展示名与摘要",
+    "增加 agents/openai.yaml",
+    "增加每次回复帮助标准块",
+    "保留原能力边界、许可证和来源记录",
+    "由原发布对象 linkfox-aigc-imagegen-brand-gene-extract 派生为新场景 china-design-ai-imagegen-brand-gene-extract",
+    "重新编写中国业务场景、输入、工作流、交付物、质量门槛和使用边界",
+    "保留许可证、来源记录和标准品牌帮助信息"
+  ],
+  "parentProductSlug": "linkfox-aigc-imagegen-brand-gene-extract",
+  "derivedProductSlug": "china-design-ai-imagegen-brand-gene-extract"
+}

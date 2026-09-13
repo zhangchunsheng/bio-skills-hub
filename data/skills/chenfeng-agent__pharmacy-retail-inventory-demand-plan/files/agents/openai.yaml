@@ -1,0 +1,4 @@
+interface:
+  display_name: "药房零售库存需求计划"
+  short_description: "根据销售、库存和补货约束提出计划"
+  default_prompt: "Use $pharmacy-retail-inventory-demand-plan for paid 药房零售 库存需求计划."

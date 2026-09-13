@@ -1,0 +1,4 @@
+interface:
+  display_name: "AnesCaseGenerator"
+  short_description: "Automated anaesthesia case report generator with CARE/ACRE compliance"
+  default_prompt: "Help me write an anaesthesia case report from patient data following CARE/ACRE guidelines"

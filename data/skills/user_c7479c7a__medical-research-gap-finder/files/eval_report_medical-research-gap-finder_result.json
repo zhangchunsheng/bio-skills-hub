@@ -1,0 +1,343 @@
+{
+  "meta": {
+    "skill_name": "medical-research-gap-finder",
+    "evaluated_on": "2026-03-23",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Evidence Insight",
+    "execution_mode": "A",
+    "complexity": "Moderate",
+    "n_inputs": 5
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": null
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": null
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Pseudo-gap rejection rule is a strong methodological safeguard"
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No code generated; Category 1 evidence analysis only"
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 89,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": null
+      },
+      "reliability": {
+        "score": 9,
+        "max": 12,
+        "note": "Step 2 mandates live retrieval (PubMed/Google Scholar) but no fallback for offline execution"
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "235 lines; well-proportioned"
+      },
+      "agent_usability": {
+        "score": 15,
+        "max": 16,
+        "note": "Same live-retrieval inconsistency as other evidence skills"
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": null
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": null
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": null
+      },
+      "agent_specific": {
+        "score": 16,
+        "max": 20,
+        "note": "Pseudo-gap rejection section is a strong differentiator; gap-to-study conversion adds direct value"
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 86.6,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 24,
+      "total": 25
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Find research gaps in ferroptosis and diabetic kidney disease",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Evidence landscape audit produced before any formal gap claim",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Pseudo-gaps rejected with explicit rationale",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Only medium/high-confidence gaps enter final gap map",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Gap-to-study conversion table produced for top gaps",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "No fabricated PMIDs, DOIs, or study findings as gap evidence",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Single-cell COPD gaps with one publishable direction recommendation",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Primary recommended direction justified on novelty-feasibility-impact balance",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Evidence landscape crowding accurately characterized before gap claims",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Generic 'add single-cell' suggestion rejected as pseudo-gap unless tied to unresolved question",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Self-critical risk review present",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Preprint evidence separated from peer-reviewed evidence",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "Immunotherapy resistance gaps in HCC with anchor papers provided",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 35,
+        "specialized": 51,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Anchor papers used to map covered territory before gap identification",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Direct-topic evidence distinguished from adjacent transferable evidence",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Saturated areas plainly identified without pretending broad novelty",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Gap confidence levels (High/Medium/Low) assigned to all identified gaps",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "No fabricated study findings used to support gap claims",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "Very sparse field with few existing studies — only low-confidence gaps available",
+        "status": "COMPLETED",
+        "status_flag": "⚠️",
+        "note": null,
+        "basic": 34,
+        "specialized": 50,
+        "total": 84,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Low-confidence gaps not elevated to priority opportunity status",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Few studies correctly not equated with important publishable gap",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Evidence uncertainty explicitly stated",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Recommendation appropriately conservative in sparse-evidence context",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Fallback path suggested if top gap collapses on closer review",
+            "result": "FAIL",
+            "note": "Self-critical review section lacked explicit fallback path for sparse-field scenario"
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Gap analysis with request to exclude generic pseudo-gaps and focus on narrow unresolved questions",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 35,
+        "specialized": 51,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "All generic upgrade suggestions rejected and listed in Section D (Pseudo-Gaps Rejected)",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Remaining gaps are topic-specific and tied to demonstrated unresolved questions",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Narrow follow-up study design specified per gap",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "More validation not listed as a strong gap by itself",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Primary recommended direction stated with justification superior to alternatives",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 35.6,
+    "dynamic_weighted": 52.0,
+    "score": 88,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Mandatory pseudo-gap rejection with explicit listing (Section D) is an outstanding quality safeguard that prevents generic future-direction outputs",
+    "Nine-type gap taxonomy provides a comprehensive and systematic gap classification framework",
+    "Gap-to-study conversion table bridges gap identification and actionable study design",
+    "Hard rule 'No retrieval, no gap claim' enforces evidence-grounded analysis at the highest level"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Step 2 live retrieval requirement creates inconsistency in offline environments",
+      "observed_in": [
+        1,
+        3
+      ],
+      "problem": "Step 2 requires running literature retrieval via PubMed and Google Scholar before any gap claim. In offline execution this defaults to training memory, violating the hard rule 'No retrieval, no gap claim'.",
+      "root_cause": "The retrieval instruction assumes live search access without defining a fallback.",
+      "fix": "Add explicit fallback: 'When live retrieval is unavailable, label all evidence in Section B as [Based on training knowledge — not live retrieval]. Run a sample search string to help the user verify and supplement. Confidence levels for all gaps must be downgraded by one tier when formal retrieval was not completed.'"
+    },
+    {
+      "priority": "P1",
+      "title": "Self-critical review lacks explicit fallback path in sparse-evidence scenarios",
+      "observed_in": [
+        4
+      ],
+      "problem": "When a field is very sparse, the self-critical review identifies the weakest gap but does not always provide a concrete fallback path if the recommended direction collapses.",
+      "root_cause": "Step 8 asks for 'fallback path if the top gap collapses' but does not define a minimum fallback structure for sparse-field contexts.",
+      "fix": "Add a sparse-field fallback template to Step 8: if the field is sparse and all gaps are low-confidence, recommend either (1) a pilot exploratory study with explicit hypothesis-generating label, or (2) a systematic review/scoping review as a more appropriate first step."
+    },
+    {
+      "priority": "P2",
+      "title": "Gap-to-study conversion table lacks complexity/resource requirement dimension",
+      "observed_in": [],
+      "problem": "The gap-to-study conversion table shows research style and minimal executable plan but does not include a resource requirement or feasibility indicator.",
+      "root_cause": "references/gap-to-study-conversion.md likely defines the table structure without a resource column.",
+      "fix": "Add a 'Resource Level' or 'Feasibility Tier' column to the gap-to-study conversion table: Low/Medium/High, based on whether the study requires only public data, prospective collection, or experimental resources."
+    }
+  ]
+}

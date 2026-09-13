@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>供应商企业报告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #f0f4f8;
+    color: #1a2b3c;
+    line-height: 1.6;
+  }
+  .report { max-width: 960px; margin: 0 auto; padding: 24px 16px 48px; }
+
+  /* === Search Summary === */
+  .search-summary {
+    background: #fff;
+    border-radius: 12px;
+    padding: 14px 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #475569;
+  }
+  .search-summary .keyword-tag {
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 2px 12px;
+    border-radius: 16px;
+    font-weight: 600;
+  }
+  .search-summary .count-badge {
+    background: #1a6b8e;
+    color: #fff;
+    padding: 2px 12px;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  /* === Supplier Card === */
+  .supplier-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 24px;
+  }
+  .supplier-card .card-index {
+    font-size: 12px;
+    color: #94a3b8;
+    padding: 12px 24px 0;
+  }
+
+  /* === Header === */
+  .report-header {
+    background: linear-gradient(135deg, #1a6b8e 0%, #2d96b8 100%);
+    padding: 32px 40px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .store-logo {
+    width: 88px; height: 88px;
+    border-radius: 16px;
+    background: #fff;
+    object-fit: contain;
+    padding: 8px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .header-info { flex: 1; }
+  .header-info .platform-tag {
+    display: inline-block;
+    font-size: 12px;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 3px 12px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+  .header-info h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+  }
+  .header-info .company-en {
+    font-size: 14px;
+    opacity: 0.85;
+    font-weight: 400;
+  }
+  .header-info .store-name {
+    font-size: 14px;
+    opacity: 0.7;
+    margin-top: 6px;
+  }
+
+  /* === Section Title === */
+  .section-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1a2b3c;
+    margin: 28px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::before {
+    content: '';
+    width: 4px;
+    height: 19px;
+    background: #2d96b8;
+    border-radius: 2px;
+  }
+
+  /* === Info Grid === */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .info-item {
+    background: #fff;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .info-label {
+    font-size: 12px;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .info-label .icon { font-size: 14px; }
+  .info-value {
+    font-size: 15px;
+    color: #1a2b3c;
+    font-weight: 500;
+    word-break: break-all;
+  }
+  .info-value.muted { color: #cbd5e1; }
+
+  /* === Intro Card === */
+  .intro-card {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 20px 24px;
+    border-left: 4px solid #2d96b8;
+  }
+  .intro-card .intro-text {
+    font-size: 14px;
+    color: #475569;
+    line-height: 1.8;
+    white-space: pre-line;
+  }
+
+  /* === Product Gallery === */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .product-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+  }
+  .product-image-wrap {
+    width: 100%;
+    height: 170px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .product-image-wrap img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+  }
+  .product-info {
+    padding: 12px 14px;
+  }
+  .product-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a2b3c;
+    margin-bottom: 6px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 38px;
+  }
+  .product-link {
+    font-size: 12px;
+    color: #2d96b8;
+    text-decoration: none;
+  }
+  .product-link:hover { text-decoration: underline; }
+
+  /* === No Image === */
+  .no-image {
+    width: 100%; height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #cbd5e1;
+    font-size: 32px;
+  }
+
+  /* === Empty Goods === */
+  .empty-goods {
+    text-align: center;
+    padding: 24px;
+    color: #94a3b8;
+    font-size: 14px;
+    background: #f8fafc;
+    border-radius: 12px;
+  }
+
+  /* === Footer === */
+  .report-footer {
+    margin-top: 8px;
+    text-align: center;
+    padding: 20px;
+    color: #94a3b8;
+    font-size: 12px;
+    border-top: 1px solid #e2e8f0;
+  }
+  .report-footer a {
+    color: #2d96b8;
+    text-decoration: none;
+  }
+
+  /* === Responsive === */
+  @media (max-width: 640px) {
+    .report-header { flex-direction: column; text-align: center; padding: 24px; }
+    .info-grid { grid-template-columns: 1fr; }
+    .product-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="report" id="report">
+  <!-- Content rendered by JavaScript -->
+</div>
+
+<script>
+// ============================================================
+// REPORT_DATA - Claude 将脚本输出的完整 JSON 填入此处
+// ============================================================
+const REPORT_DATA = __REPORT_DATA_PLACEHOLDER__;
+
+// ============================================================
+// Rendering logic
+// ============================================================
+
+function renderReport(data) {
+  if (!data || data.code !== 0 || !data.data) {
+    return renderError(data);
+  }
+  const d = data.data;
+  if (!d.matched || !d.suppliers || d.suppliers.length === 0) {
+    return renderNotFound(d.keyword || '');
+  }
+
+  let html = '';
+
+  // --- Search summary ---
+  html += `
+    <div class="search-summary">
+      <span>关键词</span>
+      <span class="keyword-tag">${escapeHtml(d.keyword)}</span>
+      <span>共找到</span>
+      <span class="count-badge">${escapeHtml(String(d.total))} 家供应商</span>
+    </div>
+  `;
+
+  // --- Each supplier ---
+  d.suppliers.forEach((s, idx) => {
+    html += renderSupplierCard(s, idx + 1, d.suppliers.length);
+  });
+
+  // --- Footer ---
+  html += `
+    <div class="report-footer">
+      数据来源：<a href="https://globalmedsource.cn" target="_blank">宁波中东欧医药交易(集采)平台</a> · globalmedsource.cn<br>
+      报告生成时间：${new Date().toLocaleString('zh-CN')}
+    </div>
+  `;
+
+  return html;
+}
+
+function renderSupplierCard(s, index, total) {
+  let html = '<div class="supplier-card">';
+
+  if (total > 1) {
+    html += `<div class="card-index">供应商 ${index} / ${total}</div>`;
+  }
+
+  // --- Header ---
+  html += `
+    <div class="report-header">
+      ${s.store_logo_url
+        ? `<img class="store-logo" src="${escapeHtml(s.store_logo_url)}" alt="logo" onerror="this.style.display='none'">`
+        : ''}
+      <div class="header-info">
+        <span class="platform-tag">宁波中东欧医药交易(集采)平台</span>
+        <h1>${escapeHtml(s.company_name || '未知企业')}</h1>
+        ${s.company_name_zh ? `<div class="company-en">${escapeHtml(s.company_name_zh)}</div>` : ''}
+        ${s.user_id ? `<div class="store-name">供应商ID：${escapeHtml(String(s.user_id))}</div>` : ''}
+      </div>
+    </div>
+  `;
+
+  html += `<div style="padding: 24px 40px 32px;">`;
+
+  // --- Company Info ---
+  html += `<div class="section-title">企业基本信息</div>`;
+  html += `<div class="info-grid">`;
+
+  const infoItems = [
+    { icon: '🆔', label: '供应商ID', value: s.user_id ? String(s.user_id) : '' },
+    { icon: '📞', label: '联系电话', value: s.contact_number },
+    { icon: '✉️', label: '联系邮箱', value: s.contact_email },
+    { icon: '🏠', label: '联系地址', value: s.contact_address },
+  ];
+
+  infoItems.forEach(item => {
+    html += `
+      <div class="info-item">
+        <div class="info-label"><span class="icon">${item.icon}</span>${escapeHtml(item.label)}</div>
+        <div class="info-value ${item.value ? '' : 'muted'}">${item.value ? escapeHtml(item.value) : '—'}</div>
+      </div>
+    `;
+  });
+
+  html += `</div>`;
+
+  // --- Store Intro ---
+  if (s.store_intro) {
+    html += `
+      <div class="section-title">企业简介</div>
+      <div class="intro-card">
+        <div class="intro-text">${escapeHtml(s.store_intro)}</div>
+      </div>
+    `;
+  }
+
+  // --- Products ---
+  html += `<div class="section-title">核心商品${s.goods && s.goods.length ? `（${s.goods.length} 个）` : ''}</div>`;
+
+  if (s.goods && s.goods.length > 0) {
+    html += `<div class="product-grid">`;
+    s.goods.forEach(g => {
+      html += `
+        <div class="product-card">
+          <div class="product-image-wrap">
+            ${g.image_url
+              ? `<img src="${escapeHtml(g.image_url)}" alt="${escapeHtml(g.goods_name || '')}" onerror="this.parentElement.innerHTML='<div class=&quot;no-image&quot;>📦</div>'">`
+              : `<div class="no-image">📦</div>`}
+          </div>
+          <div class="product-info">
+            <div class="product-name">${escapeHtml(g.goods_name || '未命名商品')}</div>
+            ${g.goods_url
+              ? `<a class="product-link" href="https://globalmedsource.cn${g.goods_url}" target="_blank">查看商品详情 →</a>`
+              : ''}
+          </div>
+        </div>
+      `;
+    });
+    html += `</div>`;
+  } else {
+    html += `<div class="empty-goods">该供应商暂无核心商品展示</div>`;
+  }
+
+  html += `</div>`;
+  html += `</div>`;
+
+  return html;
+}
+
+function renderNotFound(keyword) {
+  return `
+    <div style="text-align:center;padding:80px 20px;color:#64748b;">
+      <div style="font-size:48px;margin-bottom:16px;">🔍</div>
+      <div style="font-size:18px;font-weight:600;margin-bottom:8px;">未找到匹配的供应商</div>
+      <div style="font-size:14px;color:#94a3b8;">在宁波中东欧医药交易(集采)平台上未找到与「${escapeHtml(keyword || '')}」匹配的供应商，请尝试更换关键词</div>
+    </div>
+  `;
+}
+
+function renderError(data) {
+  const msg = data?.msg || '搜索过程中遇到问题，请稍后重试';
+  return `
+    <div style="text-align:center;padding:80px 20px;color:#64748b;">
+      <div style="font-size:48px;margin-bottom:16px;">⚠️</div>
+      <div style="font-size:18px;font-weight:600;margin-bottom:8px;">搜索出错</div>
+      <div style="font-size:14px;color:#94a3b8;">${escapeHtml(String(msg))}</div>
+    </div>
+  `;
+}
+
+function escapeHtml(text) {
+  if (text === null || text === undefined) return '';
+  const div = document.createElement('div');
+  div.textContent = String(text);
+  return div.innerHTML;
+}
+
+// === Render ===
+document.getElementById('report').innerHTML = renderReport(REPORT_DATA);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+{
+  "slug": "period-day-bag-card",
+  "name": "Period Day Bag Card",
+  "displayName": "Period Day Bag Card",
+  "version": "1.0.1",
+  "type": "prompt-flow",
+  "description": "Create a discreet period day bag checklist, comfort plan, refill cue, and seek-care note for school, work, travel, sports, or everyday carry.",
+  "author": "Golden Bean / coder",
+  "license": "MIT-0",
+  "category": "Health, Routine, and Fitness",
+  "triggerKeywords": [
+    "period bag checklist",
+    "period day kit",
+    "first period kit",
+    "menstrual kit for work",
+    "school period pouch",
+    "travel period bag",
+    "period emergency kit",
+    "period refill reminder",
+    "period comfort plan",
+    "menstrual supplies checklist"
+  ],
+  "tags": [
+    "period-care",
+    "menstrual-health",
+    "routine-planning",
+    "school-prep",
+    "travel-prep",
+    "checklist"
+  ],
+  "language": "en",
+  "contentType": "document-only",
+  "hasExecutableCode": false,
+  "requiresApi": false,
+  "file_count": 3,
+  "files": [
+    "SKILL.md",
+    "skill.json",
+    "ACCEPTANCE.md"
+  ]
+}

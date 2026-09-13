@@ -1,0 +1,4 @@
+interface:
+  display_name: "药房零售项目交付风险"
+  short_description: "从里程碑、依赖和资源识别交付风险"
+  default_prompt: "Use $pharmacy-retail-project-delivery-radar for paid 药房零售 项目交付风险."

@@ -1,0 +1,168 @@
+/* ============================================================
+   复古 Vintage 风模板 · retro v1.0 —— 共享样式
+   签名手法：暖调纸感底色 / 全书衬线 / 双线分隔 /
+             菱形装饰点 / 大写小字距标签 / 边框替代阴影 /
+             首字下沉 / 旧式数字
+   与极简风的区别：极简是发丝线与大留白，复古是双线、纸色与装饰件。
+   ============================================================ */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background-color: #f6f1e4;          /* 纸感底：明度 0.94 + 暖色相，符合复古判据 */
+  color: #2f2a20;
+  font-family: Georgia, "Songti SC", "Source Han Serif SC", "Noto Serif SC",
+               "Times New Roman", serif;
+  font-size: 15.5px;
+  line-height: 1.78;
+  font-variant-numeric: oldstyle-nums;
+  -webkit-font-smoothing: antialiased;
+}
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", sans-serif; }
+.wrap { max-width: 780px; margin: 0 auto; padding: 56px 28px 104px; }
+
+/* —— 标签：small-caps + 宽字距，复古书刊的标记方式 —— */
+.label {
+  font-size: 11.5px; letter-spacing: .2em; text-transform: uppercase;
+  font-variant: small-caps; color: #8d7f63; margin: 0 0 16px;
+}
+/* 双线分隔：复古版面最省力的身份标记 */
+.rule { height: 0; border: 0; border-top: 3px double #cbbb98; margin: 0; }
+
+/* —— 报头 —— */
+.masthead { border-top: 3px double #cbbb98; padding-top: 24px; }
+.site {
+  font-size: 11.5px; letter-spacing: .22em; text-transform: uppercase;
+  font-variant: small-caps; color: #8d7f63; margin: 0 0 18px;
+}
+h1 {
+  font-size: clamp(30px, 4vw, 42px); line-height: 1.22; letter-spacing: .004em;
+  font-weight: 700; margin: 0 0 14px; color: #241f16;
+}
+.dek { font-size: 17px; line-height: 1.6; color: #5c5342; margin: 0 0 22px; max-width: 54ch; font-style: italic; }
+.meta {
+  display: flex; flex-wrap: wrap; gap: 0 0; font-size: 12.5px; color: #7a6f58;
+  border-top: 1px solid #dbcfb2; border-bottom: 1px solid #dbcfb2; padding: 9px 0;
+  font-variant-numeric: oldstyle-nums; letter-spacing: .02em;
+}
+.meta span { padding: 0 12px; border-left: 1px solid #dbcfb2; }
+.meta span:first-child { padding-left: 0; border-left: 0; }
+.meta a { color: #6b6047; text-decoration: none; border-bottom: 1px dotted #b9a97f; word-break: break-all; }
+
+/* —— 菱形装饰：纯 CSS，不用任何 Unicode 字符 —— */
+.orn { display: flex; align-items: center; justify-content: center; gap: 7px; margin: 30px 0; }
+.orn i { width: 5px; height: 5px; background: #b9a97f; transform: rotate(45deg); display: block; }
+.orn i:nth-child(2) { opacity: .55; }
+.orn i:nth-child(3) { opacity: .25; }
+
+section { padding-top: 40px; }
+section > .rule { margin-bottom: 26px; }
+
+/* —— 配色卡：内框 + 纸底，像色票册 —— */
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(116px, 1fr)); gap: 14px; }
+.sw { border: 1px solid #cbbb98; background: #fffdf6; padding: 5px; }
+.sw .chip { height: 50px; border: 1px solid rgba(0, 0, 0, .07); }
+.sw .info { padding: 7px 3px 2px; }
+.sw .role { font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase;
+            font-variant: small-caps; color: #9a8b6c; }
+.sw .hex { font-size: 12px; color: #4a4132; letter-spacing: .03em; }
+
+/* —— 字体 —— */
+.spec { display: grid; grid-template-columns: repeat(auto-fit, minmax(284px, 1fr)); gap: 24px 32px; }
+.spec .stack {
+  font-size: 12.5px; color: #5c5342; word-break: break-word;
+  border-top: 1px solid #cbbb98; border-bottom: 3px double #dbcfb2; padding: 7px 0;
+}
+.spec .stack .k { display: block; color: #9a8b6c; font-size: 10.5px;
+                  letter-spacing: .16em; text-transform: uppercase; margin-bottom: 4px; }
+.specimen { font-size: 26px; line-height: 1.28; margin: 14px 0 0; color: #241f16; }
+
+/* —— 数据行：点线引导（leader dots），老目录册的做法 —— */
+.leaders { margin: 0; }
+.leader {
+  display: flex; align-items: baseline; gap: 8px; padding: 8px 0;
+  border-bottom: 1px dotted #d8cbaf; font-size: 13.5px;
+}
+.leader .k { color: #7a6f58; white-space: nowrap; letter-spacing: .03em; }
+.leader .fill { flex: 1 1 auto; border-bottom: 1px dotted #c9bda3; transform: translateY(-3px); }
+.leader .v { color: #2f2a20; white-space: nowrap; font-variant-numeric: oldstyle-nums; }
+
+/* —— 风格评分：印章式条块 —— */
+.scores { display: grid; gap: 8px; }
+.score { display: grid; grid-template-columns: 84px 1fr 50px; align-items: center; gap: 14px; font-size: 13px; }
+.score .bar { height: 9px; background: #e7dfc8; border: 1px solid #d8cbaf; }
+.score .bar i { display: block; height: 100%; background: #c9bda3; }
+.score.win { color: #241f16; font-weight: 700; }
+.score.win .bar i { background: var(--card-accent, #8d7f63); }
+.score .pct { text-align: right; color: #9a8b6c; }
+
+/* —— 内容：首字下沉 + 衬线引语 —— */
+.prose { max-width: 64ch; }
+.lead { font-size: 17px; color: #3a3428; }
+.lead::first-letter {
+  float: left; font-size: 3.4em; line-height: .82; font-weight: 700;
+  color: var(--card-accent, #8d7f63); padding: 6px 10px 0 0;
+}
+blockquote {
+  margin: 26px 0; padding: 14px 20px; border-top: 1px solid #cbbb98;
+  border-bottom: 1px solid #cbbb98; background: rgba(255, 253, 246, .7);
+  font-style: italic; font-size: 16.5px; color: #4a4132;
+}
+.olist { list-style: none; padding: 0; margin: 0; max-width: 66ch; counter-reset: o; }
+.olist li {
+  display: flex; gap: 12px; padding: 9px 0; border-bottom: 1px dotted #d8cbaf;
+  font-size: 14px; color: #3a3428;
+}
+.olist li em { font-style: normal; color: #9a8b6c; min-width: 24px;
+               font-variant-numeric: oldstyle-nums; }
+.nums { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 20px; }
+.num {
+  font-size: 13.5px; color: #4a4132; padding: 3px 10px;
+  border: 1px solid #cbbb98; background: #fffdf6; font-variant-numeric: oldstyle-nums;
+}
+
+/* —— 卡片矩阵：色票式缩略块 —— */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(216px, 1fr)); gap: 18px; }
+.rcard { border: 1px solid #cbbb98; background: #fffdf6; padding: 6px; }
+.rcard .thumb { height: 74px; position: relative; border: 1px solid rgba(0, 0, 0, .07);
+  background: linear-gradient(135deg, var(--thumb-a, #efe8d5) 0%, var(--thumb-b, #e0d6ba) 100%); }
+.rcard .thumb .glyph {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-size: 24px; color: rgba(74, 65, 50, .28); font-weight: 700;
+}
+.rcard .body { padding: 10px 4px 6px; }
+.rcard .kind { font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase;
+               font-variant: small-caps; color: #9a8b6c; margin-bottom: 5px; }
+.rcard h4 { font-size: 15px; line-height: 1.36; font-weight: 700; margin: 0; color: #241f16; }
+.rcard .dt { font-size: 11.5px; color: #9a8b6c; margin-top: 8px; }
+.grid-note { font-size: 12.5px; color: #8d7f63; margin-top: 16px; }
+
+/* —— 体检清单 —— */
+.checks { list-style: none; padding: 0; margin: 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 0 32px; }
+.checks li { display: flex; gap: 11px; padding: 10px 0; border-bottom: 1px dotted #d8cbaf;
+             font-size: 13.5px; color: #3a3428; }
+.checks .dot { flex: 0 0 7px; width: 7px; height: 7px; margin-top: 8px;
+               background: #c9bda3; transform: rotate(45deg); }
+.checks li.lv-ok .dot { background: #6f8f6a; }
+.checks li.lv-warn .dot { background: #bd9243; }
+.checks li.lv-bad .dot { background: #a9614f; }
+.checks .ct { flex: 1 1 auto; }
+.checks .ct b { font-weight: 700; color: #241f16; }
+.checks .ct em { display: block; font-style: italic; font-size: 11px; color: #a3947a; margin-top: 3px; }
+.note { font-size: 12.5px; color: #8d7f63; margin: 14px 0 0; }
+
+footer {
+  margin-top: 76px; padding-top: 16px; border-top: 3px double #cbbb98;
+  font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+  font-variant: small-caps; color: #a3947a; text-align: center;
+}
+
+@media (max-width: 700px) {
+  .wrap { padding: 36px 20px 72px; }
+  section { padding-top: 30px; }
+  .lead::first-letter { font-size: 2.8em; }
+  .meta span { padding: 0 8px; }
+}
+@media print { body { background: #fff; } .wrap { padding: 0; } }

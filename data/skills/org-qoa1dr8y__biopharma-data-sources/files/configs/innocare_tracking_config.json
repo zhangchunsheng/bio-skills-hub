@@ -1,0 +1,82 @@
+{
+  "company": "诺诚健华",
+  "company_en": "InnoCare",
+  "cde_company": "诺诚健华",
+  "ticker": "09969.HK",
+  "description": "",
+  "updated": "2026-08-20",
+  "pipeline_molecules": [
+    {
+      "name_cn": "奥布替尼",
+      "name_en": "orelabrutinib",
+      "code": "ICP-022",
+      "brand_cn": "",
+      "type": "创新药",
+      "note": "BTK"
+    },
+    {
+      "name_cn": "坦昔妥单抗",
+      "name_en": "tafasitamab",
+      "code": "ICP-B04",
+      "brand_cn": "",
+      "type": "创新药",
+      "note": "CD19"
+    },
+    {
+      "name_cn": "佐来曲替尼",
+      "name_en": "zurletrectinib",
+      "code": "ICP-723",
+      "brand_cn": "",
+      "type": "创新药",
+      "note": "pan-TRK"
+    },
+    {
+      "name_cn": "美司托克拉",
+      "name_en": "mesutoclax",
+      "code": "ICP-248",
+      "brand_cn": "",
+      "type": "创新药",
+      "note": "BCL-2"
+    },
+    {
+      "name_cn": "索非替尼",
+      "name_en": "soficitinib",
+      "code": "ICP-332",
+      "brand_cn": "",
+      "type": "创新药",
+      "note": "TYK2/JAK1"
+    },
+    {
+      "name_cn": "法度克拉替尼",
+      "name_en": "fadeucravacitinib",
+      "code": "ICP-488",
+      "brand_cn": "",
+      "type": "创新药",
+      "note": "TYK2(JH2)"
+    }
+  ],
+  "bd_partners": [
+    {
+      "name_cn": "Zenas BioPharma",
+      "name_en": "Zenas BioPharma",
+      "ticker": "ZBIO",
+      "region": "",
+      "deal": ""
+    },
+    {
+      "name_cn": "Biogen",
+      "name_en": "Biogen",
+      "ticker": "BIIB",
+      "region": "",
+      "deal": ""
+    }
+  ],
+  "watch_keywords": [
+    "orelabrutinib",
+    "zurletrectinib",
+    "mesutoclax",
+    "soficitinib",
+    "fadeucravacitinib",
+    "tafasitamab"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "company": "复宏汉霖",
+  "company_en": "Henlius",
+  "ticker": "02696.HK",
+  "description": "复星医药旗下生物创新药公司，核心PD-1斯鲁利单抗+生物类似药平台，BD对外授权覆盖欧美主流市场",
+  "updated": "2026-08-20",
+
+  "pipeline_molecules": [
+    {"name_cn": "斯鲁利单抗", "name_en": "serplulimab", "code": "HLX10", "brand_cn": "汉斯状", "brand_eu": "Hetronifly", "type": "创新药", "note": "PD-1单抗，核心产品，全球首个一线ES-SCLC"},
+    {"name_cn": "HLX22", "name_en": "HLX22", "code": "HLX22", "brand_cn": "", "brand_eu": "", "type": "创新药", "note": "新表位HER2单抗，乳腺癌，2026H1数据读出"},
+    {"name_cn": "HLX43", "name_en": "HLX43", "code": "HLX43", "brand_cn": "", "brand_eu": "", "type": "创新药", "note": "PD-L1 ADC，潜在BIC"},
+    {"name_cn": "HLX04-O", "name_en": "HLX04-O", "code": "HLX04-O", "brand_cn": "", "brand_eu": "", "type": "创新药", "note": "抗VEGF眼科，wAMD，与亿胜生物合作"},
+    {"name_cn": "曲妥珠单抗", "name_en": "trastuzumab", "code": "HLX02", "brand_cn": "汉曲优", "brand_eu": "HERCESSI/Zercepac", "type": "生物类似药", "note": "中美欧三地获批"},
+    {"name_cn": "地舒单抗", "name_en": "denosumab", "code": "HLX14", "brand_cn": "", "brand_eu": "Bildyos/Bilprevda", "type": "生物类似药", "note": "欧洲首发"},
+    {"name_cn": "帕妥珠单抗", "name_en": "pertuzumab", "code": "HLX11", "brand_cn": "", "brand_eu": "POHERDY", "type": "生物类似药", "note": ""},
+    {"name_cn": "抗CD38抗体", "name_en": "daratumumab biosimilar", "code": "HLX15", "brand_cn": "", "brand_eu": "", "type": "生物类似药", "note": "授权Dr.Reddy's"},
+    {"name_cn": "抗CTLA-4抗体", "name_en": "ipilimumab biosimilar", "code": "HLX13", "brand_cn": "", "brand_eu": "", "type": "生物类似药", "note": "授权Sandoz"},
+    {"name_cn": "利妥昔单抗", "name_en": "rituximab", "code": "HLX01", "brand_cn": "汉利康", "brand_eu": "", "type": "生物类似药", "note": "国内首个生物类似药"},
+    {"name_cn": "阿达木单抗", "name_en": "adalimumab", "code": "HLX03", "brand_cn": "汉达远", "brand_eu": "", "type": "生物类似药", "note": ""},
+    {"name_cn": "贝伐珠单抗", "name_en": "bevacizumab", "code": "HLX04", "brand_cn": "汉贝泰", "brand_eu": "", "type": "生物类似药", "note": ""},
+    {"name_cn": "奈拉替尼", "name_en": "neratinib", "code": "", "brand_cn": "汉奈佳", "brand_eu": "", "type": "引进", "note": ""}
+  ],
+
+  "bd_partners": [
+    {"name_cn": "卫材", "name_en": "Eisai", "ticker": "4523.T", "region": "日本", "deal": "斯鲁利单抗日本商业化(7500万美元首付)"},
+    {"name_cn": "Intas/Accord", "name_en": "Accord Healthcare", "ticker": "", "region": "欧洲/印度", "deal": "斯鲁利单抗欧洲"},
+    {"name_cn": "复星医药", "name_en": "Fosun Pharma", "ticker": "02196.HK", "region": "美国", "deal": "斯鲁利单抗美国商业化"},
+    {"name_cn": "Organon", "name_en": "Organon", "ticker": "OGN", "region": "美国", "deal": "汉曲优"},
+    {"name_cn": "Abbott", "name_en": "Abbott", "ticker": "ABT", "region": "亚非拉69国", "deal": "4款生物类似药+1创新药"},
+    {"name_cn": "Dr.Reddy's", "name_en": "Dr. Reddy's", "ticker": "RDY", "region": "美欧43国", "deal": "HLX15抗CD38"},
+    {"name_cn": "Lotus", "name_en": "Lotus Pharmaceutical", "ticker": "", "region": "韩国", "deal": "H药韩国"},
+    {"name_cn": "Sandoz", "name_en": "Sandoz", "ticker": "", "region": "美欧日", "deal": "HLX13抗CTLA-4"},
+    {"name_cn": "亿胜生物", "name_en": "Essex Bio", "ticker": "01061.HK", "region": "中国", "deal": "HLX04-O眼科"}
+  ],
+
+  "watch_keywords": [
+    "复宏汉霖", "Henlius", "斯鲁利单抗", "serplulimab", "汉斯状", "Hetronifly",
+    "HLX22", "HLX43", "HLX14", "HLX15", "HLX13", "HLX11", "HLX04-O",
+    "汉曲优", "trastuzumab", "HERCESSI", "Zercepac",
+    "license-out", "license agreement", "授权", "合作", "商业化", "获批", "批准", "受理",
+    "优先审评", "突破性疗法", "CHMP", "FDA approval", "BLA", "NDA", "MAA"
+  ]
+}

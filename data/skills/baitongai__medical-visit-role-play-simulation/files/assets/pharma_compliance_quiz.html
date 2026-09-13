@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>医药行业合规能力测评 - 模块一：政策解读能力A-E</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: #f0f2f5; color: #333; line-height:1.6; }
+.container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+/* Welcome Screen */
+.screen { display: none; }
+.screen.active { display: block; }
+.welcome { text-align: center; padding: 60px 20px; }
+.welcome h1 { font-size: 28px; color: #1a4a8b; margin-bottom: 16px; }
+.welcome .subtitle { font-size: 16px; color: #666; margin-bottom: 32px; }
+.welcome .info-card { background: #fff; border-radius: 12px; padding: 30px; margin: 20px auto; max-width: 600px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); text-align: left; }
+.welcome .info-card h3 { color: #1a4a8b; margin-bottom: 12px; font-size: 18px; }
+.welcome .info-card ul { padding-left: 20px; color: #555; font-size: 14px; line-height:2; }
+.welcome .info-card .section-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.welcome .info-card .tag { background: #e8f0fe; color: #1a4a8b; padding: 4px 12px; border-radius: 16px; font-size: 13px; }
+.btn { display: inline-block; padding: 12px 32px; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; transition: all 0.3s; }
+.btn-primary { background: #1a4a8b; color: #fff; }
+.btn-primary:hover { background: #153a6e; }
+.btn-secondary { background: #e8f0fe; color: #1a4a8b; }
+.btn-secondary:hover { background: #d0e0fc; }
+.btn-outline { background: #fff; color: #1a4a8b; border: 1px solid #1a4a8b; }
+.btn-outline:hover { background: #e8f0fe; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Quiz Screen */
+.quiz-header { background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.quiz-header .progress-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 14px; color: #666; }
+.quiz-header .progress-bar { height: 6px; background: #e0e0e0; border-radius: 3px; overflow: hidden; }
+.quiz-header .progress-bar .fill { height: 100%; background: linear-gradient(90deg, #1a4a8b, #4a90d9); border-radius: 3px; transition: width 0.3s; }
+.quiz-header .section-badge { display: inline-block; background: #1a4a8b; color: #fff; padding: 2px 10px; border-radius: 12px; font-size: 12px; margin-bottom: 8px; }
+
+.question-card { background: #fff; border-radius: 12px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.question-card .q-type { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 12px; margin-bottom: 12px; }
+.question-card .q-type.single { background: #e8f5e9; color: #2e7d32; }
+.question-card .q-type.multi { background: #fff3e0; color: #e65100; }
+.question-card .q-text { font-size: 17px; color: #333; margin-bottom: 24px; line-height: 1.8; }
+
+.option { display: flex; align-items: flex-start; padding: 12px 16px; margin-bottom: 10px; border: 2px solid #e8e8e8; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+.option:hover { border-color: #1a4a8b; background: #f5f8fc; }
+.option.selected { border-color: #1a4a8b; background: #e8f0fe; }
+.option .opt-label { width: 30px; height: 30px; border-radius: 50%; background: #f0f2f5; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; margin-right: 12px; flex-shrink: 0; }
+.option.selected .opt-label { background: #1a4a8b; color: #fff; }
+.option .opt-text { font-size: 15px; color: #333; padding-top: 4px; }
+
+.quiz-actions { display: flex; justify-content: space-between; margin-top: 24px; gap: 12px; }
+
+/* Report Screen */
+.report { padding: 20px 0; }
+.report h2 { text-align: center; color: #1a4a8b; margin-bottom: 8px; font-size: 26px; }
+.report .report-subtitle { text-align: center; color: #888; margin-bottom: 30px; font-size: 14px; }
+
+.score-card { background: #fff; border-radius: 16px; padding: 30px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-bottom: 20px; }
+.score-card .big-score { font-size: 72px; font-weight: 700; color: #1a4a8b; line-height:1; }
+.score-card .score-label { font-size: 14px; color: #888; margin: 8px 0; }
+.score-card .rating { display: inline-block; padding: 6px 24px; border-radius: 20px; font-size: 18px; font-weight: 600; margin-top: 8px; }
+.rating.excellent { background: #e8f5e9; color: #2e7d32; }
+.rating.good { background: #e3f2fd; color: #1565c0; }
+.rating.average { background: #fff8e1; color: #f57f17; }
+.rating.weak { background: #fce4ec; color: #c62828; }
+
+.section-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 16px; }
+.section-card h3 { color: #1a4a8b; margin-bottom: 12px; font-size: 16px; }
+.section-card table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.section-card th { background: #f5f7fa; padding: 10px 12px; text-align: left; font-weight: 600; color: #555; border-bottom: 1px solid #e0e0e0; }
+.section-card td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; }
+.section-card .section-tag { display: inline-block; width: 28px; height: 28px; border-radius: 50%; background: #1a4a8b; color: #fff; text-align: center; line-height: 28px; font-weight: 700; font-size: 13px; }
+
+.chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.chart-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.chart-card h3 { color: #1a4a8b; margin-bottom: 12px; font-size: 16px; text-align: center; }
+.chart-card canvas { max-height: 300px; }
+
+.radar-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 16px; }
+.radar-card h3 { color: #1a4a8b; margin-bottom: 12px; font-size: 16px; text-align: center; }
+.radar-card canvas { max-height: 400px; }
+
+.risk-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 16px; }
+.risk-card h3 { color: #1a4a8b; margin-bottom: 12px; font-size: 16px; }
+.risk-level { display: inline-block; padding: 8px 24px; border-radius: 20px; font-size: 16px; font-weight: 600; margin: 8px 0; }
+.risk-low { background: #e8f5e9; color: #2e7d32; }
+.risk-medium { background: #fff8e1; color: #f57f17; }
+.risk-high { background: #fff3e0; color: #e65100; }
+.risk-critical { background: #fce4ec; color: #c62828; }
+.risk-actions { margin-top: 12px; padding: 12px; background: #f8f9fa; border-radius: 8px; font-size: 14px; color: #555; line-height: 1.8; }
+
+.profile-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 16px; }
+.profile-card h3 { color: #1a4a8b; margin-bottom: 12px; font-size: 16px; }
+.profile-strength { color: #2e7d32; }
+.profile-weakness { color: #c62828; }
+.profile-desc { font-size: 14px; color: #555; line-height: 1.8; }
+
+.learning-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 16px; }
+.learning-card h3 { color: #1a4a8b; margin-bottom: 12px; font-size: 16px; }
+.learning-card table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.learning-card th { background: #f5f7fa; padding: 10px 12px; text-align: left; font-weight: 600; color: #555; border-bottom: 1px solid #e0e0e0; }
+.learning-card td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; }
+
+.wrong-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 16px; }
+.wrong-card h3 { color: #1a4a8b; margin-bottom: 12px; font-size: 16px; }
+.wrong-card .filter-row { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.wrong-card .filter-btn { padding: 6px 16px; border: 1px solid #d0d0d0; border-radius: 16px; background: #fff; cursor: pointer; font-size: 13px; transition: all 0.2s; }
+.wrong-card .filter-btn.active { background: #1a4a8b; color: #fff; border-color: #1a4a8b; }
+.wrong-item { border: 1px solid #e8e8e8; border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+.wrong-item .w-section { font-size: 12px; color: #1a4a8b; margin-bottom: 4px; }
+.wrong-item .w-question { font-size: 15px; color: #333; margin-bottom: 8px; font-weight: 500; }
+.wrong-item .w-row { display: flex; gap: 20px; font-size: 13px; margin-bottom: 6px; }
+.wrong-item .w-row .w-label { color: #888; min-width: 70px; }
+.wrong-item .w-row .w-answer { font-weight: 600; color: #c62828; }
+.wrong-item .w-row .w-correct { font-weight: 600; color: #2e7d32; }
+.wrong-item .w-explanation { font-size: 13px; color: #555; padding: 8px; background: #f8f9fa; border-radius: 4px; margin-top: 8px; line-height: 1.7; }
+
+.restart-btn { text-align: center; margin: 30px 0; }
+</style>
+</head>
+<body>
+<div class="container" id="app"></div>
+
+<script>
+const QUESTIONS = [{"section": "A", "sectionTitle": "《医药企业防范商业贿赂风险合规指引》相关", "id": 1, "type": "single", "question": "根据《医药企业防范商业贿赂风险合规指引》（以下简称《指引》），该指引的制定主要依据的法律法规不包括以下哪一项？", "options": [{"label": "A", "text": "《中华人民共和国反不正当竞争法》"}, {"label": "B", "text": "《中华人民共和国药品管理法》"}, {"label": "C", "text": "《中华人民共和国刑法》"}, {"label": "D", "text": "《中华人民共和国广告法》"}], "answer": "D", "explanation": "《指引》的制定主要依据《反不正当竞争法（2019修正）》第7条和第19条以及《药品管理法（2019修订）》第88条和第141条等法律法规的规定。《广告法》并非《指引》的制定依据。"}, {"section": "A", "sectionTitle": "《医药企业防范商业贿赂风险合规指引》相关", "id": 2, "type": "single", "question": "《指引》明确禁止医药企业向医药代表和医疗器械推广人员分配什么任务？", "options": [{"label": "A", "text": "学术拜访任务"}, {"label": "B", "text": "销售任务"}, {"label": "C", "text": "培训任务"}, {"label": "D", "text": "合规学习任务"}], "answer": "B", "explanation": "《指引》明确禁止医药企业向医药代表和医疗器械推广人员分配销售任务，同时禁止医药代表和医疗器械推广人员干预或者影响医疗卫生人员合理使用医药产品，禁止假借拜访名义索取、统计各类医药产品用量信息，禁止以直接或者间接方式给予医疗卫生人员财物或者其他不正当利益。"}, {"section": "A", "sectionTitle": "《医药企业防范商业贿赂风险合规指引》相关", "id": 3, "type": "single", "question": "根据《指引》，医药企业在业务接待中，应当避免将接待场所安排在以下哪种地点？", "options": [{"label": "A", "text": "符合卫生要求的商务餐厅"}, {"label": "B", "text": "公司内部的会议室"}, {"label": "C", "text": "酒店内的普通餐厅"}, {"label": "D", "text": "名胜景区或者高档奢侈的地点"}], "answer": "D", "explanation": "《指引》明确提示，医药企业应避免将业务接待场合安排在名胜景区或者高档奢侈的地点，或者选择与娱乐活动相关联的场所。"}, {"section": "A", "sectionTitle": "《医药企业防范商业贿赂风险合规指引》相关", "id": 4, "type": "single", "question": "《指引》关于咨询服务的规定中，建议医药企业采用哪种方式向医疗卫生人员支付服务费？", "options": [{"label": "A", "text": "现金支付"}, {"label": "B", "text": "银行转账"}, {"label": "C", "text": "等值购物卡"}, {"label": "D", "text": "实物礼品"}], "answer": "B", "explanation": "《指引》建议医药企业合理限定单个医疗卫生人员聘用频率及咨询费用总额，并以银行转账方式支付服务费，避免使用现金或现金等价物方式支付服务费。"}, {"section": "A", "sectionTitle": "《医药企业防范商业贿赂风险合规指引》相关", "id": 5, "type": "single", "question": "《指引》对医药企业经营行为的规范要求，划分为几个档次进行规范提示？", "options": [{"label": "A", "text": "两个档次"}, {"label": "B", "text": "三个档次"}, {"label": "C", "text": "四个档次"}, {"label": "D", "text": "五个档次"}], "answer": "C", "explanation": "《指引》对医药企业经营行为的规范要求，划分为“应当、可以、建议、倡导”四个档次进行规范提示。其中，“应当”类适用于法律法规明确规定的合规义务；“可以”类适用于行业共识但非法定义务；“建议”类适用于先进合规经验及典型做法；“倡导”类适用于建立治理商业贿赂行为长效机制的措施。"}, {"section": "A", "sectionTitle": "《医药企业防范商业贿赂风险合规指引》相关", "id": 6, "type": "single", "question": "根据《指引》，对于医药企业应予识别、防范的风险，按照违法性风险程度划分为几个档次？", "options": [{"label": "A", "text": "两个档次"}, {"label": "B", "text": "三个档次"}, {"label": "C", "text": "四个档次"}, {"label": "D", "text": "五个档次"}], "answer": "B", "explanation": "《指引》对医药企业应予识别、防范的风险，按照违法性风险程度划分为“禁止、避免、关注”三个档次进行分类规制。"}, {"section": "A", "sectionTitle": "《医药企业防范商业贿赂风险合规指引》相关", "id": 7, "type": "single", "question": "《指引》覆盖的医药产品范围包括以下哪两类？", "options": [{"label": "A", "text": "药品和保健品"}, {"label": "B", "text": "药品和医疗器械"}, {"label": "C", "text": "医疗器械和诊断试剂"}, {"label": "D", "text": "处方药和非处方药"}], "answer": "B", "explanation": "《指引》覆盖的产品范围包括药品和医疗器械，适用于医药企业及其相关第三方。"}, {"section": "A", "sectionTitle": "《医药企业防范商业贿赂风险合规指引》相关", "id": 8, "type": "single", "question": "根据《指引》，以下哪项行为属于学术拜访交流场景中的禁止行为？", "options": [{"label": "A", "text": "向医疗卫生人员提供学术资料"}, {"label": "B", "text": "向医疗卫生人员提供技术咨询"}, {"label": "C", "text": "统计医疗卫生机构内设科室开具的医药产品用量信息"}, {"label": "D", "text": "在医疗卫生机构规定的时间和地点开展学术拜访交流"}], "answer": "C", "explanation": "《指引》明确禁止医药代表和医疗器械推广人员假借拜访名义索取、统计医疗卫生机构、医疗卫生机构内设科室或医疗卫生机构人员开具的各类医药产品用量信息（即“统方”行为）。"}, {"section": "A", "sectionTitle": "《医药企业防范商业贿赂风险合规指引》相关", "id": 9, "type": "single", "question": "关于医疗设备无偿投放，《指引》明确允许投放的合理理由不包括以下哪项？", "options": [{"label": "A", "text": "有助于促进产品的正确、安全、有效使用"}, {"label": "B", "text": "为研发和改进产品收集反馈意见"}, {"label": "C", "text": "以投放为条件，约定医疗机构采购耗材的最低数量"}, {"label": "D", "text": "帮助医疗卫生机构开展产品性能评估"}], "answer": "C", "explanation": "《指引》允许设备无偿投放，但禁止与销售挂钩。明确投放应具有“有助于促进产品的正确、安全、有效使用和上市前临床试验”的合理理由，包括为研发和改进产品收集反馈意见、方便医疗卫生机构开展产品性能评估、帮助医疗卫生人员提升产品使用效率及开展患者教育等。禁止通过无偿投放的方式规避或影响招投标行为，禁止与医疗卫生机构约定采购耗材、配套设备、药品和服务等的最低数量或者金额。"}, {"section": "A", "sectionTitle": "《医药企业防范商业贿赂风险合规指引》相关", "id": 10, "type": "single", "question": "《指引》属于什么性质的文件？", "options": [{"label": "A", "text": "法律"}, {"label": "B", "text": "行政法规"}, {"label": "C", "text": "部门规章"}, {"label": "D", "text": "行政指导性文件"}], "answer": "D", "explanation": "《指引》属于行政指导性文件，本身不直接设定行政处罚，制定目的是为中国境内从事医药产品研发、生产、流通等活动的医药企业及相关第三方提供参考。鼓励大中型医药企业及相关第三方依据本指引建立完备的防范商业贿赂风险合规管理体系。"}, {"section": "A", "sectionTitle": "《医药企业防范商业贿赂风险合规指引》相关", "id": 11, "type": "single", "question": "根据《指引》，医药企业聘请医疗卫生人员提供咨询服务，应关注的核心问题是？", "options": [{"label": "A", "text": "服务是否及时完成"}, {"label": "B", "text": "服务费用是否明显偏离市场公允价格"}, {"label": "C", "text": "服务人员是否具有高级职称"}, {"label": "D", "text": "服务是否经过医院批准"}], "answer": "B", "explanation": "《指引》提示，咨询服务费用的支付应关注是否明显偏离市场公允价格，避免以咨询服务名义向医疗卫生人员输送不当利益。同时建议合理限定单个医疗卫生人员聘用频率及咨询费用总额。"}, {"section": "A", "sectionTitle": "《医药企业防范商业贿赂风险合规指引》相关", "id": 12, "type": "single", "question": "关于折扣、折让及佣金的管理，《指引》要求医药企业支付折扣、折让的对象应限于什么范围？", "options": [{"label": "A", "text": "所有客户"}, {"label": "B", "text": "交易相对方"}, {"label": "C", "text": "医疗卫生机构的个人"}, {"label": "D", "text": "最终消费者"}], "answer": "B", "explanation": "《指引》明确，折扣、折让及佣金的支付对象应限于交易相对方，明示支付，如实入账。佣金与折扣的主要区别在于支付对象不同——折扣限于交易相对方，佣金可支付给中间人。"}, {"section": "A", "sectionTitle": "《医药企业防范商业贿赂风险合规指引》相关", "id": 13, "type": "single", "question": "根据《指引》，医药企业发现涉嫌商业贿赂行为时，应主动向哪个部门报告？", "options": [{"label": "A", "text": "公安机关"}, {"label": "B", "text": "市场监管部门"}, {"label": "C", "text": "药品监管部门"}, {"label": "D", "text": "卫生健康部门"}], "answer": "B", "explanation": "《指引》鼓励企业主动向市场监管部门报告问题线索，主动报告且积极整改的，监管部门依法予以酌情处理。市场监管部门是反不正当竞争（包括商业贿赂）的法定执法机关。"}, {"section": "A", "sectionTitle": "《医药企业防范商业贿赂风险合规指引》相关", "id": 14, "type": "single", "question": "《指引》鼓励医药企业建立什么机制来有效识别和评估商业贿赂风险？", "options": [{"label": "A", "text": "绩效考核机制"}, {"label": "B", "text": "商业贿赂风险识别评估机制"}, {"label": "C", "text": "市场调研机制"}, {"label": "D", "text": "客户反馈机制"}], "answer": "B", "explanation": "《指引》要求医药企业建立商业贿赂风险识别评估机制，定期识别和评估商业贿赂风险。这是合规管理体系建设的核心组成部分。"}, {"section": "A", "sectionTitle": "《医药企业防范商业贿赂风险合规指引》相关", "id": 15, "type": "single", "question": "《指引》正式发布施行的时间是？", "options": [{"label": "A", "text": "2024年10月11日"}, {"label": "B", "text": "2025年1月1日"}, {"label": "C", "text": "2025年1月14日"}, {"label": "D", "text": "2025年3月1日"}], "answer": "C", "explanation": "2025年1月14日，市场监管总局官网正式发布《医药企业防范商业贿赂风险合规指引》，自发布之日起施行。值得注意的是，该指引从发布征求意见稿到被市场监管总局第32次局务会议审议通过，用时不到3个月，凸显了其重要性和必要性。"}, {"section": "A", "sectionTitle": "《医药企业防范商业贿赂风险合规指引》相关", "id": 16, "type": "multi", "question": "《指引》覆盖的九大业务场景包括以下哪些？", "options": [{"label": "A", "text": "学术拜访交流"}, {"label": "B", "text": "业务接待"}, {"label": "C", "text": "咨询服务"}, {"label": "D", "text": "药品生产管理"}, {"label": "E", "text": "零售终端销售"}], "answer": "ABCE", "explanation": "《指引》第三章“医药企业商业贿赂风险识别与防范”列举了九个具象的活动场景，包括：学术拜访交流、业务接待、咨询服务、外包服务、折扣折让及佣金、捐赠赞助和资助、医疗设备无偿投放、临床研究、零售终端销售。“药品生产管理”不在此列。"}, {"section": "A", "sectionTitle": "《医药企业防范商业贿赂风险合规指引》相关", "id": 17, "type": "multi", "question": "根据《指引》，医药企业建立健全防范商业贿赂合规管理体系主要包括以下哪些要素？", "options": [{"label": "A", "text": "明确合规管理组织和人员，赋予其独立履职的权限"}, {"label": "B", "text": "制定覆盖全部业务场景的合规管理制度和操作流程"}, {"label": "C", "text": "对员工特别是高风险岗位人员开展常态化合规培训"}, {"label": "D", "text": "建立投诉举报渠道，鼓励内部举报"}, {"label": "E", "text": "定期开展合规风险评估和内部审计"}], "answer": "ABCDE", "explanation": "《指引》在构建防范商业贿赂风险合规管理体系方面提出了6大方面的要素，涵盖资源支持与保障、指定专门机构及配备人员、建立健全规章制度、建立健全合规运行机制以及合规文化建设和培育等。具体包括：明确合规管理组织和人员并赋予独立履职权限、制定覆盖全部业务场景的合规管理制度和操作流程、对员工特别是高风险岗位人员开展常态化合规培训、建立投诉举报渠道鼓励内部举报、定期开展合规风险评估和内部审计等。"}, {"section": "A", "sectionTitle": "《医药企业防范商业贿赂风险合规指引》相关", "id": 18, "type": "multi", "question": "关于业务接待场景，根据《指引》，以下哪些属于禁止或避免的行为？", "options": [{"label": "A", "text": "在名胜景区或者高档奢侈的地点安排接待"}, {"label": "B", "text": "向被接待人员的近亲属等无关人员提供业务接待"}, {"label": "C", "text": "在业务接待中提供旅游、健身、娱乐等活动安排"}, {"label": "D", "text": "将业务接待费用以会议、培训、调研等其他名义虚列、隐匿"}, {"label": "E", "text": "向医疗卫生人员提供合理标准的餐饮"}], "answer": "ABCD", "explanation": "《指引》明确禁止或提示的风险行为包括：避免将业务接待场合安排在名胜景区或者高档奢侈的地点；禁止向被接待人员的近亲属等无关人员提供业务接待；禁止在业务接待中提供旅游、健身、娱乐等活动安排；禁止将业务接待费用以会议、培训、调研等其他名义虚列、隐匿。向医疗卫生人员提供合理标准的餐饮是允许的，但应适度且符合商业惯例。"}, {"section": "A", "sectionTitle": "《医药企业防范商业贿赂风险合规指引》相关", "id": 19, "type": "multi", "question": "关于咨询服务（讲课费），根据《指引》，以下哪些表述是正确的？", "options": [{"label": "A", "text": "医药企业可以邀请医生提供讲课等咨询类服务"}, {"label": "B", "text": "建议以银行转账方式支付服务费"}, {"label": "C", "text": "禁止以咨询服务名义向医疗卫生人员输送不当利益"}, {"label": "D", "text": "建议合理限定单个医疗卫生人员聘用频率及咨询费用总额"}, {"label": "E", "text": "可以现金方式向医疗卫生人员支付服务费"}], "answer": "ABCD", "explanation": "《指引》从正面明确，医药企业可以邀请医生提供讲课等咨询类服务。同时建议以银行转账方式支付服务费，避免使用现金或现金等价物；建议合理限定单个医疗卫生人员聘用频率及咨询费用总额；禁止以咨询服务名义向医疗卫生人员输送不当利益。E选项“可以现金方式支付”与《指引》建议相悖。"}, {"section": "A", "sectionTitle": "《医药企业防范商业贿赂风险合规指引》相关", "id": 20, "type": "multi", "question": "根据《指引》，医药企业在发现涉嫌商业贿赂问题后，应当采取以下哪些措施？", "options": [{"label": "A", "text": "及时启动内部调查"}, {"label": "B", "text": "主动向市场监管部门报告"}, {"label": "C", "text": "隐匿、销毁相关证据"}, {"label": "D", "text": "积极配合调查"}, {"label": "E", "text": "对查实的问题严肃处理相关责任人，完善制度堵塞漏洞"}], "answer": "ABDE", "explanation": "《指引》要求企业在发现涉嫌商业贿赂问题线索时：①及时启动内部调查，由合规部门牵头，客观、全面核查事实；②主动报告，鼓励企业主动向市场监管部门报告问题线索，主动报告且积极整改的，监管部门依法予以酌情处理；③配合调查，如实提供相关材料；④整改追责，对查实的问题严肃处理相关责任人，完善制度堵塞漏洞。C选项“隐匿、销毁相关证据”属于违法行为，企业不得从事。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 1, "type": "single", "question": "《解释（二）》自何时起正式施行？", "options": [{"label": "A", "text": "2026年1月1日"}, {"label": "B", "text": "2026年4月10日"}, {"label": "C", "text": "2026年5月1日"}, {"label": "D", "text": "2026年8月1日"}], "answer": "C", "explanation": "《解释（二）》于2026年4月10日由最高人民法院、最高人民检察院联合发布，明确自2026年5月1日起施行。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 2, "type": "single", "question": "根据《解释（二）》，单位受贿数额达到多少万元以上，应当认定为“情节严重”？", "options": [{"label": "A", "text": "10万元"}, {"label": "B", "text": "20万元"}, {"label": "C", "text": "30万元"}, {"label": "D", "text": "50万元"}], "answer": "B", "explanation": "《解释（二）》第一条明确，单位受贿数额在20万元以上，直接认定为“情节严重”。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 3, "type": "single", "question": "单位受贿数额在10万元以上不满20万元，但具备特定情形之一的，同样认定为“情节严重”。以下哪项不属于这些特定情形？", "options": [{"label": "A", "text": "多次索贿"}, {"label": "B", "text": "致使国家和人民利益遭受损失"}, {"label": "C", "text": "赃款赃物用于个人消费"}, {"label": "D", "text": "赃款赃物用于非法活动"}], "answer": "C", "explanation": "《解释（二）》规定，单位受贿数额在10万元以上不满20万元，具备“多次索贿”“致使国家和人民利益遭受损失”“赃款赃物用于非法活动”等五种情形之一，同样认定为“情节严重”。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 4, "type": "single", "question": "单位受贿数额达到多少万元以上，认定为“情节特别严重”？", "options": [{"label": "A", "text": "100万元"}, {"label": "B", "text": "150万元"}, {"label": "C", "text": "200万元"}, {"label": "D", "text": "500万元"}], "answer": "C", "explanation": "《解释（二）》明确，单位受贿数额达到200万元以上，或100万元以上且具备特定情节，认定为“情节特别严重”。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 5, "type": "single", "question": "根据《解释（二）》，个人向单位行贿数额达到多少万元以上，直接达到入罪标准？", "options": [{"label": "A", "text": "10万元"}, {"label": "B", "text": "20万元"}, {"label": "C", "text": "30万元"}, {"label": "D", "text": "40万元"}], "answer": "B", "explanation": "《解释（二）》明确，个人对单位行贿20万元以上，直接达到入罪标准，无需额外判断“情节是否严重”。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 6, "type": "single", "question": "单位向单位行贿数额达到多少万元以上，直接达到入罪标准？", "options": [{"label": "A", "text": "20万元"}, {"label": "B", "text": "30万元"}, {"label": "C", "text": "40万元"}, {"label": "D", "text": "50万元"}], "answer": "C", "explanation": "《解释（二）》规定，单位对单位行贿40万元以上，直接达到入罪标准，无需额外判断“情节是否严重”。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 7, "type": "single", "question": "在医疗领域，个人向单位行贿数额在10万元以上不满20万元，同时具备在医疗领域行贿的情形，应当如何认定？", "options": [{"label": "A", "text": "应当以对单位行贿罪追究刑事责任"}, {"label": "B", "text": "不构成犯罪，仅行政处理"}, {"label": "C", "text": "认定为“情节特别严重”"}, {"label": "D", "text": "免于刑事处罚"}], "answer": "A", "explanation": "《解释（二）》第二条明确，在医疗、食品药品等领域行贿，个人数额在10万元以上不满20万元，同时具备特定情形（包括在医疗领域行贿）的，应当以对单位行贿罪追究刑事责任。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 8, "type": "single", "question": "根据《解释（二）》，单位行贿罪实行“双罚制”，其含义是？", "options": [{"label": "A", "text": "只处罚单位"}, {"label": "B", "text": "只处罚直接责任人"}, {"label": "C", "text": "既处罚单位，也处罚直接负责的主管人员和其他责任人员"}, {"label": "D", "text": "只处罚法定代表人"}], "answer": "C", "explanation": "《解释（二）》明确单位行贿双罚制，既对企业处以高额罚金，也追究高管与直接责任人刑责，还联动触发集采拉黑、医保禁入、资质吊销等市场惩戒。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 9, "type": "single", "question": "以下关于《解释（二）》对单位行贿罪认定的表述，正确的是？", "options": [{"label": "A", "text": "只有经过董事会书面决议的行贿行为才构成单位行贿罪"}, {"label": "B", "text": "行贿行为出于单位意志且违法所得归单位所有，即构成单位行贿罪"}, {"label": "C", "text": "医药代表个人行贿，只要公司声称不知情，即可免责"}, {"label": "D", "text": "单位行贿的最高刑罚为5年有期徒刑"}], "answer": "B", "explanation": "《解释（二）》第十六条明确了单位行贿罪的认定规则：行贿行为出于单位意志且违法所得归单位所有，即构成单位行贿罪。过去医药代表被抓、公司以“个人行为”为由切割责任的套路已彻底失效。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 10, "type": "single", "question": "根据《解释（二）》，非国家工作人员受贿罪的定罪量刑标准如何参照执行？", "options": [{"label": "A", "text": "参照受贿罪的标准执行"}, {"label": "B", "text": "参照行贿罪的标准执行"}, {"label": "C", "text": "独立规定，标准更低"}, {"label": "D", "text": "独立规定，标准更高"}], "answer": "A", "explanation": "《解释（二）》明确，非国家工作人员受贿罪、对非国家工作人员行贿罪的定罪量刑标准，分别参照受贿罪、行贿罪（单位行贿罪）标准执行。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 11, "type": "single", "question": "普通医生（非国家工作人员）收受回扣，达到多少金额即面临刑事追责？", "options": [{"label": "A", "text": "1万元"}, {"label": "B", "text": "3万元"}, {"label": "C", "text": "5万元"}, {"label": "D", "text": "10万元"}], "answer": "B", "explanation": "非国家工作人员受贿罪“数额较大”的起刑点降至3万元，医务人员累计收受药品、医疗器械供应商回扣金额达到3万元，就将面临刑事追责。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 12, "type": "single", "question": "根据《解释（二）》，关于违法所得追缴的规定，以下表述正确的是？", "options": [{"label": "A", "text": "只追缴原物"}, {"label": "B", "text": "原物已转化或者与合法财产混同的，也可以追缴相应的等值财产"}, {"label": "C", "text": "只追缴现金"}, {"label": "D", "text": "超过5年的违法所得不再追缴"}], "answer": "B", "explanation": "《解释（二）》明确规定，违法所得及其收益要全额追缴或责令退赔，即使原物已转化或与合法财产混同，也可以追缴等值财产。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 13, "type": "single", "question": "在普通领域，个人向单位行贿的入罪门槛为多少？", "options": [{"label": "A", "text": "10万元"}, {"label": "B", "text": "20万元"}, {"label": "C", "text": "30万元"}, {"label": "D", "text": "40万元"}], "answer": "B", "explanation": "普通领域的入罪门槛为个人行贿20万元以上、单位行贿40万元以上。而医疗、食品药品等领域的入罪门槛更低，体现了更严格的监管态度。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 14, "type": "single", "question": "在普通领域，单位向单位行贿的入罪门槛为多少？", "options": [{"label": "A", "text": "20万元"}, {"label": "B", "text": "30万元"}, {"label": "C", "text": "40万元"}, {"label": "D", "text": "50万元"}], "answer": "C", "explanation": "普通领域的单位行贿入罪门槛为单位向单位行贿40万元以上。医疗领域的入罪门槛则降至20万元以上。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 15, "type": "single", "question": "根据《解释（二）》，在医疗领域行贿，量刑时将如何处理？", "options": [{"label": "A", "text": "从轻处罚"}, {"label": "B", "text": "从重处罚"}, {"label": "C", "text": "减轻处罚"}, {"label": "D", "text": "免于处罚"}], "answer": "B", "explanation": "在医疗领域行贿不仅入罪门槛降低，查实后还将从重处罚。这一从严逻辑的法律依据来自刑法修正案（十二）第三百九十条。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 16, "type": "single", "question": "以下关于《解释（二）》对“介绍贿赂”认定的表述，正确的是？", "options": [{"label": "A", "text": "介绍贿赂不构成犯罪"}, {"label": "B", "text": "只有收受好处费的中间人才构成介绍贿赂罪"}, {"label": "C", "text": "在请托人和国家工作人员之间沟通关系、撮合条件，使贿赂行为得以实现的，构成介绍贿赂罪"}, {"label": "D", "text": "介绍贿赂只适用于国家工作人员受贿的情形"}], "answer": "C", "explanation": "《解释（二）》完善了介绍贿赂的认定规则：在请托人和国家工作人员之间沟通关系、撮合条件，使贿赂行为得以实现的，构成介绍贿赂罪。医药领域的“中间人”“外部渠道商”不再能以“只是介绍认识”为由脱责。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 17, "type": "single", "question": "根据《解释（二）》，单位非法收受财物后以单位名义集体私分给个人的，应如何处理？", "options": [{"label": "A", "text": "按个人受贿处理"}, {"label": "B", "text": "依照单位受贿罪从重处罚"}, {"label": "C", "text": "不构成犯罪"}, {"label": "D", "text": "按贪污罪处理"}], "answer": "B", "explanation": "《解释（二）》规定，单位非法收受财物后以单位名义集体私分给个人的，依照单位受贿罪从重处罚。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 18, "type": "single", "question": "以下哪个罪名在《解释（二）》中未直接涉及？", "options": [{"label": "A", "text": "单位受贿罪"}, {"label": "B", "text": "单位行贿罪"}, {"label": "C", "text": "贪污罪"}, {"label": "D", "text": "介绍贿赂罪"}], "answer": "C", "explanation": "《解释（二）》主要针对单位受贿罪、单位行贿罪、对单位行贿罪、介绍贿赂罪等罪名进行了细化，而《解释（一）》已对贪污罪有详细规定。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 19, "type": "single", "question": "《解释（二）》中，单位行贿罪的认定标准中，“单位意志”的判定主要考虑哪些因素？", "options": [{"label": "A", "text": "是否经过董事会书面决议"}, {"label": "B", "text": "行贿金额是否超过100万元"}, {"label": "C", "text": "行贿行为是否经单位集体决策或单位核心管理人员决定、授意甚至默许"}, {"label": "D", "text": "是否有专门的财务科目"}], "answer": "C", "explanation": "司法实践中，认定“单位意志”主要考虑：行贿行为是否经单位集体决策或单位核心管理人员决定、授意甚至默许；行贿资金是否来源于企业经营经费；违法所得是否最终归属于单位。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 20, "type": "single", "question": "《解释（二）》对医药行业最核心的影响是？", "options": [{"label": "A", "text": "增加了医药企业税收"}, {"label": "B", "text": "堵死药企“甩锅”给医药代表的路径，让带金销售模式在法律上走到尽头"}, {"label": "C", "text": "限制了医药产品的研发"}, {"label": "D", "text": "降低了药品质量标准"}], "answer": "B", "explanation": "《解释（二）》的核心影响是堵死药企“甩锅”给医药代表的路径，明确单位行贿双罚制，让带金销售模式在法律上走到了尽头。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 21, "type": "multi", "question": "《解释（二）》对单位行贿罪确立的处罚方式包括以下哪些？", "options": [{"label": "A", "text": "对企业处以高额罚金"}, {"label": "B", "text": "追究高管与直接责任人刑责"}, {"label": "C", "text": "联动触发集采拉黑、医保禁入、资质吊销等市场惩戒"}, {"label": "D", "text": "仅对企业进行行政罚款"}, {"label": "E", "text": "对法定代表人处以行政处罚"}], "answer": "ABC", "explanation": "《解释（二）》明确单位行贿双罚制，既对企业处以高额罚金，也追究高管与直接责任人刑责，还联动触发集采拉黑、医保禁入、资质吊销等市场惩戒，违法成本呈几何级提升。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 22, "type": "multi", "question": "以下哪些属于《解释（二）》中单位受贿“情节严重”的认定情形？", "options": [{"label": "A", "text": "单位受贿数额在20万元以上"}, {"label": "B", "text": "单位受贿数额在10万元以上不满20万元，且多次索贿"}, {"label": "C", "text": "单位受贿数额在10万元以上不满20万元，且致使国家和人民利益遭受损失"}, {"label": "D", "text": "单位受贿数额在5万元以上不满10万元"}, {"label": "E", "text": "单位受贿数额在10万元以上不满20万元，且赃款赃物用于非法活动"}], "answer": "ABCE", "explanation": "《解释（二）》明确，单位受贿数额在20万元以上直接认定为“情节严重”；数额在10万元以上不满20万元，具备“多次索贿”“致使国家和人民利益遭受损失”“赃款赃物用于非法活动”等五种情形之一，同样认定“情节严重”。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 23, "type": "multi", "question": "根据《解释（二）》，在医疗领域行贿，个人对单位行贿或单位对单位行贿，以下哪些情形应当追究刑事责任？", "options": [{"label": "A", "text": "个人行贿数额在10万元以上不满20万元，且在医疗领域行贿"}, {"label": "B", "text": "单位行贿数额在20万元以上不满40万元，且在医疗领域行贿"}, {"label": "C", "text": "个人行贿数额在5万元以上不满10万元"}, {"label": "D", "text": "个人行贿数额在20万元以上"}, {"label": "E", "text": "单位行贿数额在40万元以上"}], "answer": "ABDE", "explanation": "在医疗领域，个人向单位行贿数额在10万元以上不满20万元、单位向单位行贿数额在20万元以上不满40万元，同时具备在医疗领域行贿等情形的，应当追究刑事责任。个人行贿20万元以上、单位行贿40万元以上则直接入罪，无需额外判断情节。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 24, "type": "multi", "question": "《解释（二）》对医药行业“带金销售”治理的深远影响包括以下哪些？", "options": [{"label": "A", "text": "单位行贿与个人行贿的区分标准更加明确，避免企业以“个人行为”为借口逃避处罚"}, {"label": "B", "text": "违法成本呈几何级提升，倒逼药企从“拼回扣”转向“拼质量”"}, {"label": "C", "text": "违法所得及其收益要全额追缴，即使原物已转化或与合法财产混同"}, {"label": "D", "text": "医药企业的合规经营不再是必选项"}, {"label": "E", "text": "非国家工作人员受贿罪的量刑标准与国家工作人员统一"}], "answer": "ABCE", "explanation": "《解释（二）》对医药行业的影响深远：明确区分子单位行贿与个人行贿，堵死“甩锅”路径；违法成本大幅提升；违法所得全额追缴；非国家工作人员受贿罪的量刑标准与国家工作人员统一。合规经营成为企业的必选项。"}, {"section": "B", "sectionTitle": "《关于规范引导学术拜访交流行为的通知》相关", "id": 25, "type": "multi", "question": "以下关于《解释（二）》医药领域规定的表述，正确的有？", "options": [{"label": "A", "text": "医疗领域被明确列入行贿犯罪重点打击范围"}, {"label": "B", "text": "医疗领域行贿的入罪门槛低于普通领域"}, {"label": "C", "text": "医疗领域行贿查实后将面临从重处罚"}, {"label": "D", "text": "医疗领域行贿的最高刑罚为5年有期徒刑"}, {"label": "E", "text": "医药代表行贿，公司难逃单位行贿罪责"}], "answer": "ABCE", "explanation": "《解释（二）》将医疗领域明确列入行贿犯罪重点打击范围，入罪门槛低于普通领域，查实后从重处罚。同时明确单位行贿罪的认定规则，医药代表行贿，公司难逃罪责。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 1, "type": "single", "question": "《医药代表管理办法》自何时起正式施行？", "options": [{"label": "A", "text": "2026年5月7日"}, {"label": "B", "text": "2026年6月1日"}, {"label": "C", "text": "2026年8月1日"}, {"label": "D", "text": "2027年1月1日"}], "answer": "C", "explanation": "《医药代表管理办法》于2026年5月7日由国家药监局、公安部、国家卫生健康委等7部门联合发布，明确自2026年8月1日起正式施行。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 2, "type": "single", "question": "根据《医药代表管理办法》，医药代表的职业定位是什么？", "options": [{"label": "A", "text": "从事药品销售的专业人员"}, {"label": "B", "text": "从事药品学术推广的专业人员"}, {"label": "C", "text": "从事药品物流配送的专业人员"}, {"label": "D", "text": "从事药品质量检测的专业人员"}], "answer": "B", "explanation": "《办法》第三条明确，医药代表是指经药品上市许可持有人聘用或者授权，向医疗卫生机构及其工作人员传递、沟通、反馈药品信息，从事药品学术推广活动的从业人员。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 3, "type": "single", "question": "医药代表的准入门槛要求具有什么学历？", "options": [{"label": "A", "text": "高中及以上学历"}, {"label": "B", "text": "中等专业学校及以上学历"}, {"label": "C", "text": "医学、药学或相关专业大专及以上学历"}, {"label": "D", "text": "本科及以上学历，不限专业"}], "answer": "C", "explanation": "《办法》明确规定，医药代表应当具有医学、药学或相关专业大专及以上学历，并掌握相关药物临床理论知识。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 4, "type": "single", "question": "根据《办法》，谁对医药代表的行为承担主体责任？", "options": [{"label": "A", "text": "医药代表本人"}, {"label": "B", "text": "药品上市许可持有人"}, {"label": "C", "text": "医疗卫生机构"}, {"label": "D", "text": "行业协会"}], "answer": "B", "explanation": "《办法》第四条明确规定，药品上市许可持有人负责聘用或者授权的医药代表管理，对医药代表药品学术推广活动承担主体责任。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 5, "type": "single", "question": "药品上市许可持有人为境外的，其医药代表管理责任由谁履行？", "options": [{"label": "A", "text": "境外持有人自行管理"}, {"label": "B", "text": "其指定的境内责任人"}, {"label": "C", "text": "进口药品代理商"}, {"label": "D", "text": "医疗机构自行对接"}], "answer": "B", "explanation": "《办法》第四条明确，药品上市许可持有人为境外的，由其指定的境内责任人履行相应责任。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 6, "type": "single", "question": "医药代表不得有以下哪项行为？", "options": [{"label": "A", "text": "在医疗机构规定的时间和地点开展学术推广"}, {"label": "B", "text": "承担药品销售任务，实施收款和处理购销票据等销售行为"}, {"label": "C", "text": "向医务人员传递药品的临床研究数据"}, {"label": "D", "text": "收集药品不良反应信息"}], "answer": "B", "explanation": "《办法》第二十四条明确禁止医药代表承担药品销售任务，实施收款和处理购销票据等销售行为。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 7, "type": "single", "question": "医药代表是否可以统计医生个人开具的药品处方数量？", "options": [{"label": "A", "text": "可以，用于市场分析"}, {"label": "B", "text": "可以，但需征得医生同意"}, {"label": "C", "text": "不可以，属于禁止行为"}, {"label": "D", "text": "可以，只需向公司备案"}], "answer": "C", "explanation": "《办法》第二十四条明确禁止医药代表参与统计或者委托医疗卫生机构工作人员等统计医生个人开具的药品处方数量（即“统方”行为）。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 8, "type": "single", "question": "持有人不得聘用或授权哪种医药代表？", "options": [{"label": "A", "text": "学历为大专的医药代表"}, {"label": "B", "text": "存在商业贿赂记录的医药代表"}, {"label": "C", "text": "工作年限不足3年的医药代表"}, {"label": "D", "text": "未通过公司内部考核的医药代表"}], "answer": "B", "explanation": "《办法》第十一条明确，持有人不得聘用或者授权不符合条件的、存在商业贿赂记录的医药代表。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 9, "type": "single", "question": "对于有商业贿赂记录的医药代表，将面临什么后果？", "options": [{"label": "A", "text": "暂停备案一年"}, {"label": "B", "text": "全行业永久禁入"}, {"label": "C", "text": "罚款后可以继续从业"}, {"label": "D", "text": "仅警告处理"}], "answer": "B", "explanation": "根据《办法》规定，有商业贿赂记录的医药代表将被全行业永久禁入，且持有人不得聘用或授权此类人员。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 10, "type": "single", "question": "医药代表在医疗机构开展学术推广活动，应当遵守哪个部门的规定？", "options": [{"label": "A", "text": "国家药品监督管理局"}, {"label": "B", "text": "卫生健康部门"}, {"label": "C", "text": "市场监督管理部门"}, {"label": "D", "text": "国家医疗保障局"}], "answer": "B", "explanation": "《办法》明确，医药代表在医疗机构开展学术推广等活动应当遵守卫生健康部门的有关规定，并获得医疗机构同意。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 11, "type": "single", "question": "医疗卫生机构应当如何管理医药代表的学术推广活动？", "options": [{"label": "A", "text": "无需管理，由医药代表自行安排"}, {"label": "B", "text": "建立医药代表登记及活动台账"}, {"label": "C", "text": "由科室主任自行决定是否接待"}, {"label": "D", "text": "由药企直接与医生联系"}], "answer": "B", "explanation": "《办法》要求医疗卫生机构建立医药代表药品学术推广活动管理等制度，对身份信息与备案信息不一致的不予接待，并建立登记及活动台账。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 12, "type": "single", "question": "医药代表未经备案从事药品学术推广活动，属于什么性质的行为？", "options": [{"label": "A", "text": "合规行为"}, {"label": "B", "text": "禁止行为"}, {"label": "C", "text": "可由持有人事后补办备案"}, {"label": "D", "text": "仅需口头说明即可"}], "answer": "B", "explanation": "《办法》第二十四条明确，未经备案、登记从事药品学术推广活动属于医药代表的禁止行为之一。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 13, "type": "single", "question": "持有人向医药代表分配药品销售任务，属于什么行为？", "options": [{"label": "A", "text": "正常的业务管理"}, {"label": "B", "text": "持有人禁止行为"}, {"label": "C", "text": "行业惯例"}, {"label": "D", "text": "法律未明确禁止"}], "answer": "B", "explanation": "《办法》第十一条明确，持有人不得向医药代表分配药品销售任务，要求医药代表实施收款和处理购销票据等销售行为。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 14, "type": "single", "question": "持有人指使、纵容医药代表从事违法行为，应如何定性？", "options": [{"label": "A", "text": "仅追究医药代表责任"}, {"label": "B", "text": "属于持有人禁止行为，持有人承担相应责任"}, {"label": "C", "text": "仅追究持有人管理责任"}, {"label": "D", "text": "属于行业惯例，不追究责任"}], "answer": "B", "explanation": "《办法》第十一条明确，持有人不得指使、纵容医药代表从事违法行为，这是持有人的禁止行为之一。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 15, "type": "single", "question": "医疗卫生机构工作人员能否与未经备案的医药代表开展学术推广活动？", "options": [{"label": "A", "text": "可以，只要内容合规"}, {"label": "B", "text": "不可以，属于禁止行为"}, {"label": "C", "text": "可以，但需事后补办手续"}, {"label": "D", "text": "可以，只需口头确认身份"}], "answer": "B", "explanation": "《办法》第二十五条明确，医疗卫生机构及其工作人员不得与未经备案、登记的医药代表开展药品学术推广活动。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 16, "type": "single", "question": "医药代表向医生提供礼品、礼金、消费卡（券）和有价证券等财物，属于什么行为？", "options": [{"label": "A", "text": "正常的商务礼仪"}, {"label": "B", "text": "禁止行为"}, {"label": "C", "text": "行业惯例"}, {"label": "D", "text": "只需不超过规定金额即可"}], "answer": "B", "explanation": "《办法》第二十四条明确禁止医药代表以任何名义、形式向医疗卫生机构工作人员及其特定关系人给予礼品、礼金、消费卡（券）和有价证券、股权、其他金融产品等财物。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 17, "type": "single", "question": "医药代表误导医生使用药品，夸大或者误导疗效，属于什么行为？", "options": [{"label": "A", "text": "正常的市场推广策略"}, {"label": "B", "text": "禁止行为"}, {"label": "C", "text": "仅需承担民事责任"}, {"label": "D", "text": "属于医生自主判断范围"}], "answer": "B", "explanation": "《办法》第二十四条明确禁止医药代表误导医生使用药品，夸大或者误导疗效，隐匿药品已知的不良反应信息。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 18, "type": "single", "question": "持有人委托的专业组织聘用存在商业贿赂记录的医药代表，属于什么行为？", "options": [{"label": "A", "text": "合规行为"}, {"label": "B", "text": "专业组织的禁止行为"}, {"label": "C", "text": "仅需承担民事赔偿"}, {"label": "D", "text": "属于持有人管理责任，与专业组织无关"}], "answer": "B", "explanation": "《办法》第十二条明确，持有人委托的专业组织不得聘用不符合条件的、存在商业贿赂记录的医药代表。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 19, "type": "single", "question": "《办法》规定，备案信息有变更时，持有人应在多少个工作日内完成变更？", "options": [{"label": "A", "text": "10个工作日"}, {"label": "B", "text": "20个工作日"}, {"label": "C", "text": "30个工作日"}, {"label": "D", "text": "60个工作日"}], "answer": "C", "explanation": "根据《办法》规定，医药代表备案信息有变更的，药品上市许可持有人应当在30个工作日内完成备案信息变更。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 20, "type": "single", "question": "医疗卫生机构接受以附加销售药品金额、数量等条件提供的捐赠、资助，属于什么行为？", "options": [{"label": "A", "text": "合法的慈善行为"}, {"label": "B", "text": "医疗卫生机构及其工作人员的禁止行为"}, {"label": "C", "text": "需经医院院办审批即可"}, {"label": "D", "text": "属于正常的商业合作"}], "answer": "B", "explanation": "《办法》第二十五条明确，医疗卫生机构不得接受以附加销售药品金额、数量等条件向医疗卫生机构提供的捐赠、资助、赞助，或者以捐赠、资助、赞助名义提供的变相利益。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 21, "type": "single", "question": "医药代表在开展学术推广时，是否可以实施药品上市许可持有人授权之外的药品学术推广活动？", "options": [{"label": "A", "text": "可以，只要药品属于同一治疗领域"}, {"label": "B", "text": "不可以，属于禁止行为"}, {"label": "C", "text": "可以，但需向持有人报备"}, {"label": "D", "text": "可以，只要医生有需求"}], "answer": "B", "explanation": "《办法》第二十四条明确禁止医药代表实施药品上市许可持有人授权之外药品的学术推广活动。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 22, "type": "single", "question": "医药代表非法收集、使用和传播患者信息以及医疗卫生机构内部信息，属于什么行为？", "options": [{"label": "A", "text": "违规但不违法"}, {"label": "B", "text": "禁止行为"}, {"label": "C", "text": "属于信息共享，有利于患者管理"}, {"label": "D", "text": "只需征得患者同意即可"}], "answer": "B", "explanation": "《办法》第二十四条明确禁止医药代表非法收集、使用和传播患者信息以及医疗卫生机构内部信息。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 23, "type": "single", "question": "根据《办法》，对于违反规定的持有人、医药代表，各部门将采取哪些联合惩戒措施？", "options": [{"label": "A", "text": "仅行政处罚"}, {"label": "B", "text": "违法行为公示、增加监管频次、限制参与药品采购活动、限制签署定点医保服务协议等"}, {"label": "C", "text": "仅罚款处理"}, {"label": "D", "text": "仅行业内部通报"}], "answer": "B", "explanation": "《办法》通过持有人内部管理，多部门联动进行联合惩戒，包括违法行为公示、增加监管频次、限制参与相关药品采购活动、限制签署定点医保服务协议等。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 24, "type": "single", "question": "《办法》规定的22项禁止行为清单，覆盖了哪些主体？", "options": [{"label": "A", "text": "仅医药代表"}, {"label": "B", "text": "持有人、医药代表、医疗卫生机构工作人员"}, {"label": "C", "text": "持有人、受托专业组织、医药代表、医疗卫生机构及其工作人员"}, {"label": "D", "text": "仅持有人和医药代表"}], "answer": "C", "explanation": "《办法》明确了持有人、受托专业组织、医药代表、医疗卫生机构及其工作人员共22项禁止行为清单。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 25, "type": "single", "question": "医药代表是否可以在未经医疗卫生机构同意的情况下开展学术推广活动？", "options": [{"label": "A", "text": "可以，只要医生愿意"}, {"label": "B", "text": "不可以，属于禁止行为"}, {"label": "C", "text": "可以，只需提前告知"}, {"label": "D", "text": "可以，在非工作时间即可"}], "answer": "B", "explanation": "《办法》第二十四条明确，未经医疗卫生机构同意开展药品学术推广活动属于医药代表的禁止行为。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 26, "type": "single", "question": "医疗卫生机构工作人员参加医药代表安排或支付费用的宴请或者旅游、健身、娱乐等活动，属于什么行为？", "options": [{"label": "A", "text": "正常的社交活动"}, {"label": "B", "text": "医疗卫生机构工作人员的禁止行为"}, {"label": "C", "text": "只需不超过规定金额即可"}, {"label": "D", "text": "属于行业惯例"}], "answer": "B", "explanation": "《办法》第二十五条明确，医疗卫生机构工作人员不得参加医药代表安排或支付费用的宴请或者旅游、健身、娱乐等活动。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 27, "type": "single", "question": "《办法》对医药代表的备案管理，新增了哪项要求？", "options": [{"label": "A", "text": "仅需上传身份证信息"}, {"label": "B", "text": "需上传合规承诺书，并明确负责推广的区域"}, {"label": "C", "text": "仅需提供学历证明"}, {"label": "D", "text": "仅需提供工作经历"}], "answer": "B", "explanation": "《办法》在备案环节新增要求，要求明确医药代表负责推广的区域并上传合规承诺书。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 28, "type": "single", "question": "根据《办法》，药品上市许可持有人对医药代表的备案和管理负责，这体现了什么原则？", "options": [{"label": "A", "text": "谁聘用谁负责"}, {"label": "B", "text": "持有人主体责任原则"}, {"label": "C", "text": "属地管理原则"}, {"label": "D", "text": "行业自律原则"}], "answer": "B", "explanation": "《办法》第四条明确持有人对医药代表的行为承担主体责任，体现了强化持有人全链条管理要求的立法精神。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 29, "type": "single", "question": "《办法》实施后，对于此前已在备案平台完成备案的医药代表，应如何处理？", "options": [{"label": "A", "text": "全部重新备案"}, {"label": "B", "text": "按照“老人老办法”原则，原备案信息继续有效，持有人应补充完善相关信息"}, {"label": "C", "text": "原备案自动失效"}, {"label": "D", "text": "需重新参加考试后方可备案"}], "answer": "B", "explanation": "根据政策解读，按照“老人老办法，新人新办法”的原则，在《办法》正式实施前已备案的医药代表备案信息继续有效，持有人应当补充完善相关备案信息。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 30, "type": "single", "question": "《办法》由多少个部门联合发布？", "options": [{"label": "A", "text": "5个部门"}, {"label": "B", "text": "6个部门"}, {"label": "C", "text": "7个部门"}, {"label": "D", "text": "8个部门"}], "answer": "C", "explanation": "《办法》由国家药监局、公安部、国家卫生健康委、市场监管总局、国家医保局、国家中医药局、国家疾控局共7个部门联合发布。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 31, "type": "multi", "question": "根据《办法》，医药代表的禁止行为包括以下哪些？", "options": [{"label": "A", "text": "未经备案、登记从事药品学术推广活动"}, {"label": "B", "text": "未经医疗卫生机构同意开展药品学术推广活动"}, {"label": "C", "text": "承担药品销售任务，实施收款和处理购销票据等销售行为"}, {"label": "D", "text": "参与统计医生个人开具的药品处方数量"}, {"label": "E", "text": "在医疗机构规定的时间和地点开展学术拜访"}], "answer": "ABCD", "explanation": "《办法》第二十四条明确列出了医药代表的9项禁止行为，包括A、B、C、D选项。E选项是合规的学术推广行为，不属于禁止范畴。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 32, "type": "multi", "question": "根据《办法》，持有人的禁止行为包括以下哪些？", "options": [{"label": "A", "text": "聘用或者授权不符合条件的、存在商业贿赂记录的医药代表"}, {"label": "B", "text": "指使、纵容医药代表从事违法行为"}, {"label": "C", "text": "向医药代表分配药品销售任务，要求医药代表实施收款和处理购销票据等销售行为"}, {"label": "D", "text": "对医药代表进行合规培训"}, {"label": "E", "text": "建立医药代表管理制度"}], "answer": "ABC", "explanation": "《办法》第十一条明确持有人的4项禁止行为，包括A、B、C选项。D选项“合规培训”和E选项“建立制度”属于持有人的合规管理义务，而非禁止行为。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 33, "type": "multi", "question": "根据《办法》，持有人委托的专业组织不得有哪些行为？", "options": [{"label": "A", "text": "聘用不符合条件的、存在商业贿赂记录的医药代表"}, {"label": "B", "text": "指使、纵容医药代表进行商业贿赂、诈骗等违法犯罪行为"}, {"label": "C", "text": "指使、纵容医药代表违规开展药品学术推广活动"}, {"label": "D", "text": "对医药代表进行专业培训"}, {"label": "E", "text": "与持有人签订服务合同"}], "answer": "ABC", "explanation": "《办法》第十二条明确专业组织的4项禁止行为，包括A、B、C选项。D、E选项属于专业组织的正常业务行为。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 34, "type": "multi", "question": "根据《办法》，医疗卫生机构及其工作人员的禁止行为包括以下哪些？", "options": [{"label": "A", "text": "与未经备案、登记的医药代表开展药品学术推广活动"}, {"label": "B", "text": "违反规定统计药品的使用量"}, {"label": "C", "text": "接受以附加销售药品金额、数量等条件提供的捐赠、资助、赞助"}, {"label": "D", "text": "工作人员及其特定关系人接受医药代表给予的回扣及礼品等财物"}, {"label": "E", "text": "建立医药代表接待管理制度"}], "answer": "ABCD", "explanation": "《办法》第二十五条明确了医疗卫生机构及其工作人员的5项禁止行为，包括A、B、C、D选项。E选项“建立接待管理制度”是医疗卫生机构的法定义务，而非禁止行为。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 35, "type": "multi", "question": "医药代表在学术推广活动中，不得有以下哪些行为？", "options": [{"label": "A", "text": "以附加销售药品金额、数量等条件向医疗卫生机构提供捐赠、资助、赞助"}, {"label": "B", "text": "以捐赠、资助、赞助名义变相输送利益"}, {"label": "C", "text": "给予礼品、礼金、消费卡（券）和有价证券、股权、其他金融产品等财物"}, {"label": "D", "text": "以任何名义、形式向医疗卫生机构工作人员及其特定关系人给予回扣"}, {"label": "E", "text": "向医生提供经批准的药品说明书"}], "answer": "ABCD", "explanation": "《办法》第二十四条明确禁止医药代表以捐赠、资助名义变相输送利益，以及给予礼品、礼金、消费卡（券）和有价证券等财物。E选项是合规的专业服务行为。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 36, "type": "multi", "question": "以下哪些属于《办法》构建的联合惩戒措施？", "options": [{"label": "A", "text": "违法行为公示"}, {"label": "B", "text": "增加监管频次"}, {"label": "C", "text": "限制参与相关药品采购活动"}, {"label": "D", "text": "限制签署定点医保服务协议"}, {"label": "E", "text": "仅进行口头警告"}], "answer": "ABCD", "explanation": "《办法》基于各部门工作职责，整合部门管理手段，通过违法行为公示、增加监管频次、限制参与相关药品采购活动、限制签署定点医保服务协议等多维度进行联合惩戒。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 37, "type": "multi", "question": "《办法》对医药代表备案管理新增了哪些要求？", "options": [{"label": "A", "text": "明确医药代表负责推广的区域"}, {"label": "B", "text": "上传合规承诺书"}, {"label": "C", "text": "仅需提供学历证明"}, {"label": "D", "text": "仅需提供工作经历"}, {"label": "E", "text": "按照“老人老办法，新人新办法”原则处理历史备案信息"}], "answer": "ABE", "explanation": "《办法》在备案环节新增了明确推广区域、上传合规承诺书等要求，同时按照“老人老办法，新人新办法”原则处理历史备案信息。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 38, "type": "multi", "question": "《办法》出台的主要背景和目的是什么？", "options": [{"label": "A", "text": "规范药品学术推广行为"}, {"label": "B", "text": "促进医药产业健康有序发展"}, {"label": "C", "text": "进一步遏制少数医药代表的违法违规行为"}, {"label": "D", "text": "扩大药品销售规模"}, {"label": "E", "text": "增强法规制度的约束要求，全面夯实企业主体责任"}], "answer": "ABCE", "explanation": "根据政策解读，《办法》的修订背景是规范药品学术推广行为，促进医药产业健康有序发展；针对少数医药代表超越学术交流职责、从事药品推销甚至参与行贿等问题，增强法规制度的约束要求，全面夯实企业主体责任。D选项“扩大药品销售规模”并非立法目的。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 39, "type": "multi", "question": "以下哪些属于《办法》对持有人全链条管理的要求？", "options": [{"label": "A", "text": "持有人对医药代表的行为承担主体责任"}, {"label": "B", "text": "持有人负责本企业医药代表的聘用、授权、备案和管理"}, {"label": "C", "text": "持有人委托专业组织开展药品学术推广活动的，同样需要承担责任"}, {"label": "D", "text": "持有人可以完全委托第三方管理，免除自身责任"}, {"label": "E", "text": "持有人需对医药代表进行准入把关和行为规范"}], "answer": "ABCE", "explanation": "《办法》强化持有人全链条管理要求，明确持有人对医药代表的行为承担主体责任，负责医药代表的聘用、授权、备案和管理，包括委托专业组织开展药品学术推广活动的情形。D选项“免除自身责任”与立法精神相悖。"}, {"section": "C", "sectionTitle": "《医药代表管理办法（征求意见稿）》相关", "id": 40, "type": "multi", "question": "根据《办法》，各部门在医药代表管理中的协同机制包括哪些？", "options": [{"label": "A", "text": "加强信息共享"}, {"label": "B", "text": "线索移送"}, {"label": "C", "text": "案件通报"}, {"label": "D", "text": "行刑衔接"}, {"label": "E", "text": "依法公开行政处罚决定"}], "answer": "ABCDE", "explanation": ""}, {"section": "D", "sectionTitle": "《RDPAC行业行为准则（2022年修订版）》相关", "id": 1, "type": "multi", "question": "《RDPAC行业行为准则》（2022年修订版）相比2019版，新增或加强了以下哪些方面的管控要求？", "options": [{"label": "A", "text": "扩大规范范围到与患者组织和患者的互动"}, {"label": "B", "text": "加强对支持医疗卫生专业人士的管控要求"}, {"label": "C", "text": "强化对讲者项目中参会者的管控"}, {"label": "D", "text": "细化对讲者演示材料的审阅要求"}, {"label": "E", "text": "取消了对医疗卫生组织的尽职调查要求"}], "answer": "ABCD", "explanation": "2022年修订版扩大了“行业行为准则”规范范围，细化了对讲者演示材料的审阅要求；增加了对独家赞助的合规控制；提高了对医疗卫生组织的尽职调查（而非取消）；添加了与患者组织互动的内容。"}, {"section": "D", "sectionTitle": "《RDPAC行业行为准则（2022年修订版）》相关", "id": 2, "type": "multi", "question": "以下关于RDPAC的描述，正确的有哪些？", "options": [{"label": "A", "text": "RDPAC成立于1999年"}, {"label": "B", "text": "RDPAC会员以外资药企为主"}, {"label": "C", "text": "RDPAC目前有45家会员企业"}, {"label": "D", "text": "RDPAC是政府监管机构"}, {"label": "E", "text": "RDPAC在国内最早组织开展医药代表专业培训"}], "answer": "ABCE", "explanation": "RDPAC是一个非营利组织，由45家具备研究开发能力的跨国制药企业组成，隶属于“中国外商投资企业协会”，并非政府监管机构。自1999年推出中国医药行业首部《药品推广行为准则》以来，RDPAC不断修订《行为准则》，在国际制药企业协会联盟(IFPMA)准则的基础上，反映国际医药行业协会的最新标准。"}, {"section": "D", "sectionTitle": "《RDPAC行业行为准则（2022年修订版）》相关", "id": 3, "type": "multi", "question": "根据《RDPAC行业行为准则》，在与医疗卫生专业人士的医学互动交流活动中，关于招待费用的规定包括以下哪些？", "options": [{"label": "A", "text": "用于招待的支出按当地标准应当是中等适度和合理的"}, {"label": "B", "text": "招待的费用不应超过参会者通常的自付费用标准"}, {"label": "C", "text": "每人每餐不超过人民币300元"}, {"label": "D", "text": "超出标准须得到会员公司总经理或其特别授权代理人的批准和认可"}, {"label": "E", "text": "招待费用没有上限，根据实际需要确定"}], "answer": "ABCD", "explanation": "《行为准则》明确提出了中等适度和合理的招待标准，规定每人每餐不超过人民币300元，超出须得到会员公司总经理或其特别授权代理人的批准。"}, {"section": "D", "sectionTitle": "《RDPAC行业行为准则（2022年修订版）》相关", "id": 4, "type": "multi", "question": "RDPAC《行为准则》规范的商业行为范围包括以下哪些活动？", "options": [{"label": "A", "text": "药品市场推广行为"}, {"label": "B", "text": "临床研究"}, {"label": "C", "text": "继续医学教育"}, {"label": "D", "text": "咨询服务"}, {"label": "E", "text": "药品生产制造环节"}], "answer": "ABCD", "explanation": "《行为准则》主要以药品市场推广行为方面为主，目前扩展到了临床研究、继续医学教育、咨询服务，从医疗卫生专业人士到医疗机构、医学组织、患者组织所有的交往活动。"}, {"section": "D", "sectionTitle": "《RDPAC行业行为准则（2022年修订版）》相关", "id": 5, "type": "multi", "question": "关于RDPAC的行业地位和影响力，以下哪些表述是正确的？", "options": [{"label": "A", "text": "RDPAC是国内仅有的几个参与全球制药企业协会体系的会员组织"}, {"label": "B", "text": "基本上知名的跨国药企都是会员"}, {"label": "C", "text": "RDPAC对国内医药行业行为规范具有引领意义"}, {"label": "D", "text": "RDPAC只对会员企业有约束力，对非会员企业没有影响"}, {"label": "E", "text": "很多本土医药企业也会自发地借鉴和参考RDPAC准则"}], "answer": "ABCE", "explanation": "虽然从理论上讲《行为准则》只针对那45家会员企业，但由于RDPAC在整个医药行业都有着较强的影响力，很多本土医药企业和行业协会也会自发地借鉴和参考，其他药企跟进也只是时间问题。"}, {"section": "D", "sectionTitle": "《RDPAC行业行为准则（2022年修订版）》相关", "id": 6, "type": "multi", "question": "新版《RDPAC行业行为准则》对“推广辅助用品”的规定包括以下哪些？", "options": [{"label": "A", "text": "仅限提供带有会员公司标识的笔和记事本"}, {"label": "B", "text": "必须满足“最小价值”及“最少数量”的前提"}, {"label": "C", "text": "每件物品的价值不得超过人民币100元"}, {"label": "D", "text": "可以赠送非公司标识的高价值礼品"}, {"label": "E", "text": "可以赠送公司产品样品作为礼品"}], "answer": "ABC", "explanation": "新版准则明确规定，禁止向医疗卫生专业人士提供礼品和推广辅助用品，只在满足“最小价值”及“最少数量”的前提下提供仅带有会员公司标识的笔和记事本。所谓“最小价值”即每件物品的价值不得超过人民币100元。"}, {"section": "D", "sectionTitle": "《RDPAC行业行为准则（2022年修订版）》相关", "id": 7, "type": "multi", "question": "RDPAC《行为准则》对于促进医药行业健康发展的意义包括以下哪些？", "options": [{"label": "A", "text": "有助于营造公平竞争的合规市场环境"}, {"label": "B", "text": "有助于保障民众生命健康"}, {"label": "C", "text": "有助于医药行业实现创新驱动的高质量可持续发展"}, {"label": "D", "text": "推动中国医药产业向标准化、专业化、规范化、健康化发展"}, {"label": "E", "text": "为药企规避法律风险提供具体操作方法"}], "answer": "ABCD", "explanation": "与会嘉宾一致认为，营造公平竞争的合规市场环境，民众生命健康才能更有保障；《行为准则》将助力医药行业实现创新驱动的高质量可持续发展；推动中国医药产业向标准化、专业化、规范化、健康化发展。RDPAC执行总裁康韦表示，“信任是声誉的基础，也是创新的必要条件。”"}, {"section": "D", "sectionTitle": "《RDPAC行业行为准则（2022年修订版）》相关", "id": 8, "type": "multi", "question": "根据《RDPAC行业行为准则》，以下哪些行为是不被允许的？", "options": [{"label": "A", "text": "向医疗卫生专业人士提供礼品（除规定的笔和记事本外）"}, {"label": "B", "text": "提供超出每人每餐300元标准的招待"}, {"label": "C", "text": "提供偏向本公司产品的片面教学材料"}, {"label": "D", "text": "在会员公司自办会议中提供带有公司标识的笔和记事本"}, {"label": "E", "text": "向医疗卫生专业人士提供非公司标识的高价值礼品"}], "answer": "ABCE", "explanation": "准则明确规定：禁止向医疗卫生专业人士提供礼品（除笔和记事本外），招待费用标准为每人每餐不超过300元（超出需特别批准），教学材料必须公平全面客观。向医学继续教育活动提供教学材料时，这些材料必须公平、全面、客观，应允许不同理论和公众观点的表达。"}, {"section": "D", "sectionTitle": "《RDPAC行业行为准则（2022年修订版）》相关", "id": 9, "type": "multi", "question": "在RDPAC的国际化合作方面，以下哪些表述是正确的？", "options": [{"label": "A", "text": "RDPAC的国际合作伙伴包括欧洲制药企业协会联盟"}, {"label": "B", "text": "RDPAC的国际合作伙伴包括美国药品研发与制造企业协会"}, {"label": "C", "text": "RDPAC与国际制药企业协会联盟(IFPMA)保持准则同步"}, {"label": "D", "text": "RDPAC仅关注中国市场，与国际组织无合作"}, {"label": "E", "text": "RDPAC将中国医药行业经验带到国际社会"}], "answer": "ABCE", "explanation": "RDPAC的国际合作伙伴包括欧洲制药企业协会联盟、美国药品研发与制造企业协会、美国生物技术创新组织和日本制药企业协会。在国际制药企业协会联盟(IFPMA)准则的基础上，RDPAC反映国际医药行业协会的最新标准、国内法律、法规和政策的最新要求。"}, {"section": "D", "sectionTitle": "《RDPAC行业行为准则（2022年修订版）》相关", "id": 10, "type": "multi", "question": "关于新版《RDPAC行业行为准则》的合规管控意义，以下哪些表述是正确的？", "options": [{"label": "A", "text": "合规体系建设对企业可持续发展意义重大"}, {"label": "B", "text": "行为不合规极易触发法律风险"}, {"label": "C", "text": "遵守最高伦理法律标准是RDPAC的核心使命"}, {"label": "D", "text": "信任是声誉的基础，也是创新的必要条件"}, {"label": "E", "text": "合规仅对大型企业有意义，中小型药企不需要关注"}], "answer": "ABCD", "explanation": "盛德律师事务所中国管理合伙人李磊认为，“医药购销链条上，行为不合规极易触发法律风险。合规体系建设对企业可持续发展意义重大。”RDPAC执行总裁康韦表示，“信任是声誉的基础，也是创新的必要条件。没有道德决策，就谈不上信任，更没有真正的创新。”"}, {"section": "D", "sectionTitle": "《RDPAC行业行为准则（2022年修订版）》相关", "id": 11, "type": "multi", "question": "根据《RDPAC行业行为准则》(2022年修订版)，以下哪些属于新增或修改的定义？", "options": [{"label": "A", "text": "“医疗卫生组织”指在医疗卫生领域从事任何专业活动的组织"}, {"label": "B", "text": "“患者组织”指主要代表患者、他们的家人和/或护理人员的利益和需求的非营利机构"}, {"label": "C", "text": "“讲者项目”指由会员公司组织的、由HCP就药品或医疗器械产品或任何医学或科学知识向HCP参会者发表演讲或进行演示的活动"}, {"label": "D", "text": "“医学互动交流项目”指会员公司与医疗卫生专业人士之间的学术交流活动"}, {"label": "E", "text": "“独家赞助”指会员公司对某项活动提供全部资金支持"}], "answer": "ABC", "explanation": "《RDPAC准则(2022年)》增加了如下新定义：“医疗卫生组织”指在医疗卫生领域从事任何专业活动的组织；“患者组织”指主要代表患者、他们的家人和/或护理人员的利益和需求的非营利机构；“讲者项目”指由会员公司组织的、由HCP就药品或医疗器械产品或任何医学或科学知识向HCP参会者发表演讲或进行演示的活动。"}, {"section": "D", "sectionTitle": "《RDPAC行业行为准则（2022年修订版）》相关", "id": 12, "type": "multi", "question": "关于新版《RDPAC行业行为准则》中对“直接支持个人HCP”的规定，以下哪些表述是正确的？", "options": [{"label": "A", "text": "直接支持仅可出于满足HCP未获满足的医学、科学或产品知识需求之目的"}, {"label": "B", "text": "会员公司在选择HCP时，销售职能部门可以发挥有限的、协助或辅助性质的作用"}, {"label": "C", "text": "会员公司的销售职能部门在选择HCP时可以发挥决定性作用"}, {"label": "D", "text": "如会员公司明知HCP接受和使用直接支持会违反其所任职医疗机构的内部规章，则不应提供直接支持"}, {"label": "E", "text": "会员公司应对每名HCP开展直接支持的频率设定合理水平"}], "answer": "ABDE", "explanation": "《RDPAC准则(2022年)》强调直接支持仅可出于满足HCP未获满足的医学、科学或产品知识需求之目的；销售职能部门可以发挥有限的、协助或辅助性质的作用，但不发挥任何决定性作用；如明知会违反医疗机构内部规章则不应提供；应对每名HCP的接受直接支持的频率设定合理标准。"}, {"section": "D", "sectionTitle": "《RDPAC行业行为准则（2022年修订版）》相关", "id": 13, "type": "multi", "question": "以下关于RDPAC《行业行为准则》修订历程的表述，正确的有哪些？", "options": [{"label": "A", "text": "2002年、2007年、2012年、2015年、2017年、2019年分别进行了修订与更新"}, {"label": "B", "text": "2022年修订版是第7版"}, {"label": "C", "text": "遵守RDPAC行为准则是所有会员公司的入会条件之一"}, {"label": "D", "text": "RDPAC支持会员公司在此基础上制定和执行更高的行为标准"}, {"label": "E", "text": "《行为准则》自发布以来从未修订"}], "answer": "ABCD", "explanation": "RDPAC结合国际制药企业协会联盟(IFPMA)的相关准则与我国法律法规的有关规定，于2002年、2007年、2012年、2015年、2017年、2019年分别进行了修订与更新，2022年修订版是第7版。遵守RDPAC行为准则是所有会员公司的入会条件之一，同时支持会员公司在此基础上制定和执行更高的行为标准。"}, {"section": "D", "sectionTitle": "《RDPAC行业行为准则（2022年修订版）》相关", "id": 14, "type": "multi", "question": "新版《RDPAC行业行为准则》对医药行业合规趋势的影响体现在以下哪些方面？", "options": [{"label": "A", "text": "对合规内容的理解由窄变宽，从关注商业贿赂扩展到更广阔的范围"}, {"label": "B", "text": "对合规的基础从法律要求更多转变为从医学伦理角度考量"}, {"label": "C", "text": "对合规的视角从以当下为主变成也兼顾将来"}, {"label": "D", "text": "降低了医药企业的合规要求"}, {"label": "E", "text": "推动了医药行业从“拼回扣”向“拼质量”的转型"}], "answer": "ABCE", "explanation": "行业专家指出，医药行业合规呈现三大趋势：对合规内容的理解由窄变宽，扩展到与患者组织互动、医疗信息推广平衡性等；合规基础从法律要求更多转变为从医学伦理角度；合规视角从以当下为主变成也兼顾将来。"}, {"section": "D", "sectionTitle": "《RDPAC行业行为准则（2022年修订版）》相关", "id": 15, "type": "multi", "question": "根据《RDPAC行业行为准则》所体现的行业伦理理念，以下哪些表述是正确的？", "options": [{"label": "A", "text": "医药行业关涉生命健康，是合规建设的重点领域"}, {"label": "B", "text": "医生处方、临床研究、学术推广等与经济收益之间存在利益冲突"}, {"label": "C", "text": "医药企业面临以患者利益最大化还是以企业利润最大化的冲突"}, {"label": "D", "text": "药品是特殊的商品，患者自己不能决定用药，需要医生诊断"}, {"label": "E", "text": "医药行业的合规建设与社会评价无关"}], "answer": "ABCD", "explanation": "所有医药企业都面临着行业合规的挑战，最底层的逻辑源于医药行业的两个利益冲突：医生处方、临床研究、学术推广等和经济收益之间的利益冲突，以及以患者的利益最大化还是以企业利润最大化的冲突。药品是特殊的商品，患者自己不能决定用药，需要医生的诊断，结合病情合理地用药。医药行业关涉生命健康，是合规建设的重点领域。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 1, "type": "single", "question": "根据《国家医保局 国家卫生健康委员会关于完善医药集中带量采购和执行工作机制的通知》，各批次集采结果落地执行第几个月起，需组织排查医疗机构中选药品和耗材进院情况？", "options": [{"label": "A", "text": "第1个月"}, {"label": "B", "text": "第3个月"}, {"label": "C", "text": "第6个月"}, {"label": "D", "text": "第12个月"}], "answer": "B", "explanation": "《通知》明确要求“各批次集采结果落地执行第3个月起，要组织对本区域医疗机构中选药品和耗材进院情况开展一轮问题排查，督促尚未完成进院采购的医疗机构尽快完成中选药品和耗材进院工作。”"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 2, "type": "single", "question": "根据《通知》，医疗机构未完成约定采购量或非中选产品采购比例超过规定要求的，应如何处理？", "options": [{"label": "A", "text": "视为考核优秀"}, {"label": "B", "text": "视为考核合格"}, {"label": "C", "text": "视为考核不合格"}, {"label": "D", "text": "免于考核"}], "answer": "C", "explanation": "《通知》明确规定“未完成约定采购量或非中选药品和耗材采购比例超过规定要求的，相关品种视为考核不合格。”"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 3, "type": "single", "question": "第十一批国家组织药品集中采购的遴选原则中，“新药不集采、集采非新药”的核心逻辑是什么？", "options": [{"label": "A", "text": "保护创新、鼓励研发"}, {"label": "B", "text": "降低药品价格"}, {"label": "C", "text": "增加企业竞争"}, {"label": "D", "text": "扩大市场规模"}], "answer": "A", "explanation": "“新药不集采、集采非新药”的核心逻辑在于保护创新、鼓励研发，避免对尚处市场培育期的新药造成价格压制，将集采资源集中于专利到期、仿制药充分竞争的成熟品种。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 4, "type": "single", "question": "第十一批集采新增的市场规模门槛条件是什么？", "options": [{"label": "A", "text": "年采购额超过5000万元"}, {"label": "B", "text": "年采购额超过1亿元"}, {"label": "C", "text": "年采购额超过2亿元"}, {"label": "D", "text": "年采购额超过5亿元"}], "answer": "B", "explanation": "第十一批集采新增市场规模条件，将各省医药集中采购平台年采购额超过1亿元的品种纳入采购范围，年采购额小于1亿元的品种不纳入。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 5, "type": "single", "question": "第十一批集采中，医疗机构首次可以按什么方式进行报量？", "options": [{"label": "A", "text": "按药品通用名"}, {"label": "B", "text": "按药品化学名"}, {"label": "C", "text": "按具体品牌报量"}, {"label": "D", "text": "按药品剂型"}], "answer": "C", "explanation": "第十一批集采在报量机制上实现突破，医疗机构可以按具体品牌进行报量，将自身认可品牌、预计用量报上来，如该药品中选可直接成为该医疗机构的供应企业。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 6, "type": "single", "question": "根据第十一批集采规则，约定采购量占医疗机构报量的比例是多少？", "options": [{"label": "A", "text": "40%-60%"}, {"label": "B", "text": "50%-70%"}, {"label": "C", "text": "60%-80%"}, {"label": "D", "text": "70%-90%"}], "answer": "C", "explanation": "第十一批集采将医疗机构报量的60%-80%作为“约定采购量”，由中选企业保障供应；剩余20%-40%的用量，医疗机构仍可自主选择品牌。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 7, "type": "single", "question": "根据《医疗卫生机构网络安全管理办法》，第三级或第四级的网络应多久开展一次网络安全等级测评？", "options": [{"label": "A", "text": "每半年一次"}, {"label": "B", "text": "每年至少一次"}, {"label": "C", "text": "每两年一次"}, {"label": "D", "text": "每三年一次"}], "answer": "B", "explanation": "《医疗卫生机构网络安全管理办法》规定，第三级或第四级的网络应委托等级保护测评机构，每年至少一次开展网络安全等级测评。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 8, "type": "single", "question": "根据《国家健康医疗大数据标准、安全和服务管理办法（试行）》，责任单位应当建立什么机制来保障健康医疗大数据安全？", "options": [{"label": "A", "text": "数据共享机制"}, {"label": "B", "text": "数据备份和恢复机制"}, {"label": "C", "text": "数据分类、重要数据备份、加密认证等措施"}, {"label": "D", "text": "数据开放机制"}], "answer": "C", "explanation": "《健康医疗大数据管理办法》要求责任单位应当采取数据分类、重要数据备份、加密认证等措施保障健康医疗大数据安全，并建立可靠的数据容灾备份工作机制。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 9, "type": "single", "question": "根据人类遗传资源管理条例，外方单位在何种情况下可以开展国际合作临床试验备案（而非申请行政许可）？", "options": [{"label": "A", "text": "任何情况下均可"}, {"label": "B", "text": "为取得药品和医疗器械在我国上市许可，且不涉及人类遗传资源材料出境"}, {"label": "C", "text": "仅需中方单位同意"}, {"label": "D", "text": "无需任何条件"}], "answer": "B", "explanation": "如满足以下条件，则仅需办理国际合作临床试验备案：为取得相关药品和医疗器械在我国上市许可，在临床医疗卫生机构利用我国人类遗传资源开展国际合作临床试验，不涉及人类遗传资源材料出境。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 10, "type": "single", "question": "根据《关于完善医药集中带量采购和执行工作机制的通知》，对于因临床需求发生重大变化导致未完成约定采购量的医疗机构，应如何处理？", "options": [{"label": "A", "text": "一律视为考核不合格"}, {"label": "B", "text": "可不考核相关中选药品约定采购量完成情况"}, {"label": "C", "text": "加倍处罚"}, {"label": "D", "text": "取消集采资格"}], "answer": "B", "explanation": "《通知》明确，因纳入国家和本省份重点监控合理用药药品目录、发生公共卫生事件、临床指南药物推荐级别变化等，导致临床需求发生重大变化、医疗机构未完成中选药品约定采购量的，可不考核相关中选药品约定采购量完成情况。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 11, "type": "single", "question": "第十一批集采中，针对仿制药适应症少于原研药的品种，采取了什么特殊措施？", "options": [{"label": "A", "text": "直接排除出集采范围"}, {"label": "B", "text": "降低报量要求，将报量范围缩小至仿制药和原研药均具备的适应症"}, {"label": "C", "text": "要求仿制药补充适应症"}, {"label": "D", "text": "提高仿制药报价要求"}], "answer": "B", "explanation": "对于达格列净口服常释剂型等5个仿制药适应症少于原研药的品种，此次降低了报量要求，仅限于仿制药和原研药均具备的适应症，以保障临床合理用药。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 12, "type": "single", "question": "根据数据安全相关法规，医药企业处理重要数据时应明确什么岗位？", "options": [{"label": "A", "text": "数据录入员"}, {"label": "B", "text": "数据安全负责人和管理机构"}, {"label": "C", "text": "数据分析师"}, {"label": "D", "text": "系统维护员"}], "answer": "B", "explanation": "《数据安全法》要求重要数据的处理者应当明确数据安全负责人和管理机构，落实数据安全保护责任。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 13, "type": "single", "question": "第十一批集采中，为防止企业“自杀式报价”，采取了什么措施？", "options": [{"label": "A", "text": "设定最低限价"}, {"label": "B", "text": "实行“低价声明”制度，要求报价最低企业对报价合理性作出解释"}, {"label": "C", "text": "取消最低价中选"}, {"label": "D", "text": "随机中选"}], "answer": "B", "explanation": "第十一批集采实行“低价声明”制度，对于每个品种报价最低的中选企业，联采办将要求其对报价合理性作出解释，承诺不低于成本报价。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 14, "type": "single", "question": "根据《健康医疗大数据管理办法》，健康医疗大数据安全管理的责任主体是谁？", "options": [{"label": "A", "text": "卫生健康行政部门"}, {"label": "B", "text": "各级各类医疗卫生机构和相关企事业单位"}, {"label": "C", "text": "患者个人"}, {"label": "D", "text": "数据服务商"}], "answer": "B", "explanation": "《健康医疗大数据管理办法》规定，各级各类医疗卫生机构和相关企事业单位是健康医疗大数据安全和应用管理的责任单位。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 15, "type": "single", "question": "第十一批集采中，针对围标行为探索引入的新机制是什么？", "options": [{"label": "A", "text": "围标举报奖励机制"}, {"label": "B", "text": "“首告从宽”机制"}, {"label": "C", "text": "围标黑名单制度"}, {"label": "D", "text": "围标罚款加倍机制"}], "answer": "B", "explanation": "第十一批集采探索引入“首告从宽”机制，对于首个提供围标线索及有效证据的企业，以及围标事件调查过程中首个承认参与围标的企业，可依法依规从宽处理。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 16, "type": "multi", "question": "根据《关于完善医药集中带量采购和执行工作机制的通知》，集采药品耗材的进院使用环节包括以下哪些措施？", "options": [{"label": "A", "text": "第3个月起开展排查梳理，督促医疗机构尽快完成进院工作"}, {"label": "B", "text": "鼓励村卫生室、民营医疗机构、零售药店参加集采"}, {"label": "C", "text": "要求医疗机构完善内部考核办法和薪酬制度"}, {"label": "D", "text": "加强处方点评，合理优先使用中选产品"}, {"label": "E", "text": "取消非中选药品的使用资格"}], "answer": "ABCD", "explanation": "《通知》在进院使用方面提出多项措施，包括第3个月起开展排查梳理、鼓励村卫生室等参加集采、完善内部考核办法和薪酬制度、加强处方点评等。E选项“取消非中选药品的使用资格”不符合政策导向，政策允许合理使用非中选药品。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 17, "type": "multi", "question": "第十一批国家组织药品集中采购坚持的四大原则是什么？", "options": [{"label": "A", "text": "稳临床"}, {"label": "B", "text": "保质量"}, {"label": "C", "text": "防围标"}, {"label": "D", "text": "反内卷"}, {"label": "E", "text": "降价格"}], "answer": "ABCD", "explanation": "国家医保局明确，第十一批集采坚持“稳临床、保质量、防围标、反内卷”四大原则。E选项“降价格”虽然是集采的初衷之一，但并非此次强调的四大原则。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 18, "type": "multi", "question": "第十一批集采在品种遴选时，排除纳入的品种包括以下哪些情形？", "options": [{"label": "A", "text": "通过谈判新进入医保且仍在协议期内的品种"}, {"label": "B", "text": "年采购额小于1亿元的品种"}, {"label": "C", "text": "临床使用中存在特殊性、风险较高的品种"}, {"label": "D", "text": "专利侵权风险高的品种"}, {"label": "E", "text": "所有中成药品种"}], "answer": "ABCD", "explanation": "第十一批集采排除的品种包括：谈判新进入医保且仍在协议期内的品种、年采购额小于1亿元的品种、临床使用中存在特殊性风险较高的品种、专利侵权风险高的品种。并非排除所有中成药。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 19, "type": "multi", "question": "根据《医疗卫生机构网络安全管理办法》，医疗卫生机构网络安全工作应坚持哪些原则？", "options": [{"label": "A", "text": "坚持网络安全为人民、网络安全靠人民"}, {"label": "B", "text": "坚持分等级保护、突出重点"}, {"label": "C", "text": "坚持积极防御、综合防护"}, {"label": "D", "text": "坚持“管业务就要管安全”"}, {"label": "E", "text": "坚持数据完全开放共享"}], "answer": "ABCD", "explanation": "《医疗卫生机构网络安全管理办法》明确了网络安全工作的多项原则，包括网络安全为人民靠人民、分等级保护突出重点、积极防御综合防护、管业务就要管安全等。E选项“数据完全开放共享”与安全保护原则相悖。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 20, "type": "multi", "question": "根据人类遗传资源管理条例，以下哪些属于人类遗传资源的定义范畴？", "options": [{"label": "A", "text": "含有人体基因组、基因等遗传物质的器官、组织、细胞"}, {"label": "B", "text": "利用人类遗传资源材料产生的人类基因、基因组数据"}, {"label": "C", "text": "ctDNA等核酸类生物标志物数据信息"}, {"label": "D", "text": "与此数据相关的疾病、人种等关联信息"}, {"label": "E", "text": "临床影像数据"}], "answer": "ABCD", "explanation": "人类遗传资源包括人类遗传资源材料（含有人体基因组、基因等遗传物质的器官、组织、细胞等）和人类遗传资源信息（利用人类遗传资源材料产生的基因、基因组数据、ctDNA等核酸类生物标志物数据信息，以及与此数据相关的疾病、人种等关联信息）。临床数据、影像数据、蛋白质数据和代谢数据不属于人类遗传资源信息。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 21, "type": "multi", "question": "集采政策中，针对特殊品种的考核优化措施包括哪些？", "options": [{"label": "A", "text": "短缺药、急抢救药以保障供应为重要考量"}, {"label": "B", "text": "季节性用药可适当调整考核标准"}, {"label": "C", "text": "医疗机构采购备供企业药品不纳入考核范围"}, {"label": "D", "text": "价格低于中选药品且达到同等质量疗效的非中选药品不纳入考核范围"}, {"label": "E", "text": "所有品种统一考核标准"}], "answer": "ABCD", "explanation": "《通知》明确，短缺药、急抢救药和季节性用药等特殊品种优化考核，不搞“一刀切”；医疗机构采购备供企业的药品，以及价格低于中选药品且达到同等质量疗效的非中选药品，不纳入执行情况考核范围。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 22, "type": "multi", "question": "第十一批集采在优化竞价规则方面采取了哪些措施？", "options": [{"label": "A", "text": "优化价差控制规则，不再简单选用最低报价作为参照"}, {"label": "B", "text": "实行“低价声明”制度"}, {"label": "C", "text": "强化围标防范，探索“首告从宽”机制"}, {"label": "D", "text": "取消所有价格限制"}, {"label": "E", "text": "统一所有企业报价"}], "answer": "ABC", "explanation": "第十一批集采优化竞价规则的措施包括：优化价差控制规则、实行“低价声明”制度、强化围标防范并探索“首告从宽”机制。D和E不符合市场化竞争原则。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 23, "type": "multi", "question": "根据数据安全法规，医药企业应建立的数据安全管理制度包括以下哪些方面？", "options": [{"label": "A", "text": "建立数据分类与分级制度"}, {"label": "B", "text": "设置有效的技术防护措施（加密、访问控制等）"}, {"label": "C", "text": "建立数据访问与传输的监控审计机制"}, {"label": "D", "text": "加强员工安全培训和宣传"}, {"label": "E", "text": "将所有数据存储在境外服务器"}], "answer": "ABCD", "explanation": "医药企业数据安全管理应包括：建立数据分类分级制度、设置技术防护措施、建立监控审计机制、加强员工安全培训等。E选项“将所有数据存储在境外服务器”违反数据安全法规要求。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 24, "type": "multi", "question": "《健康医疗大数据管理办法》要求责任单位对数据访问应做到哪些要求？", "options": [{"label": "A", "text": "建立严格的电子实名认证和数据访问控制"}, {"label": "B", "text": "规范数据接入、使用和销毁过程的痕迹管理"}, {"label": "C", "text": "确保健康医疗大数据访问行为可管、可控及服务管理全程留痕"}, {"label": "D", "text": "可查询、可追溯"}, {"label": "E", "text": "允许所有人员自由访问"}], "answer": "ABCD", "explanation": "《健康医疗大数据管理办法》要求建立严格的电子实名认证和数据访问控制，规范数据接入、使用和销毁过程的痕迹管理，确保健康医疗大数据访问行为可管、可控及服务管理全程留痕，可查询、可追溯。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 25, "type": "multi", "question": "集采政策中，对医疗机构使用中选药品的激励机制包括哪些？", "options": [{"label": "A", "text": "集采结余留用政策"}, {"label": "B", "text": "与支付方式改革激励约束机制衔接"}, {"label": "C", "text": "主要用于提升医务人员薪酬待遇"}, {"label": "D", "text": "直接向医生发放补贴"}, {"label": "E", "text": "对优先使用中选药品和耗材的医疗机构给予正向激励"}], "answer": "ABCE", "explanation": "《通知》明确，做好集采结余留用政策与支付方式改革激励约束机制的衔接，综合体现对医疗机构采购和使用中选药品耗材的正向激励。结余留用资金主要用于提升医务人员薪酬待遇。D选项“直接向医生发放补贴”不符合政策规定。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 26, "type": "multi", "question": "第十一批集采在报量机制方面的重要变革包括哪些？", "options": [{"label": "A", "text": "医疗机构可按具体品牌报量"}, {"label": "B", "text": "报量总数不低于实际使用量的80%"}, {"label": "C", "text": "医疗机构可因临床需求变化说明后下调报量"}, {"label": "D", "text": "公立医院提供非基本医保服务时使用的药品不纳入集采报量范围"}, {"label": "E", "text": "报量完全由企业决定"}], "answer": "ABCD", "explanation": "第十一批集采在报量机制上实现突破：医疗机构可按具体品牌报量、报量总数不低于实际使用量的80%、可因临床需求变化说明后下调报量、非基本医保服务使用的药品不纳入报量范围。E选项错误，报量由医疗机构决定。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 27, "type": "multi", "question": "根据《医疗卫生机构网络安全管理办法》，新建网络投入使用应满足哪些要求？", "options": [{"label": "A", "text": "依法依规开展等级保护备案工作"}, {"label": "B", "text": "第二级以上网络应在安全保护等级确定后10个工作日内向公安机关备案"}, {"label": "C", "text": "将备案情况报上级卫生健康行政部门"}, {"label": "D", "text": "因网络撤销或变更安全保护等级的，应在10个工作日内向原备案公安机关撤销或变更"}, {"label": "E", "text": "无需任何备案手续"}], "answer": "ABCD", "explanation": "《医疗卫生机构网络安全管理办法》对新建网络投入使用提出明确的备案要求，包括依法依规开展等级保护备案、10个工作日内向公安机关备案、报上级卫生健康行政部门、变更或撤销时同步办理等。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 28, "type": "multi", "question": "人类遗传资源监管中，需要开展安全审查的情形包括哪些？", "options": [{"label": "A", "text": "采集重要遗传家系的人类遗传资源信息"}, {"label": "B", "text": "采集特定地区的人类遗传资源信息"}, {"label": "C", "text": "采集普通患者的血常规数据"}, {"label": "D", "text": "可能影响我国公众健康、国家安全和社会公共利益的情形"}, {"label": "E", "text": "任何人体样本采集"}], "answer": "ABD", "explanation": "应当开展安全审查的情形包括：采集重要遗传家系的人类遗传资源信息、采集特定地区的人类遗传资源信息，以及可能影响我国公众健康、国家安全和社会公共利益的情形。C和E属于常规医疗数据，不属于需要安全审查的特殊情形。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 29, "type": "multi", "question": "集采政策中，协同推进行业综合监管的措施包括哪些？", "options": [{"label": "A", "text": "分析研判“带金销售”等不正之风线索"}, {"label": "B", "text": "对无故不按规定优先使用中选药品的医疗机构采取提醒教育、约谈、通报等措施"}, {"label": "C", "text": "情节严重的由医保、卫生健康部门开展联合约谈"}, {"label": "D", "text": "必要时将有关线索移交审计、纪检监察机关"}, {"label": "E", "text": "对查实存在“带金销售”行为的企业按照医药价格和招采信用评价有关规定予以失信评级"}], "answer": "ABCDE", "explanation": "《通知》明确了一系列协同监管措施，包括分析研判不正之风线索、对违规医疗机构采取提醒教育约谈通报、联合约谈、移交线索、对违规企业予以失信评级等。"}, {"section": "E", "sectionTitle": "其他：与医保集采、数据安全、数字化推广相关的合规政策", "id": 30, "type": "multi", "question": "根据《健康医疗大数据管理办法》，责任单位在健康医疗大数据安全管理中应落实哪些要求？", "options": [{"label": "A", "text": "建立健全相关安全管理制度、操作规程和技术规范"}, {"label": "B", "text": "落实“一把手”责任制"}, {"label": "C", "text": "加强安全保障体系建设"}, {"label": "D", "text": "强化统筹管理和协调监督"}, {"label": "E", "text": "将所有健康医疗数据向社会公开"}], "answer": "ABCD", "explanation": "《健康医疗大数据管理办法》要求责任单位建立健全安全管理制度、操作规程和技术规范，落实“一把手”责任制，加强安全保障体系建设，强化统筹管理和协调监督。E选项“将所有健康医疗数据向社会公开”违反数据安全和隐私保护原则。"}];
+const TOTAL_QUESTIONS = QUESTIONS.length;
+const MAX_SCORE = 200;
+
+const SECTION_INFO = {
+  'A': { title: '《医药企业防范商业贿赂风险合规指引》相关', total: 20 },
+  'B': { title: '《关于规范引导学术拜访交流行为的通知》相关', total: 25 },
+  'C': { title: '《医药代表管理办法》相关', total: 40 },
+  'D': { title: '《RDPAC行业行为准则（2022年修订版）》相关', total: 15 },
+  'E': { title: '医保集采、数据安全、数字化推广相关', total: 30 }
+};
+
+let currentIndex = 0;
+let answers = {}; // { questionGlobalIndex: selectedLabels }
+let screen = 'welcome';
+
+function init() {
+  render();
+}
+
+function getGlobalIndex(sectionId, qId) {
+  for (let i = 0; i < QUESTIONS.length; i++) {
+    if (QUESTIONS[i].section === sectionId && QUESTIONS[i].id === qId) return i;
+  }
+  return -1;
+}
+
+function getRating(score, total) {
+  const pct = score / total;
+  if (pct >= 0.9) return { level: '优秀', cls: 'excellent' };
+  if (pct >= 0.75) return { level: '良好', cls: 'good' };
+  if (pct >= 0.6) return { level: '一般', cls: 'average' };
+  return { level: '需加强', cls: 'weak' };
+}
+
+function getRiskLevel(pct) {
+  if (pct >= 0.9) return { level: '低', emoji: '🟢', cls: 'risk-low', actions: '合规意识强，政策理解到位。建议：保持学习节奏，关注最新政策动态，可作为团队合规培训的骨干力量。' };
+  if (pct >= 0.75) return { level: '中', emoji: '🟡', cls: 'risk-medium', actions: '存在一定合规知识盲区。建议：针对薄弱板块加强专项学习，定期参加合规培训，建立个人学习计划。' };
+  if (pct >= 0.6) return { level: '高', emoji: '🟠', cls: 'risk-high', actions: '合规知识存在明显不足，可能影响日常工作中的合规判断。建议：立即制定系统学习计划，优先补齐最薄弱板块，必要时向合规部门寻求指导。' };
+  return { level: '极高', emoji: '🔴', cls: 'risk-critical', actions: '合规知识严重欠缺，存在重大合规风险。建议：立即暂停独立业务决策，寻求合规部门直接指导，参加全面合规培训并通过考核后方可恢复独立工作。' };
+}
+
+function selectOption(label) {
+  const q = QUESTIONS[currentIndex];
+  if (q.type === 'single') {
+    answers[currentIndex] = [label];
+  } else {
+    if (!answers[currentIndex]) answers[currentIndex] = [];
+    const idx = answers[currentIndex].indexOf(label);
+    if (idx >= 0) {
+      answers[currentIndex].splice(idx, 1);
+    } else {
+      answers[currentIndex].push(label);
+    }
+    answers[currentIndex].sort();
+  }
+  render();
+}
+
+function isSelected(label) {
+  if (!answers[currentIndex]) return false;
+  return answers[currentIndex].includes(label);
+}
+
+function goNext() {
+  if (currentIndex < TOTAL_QUESTIONS - 1) {
+    currentIndex++;
+    render();
+  } else {
+    showReport();
+  }
+}
+
+function goPrev() {
+  if (currentIndex > 0) {
+    currentIndex--;
+    render();
+  }
+}
+
+function canProceed() {
+  if (!answers[currentIndex] || answers[currentIndex].length === 0) return false;
+  return true;
+}
+
+function showReport() {
+  screen = 'report';
+  render();
+  setTimeout(drawCharts, 200);
+}
+
+function calcResults() {
+  const results = [];
+  let totalCorrect = 0;
+  const sectionStats = {};
+  for (const sid of ['A','B','C','D','E']) {
+    sectionStats[sid] = { correct: 0, total: 0, wrongList: [] };
+  }
+
+  for (let i = 0; i < QUESTIONS.length; i++) {
+    const q = QUESTIONS[i];
+    const userAnswer = (answers[i] || []).sort().join('');
+    const correctAnswer = q.answer;
+    const isCorrect = userAnswer === correctAnswer;
+
+    sectionStats[q.section].total++;
+    if (isCorrect) {
+      totalCorrect++;
+      sectionStats[q.section].correct++;
+    } else {
+      sectionStats[q.section].wrongList.push({
+        globalIndex: i,
+        question: q.question,
+        section: q.section,
+        sectionTitle: q.sectionTitle,
+        type: q.type,
+        options: q.options,
+        userAnswer: userAnswer,
+        correctAnswer: correctAnswer,
+        explanation: q.explanation
+      });
+    }
+  }
+
+  return { totalCorrect, totalQuestions: TOTAL_QUESTIONS, sectionStats };
+}
+
+function renderWelcome() {
+  return `
+    <div class="welcome">
+      <h1>医药行业合规能力测评</h1>
+      <div class="subtitle">模块一：政策解读能力（A-E）</div>
+      <div class="info-card">
+        <h3>测评说明</h3>
+        <ul>
+          <li>共 <strong>130</strong> 道题目，覆盖五大政策板块</li>
+          <li>包含单选题和多选题，多选题需选择所有正确选项</li>
+          <li>满分 <strong>200</strong> 分，完成测评后自动生成分析报告</li>
+          <li>报告包含总分评级、板块明细、能力雷达图、风险等级、学习建议等 8 大维度</li>
+        </ul>
+        <div class="section-tags">
+          <span class="tag">A. 防范商业贿赂合规指引（20题）</span>
+          <span class="tag">B. 学术拜访交流行为通知（25题）</span>
+          <span class="tag">C. 医药代表管理办法（40题）</span>
+          <span class="tag">D. RDPAC行为准则（15题）</span>
+          <span class="tag">E. 医保集采与数据安全（30题）</span>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="startQuiz()" style="margin-top:20px; font-size:18px; padding: 14px 48px;">开始测评</button>
+    </div>
+  `;
+}
+
+function startQuiz() {
+  currentIndex = 0;
+  answers = {};
+  screen = 'quiz';
+  render();
+}
+
+function renderQuiz() {
+  const q = QUESTIONS[currentIndex];
+  const progress = ((currentIndex + 1) / TOTAL_QUESTIONS * 100).toFixed(1);
+  const typeLabel = q.type === 'single' ? '单选题' : '多选题';
+  const typeHint = q.type === 'multi' ? '（请选择所有正确答案）' : '';
+
+  let optionsHtml = q.options.map(opt => {
+    const sel = isSelected(opt.label) ? ' selected' : '';
+    return `
+      <div class="option${sel}" onclick="selectOption('${opt.label}')">
+        <div class="opt-label">${opt.label}</div>
+        <div class="opt-text">${opt.text}</div>
+      </div>
+    `;
+  }).join('');
+
+  return `
+    <div class="quiz-header">
+      <span class="section-badge">板块${q.section}：${SECTION_INFO[q.section].title}</span>
+      <div class="progress-info">
+        <span>第 ${currentIndex + 1} / ${TOTAL_QUESTIONS} 题</span>
+        <span>${progress}%</span>
+      </div>
+      <div class="progress-bar"><div class="fill" style="width:${progress}%"></div></div>
+    </div>
+    <div class="question-card">
+      <span class="q-type ${q.type}">${typeLabel}</span>
+      <span style="color:#888; font-size:13px; margin-left:8px;">${typeHint}</span>
+      <div class="q-text"><strong>${q.id}.</strong> ${q.question}</div>
+      ${optionsHtml}
+    </div>
+    <div class="quiz-actions">
+      <button class="btn btn-outline" onclick="goPrev()" ${currentIndex === 0 ? 'disabled' : ''}>上一题</button>
+      <button class="btn btn-primary" onclick="goNext()" ${!canProceed() ? 'disabled' : ''}>
+        ${currentIndex < TOTAL_QUESTIONS - 1 ? '下一题' : '提交并查看报告'}
+      </button>
+    </div>
+  `;
+}
+
+function renderReport() {
+  const r = calcResults();
+  const score200 = Math.round(r.totalCorrect / r.totalQuestions * MAX_SCORE);
+  const pct = r.totalCorrect / r.totalQuestions;
+  const rating = getRating(r.totalCorrect, r.totalQuestions);
+  const risk = getRiskLevel(pct);
+
+  // Section table
+  let sectionRows = '';
+  const sections = ['A','B','C','D','E'];
+  for (const sid of sections) {
+    const s = r.sectionStats[sid];
+    const sPct = s.total > 0 ? s.correct / s.total : 0;
+    const sRate = (sPct * 100).toFixed(1);
+    const sRating = getRating(s.correct, s.total);
+    sectionRows += `
+      <tr>
+        <td><span class="section-tag">${sid}</span></td>
+        <td>${SECTION_INFO[sid].title}</td>
+        <td>${s.total}</td>
+        <td style="color:#2e7d32;">${s.correct}</td>
+        <td style="color:#c62828;">${s.total - s.correct}</td>
+        <td>${sRate}%</td>
+        <td><span style="color:#1a4a8b; font-weight:600;">${sRating.level}</span></td>
+      </tr>
+    `;
+  }
+
+  // Find strengths and weaknesses
+  let sectionPcts = sections.map(sid => ({
+    id: sid, title: SECTION_INFO[sid].title,
+    pct: r.sectionStats[sid].total > 0 ? r.sectionStats[sid].correct / r.sectionStats[sid].total : 0,
+    correct: r.sectionStats[sid].correct,
+    total: r.sectionStats[sid].total
+  }));
+  sectionPcts.sort((a,b) => b.pct - a.pct);
+  const strengths = sectionPcts.filter(s => s.pct >= 0.75).map(s => s.title);
+  const weaknesses = sectionPcts.filter(s => s.pct < 0.6).map(s => s.title);
+  const sortedForLearning = [...sectionPcts].sort((a,b) => a.pct - b.pct);
+
+  // Learning suggestions
+  let learningRows = '';
+  const learningMethods = [
+    '精读原文+重点条文背诵+配套案例分析',
+    '结合业务场景模拟演练+小组研讨',
+    '参加专项培训+制作知识卡片',
+    '阅读权威解读文章+在线课程学习',
+    '每日一题巩固+定期自我检测'
+  ];
+  sortedForLearning.forEach((s, i) => {
+    const hours = s.pct >= 0.9 ? 2 : s.pct >= 0.75 ? 4 : s.pct >= 0.6 ? 8 : 12;
+    const priority = i + 1;
+    const method = learningMethods[i % learningMethods.length];
+    learningRows += `
+      <tr>
+        <td>${priority}</td>
+        <td><span class="section-tag">${s.id}</span> ${s.title}</td>
+        <td>${(s.pct * 100).toFixed(1)}%</td>
+        <td>${hours} 小时</td>
+        <td>${method}</td>
+      </tr>
+    `;
+  });
+
+  // Profile description
+  let profileDesc = '';
+  if (strengths.length > 0) {
+    profileDesc += `<p><strong class="profile-strength">优势板块：</strong>${strengths.join('、')}。对相关政策的理解和把握较为到位，能够准确识别合规风险。</p>`;
+  }
+  if (weaknesses.length > 0) {
+    profileDesc += `<p><strong class="profile-weakness">短板板块：</strong>${weaknesses.join('、')}。存在较明显的知识盲区，可能影响相关业务场景下的合规判断，建议优先加强学习。</p>`;
+  }
+  if (weaknesses.length === 0 && strengths.length > 0) {
+    profileDesc += `<p>整体合规知识体系较为均衡，各板块均有较好的掌握。建议持续关注最新政策动态，保持对合规前沿问题的敏感性。</p>`;
+  }
+
+  // Wrong answers
+  let allWrong = [];
+  for (const sid of sections) {
+    allWrong = allWrong.concat(r.sectionStats[sid].wrongList);
+  }
+
+  // Store for filter
+  window._wrongData = allWrong;
+
+  let wrongHtml = '';
+  allWrong.forEach((w, wi) => {
+    wrongHtml += `
+      <div class="wrong-item" data-section="${w.section}">
+        <div class="w-section">[${w.section}] ${w.sectionTitle}</div>
+        <div class="w-question">${wi + 1}. ${w.question}</div>
+        <div class="w-row"><span class="w-label">你的答案：</span><span class="w-answer">${w.userAnswer || '未作答'}</span></div>
+        <div class="w-row"><span class="w-label">正确答案：</span><span class="w-correct">${w.correctAnswer}</span></div>
+        <div class="w-explanation">${w.explanation}</div>
+      </div>
+    `;
+  });
+
+  return `
+    <div class="report">
+      <h2>合规能力测评报告</h2>
+      <div class="report-subtitle">模块一：政策解读能力（A-E） | ${new Date().toLocaleDateString('zh-CN')}</div>
+
+      <!-- 1. Score Overview -->
+      <div class="score-card">
+        <div class="big-score">${score200}</div>
+        <div class="score-label">满分 200 分 | 正确率 ${(pct * 100).toFixed(1)}%（${r.totalCorrect}/${r.totalQuestions}）</div>
+        <div class="rating ${rating.cls}">${rating.level}</div>
+      </div>
+
+      <!-- 2. Section Details -->
+      <div class="section-card">
+        <h3>各板块明细</h3>
+        <table>
+          <thead><tr><th>板块</th><th>名称</th><th>总题数</th><th>正确</th><th>错误</th><th>正确率</th><th>等级</th></tr></thead>
+          <tbody>${sectionRows}</tbody>
+        </table>
+      </div>
+
+      <!-- 3. Charts -->
+      <div class="chart-row">
+        <div class="chart-card">
+          <h3>各板块正确/错误分布</h3>
+          <canvas id="barChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>整体正确率分布</h3>
+          <canvas id="donutChart"></canvas>
+        </div>
+      </div>
+
+      <!-- 4. Radar Chart -->
+      <div class="radar-card">
+        <h3>五维能力雷达图</h3>
+        <canvas id="radarChart"></canvas>
+      </div>
+
+      <!-- 5. Risk Level -->
+      <div class="risk-card">
+        <h3>合规风险等级评估</h3>
+        <div class="risk-level ${risk.cls}">${risk.emoji} 风险等级：${risk.level}</div>
+        <div class="risk-actions"><strong>行动建议：</strong>${risk.actions}</div>
+      </div>
+
+      <!-- 6. Profile -->
+      <div class="profile-card">
+        <h3>个人能力画像</h3>
+        <div class="profile-desc">${profileDesc}</div>
+      </div>
+
+      <!-- 7. Learning Suggestions -->
+      <div class="learning-card">
+        <h3>针对性学习建议</h3>
+        <table>
+          <thead><tr><th>优先级</th><th>板块</th><th>当前正确率</th><th>建议学时</th><th>学习方法</th></tr></thead>
+          <tbody>${learningRows}</tbody>
+        </table>
+      </div>
+
+      <!-- 8. Wrong Answers -->
+      <div class="wrong-card">
+        <h3>错题解析（${allWrong.length} 题）</h3>
+        <div class="filter-row">
+          <button class="filter-btn active" onclick="filterWrong('all')">全部</button>
+          <button class="filter-btn" onclick="filterWrong('A')">板块A</button>
+          <button class="filter-btn" onclick="filterWrong('B')">板块B</button>
+          <button class="filter-btn" onclick="filterWrong('C')">板块C</button>
+          <button class="filter-btn" onclick="filterWrong('D')">板块D</button>
+          <button class="filter-btn" onclick="filterWrong('E')">板块E</button>
+        </div>
+        ${allWrong.length === 0 ? '<p style="text-align:center;color:#2e7d32;padding:30px;">恭喜！所有题目全部正确，无错题记录。</p>' : wrongHtml}
+      </div>
+
+      <div class="restart-btn">
+        <button class="btn btn-primary" onclick="startQuiz()">重新测评</button>
+      </div>
+    </div>
+  `;
+}
+
+function filterWrong(section) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('.wrong-item').forEach(item => {
+    if (section === 'all' || item.dataset.section === section) {
+      item.style.display = 'block';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
+
+function drawCharts() {
+  const r = calcResults();
+  const sections = ['A','B','C','D','E'];
+  const labels = sections.map(s => `板块${s}`);
+  const correctData = sections.map(s => r.sectionStats[s].correct);
+  const wrongData = sections.map(s => r.sectionStats[s].total - r.sectionStats[s].correct);
+  const pctData = sections.map(s => r.sectionStats[s].total > 0 ? (r.sectionStats[s].correct / r.sectionStats[s].total * 100) : 0);
+
+  // Stacked Bar Chart
+  const barCtx = document.getElementById('barChart');
+  if (barCtx) {
+    new Chart(barCtx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [
+          { label: '正确', data: correctData, backgroundColor: '#4caf50', borderRadius: 4 },
+          { label: '错误', data: wrongData, backgroundColor: '#ef5350', borderRadius: 4 }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        scales: {
+          x: { stacked: true },
+          y: { stacked: true, beginAtZero: true }
+        },
+        plugins: { legend: { position: 'bottom' } }
+      }
+    });
+  }
+
+  // Donut Chart
+  const donutCtx = document.getElementById('donutChart');
+  if (donutCtx) {
+    new Chart(donutCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['正确', '错误'],
+        datasets: [{
+          data: [r.totalCorrect, r.totalQuestions - r.totalCorrect],
+          backgroundColor: ['#4caf50', '#ef5350'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+          legend: { position: 'bottom' },
+          title: { display: true, text: `正确率 ${(r.totalCorrect/r.totalQuestions*100).toFixed(1)}%`, font: { size: 16 } }
+        }
+      }
+    });
+  }
+
+  // Radar Chart
+  const radarCtx = document.getElementById('radarChart');
+  if (radarCtx) {
+    new Chart(radarCtx, {
+      type: 'radar',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: '当前能力',
+            data: pctData,
+            backgroundColor: 'rgba(26, 74, 139, 0.2)',
+            borderColor: '#1a4a8b',
+            borderWidth: 2,
+            pointBackgroundColor: '#1a4a8b',
+            pointRadius: 5,
+            pointHoverRadius: 7
+          },
+          {
+            label: '及格线（60%）',
+            data: [60, 60, 60, 60, 60],
+            backgroundColor: 'rgba(255, 152, 0, 0.05)',
+            borderColor: '#ff9800',
+            borderWidth: 1,
+            borderDash: [5, 5],
+            pointRadius: 0
+          },
+          {
+            label: '优秀线（90%）',
+            data: [90, 90, 90, 90, 90],
+            backgroundColor: 'rgba(76, 175, 80, 0.05)',
+            borderColor: '#4caf50',
+            borderWidth: 1,
+            borderDash: [3, 3],
+            pointRadius: 0
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        scales: { r: { beginAtZero: true, max: 100, ticks: { stepSize: 20 } } },
+        plugins: { legend: { position: 'bottom' } }
+      }
+    });
+  }
+}
+
+function render() {
+  const app = document.getElementById('app');
+  if (screen === 'welcome') app.innerHTML = renderWelcome();
+  else if (screen === 'quiz') app.innerHTML = renderQuiz();
+  else if (screen === 'report') app.innerHTML = renderReport();
+  window.scrollTo(0, 0);
+}
+
+init();
+</script>
+</body>
+</html>

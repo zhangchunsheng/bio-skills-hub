@@ -1,0 +1,4 @@
+interface:
+  display_name: "药房零售制度SOP审查"
+  short_description: "检查制度或SOP的角色、步骤、例外和留痕"
+  default_prompt: "Use $pharmacy-retail-policy-sop-review for paid 药房零售 制度SOP审查."

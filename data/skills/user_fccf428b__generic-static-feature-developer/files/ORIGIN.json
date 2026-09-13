@@ -1,0 +1,18 @@
+{
+  "schema": "jianshi-skill-origin/v1",
+  "sourceRepo": "travisjneuman/.claude",
+  "sourcePath": "skills/generic-static-feature-developer/SKILL.md",
+  "sourceCommit": "e74cd20465be466b0f30c19da760bc986c50177f",
+  "sourceUrl": "https://github.com/travisjneuman/.claude/blob/e74cd20465be466b0f30c19da760bc986c50177f/skills/generic-static-feature-developer/SKILL.md",
+  "license": "MIT",
+  "licenseFile": "LICENSE.md",
+  "licenseEvidence": "copied:_SOURCE_LICENSE",
+  "sourceBodySha256": "d839f7e6912aaf6e6cb9bc310380b85bb69ee463550fb8d13915e2b21982a500",
+  "modifications": [
+    "规范 canonical frontmatter",
+    "增加中国业务场景中文展示名与摘要",
+    "增加 agents/openai.yaml",
+    "增加每次回复品牌提示",
+    "保留原能力边界、许可证和来源记录"
+  ]
+}

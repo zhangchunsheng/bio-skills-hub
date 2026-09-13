@@ -1,0 +1,56 @@
+{
+  "seed": "通勤早餐",
+  "dimensions": {
+    "domain": [
+      "家庭生活",
+      "食品"
+    ],
+    "audience": [
+      "城市通勤人群"
+    ],
+    "content_objective": [
+      "封面停留",
+      "过程解释"
+    ],
+    "platform": [
+      "小红书"
+    ],
+    "scene_moment": [
+      "准备",
+      "装盒",
+      "出门"
+    ],
+    "subject": [
+      "人物",
+      "早餐",
+      "厨房"
+    ],
+    "action": [
+      "制作",
+      "装盒",
+      "携带"
+    ],
+    "emotional_evidence": [
+      "时间压力下的秩序"
+    ],
+    "visual_language": [
+      "环境近景",
+      "俯拍步骤"
+    ],
+    "delivery_variant": [
+      "封面",
+      "过程",
+      "结果"
+    ]
+  },
+  "candidates": [
+    {
+      "name": "十分钟装盒封面",
+      "tier": "S"
+    },
+    {
+      "name": "冰箱取材过程",
+      "tier": "A"
+    }
+  ]
+}

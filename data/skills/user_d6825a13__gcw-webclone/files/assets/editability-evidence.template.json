@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "reviewStatus": "pending",
+  "maintainableSourceEntrypoint": "",
+  "contentReplacementMap": ".gcw/REPLACE_GUIDE.md",
+  "controlledContentChange": {
+    "sourceFile": "",
+    "field": "",
+    "beforeValue": "",
+    "afterValue": "",
+    "buildCommand": "",
+    "productionBundlesModified": null,
+    "evidence": []
+  },
+  "runtimeIndependence": {
+    "status": "pending",
+    "evidence": []
+  },
+  "artifactReplayRole": "not-used"
+}

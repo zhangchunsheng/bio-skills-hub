@@ -1,0 +1,49 @@
+:root{--ink:#1b1f24;--mut:#5d6b7a;--line:#e3e8ee;--bg:#f6f8fa;--card:#fff;--acc:#0b5fa5;--acc2:#e8f1f9}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+#bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:8px 16px}
+#bar .ttl{font-weight:700;font-size:14px}
+#bar .sp{flex:1}
+#bar button{border:1px solid var(--line);background:#fff;border-radius:6px;padding:5px 10px;font-size:13px;cursor:pointer;color:var(--ink)}
+#bar button:hover{background:var(--acc2);border-color:var(--acc)}
+#side{position:fixed;top:0;left:0;bottom:0;width:330px;background:#fff;border-right:1px solid var(--line);overflow:auto;padding:16px;z-index:80;transform:translateX(-100%);transition:transform .22s ease}
+#side.open{transform:none}
+#side h4{margin:6px 0 12px;font-size:13px;color:var(--mut);letter-spacing:.08em}
+#side a{display:block;padding:5px 8px;border-radius:5px;color:var(--ink);text-decoration:none;font-size:13.5px;line-height:1.5}
+#side a:hover{background:var(--acc2)}
+#side a.t1{font-weight:700;margin-top:8px;color:var(--acc)}
+#side a.t2{padding-left:18px;color:#334}
+#side a.t3{padding-left:32px;color:#556;font-size:12.5px}
+main{max-width:920px;margin:0 auto;padding:28px 22px 120px;background:var(--card);border-left:1px solid var(--line);border-right:1px solid var(--line);min-height:100vh}
+h1{font-size:27px;line-height:1.35;margin:.6em 0 .5em;padding-bottom:.4em;border-bottom:2px solid var(--acc)}
+h2{font-size:21px;margin:1.7em 0 .6em;padding-left:11px;border-left:4px solid var(--acc)}
+h3{font-size:17px;margin:1.4em 0 .5em;color:#0d3f6b}
+h4{font-size:15.5px;margin:1.2em 0 .4em;color:#333}
+p{margin:.7em 0}
+strong{color:#0a2c4a}
+code{background:#f0f3f7;padding:1px 5px;border-radius:4px;font-size:.9em;font-family:ui-monospace,Menlo,Consolas,monospace}
+a{color:var(--acc)}
+ul,ol{margin:.6em 0 .6em 1.3em;padding:0}
+li{margin:.28em 0}
+blockquote{margin:1em 0;padding:.6em 14px;background:#fbfcfe;border-left:3px solid #c9d6e3;color:#3d4c5c}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+.pagebreak{margin:34px 0 6px;padding-top:10px;border-top:1px dashed var(--line);display:flex;justify-content:flex-end}
+.pageno{font-size:11px;color:var(--mut);background:#f2f5f8;border:1px solid var(--line);border-radius:10px;padding:1px 9px}
+.tw{overflow-x:auto;margin:1.1em 0;border:1px solid var(--line);border-radius:8px}
+/* width:max-content + min-width:100% => narrow tables fill the column, wide ones
+   (e.g. an 9-column R&D pipeline table) keep their natural width and scroll
+   horizontally inside .tw instead of squeezing cells to unreadable slivers. */
+table{border-collapse:collapse;width:max-content;min-width:100%;font-size:13.5px;line-height:1.6}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+thead th{background:#eef3f8;font-weight:700;color:#0d3f6b}
+tbody tr:nth-child(even){background:#fbfcfd}
+tbody tr:hover{background:var(--acc2)}
+figure.fig{margin:1.3em 0;padding:10px;background:#fff;border:1px solid var(--line);border-radius:8px;text-align:center}
+figure.fig img{max-width:100%;height:auto;border-radius:4px;background:#fff;cursor:zoom-in}
+figure.fig figcaption{margin-top:8px;font-size:13px;color:var(--mut);line-height:1.6}
+#lb{position:fixed;inset:0;background:rgba(10,14,20,.9);z-index:200;display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+#lb img{max-width:98vw;max-height:94vh;border-radius:6px;background:#fff}
+#lb.on{display:flex}
+#top{position:fixed;right:18px;bottom:18px;z-index:60;border:1px solid var(--line);background:#fff;border-radius:50%;width:40px;height:40px;cursor:pointer;font-size:17px}
+@media print{#bar,#side,#top{display:none}main{border:0;max-width:none}figure.fig{break-inside:avoid}}

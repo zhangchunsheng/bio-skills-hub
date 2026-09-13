@@ -1,0 +1,4 @@
+interface:
+  display_name: "Clinical Design Extractor"
+  short_description: "Separate methods and results with endpoint traceability."
+  default_prompt: "Use $clinical-research-design-extractor to extract eligibility, methods, results, endpoint tiers, and source traceability."

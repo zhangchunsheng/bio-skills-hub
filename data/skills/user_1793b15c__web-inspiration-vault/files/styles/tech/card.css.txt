@@ -1,0 +1,218 @@
+/* ============================================================
+   科技赛博风模板 · tech v1.0 —— 共享样式
+   签名手法：细网格底纹 / 霓虹强调线（零偏移带色阴影=发光）/
+             等宽终端标签 / 方形角标 / 方括号小节名 / 硬边小圆角
+   设计取舍：交付物可读性红线要求浅底深字，所以赛博感不用"暗底"表达，
+             而用网格纸质感 + 单色霓虹 + 终端排版表达。
+             需要真正暗色版时见文件末尾的注释块。
+   ============================================================ */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background-color: #fbfcfd;
+  /* 细网格：蓝图 / 终端质感，靠纹理而不是靠暗色 */
+  background-image:
+    linear-gradient(rgba(13, 71, 108, .045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(13, 71, 108, .045) 1px, transparent 1px);
+  background-size: 26px 26px, 26px 26px;
+  color: #0d1117;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+               "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-size: 15px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+.wrap { max-width: 820px; margin: 0 auto; padding: 48px 28px 100px; }
+
+/* —— 小节名：方括号 + 等宽大写，终端味最省力的来源 —— */
+.label {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  color: #5c7386; font-weight: 500; margin: 0 0 14px;
+}
+.label::before { content: "[ "; color: var(--card-accent, #0ea5e9); }
+.label::after { content: " ]"; color: var(--card-accent, #0ea5e9); }
+.rule { height: 1px; background: #dde6ec; border: 0; margin: 0; }
+
+/* —— 报头：霓虹强调线。零偏移 + 带色阴影 = 发光（与判据库一致）—— */
+.masthead { padding-bottom: 26px; }
+.neon {
+  height: 2px; margin-bottom: 20px; border-radius: 1px;
+  background: linear-gradient(90deg, var(--card-accent, #0ea5e9), rgba(14, 165, 233, .05));
+  box-shadow: 0 0 12px var(--card-accent, #0ea5e9);
+}
+.sysbar {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px; color: #6b8497; letter-spacing: .05em;
+}
+.sysdots { display: inline-flex; gap: 4px; }
+.sysdots i { width: 7px; height: 7px; border-radius: 1px; background: var(--card-accent, #0ea5e9); display: block; }
+.sysdots i:nth-child(2) { opacity: .48; }
+.sysdots i:nth-child(3) { opacity: .22; }
+.site {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--card-accent, #0369a1); font-weight: 500; margin: 0 0 12px;
+}
+h1 {
+  font-size: 34px; line-height: 1.18; letter-spacing: -0.022em;
+  font-weight: 600; margin: 0 0 12px; color: #0b1015;
+}
+.dek { font-size: 15px; color: #55697a; margin: 0 0 20px; max-width: 62ch; }
+.meta {
+  display: flex; flex-wrap: wrap; gap: 7px 8px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px; color: #4d6373;
+}
+.meta span {
+  border: 1px solid #d7e2ea; border-radius: 2px; padding: 2px 8px;
+  background: rgba(255, 255, 255, .8);
+}
+.meta a { color: #3d5464; text-decoration: none; border-bottom: 1px solid #cfe0ea; word-break: break-all; }
+
+section { padding-top: 44px; }
+section > .rule { margin-bottom: 30px; }
+
+/* —— 配色卡：方形硬边 + 等宽 HEX —— */
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 12px; }
+.sw { border: 1px solid #d7e2ea; border-radius: 3px; overflow: hidden; background: #fff; }
+.sw .chip { height: 54px; }
+.sw .info { padding: 8px 10px; border-top: 1px solid #e6eef3; }
+.sw .role {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: #7b93a3;
+}
+.sw .hex {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px; color: #17303f; font-variant-numeric: tabular-nums;
+}
+
+/* —— 字体 —— */
+.spec { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px 30px; }
+.spec .stack {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px; color: #2b4152; word-break: break-word;
+  border-left: 2px solid var(--card-accent, #0ea5e9); padding-left: 10px;
+}
+.spec .stack .k {
+  display: block; color: #7b93a3; font-size: 10px; letter-spacing: .1em;
+  text-transform: uppercase; margin-bottom: 4px;
+}
+.specimen { font-size: 26px; line-height: 1.22; margin: 12px 0 0; color: #0d1117; letter-spacing: -0.015em; }
+
+/* —— 数据表：等宽 + 方括号分隔，仪表盘质感 —— */
+.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+.tbl td { padding: 9px 10px; border-bottom: 1px solid #e6eef3; vertical-align: baseline; }
+.tbl tr:nth-child(odd) td { background: rgba(255, 255, 255, .62); }
+.tbl td:first-child {
+  color: #6b8497; width: 42%;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11.5px; letter-spacing: .04em;
+}
+.tbl td:last-child {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-variant-numeric: tabular-nums; color: #17303f;
+}
+
+/* —— 风格评分：等宽条 + 百分比 —— */
+.scores { display: grid; gap: 9px; }
+.score {
+  display: grid; grid-template-columns: 86px 1fr 54px; align-items: center; gap: 14px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px;
+}
+.score .bar { height: 7px; background: #e6eef3; border-radius: 1px; overflow: hidden; }
+.score .bar i { display: block; height: 100%; background: #a8bcc9; }
+.score.win { color: #0b1015; font-weight: 500; }
+.score.win .bar i { background: var(--card-accent, #0ea5e9); box-shadow: 0 0 8px var(--card-accent, #0ea5e9); }
+.score .pct { text-align: right; color: #7b93a3; }
+
+/* —— 内容 —— */
+.prose { max-width: 66ch; }
+.lead { font-size: 16px; color: #22333f; }
+blockquote {
+  margin: 22px 0; padding: 12px 16px; border: 1px solid #d7e2ea;
+  border-left: 3px solid var(--card-accent, #0ea5e9); border-radius: 3px;
+  background: rgba(255, 255, 255, .75); color: #2b4152; font-size: 14px;
+}
+.olist { list-style: none; padding: 0; margin: 0; max-width: 72ch; }
+.olist li {
+  display: flex; gap: 12px; padding: 8px 0; border-bottom: 1px dashed #dfe9ef;
+  font-size: 13.5px; color: #2b4152;
+}
+.olist li em {
+  font-style: normal;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px; color: var(--card-accent, #0369a1); min-width: 26px;
+}
+.nums { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.num {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px; font-variant-numeric: tabular-nums; color: #17303f;
+  border: 1px solid #d7e2ea; border-radius: 2px; padding: 3px 9px;
+  background: rgba(255, 255, 255, .8);
+}
+
+/* —— 卡片矩阵：方形缩略图 + 等宽类型标签 —— */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(224px, 1fr)); gap: 16px; }
+.tcard { border: 1px solid #d7e2ea; border-radius: 3px; background: rgba(255, 255, 255, .85); overflow: hidden; }
+.tcard .thumb { height: 82px; position: relative;
+  background: linear-gradient(135deg, var(--thumb-a, #eef3f7) 0%, var(--thumb-b, #dbe6ee) 100%); }
+.tcard .thumb .glyph {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 26px; color: rgba(13, 71, 108, .22);
+}
+.tcard .body { padding: 11px 12px 13px; }
+.tcard .kind {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--card-accent, #0369a1); margin-bottom: 5px;
+}
+.tcard h4 { font-size: 14px; line-height: 1.4; font-weight: 500; margin: 0; color: #16232c; }
+.tcard .dt {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px; color: #869dab; margin-top: 8px;
+}
+.grid-note { font-size: 12px; color: #7b93a3; margin-top: 14px; }
+
+/* —— 体检清单 —— */
+.checks { list-style: none; padding: 0; margin: 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 0 30px; }
+.checks li { display: flex; gap: 11px; padding: 9px 0; border-bottom: 1px solid #e6eef3; font-size: 13px; color: #2b4152; }
+.checks .dot { flex: 0 0 7px; width: 7px; height: 7px; border-radius: 1px; margin-top: 7px; background: #b9cbd6; }
+.checks li.lv-ok .dot { background: #3f9e78; }
+.checks li.lv-warn .dot { background: #c8912f; }
+.checks li.lv-bad .dot { background: #c25b4e; }
+.checks .ct { flex: 1 1 auto; }
+.checks .ct b { font-weight: 500; color: #0b1015; }
+.checks .ct em {
+  display: block; font-style: normal;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 10.5px; color: #93a8b5; margin-top: 3px;
+}
+.note { font-size: 12px; color: #7b93a3; margin: 14px 0 0; }
+
+footer {
+  margin-top: 70px; padding-top: 18px; border-top: 1px solid #dde6ec;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 10.5px; letter-spacing: .07em; color: #93a8b5;
+}
+
+@media (max-width: 700px) {
+  .wrap { padding: 32px 18px 72px; }
+  section { padding-top: 32px; }
+}
+@media print { body { background-image: none; } .wrap { padding: 0; } }
+
+/* ============================================================
+   暗色赛博版（默认关闭）
+   交付物可读性红线要求浅底深字，因此默认不开。若某次确实需要
+   真正的暗色版，把下面三行覆盖到 body 上即可：
+     background-color: #0b1015;
+     background-image: none;          （或把网格线改成 rgba(120,200,255,.06)）
+     color: #dbe7ef;
+   并把 .label / .site / .meta 的灰色调到 #93a8b5 一档。
+   ============================================================ */

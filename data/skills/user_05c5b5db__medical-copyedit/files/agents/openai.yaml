@@ -1,0 +1,4 @@
+interface:
+  display_name: "中文医学期刊编校"
+  short_description: "医学稿件规范编校与自动审校：术语/单位/数字/标点/参考文献/统计表述核查，生成审校报告"
+  default_prompt: "使用 medical-journal-copyediting 技能，对中文医学稿件做编辑加工规范指导，或运行 scripts/check_manuscript.py 对稿件做自动审校并生成初筛报告。"

@@ -1,0 +1,42 @@
+{
+  "sourceUrl": "https://example.com",
+  "candidateUrl": "http://127.0.0.1:4173",
+  "browserExecutable": "",
+  "seed": 20260630,
+  "harFixture": {
+    "urlFilter": "**/api/**",
+    "rebaseOrigins": []
+  },
+  "scenarios": [
+    {
+      "id": "desktop-top",
+      "route": "/",
+      "viewport": { "width": 1280, "height": 720 },
+      "deviceScaleFactor": 1,
+      "colorScheme": "light",
+      "clockMode": "controlled",
+      "clockStepMs": 16,
+      "readyTimeoutMs": 30000,
+      "readyFunction": "document.readyState === 'complete'",
+      "readyDelayMs": 2000,
+      "phaseMs": 0,
+      "scroll": { "x": 0, "y": 0 },
+      "pointer": { "x": 640, "y": 360 }
+    },
+    {
+      "id": "mobile-top",
+      "route": "/",
+      "viewport": { "width": 390, "height": 844 },
+      "deviceScaleFactor": 1,
+      "colorScheme": "light",
+      "clockMode": "controlled",
+      "clockStepMs": 16,
+      "readyTimeoutMs": 30000,
+      "readyFunction": "document.readyState === 'complete'",
+      "readyDelayMs": 2000,
+      "phaseMs": 0,
+      "scroll": { "x": 0, "y": 0 },
+      "pointer": { "x": 195, "y": 422 }
+    }
+  ]
+}

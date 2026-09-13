@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "encounter": {
+    "patient_name": "测试患者A",
+    "patient_age": "72 岁",
+    "patient_gender": "男",
+    "patient_contact": "13800000001",
+    "patient_id": "TEST-2026-001",
+    "admission_time": "2026-08-01T08:30:00",
+    "primary_diagnosis": ["急性冠脉综合征"],
+    "allergies": [],
+    "info_sources": ["病历资料"],
+    "encounter_id": "ENC-TEST-001",
+    "suspected_other_patient": true
+  },
+  "sources": [
+    {"source_id": "src-001", "file_name": "入院记录.pdf", "file_type": "pdf", "clinical_timepoint": "入院当天", "page_or_image": "p.1"}
+  ],
+  "drug_records": [
+    {
+      "record_id": "drug-001",
+      "original_name": "波立维",
+      "generic_name": "硫酸氢氯吡格雷",
+      "dosage_form": "片剂",
+      "strength": "75 mg",
+      "route": "口服",
+      "dose": "75 mg",
+      "frequency": "每日 1 次",
+      "indication": "抗血小板",
+      "start_time": "2025-03-12",
+      "patient_brought": true,
+      "source_id": "src-001",
+      "category": "pre_admission_home_med",
+      "evidence_status": "direct_visible",
+      "open_questions": []
+    }
+  ],
+  "reconciliation_outcomes": [
+    {
+      "drug_record_id": "drug-001",
+      "result": "加药",
+      "reason": "test",
+      "decided_by_role": "pharmacist_suggestion"
+    }
+  ],
+  "open_questions": []
+}

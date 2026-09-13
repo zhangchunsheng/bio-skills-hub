@@ -1,0 +1,17 @@
+{
+  "doc_types": {
+    "doc_proposal": {"name": "企业方案/标书", "formal_min": 0.90, "colloquial_max": 0.10, "term_policy": "force_keep"},
+    "doc_tech":      {"name": "技术文档/白皮书", "formal_min": 0.85, "colloquial_max": 0.15, "term_policy": "force_keep"},
+    "doc_report":    {"name": "工作报告/复盘", "formal_min": 0.60, "colloquial_max": 0.65, "term_policy": "suggest_keep"},
+    "doc_marketing": {"name": "产品介绍/营销", "formal_min": 0.50, "colloquial_max": 0.75, "term_policy": "optional"},
+    "doc_email":     {"name": "邮件/通知", "formal_min": 0.55, "colloquial_max": 0.70, "term_policy": "suggest_keep"},
+    "doc_social":    {"name": "社交/朋友圈", "formal_min": 0.20, "colloquial_max": 1.00, "term_policy": "never_keep"},
+    "doc_note":      {"name": "笔记/随笔", "formal_min": 0.30, "colloquial_max": 0.90, "term_policy": "never_keep"}
+  },
+  "length_tiers": [
+    {"max": 100, "tier": "lightweight", "desc": "轻量流水线：去模式化+用词替换"},
+    {"max": 500, "tier": "standard", "desc": "标准7步流水线"},
+    {"max": 2000, "tier": "segmented", "desc": "分段改写+段间衔接校验"},
+    {"max": 999999, "tier": "outline", "desc": "大纲驱动：提取大纲→逐段改写→全局校验"}
+  ]
+}

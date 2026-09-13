@@ -1,0 +1,21 @@
+{
+  "slug": "musk-perspective",
+  "displayName": "马斯克思维操作系统",
+  "display_name_en": "Musk Thinking OS",
+  "description_zh": "用马斯克的视角看世界：10 个心智模型、18 条决策启发式、伪语录防伪。遇到生意/工程/风险/组织问题，先算数、先查证，再下判断。",
+  "description_en": "Think like Elon Musk: 10 mental models, 18 decision heuristics, and a quote-forgery detector. For business/engineering/risk/org questions, compute first, then judge.",
+  "examples_zh": [
+    "用马斯克的视角看，这个生意能不能做大？",
+    "帮我算算这颗高端路由器的理论成本下限。",
+    "我们团队在优化审批流程，加了好多自动化，对吗？",
+    "我想抵押房子去融资 all in 一个项目，靠谱吗？",
+    "马斯克说过'设计是它如何运作'吗？这句是他的吗？"
+  ],
+  "examples_en": [
+    "From Musk's perspective, can this business scale?",
+    "Help me compute the theoretical cost floor of this device.",
+    "My team is adding automation to a process—are we doing it right?",
+    "Should I mortgage my house to go all-in on this project?",
+    "Did Musk actually say 'design is how it works'?"
+  ]
+}

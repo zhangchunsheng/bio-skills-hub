@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "required_fields": [
+    "schema_version",
+    "document_mode",
+    "term_type",
+    "term_months",
+    "probation_months",
+    "probation_wage_ratio",
+    "prior_probation_used",
+    "noncompete_mode",
+    "noncompete_person_eligible",
+    "secret_access_confirmed",
+    "noncompete_months",
+    "noncompete_compensation_confirmed",
+    "social_insurance"
+  ],
+  "final_required_fields": [
+    "contract_sha256"
+  ],
+  "enums": {
+    "document_mode": ["final", "template"],
+    "term_type": ["fixed", "indefinite", "task", "template_options"],
+    "noncompete_mode": ["none", "reference_only", "full"],
+    "social_insurance": ["statutory"]
+  },
+  "number_or_null_fields": [
+    "term_months",
+    "probation_months",
+    "probation_wage_ratio",
+    "noncompete_months"
+  ],
+  "boolean_fields": [
+    "prior_probation_used",
+    "noncompete_person_eligible",
+    "secret_access_confirmed",
+    "noncompete_compensation_confirmed"
+  ],
+  "date_or_null_fields": [
+    "term_start_date",
+    "term_end_date"
+  ],
+  "hash_algorithm": "sha256",
+  "hash_input": "formal contract text after generate_docx.extract_contract_text() filtering and placeholder repair, encoded as UTF-8"
+}

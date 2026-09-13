@@ -1,0 +1,63 @@
+{
+  "company": "荣昌生物",
+  "company_en": "RemeGen",
+  "cde_company": "荣昌生物",
+  "ticker": "09995.HK",
+  "description": "",
+  "updated": "2026-08-20",
+  "pipeline_molecules": [
+    {
+      "name_cn": "维迪西妥单抗",
+      "name_en": "disitamab vedotin",
+      "code": "RC48",
+      "brand_cn": "爱地希/Aidixi",
+      "type": "创新药",
+      "note": "HER2"
+    },
+    {
+      "name_cn": "泰它西普",
+      "name_en": "telitacicept",
+      "code": "RC18",
+      "brand_cn": "泰爱",
+      "type": "创新药",
+      "note": "BLyS/APRIL (TACI-Fc)"
+    },
+    {
+      "name_cn": "（无正式中文通用名）",
+      "name_en": "ciletatug vedotin",
+      "code": "RC118",
+      "brand_cn": "",
+      "type": "创新药",
+      "note": "Claudin 18.2"
+    }
+  ],
+  "bd_partners": [
+    {
+      "name_cn": "",
+      "name_en": "",
+      "ticker": "PFE",
+      "region": "",
+      "deal": ""
+    },
+    {
+      "name_cn": "",
+      "name_en": "",
+      "ticker": "ABBV",
+      "region": "",
+      "deal": ""
+    }
+  ],
+  "watch_keywords": [
+    "disitamab vedotin",
+    "telitacicept",
+    "ciletatug vedotin",
+    "RC48",
+    "RC18",
+    "RC88",
+    "RC108",
+    "RC118",
+    "RC148",
+    "RC198",
+    "RC28-E"
+  ]
+}

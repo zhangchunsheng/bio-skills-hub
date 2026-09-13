@@ -1,0 +1,16 @@
+{
+  "created": "2026-03-14",
+  "updated": "2026-03-14",
+  "version": "1.0.0",
+  "owner": "harrylabsj",
+  "slug": "yi",
+  "displayName": "Yi",
+  "latest": {
+    "version": "1.0.1",
+    "publishedAt": 1782214405400,
+    "commit": null
+  },
+  "history": [],
+  "updatedAt": "2026-06-23T11:33:25.400Z",
+  "createdAt": "2026-03-14T10:36:45.793Z"
+}

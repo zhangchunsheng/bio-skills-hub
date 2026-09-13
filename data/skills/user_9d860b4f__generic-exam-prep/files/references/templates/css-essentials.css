@@ -1,0 +1,103 @@
+/* templates/css-essentials.css
+ * 必备样式。修复 P2（遮罩隐藏）+ 支持 P7（subjbar）+ 优化 D/E（三级目录/闪卡/正文高亮）。
+ * 复制进 css/style.css（保留项目已有的 token 与布局）。 */
+
+/* ===== P2：强制隐藏 hidden 元素（遮罩/弹窗关闭后必须真的消失） ===== */
+.hidden, [hidden] { display: none !important; }
+
+/* ===== 全局科目栏 subjbar（P7，放在 #app 内、备考中心上方） ===== */
+#subjbar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px; background: var(--c-surface); border-bottom: 1px solid var(--c-line);
+}
+.subj-label { font-weight: 700; color: var(--c-text-2); font-size: 14px; }
+.subj-select, .filter-select {
+  appearance: none; -webkit-appearance: none;
+  min-height: 44px; padding: 0 14px; font-size: 15px;            /* ★ 触控 ≥44px */
+  border: 1px solid var(--c-line); border-radius: 10px; background: var(--c-surface-2);
+  color: var(--c-text);
+}
+.kb-filters { display: flex; gap: 12px; flex-wrap: wrap; margin: 14px 0 4px; }
+.kb-fl { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+
+/* ===== 登录/解析遮罩（P2） ===== */
+.modal-mask { position: fixed; inset: 0; background: rgba(0,0,0,.4); display: grid; place-items: center; z-index: 50; padding: 20px; }
+.modal { background: var(--c-surface); border-radius: 16px; padding: 22px; width: min(420px, 92vw); box-shadow: 0 20px 60px rgba(0,0,0,.25); }
+.modal-title { margin: 0 0 6px; font-size: 18px; }
+.modal-sub { margin: 0 0 14px; color: var(--c-text-2); font-size: 13px; }
+.modal-input { width: 100%; min-height: 44px; padding: 0 12px; font-size: 16px; border: 1px solid var(--c-line); border-radius: 10px; }
+.modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 14px; }
+.modal-err { color: var(--c-danger); font-size: 13px; min-height: 18px; margin: 8px 0 0; }
+
+/* ===== 三级知识目录 / 闪卡（优化 D+E） ===== */
+.kb-scroll { max-height: 70vh; overflow: auto; -webkit-overflow-scrolling: touch; }
+.kb-curpos { position: sticky; top: 0; background: var(--c-surface); padding: 8px 0; font-weight: 700; z-index: 2; }
+.kb-index { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+.kb-idx-i { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--c-surface-2); font-size: 12px; cursor: pointer; }
+.kb-idx-i.active { background: var(--c-primary); color: #fff; }
+.kb-ch { scroll-margin-top: 50px; margin-bottom: 14px; }
+.kb-ch-head { display: flex; align-items: center; justify-content: space-between; margin: 6px 0; }
+.kb-ch-name { font-weight: 700; }
+.kb-kp-list { display: flex; flex-direction: column; gap: 6px; }
+.kb-kp { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: var(--c-surface); border: 1px solid var(--c-line); border-radius: 10px; }
+.kb-kp:active { border-color: var(--c-primary); }
+.kb-kp-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--c-line); flex: 0 0 10px; }
+.kb-kp-dot.m { background: var(--c-success); }
+.kb-kp-dot.l { background: var(--c-warn); }
+.kb-kp-t { flex: 1; font-size: 14px; font-weight: 600; }
+.kb-kp-tag { font-size: 11px; font-weight: 700; color: var(--c-success); background: #dcfce7; border-radius: 8px; padding: 2px 8px; }
+
+/* 闪卡翻转 */
+.flashcard-page { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; }
+.flashcard { perspective: 1200px; margin-bottom: 4px; }
+.flashcard-inner { position: relative; width: 100%; min-height: 340px; transform-style: preserve-3d; transition: transform .5s; }
+.flashcard-inner.flipped { transform: rotateY(180deg); }
+.flashcard-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 16px; padding: 22px; background: var(--c-surface); border: 1px solid var(--c-line); }
+.fc-back { transform: rotateY(180deg); overflow: auto; }
+.fc-actions { display: flex; gap: 12px; margin-top: 12px; }
+.fc-actions.show { /* 翻转后才显示 */ }
+.fc-btn { flex: 1; min-height: 48px; border-radius: 12px; border: none; font-weight: 700; font-size: 15px; }
+.fc-btn.yes { background: var(--c-success); color: #fff; }
+.fc-btn.no { background: var(--c-surface-2); color: var(--c-text); }
+
+/* 知识点正文高亮（knowledge.json 的 body 用 <mark> 标记重点） */
+.article-body { line-height: 1.8; font-size: 15px; }
+.article-body mark { background: #fff3bf; color: inherit; padding: 0 2px; border-radius: 3px; }
+.article-cta { margin-top: 18px; }
+.btn.block { display: block; width: 100%; }
+
+/* 错题/收藏列表 */
+.mb-head { display: flex; align-items: center; justify-content: space-between; }
+.mb-title { font-size: 18px; }
+.mb-item { padding: 14px; border: 1px solid var(--c-line); border-radius: 12px; margin-bottom: 10px; background: var(--c-surface); }
+.mb-meta { font-size: 12px; color: var(--c-text-2); margin-bottom: 6px; }
+.mb-qtext { font-size: 15px; margin-bottom: 10px; }
+.mb-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn.tiny { min-height: 36px; padding: 0 12px; font-size: 13px; }
+
+/* 响应式布局（桌面/平板/手机三档） */
+@media (max-width: 1024px) {
+  /* 平板：侧栏变抽屉 */
+}
+@media (max-width: 640px) {
+  /* 手机：全宽紧凑，按钮全宽 */
+  .btn { width: 100%; }
+}
+
+/* 考试模式 */
+.exam-head { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: rgba(0,0,0,.05); border-radius: 10px; margin-bottom: 14px; }
+.exam-timer { font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--c-primary); }
+.exam-timer.warn { color: var(--c-danger); }
+.exam-tip { font-size: 12px; color: var(--c-text-2); }
+
+/* 错误 / 加载 / 空态（P12） */
+.state-box { text-align: center; padding: 56px 20px; color: var(--c-text-2); }
+.state-box .ico { font-size: 40px; display: block; margin-bottom: 12px; }
+.state-box .msg { font-size: 15px; margin-bottom: 6px; color: var(--c-text); }
+.state-box .sub { font-size: 13px; margin-bottom: 18px; max-width: 420px; margin-left: auto; margin-right: auto; word-break: break-all; }
+.state-box .btn { margin: 0 auto; }
+.state-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.loading-box { text-align: center; padding: 60px 20px; }
+
+/* 完成页 */
+.complete-actions, .action-group { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 16px; }

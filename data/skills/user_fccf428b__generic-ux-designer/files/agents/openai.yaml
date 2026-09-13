@@ -1,0 +1,4 @@
+interface:
+  display_name: "Generic·用户体验·设计｜简诗 AI"
+  short_description: "围绕“Generic·用户体验·设计”提供具体执行方法，涵盖用户需求、方案设计、优先级和验证迭代。"
+  default_prompt: "使用 $generic-ux-designer 完成“Generic·用户体验·设计”任务。"

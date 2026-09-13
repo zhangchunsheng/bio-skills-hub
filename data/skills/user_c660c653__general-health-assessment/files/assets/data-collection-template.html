@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>通用健康评估 · 数据收集模板</title>
+<style>
+  :root{
+    --bg:#f5f7fa; --card:#ffffff; --ink:#1f2933; --sub:#52606d; --line:#e4e7eb;
+    --green:#2f9e44; --yellow:#f08c00; --orange:#e8590c; --red:#e03131; --blue:#1971c2; --purple:#862e9c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;padding:32px 16px}
+  .wrap{max-width:920px;margin:0 auto}
+  header{background:linear-gradient(135deg,#1971c2,#15aabf);color:#fff;border-radius:16px;padding:32px;margin-bottom:24px}
+  header h1{font-size:25px;font-weight:700;margin-bottom:8px}
+  header p{font-size:13px;opacity:.92;margin-bottom:4px}
+  .pill{display:inline-block;background:rgba(255,255,255,.2);border-radius:20px;padding:4px 12px;font-size:12px;margin-top:12px;margin-right:8px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 26px;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .card h2{font-size:18px;margin-bottom:6px;padding-left:12px;border-left:4px solid var(--blue)}
+  .card .desc{font-size:13px;color:var(--sub);margin-bottom:14px}
+  .sec-req{border-left:4px solid var(--red)} .sec-opt{border-left:4px solid var(--green)}
+  table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:var(--bg);font-weight:600;width:130px}
+  td .field{font-weight:700;color:var(--blue)}
+  td .use{color:var(--sub);font-size:12px}
+  td .fmt{color:var(--purple);font-size:12px}
+  .must{background:#fff0f0;color:var(--red);font-size:11px;padding:1px 7px;border-radius:6px;font-weight:700;margin-left:6px}
+  .rec{background:#fff4e6;color:var(--orange);font-size:11px;padding:1px 7px;border-radius:6px;font-weight:700;margin-left:6px}
+  .opt{background:#ebfbee;color:var(--green);font-size:11px;padding:1px 7px;border-radius:6px;font-weight:700;margin-left:6px}
+  .callout{border-left:4px solid var(--blue);background:#f1f8ff;padding:12px 15px;border-radius:0 10px 10px 0;margin:12px 0;font-size:13px}
+  .callout.warn{border-color:var(--red);background:#fff5f5}
+  .callout.insight{border-color:var(--orange);background:#fff8f1}
+  ul{margin:8px 0 8px 22px} li{margin:4px 0}
+  .src-box{background:var(--bg);border-radius:10px;padding:14px 16px;margin:10px 0}
+  .src-box h4{font-size:14px;margin-bottom:6px}
+  .src-box .tag{display:inline-block;background:#e7f5ff;color:var(--blue);border-radius:6px;padding:2px 8px;font-size:11px;margin-right:6px;margin-bottom:6px}
+  details{background:var(--bg);border-radius:10px;padding:12px 16px;margin:14px 0}
+  summary{cursor:pointer;font-weight:700;color:var(--purple);font-size:14px}
+  pre{background:#1f2933;color:#e9ecef;padding:16px;border-radius:10px;overflow-x:auto;font-size:12px;line-height:1.6;white-space:pre-wrap;font-family:"SFMono-Regular",Consolas,monospace}
+  .foot{text-align:center;color:var(--sub);font-size:12px;margin-top:10px}
+  .blank{border-bottom:1px dashed var(--sub);display:inline-block;min-width:90px;margin:0 4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>通用健康评估 · 数据收集模板</h1>
+  <p>把下面这些项目填好发给我（截图或照抄都行），我就能为你生成一份带具体计算和诊断的专属运动健康报告。</p>
+  <p>不知道/没测的项目可以空着，但标 <span class="must">必填</span> 的三项（年龄·身高·体重）一定要有，否则核心指标算不出来。</p>
+  <span class="pill">约 5 分钟填完</span>
+  <span class="pill">支持截图/文本</span>
+  <span class="pill">数据仅用于本次报告</span>
+</header>
+
+<!-- A 基础体测 -->
+<div class="card sec-req">
+  <h2>一、基础体测 <span class="must">必填核心项</span></h2>
+  <p class="desc">这三项用于计算 BMI、最大心率；结合「运动类型」决定心率区间基准（骑行/跑步用 %HRR 储备心率，游泳用泳池特定 %MHR，其他用 %MHR）。</p>
+  <div class="callout"><b>💡 先确认你有没有心率设备（决定走哪条路）</b>：<br>
+  • <b>有运动手表 / 心率设备（B 路）</b>：请填「静息心率」（身体成分区那一行），骑行/跑步必需，游泳/其他也建议填；<br>
+  • <b>没有心率设备（A 路）</b>：静息心率<b>不用填</b>，报告会跳过心率区间与强度倒挂诊断，其余诊断照常给，强度改用 RPE 谈话测试 / 功率管理。</div>
+  <table>
+    <tr><th>年龄</th><td><span class="field">____ 岁</span> <span class="must">必填</span><div class="use">算最大心率 MHR=220−年龄；结合运动类型决定心率区间基准（骑行/跑步→%HRR 需静息心率，游泳→泳池特定%MHR，其他→%MHR）</div><div class="fmt">格式：数字，如「34」</div></td></tr>
+    <tr><th>身高</th><td><span class="field">____ cm</span> <span class="must">必填</span><div class="use">与体重一起算 BMI = 体重÷身高²</div><div class="fmt">格式：数字，如「171」</div></td></tr>
+    <tr><th>体重</th><td><span class="field">____ kg</span> <span class="must">必填</span><div class="use">算 BMI、脂肪量、瘦体重；若有功率数据还要算 W/kg</div><div class="fmt">格式：数字，如「84」（近期实测更佳）</div></td></tr>
+    <tr><th>性别</th><td><span class="field">男 / 女</span> <span class="rec">建议</span><div class="use">体脂率、腰围健康标准男女不同</div><div class="fmt">格式：「女」</div></td></tr>
+  </table>
+</div>
+
+<!-- B 身体成分 -->
+<div class="card">
+  <h2>二、身体成分 <span class="rec">建议提供</span></h2>
+  <p class="desc">用于判定肥胖 / 中心性肥胖 / 隐形肥胖，是「运动型体成分不佳」诊断的关键。</p>
+  <table>
+    <tr><th>体脂率</th><td><span class="field">____ %</span> <span class="rec">建议</span><div class="use">体脂率比 BMI 更准；女>35%、男>25% 属偏高区间</div><div class="fmt">格式：数字，如「40」（体脂秤/Inbody 测）</div></td></tr>
+    <tr><th>腰围</th><td><span class="field">____ cm</span> <span class="rec">建议</span><div class="use">肚脐位置绕一圈；女>80cm、男>85cm 为中心性肥胖线</div><div class="fmt">格式：数字，如「87」</div></td></tr>
+    <tr><th>臀围</th><td><span class="field">____ cm</span> <span class="opt">可选</span><div class="use">腰围÷臀围=腰臀比，区分苹果形/梨形肥胖</div><div class="fmt">格式：数字，如「108」</div></td></tr>
+    <tr><th>静息心率</th><td><span class="field">____ bpm</span> <span class="rec">有心率设备时必填</span><div class="use">反映心肺基础；≤60 说明心肺底子好（运动员级）。<b>仅 B 路（有运动手表/心率设备）需要</b>：骑行/跑步用 %HRR 储备心率法时必需，靶心率=(最大心率−静息心率)×区间%+静息心率；无心率设备（A 路）可不填，报告跳过心率维度</div><div class="fmt">格式：数字，如「55」（静坐5分钟后测或用手表静息值）</div></td></tr>
+    <tr><th>晨脉</th><td><span class="field">____ bpm</span> <span class="opt">可选</span><div class="use">早上刚醒躺着测；用于后续恢复监测（比单次静息更有趋势意义）</div><div class="fmt">格式：数字，如「60」</div></td></tr>
+  </table>
+</div>
+
+<!-- C 损伤史 -->
+<div class="card">
+  <h2>三、运动损伤史 <span class="rec">建议提供</span></h2>
+  <p class="desc">用于结合运动类型，给旧伤部位做动作纠正/负荷管理/防护升级——尤其膝盖、腰、肩、手腕这些高发伤。</p>
+  <table>
+    <tr><th>部位</th><td><span class="field">____</span> <span class="rec">建议</span><div class="use">如膝盖 / 腰 / 肩 / 手腕 / 脚踝</div><div class="fmt">格式：文字，可多填，如「左膝、右踝」</div></td></tr>
+    <tr><th>年份</th><td><span class="field">____ 年</span> <span class="opt">可选</span><div class="use">判断愈合程度</div><div class="fmt">格式：年份，如「2015、2022」</div></td></tr>
+    <tr><th>性质</th><td><span class="field">____</span> <span class="opt">可选</span><div class="use">骨折 / 扭伤 / 劳损 / 韧带损伤</div><div class="fmt">格式：文字</div></td></tr>
+    <tr><th>愈合情况</th><td><span class="field">____</span> <span class="opt">可选</span><div class="use">已愈合 / 仍不适 / 阴雨天酸胀</div><div class="fmt">格式：文字</div></td></tr>
+  </table>
+</div>
+
+<!-- D 运动习惯 -->
+<div class="card">
+  <h2>四、运动习惯 <span class="rec">建议提供</span></h2>
+  <p class="desc">用于评估你的运动总量 vs WHO 标准，并判断是否有「练得不少但体脂高」的矛盾。</p>
+  <table>
+    <tr><th>运动类型</th><td><span class="field">____</span> <span class="must">必填</span><div class="use">决定心率区间基准：跑步/骑行→%HRR（需静息心率）；游泳→泳池特定最大心率%MHR（水中最大心率比陆上低10~13bpm）；快走/健身/球类/瑜伽/其他→%MHR</div><div class="fmt">格式：文字，如「跑步为主，偶尔健身」</div></td></tr>
+    <tr><th>频率</th><td><span class="field">____ 次/周</span> <span class="rec">建议</span><div class="use">WHO 建议每周≥150分钟中等强度有氧</div><div class="fmt">格式：数字，如「2-3」</div></td></tr>
+    <tr><th>单次时长</th><td><span class="field">____ 分钟/小时</span> <span class="rec">建议</span><div class="use">×频率=周总时长，判断是否达标</div><div class="fmt">格式：如「1小时」</div></td></tr>
+    <tr><th>平均配速/速度</th><td><span class="field">____ km/h 或 ____'/km</span> <span class="opt">可选</span><div class="use">估算运动强度区间</div><div class="fmt">格式：数字</div></td></tr>
+    <tr><th>单次距离/步数</th><td><span class="field">____ km / ____ 步</span> <span class="opt">可选</span><div class="use">辅助判断总运动量</div><div class="fmt">格式：数字</div></td></tr>
+    <tr><th>设备</th><td><span class="field">____</span> <span class="opt">可选</span><div class="use">手表/设备品牌型号（判断能否测 HRV、导出什么数据）</div><div class="fmt">格式：如「华为 GT3 Pro」「Garmin」「Apple Watch」</div></td></tr>
+  </table>
+</div>
+
+<!-- E 运动数据 -->
+<div class="card">
+  <h2>五、运动数据 <span class="rec">建议提供（截图/导出）</span></h2>
+  <p class="desc">这是报告含金量最高的部分。先 <b>看清你用的是哪个数据源</b>，填对应那一块即可；若同一次运动用了多个 App，全填上做交叉验证更准。</p>
+  <div class="callout insight"><b>💡 这一节不用手填数字</b>：把手表/App 的「运动详情」截图直接发我就行，我从图里读数字。下面的字段只是告诉你截图里该有啥，照着截图核对即可，不必手抄。</div>
+
+  <details>
+    <summary>⚠️ 三种数据源的区别（先读这个，避免数据被误读）</summary>
+    <div class="src-box">
+      <h4>🅰 运动手表 / 码表（Garmin / 华为 / Apple Watch 等）</h4>
+      <span class="tag">记录全程</span><span class="tag">心率区间为金标准</span>
+      <p class="use">反映一次运动的真实全貌，最权威。直接截「运动详情」页即可。</p>
+    </div>
+    <div class="src-box">
+      <h4>🅱 运动 App（华为运动健康 / Keep / 悦跑圈 / Garmin Connect 室内）</h4>
+      <span class="tag">含热身+冷身</span><span class="tag">平均值会被拉低</span>
+      <p class="use">室内模式记录的「平均心率/时长」包含前后低心率段，会比实际运动段低 15–25 bpm。提供时请注明是「全 session」。</p>
+    </div>
+    <div class="src-box">
+      <h4>🅲 跑步机 / 智能设备 / 骑行台（含功率）</h4>
+      <span class="tag">只计实际运动段</span><span class="tag">真实强度</span>
+      <p class="use">只统计实际运动时间，平均心率最接近真实训练强度，且常带功率(FTP/TSS)数据。</p>
+    </div>
+  </details>
+
+  <h3>🅰 运动手表/码表数据（户外/设备，截详情页）</h3>
+  <table>
+    <tr><th>距离 / 步数 / 时长</th><td><span class="field">____ km / ____步 / ____</span> <span class="opt">可选</span><div class="use">如「5km / 1h26m45s」</div></td></tr>
+    <tr><th>平均配速 / 速度</th><td><span class="field">____ / ____ km/h</span> <span class="opt">可选</span></td></tr>
+    <tr><th>平均心率 / 最大心率</th><td><span class="field">____ / ____ bpm</span> <span class="rec">建议</span><div class="use">最大心率用于校准 MHR（实测值常低于 220−年龄）</div></td></tr>
+    <tr><th>步频/动作节奏</th><td><span class="field">____ spm</span> <span class="opt">可选</span><div class="use">跑步者参考，正常 170–180；过低提示效率低+关节风险</div></td></tr>
+    <tr><th>心率区间分布</th><td><span class="field">Z1__% Z2__% Z3__% Z4__% Z5__%</span> <span class="rec">建议</span><div class="use">最关键！判断「强度倒挂」——Z4 过高/Z2 过少</div></td></tr>
+  </table>
+
+  <h3>🅱 运动 App 数据（室内，注明是全 session）</h3>
+  <table>
+    <tr><th>类型 / 时长</th><td><span class="field">____ / ____</span> <span class="opt">可选</span><div class="use">如「室内跑步 / 40分02秒」</div></td></tr>
+    <tr><th>消耗 / 平均心率 / 最大心率</th><td><span class="field">____ kcal / ____ / ____ bpm</span> <span class="opt">可选</span></td></tr>
+    <tr><th>训练压力 / 恢复时间</th><td><span class="field">____ / ____ h</span> <span class="opt">可选</span><div class="use">华为「有氧训练压力」「预估恢复时间」</div></td></tr>
+    <tr><th>心率区间分布</th><td><span class="field">____（五区间占比）</span> <span class="opt">可选</span><div class="use">注意：这是含热身冷身的全 session 值</div></td></tr>
+  </table>
+
+  <h3>🅲 跑步机/智能设备/骑行台数据（含功率，可选）</h3>
+  <table>
+    <tr><th>项目 / 距离 / 时长</th><td><span class="field">____ / ____ km / ____</span> <span class="opt">可选</span></td></tr>
+    <tr><th>平均心率 / TSS</th><td><span class="field">____ bpm / ____</span> <span class="opt">可选</span></td></tr>
+    <tr><th>🔥 FTP（阈值功率）</th><td><span class="field">____ W</span> <span class="rec">建议（若有）</span><div class="use">有这个就能算功率六区间，强度管理比心率更精准</div></td></tr>
+    <tr><th>体重设定 / W/kg</th><td><span class="field">____ kg / ____</span> <span class="opt">可选</span><div class="use">W/kg 分级：休闲&lt;1.5 / 爱好者 2.0–2.5 / 竞技&gt;3.0</div></td></tr>
+  </table>
+  <div class="callout warn"><b>提示：</b>同一 session 既有手表 App 又有设备/骑行台数据，<b>两个都发</b>——我会先做交叉验证再下结论，避免被「全 session 低温平均值」误导。</div>
+</div>
+
+<!-- F 恢复与生活方式 -->
+<div class="card">
+  <h2>六、恢复与生活方式 <span class="opt">可选</span></h2>
+  <p class="desc">用于恢复维度评估和给出可执行建议，越具体越好。</p>
+  <table>
+    <tr><th>睡眠</th><td><span class="field">____ 小时 / 质量____</span> <span class="opt">可选</span><div class="use">恢复的核心；如「7小时+/良好」</div></td></tr>
+    <tr><th>睡眠心率</th><td><span class="field">最低____ / 平均____ bpm</span> <span class="opt">可选</span><div class="use">手表睡眠页可见；最低 &lt;50 多为有氧底子好的标志</div></td></tr>
+    <tr><th>夜间血氧</th><td><span class="field">____ %</span> <span class="opt">可选</span><div class="use">夜间 SpO₂，正常 ≥95%；低于 90 需警惕睡眠呼吸问题</div></td></tr>
+    <tr><th>HRV</th><td><span class="field">____ / 不知能否测</span> <span class="opt">可选</span><div class="use">并非所有手表都支持独立 HRV（如华为 GT3 Pro 不提供），没有就写「不支持/不知道」，我会改用晨脉/HRR/睡眠监测恢复</div></td></tr>
+    <tr><th>饮食</th><td><span class="field">____</span> <span class="opt">可选</span><div class="use">如「一般控制，旅行易反弹」「在控碳水」</div></td></tr>
+    <tr><th>运动目标</th><td><span class="field">____</span> <span class="rec">建议</span><div class="use">减脂 / 塑形 / 疗愈减压 / 提升成绩</div></td></tr>
+  </table>
+</div>
+
+<!-- G 提供方式 -->
+<div class="card sec-opt">
+  <h2>七、数据怎么给我？</h2>
+  <ul>
+    <li><b>截图最省事：</b>手表/App/设备的「运动详情」截图直接发我（我能读图提取数字）。</li>
+    <li><b>文本也行：</b>照着上面模板把数字抄过来，或把下面「微信文本版」填好发我。</li>
+    <li><b>多数据源：</b>同一次运动有多个 App 截图，一起发，我做交叉验证。</li>
+    <li><b>隐私：</b>数据仅用于生成你的专属报告，不会外传。</li>
+  </ul>
+</div>
+
+<!-- 微信文本版 -->
+<details>
+  <summary>📋 展开：可直接复制到微信发给我的纯文本版（填空即可）</summary>
+<pre>【通用健康评估 · 数据填写】
+（不知道的空着，标★的必填）
+
+★年龄：____ 岁
+★身高：____ cm
+★体重：____ kg
+性别：男/女
+——
+体脂率：____ %
+腰围：____ cm
+臀围：____ cm
+静息心率：____ bpm（有运动手表/心率设备才填，A 路可空）
+晨脉：____ bpm
+——
+运动损伤：部位____ 年份____ 性质____ 愈合____
+——
+运动类型：____（跑步/快走/健身/游泳/球类/瑜伽/其他）
+频率：____ 次/周
+单次时长：____
+平均配速/速度：____ km/h 或 ____'/km
+单次距离/步数：____ km / ____ 步
+设备：____
+——
+【运动数据】（截对应数据源，看自己是哪个）
+🅰 手表/码表(户外)：距离____ 步数____ 时长____ 配速____ 最大速____ 平均HR____ 最大HR____ 步频____spm 心率区间 Z1__ Z2__ Z3__ Z4__ Z5__%
+🅱 运动App(室内)：类型____ 时长____ 消耗____kcal 平均HR____ 最大HR____ 训练压力____ 恢复____h 区间____
+🅲 设备/骑行台(含功率)：项目____ 距离____ 时长____ 平均HR____ TSS____ FTP____W 体重设定____kg
+（同一次运动了多个App，全发我做交叉验证）
+——
+睡眠：____ 小时/质量____（睡眠心率最低____/平均____ bpm，夜间血氧____% 如有）
+HRV：支持/不支持/不知道（华为GT3 Pro等部分型号不支持）
+饮食：____
+目标：减脂/塑形/疗愈/提升成绩
+——
+截图直接发我，或把上面填好发回即可。</pre>
+</details>
+
+<div class="foot">模板由「通用健康评估」技能生成 · 数据仅用于本次报告，不构成医疗诊断</div>
+</div>
+</body>
+</html>

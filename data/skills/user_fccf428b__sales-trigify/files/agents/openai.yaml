@@ -1,0 +1,4 @@
+interface:
+  display_name: "Trigify 搜索流量分析与运营｜简诗 AI"
+  short_description: "围绕“Trigify 搜索流量分析与运营”提供具体执行方法，涵盖平台内容、发布节奏、互动增长和效果复盘。"
+  default_prompt: "使用 $sales-trigify 完成“Trigify 搜索流量分析与运营”任务。"

@@ -1,0 +1,718 @@
+/* ===========================================
+   FIXED 16:9 STAGE & SEAMLESS VIEWPORT BASE CSS
+   Include this ENTIRE file in every presentation.
+   Slides are authored at 1920×1080 and scaled as a whole.
+   =========================================== */
+
+/* 1. Lock browser viewport & sync background */
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: var(--viewport-bg, var(--stage-bg, #0b0f19));
+    transition: background 0.5s ease;
+}
+
+/* 2. Full-window deck viewport with seamless blending */
+.deck-viewport {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    background: var(--viewport-bg, var(--stage-bg, #0b0f19));
+    transition: background 0.5s ease;
+}
+
+/* 3. Fixed 16:9 design canvas.
+   JavaScript sets transform: translate(...) scale(...). */
+.deck-stage {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    transform-origin: 0 0;
+    background: var(--slide-bg, #ffffff);
+}
+
+/* 4. Slides stack inside the fixed stage.
+   Content must be laid out at 1920×1080, not reflowed per device. */
+.slide {
+    position: absolute;
+    inset: 0;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    background: var(--slide-bg, #ffffff);
+}
+
+.slide.active,
+.slide.visible {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 1;
+}
+
+/* 5. Keep media inside authored slide bounds */
+img,
+video,
+canvas,
+svg {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* 6. Header Area Layout Optimization & Space Compression (正文页页眉三要素紧凑布局与空间让渡规范)
+   Badge/Eyebrow + Main Title + Subtitle/Tagline must be vertically compact on Content Slides,
+   strictly keeping header height <= 18%~22% of slide canvas, yielding 78%+ space for content.
+   注意：本紧凑规则仅适用于正文内容页（Content Slides）。首页 PPT / 封面页（Cover Slide / Hero Slide）豁免紧凑，采用开阔舒展的宽纵向间距。 */
+.slide-header,
+.header-compact {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+/* Header Horizontal Split (左标题 + 右副标题并排，极大节省纵向空间) */
+.header-split {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 32px;
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+.header-split .header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.header-split .header-right {
+    flex: 0 0 auto;
+    max-width: 520px;
+    text-align: right;
+    color: var(--text-muted, #94a3b8);
+    font-size: 20px;
+    line-height: 1.45;
+    font-weight: 500;
+}
+
+/* Compact Eyebrow / Badge for Content Slides */
+.eyebrow-pill,
+.kicker,
+.slide-label,
+.badge-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--accent-cyan, #38bdf8);
+    margin-bottom: 4px;
+    width: fit-content;
+}
+
+/* Compact Slide Titles for Content Slides */
+.slide-title,
+.h-xl {
+    margin: 0;
+    font-size: 50px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+
+.h-lg {
+    margin: 0;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+}
+
+/* Compact Subtitle / Tagline / Lead for Content Slides */
+.slide-subtitle,
+.tagline,
+.lead,
+.desc-compact {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--text-secondary, #94a3b8);
+}
+
+/* 6.1 Cover Slide / Hero Slide Spacious Layout (仅首页 PPT / 封面页开阔舒展纵向布局规范)
+   首页作为整套 PPT 门面，Badge、主标题、副标题纵向间距拉开，具备充足的留白与呼吸感 */
+.cover-frame,
+.slide.hero .slide-header,
+.slide-cover .slide-header,
+.cover-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+/* Mark the semantic cover group for rendered visual-centering validation.
+   For split covers, put data-cover-subject on the wrapper around both columns. */
+.cover-frame {
+    height: 100%;
+    justify-content: center;
+}
+
+[data-cover-subject] {
+    align-content: center;
+}
+
+.cover-header.align-left,
+.cover-frame.align-left {
+    align-items: flex-start;
+    text-align: left;
+}
+
+/* 封面 Badge / 分类标签专属宽间距 (16px ~ 28px) */
+.cover-badge,
+.cover-frame .eyebrow-pill,
+.cover-frame .kicker,
+.slide.hero .eyebrow-pill,
+.slide.hero .kicker,
+.slide-cover .eyebrow-pill {
+    font-size: 18px;
+    padding: 6px 18px;
+    letter-spacing: 0.1em;
+    margin-bottom: 22px;
+}
+
+/* 封面主标题专属宽间距 (20px ~ 32px) */
+.cover-title,
+.cover-frame h1,
+.cover-frame .h-hero,
+.slide.hero h1,
+.slide.hero .display-hero,
+.slide-cover h1 {
+    font-size: clamp(58px, 4.8vw, 84px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 26px;
+}
+
+/* 封面副标题/金句引导语专属宽间距 (36px ~ 56px) */
+.cover-sub,
+.cover-subtitle,
+.cover-frame .lead,
+.cover-frame .tagline,
+.slide.hero .tagline,
+.slide.hero .lead,
+.slide-cover .slide-subtitle {
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.6;
+    max-width: 1100px;
+    color: var(--text-secondary, #94a3b8);
+    margin-bottom: 44px;
+}
+
+/* 7. Presentation Navigation Chrome & Controls Bar (底栏四件套：上一页/下一页/全览/全屏) */
+.deck-controls,
+.controls-bar {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(15, 23, 42, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    padding: 8px 20px;
+    border-radius: 999px;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    z-index: 1000;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45), 0 0 1px rgba(255, 255, 255, 0.2);
+    user-select: none;
+}
+
+.ctrl-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    color: #cbd5e1;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    font-family: inherit;
+    outline: none;
+    white-space: nowrap;
+}
+
+.ctrl-btn:hover {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.ctrl-btn:active {
+    transform: translateY(1px);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.ctrl-btn svg {
+    width: 16px;
+    height: 16px;
+    display: block;
+    flex-shrink: 0;
+}
+
+.slide-counter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 16px;
+    font-weight: 800;
+    color: #f1f5f9;
+    letter-spacing: 0.05em;
+    padding: 0 12px;
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.slide-progress-track {
+    width: 80px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.slide-progress-fill {
+    height: 100%;
+    background: var(--accent, #38bdf8);
+    border-radius: 999px;
+    transition: width 0.3s ease;
+}
+
+/* 8. Slide Overview Gallery Modal (全览缩略视图) */
+.deck-overview {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 15, 29, 0.96);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    z-index: 9999;
+    display: none;
+    flex-direction: column;
+    padding: 40px 60px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.deck-overview.active {
+    display: flex;
+    opacity: 1;
+}
+
+.overview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    padding-bottom: 16px;
+}
+
+.overview-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.overview-hint {
+    font-size: 15px;
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 5px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.overview-close-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 8px 20px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.overview-close-btn:hover {
+    background: rgba(239, 68, 68, 0.25);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #fca5a5;
+}
+
+.overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    width: 100%;
+}
+
+.overview-card {
+    background: rgba(30, 41, 59, 0.75);
+    border: 2px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    padding: 22px 20px 18px;
+    cursor: pointer;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+    min-height: 130px;
+    box-sizing: border-box;
+}
+
+.overview-card:hover {
+    border-color: var(--accent, #38bdf8);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+    background: rgba(30, 41, 59, 0.95);
+}
+
+.overview-card.current {
+    border-color: var(--accent, #38bdf8);
+    box-shadow: 0 0 24px rgba(56, 189, 248, 0.35);
+    background: rgba(14, 116, 144, 0.3);
+}
+
+.overview-card-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    font-family: var(--font-mono, monospace);
+    font-size: 13px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.14);
+    color: #e2e8f0;
+}
+
+.overview-card.current .overview-card-badge {
+    background: var(--accent, #38bdf8);
+    color: #042f2e;
+}
+
+.overview-card-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.38;
+    padding-right: 56px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-word;
+}
+
+.overview-card-desc {
+    font-size: 13px;
+    color: #94a3b8;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-word;
+    margin-top: 2px;
+}
+
+/* 9. Default Image Zoom & Lightbox (双击放大图片) */
+.slide img,
+figure img,
+[data-zoomable] {
+    cursor: zoom-in;
+}
+
+.img-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: rgba(8, 12, 24, 0.90);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    cursor: zoom-out;
+    padding: 50px 70px 60px;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+.img-lightbox.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.img-lightbox-frame {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.img-lightbox-img {
+    display: block;
+    max-width: 90vw;
+    max-height: 85vh;
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    transform: scale(0.94);
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: #0f172a;
+}
+
+.img-lightbox.open .img-lightbox-img {
+    transform: scale(1);
+}
+
+.img-lightbox-close,
+.img-lightbox-prev,
+.img-lightbox-next {
+    position: fixed;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(15, 23, 42, 0.65);
+    color: #e2e8f0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    font-family: inherit;
+    font-size: 20px;
+    line-height: 1;
+}
+
+.img-lightbox-close:hover,
+.img-lightbox-prev:hover,
+.img-lightbox-next:hover {
+    background: var(--accent, #38bdf8);
+    border-color: var(--accent, #38bdf8);
+    color: #042f2e;
+    transform: scale(1.08);
+}
+
+.img-lightbox-close {
+    top: 26px;
+    right: 32px;
+    font-size: 24px;
+}
+
+.img-lightbox-close:hover {
+    transform: rotate(90deg) scale(1.08);
+}
+
+.img-lightbox-prev,
+.img-lightbox-next {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.img-lightbox-prev:hover,
+.img-lightbox-next:hover {
+    transform: translateY(-50%) scale(1.08);
+}
+
+.img-lightbox-prev { left: 26px; }
+.img-lightbox-next { right: 26px; }
+
+.img-lightbox-counter {
+    position: fixed;
+    top: 30px;
+    left: 32px;
+    font-family: var(--font-mono, monospace);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: rgba(226, 232, 240, 0.9);
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    padding: 8px 16px;
+    border-radius: 999px;
+}
+
+.img-lightbox-hint {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(226, 232, 240, 0.65);
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    padding: 7px 18px;
+    border-radius: 999px;
+}
+
+/* 10. Print one fixed-size slide per page */
+@media print {
+    html,
+    body {
+        width: 1920px;
+        height: auto;
+        overflow: visible;
+        background: #fff;
+    }
+
+    .deck-viewport {
+        position: static;
+        overflow: visible;
+        background: #fff;
+    }
+
+    .deck-stage {
+        position: static;
+        width: auto;
+        height: auto;
+        transform: none !important;
+        background: none;
+    }
+
+    .slide {
+        position: relative;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        width: 1920px;
+        height: 1080px;
+        break-after: page;
+        page-break-after: always;
+    }
+
+    .slide:last-child {
+        break-after: auto;
+        page-break-after: auto;
+    }
+
+    .deck-controls,
+    .controls-bar,
+    .deck-overview {
+        display: none !important;
+    }
+}
+
+/* 10. Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.2s !important;
+    }
+}
+
+/* 11. Inline Icon & Badge Standard (图片/图标/序号徽章与标题单行同行并排规范) */
+.card-header,
+.b-card-header,
+.card-title-row,
+.feat-header,
+.step-header,
+.tier-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.card-header h3,
+.card-header h4,
+.b-card-header h3,
+.b-card-header h4,
+.card-title-row h3,
+.card-title-row h4,
+.feat-header h3,
+.step-header h3,
+.tier-header h3 {
+    margin: 0 !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.card-icon,
+.card-num-badge,
+.badge-inline,
+.icon-inline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-bottom: 0 !important;
+}

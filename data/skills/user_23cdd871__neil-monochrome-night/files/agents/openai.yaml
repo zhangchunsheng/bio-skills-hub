@@ -1,0 +1,4 @@
+interface:
+  display_name: "Neil Monochrome Night"
+  short_description: "9:16 atmospheric night-scene reconstruction"
+  default_prompt: "Use $neil-monochrome-night-v0-1 to rebuild this photo as a 9:16 industrial-haze night scene with complementary light, varied weather, source-matched visual weight, and an in-scene two-word neon phrase."

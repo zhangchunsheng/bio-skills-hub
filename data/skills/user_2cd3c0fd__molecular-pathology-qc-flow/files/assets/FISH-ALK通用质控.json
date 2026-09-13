@@ -1,0 +1,279 @@
+{
+  "$schema": "../references/qc-flow.schema.json",
+  "schema_version": "1.1",
+  "diagram": {
+    "name": "ALK重排FISH通用质控流程",
+    "id": "alk_fish_general_qc_flow",
+    "technology": "FISH",
+    "method": "ALK 分离探针法（具体产品待确认）",
+    "project": "ALK 重排",
+    "qc_stage": "切片至结果复核",
+    "stages": [
+      "样本与切片",
+      "预处理与杂交",
+      "信号质控",
+      "计数与结果判读"
+    ],
+    "sources": [
+      {
+        "id": "fda_alk_label",
+        "type": "regulatory",
+        "title": "FDA Vysis ALK FISH Labeling",
+        "version": "P110012 标签文件",
+        "last_verified": "2026-08-27",
+        "url": "https://www.accessdata.fda.gov/cdrh_docs/pdf11/P110012C.pdf",
+        "scope_note": "用于确认 FFPE 切片预处理、杂交、洗涤、DAPI、信号观察和对照等流程维度；具体判读规则仅适用于匹配产品标签。",
+        "evidence_status": "confirmed"
+      },
+      {
+        "id": "fda_alk_ssed",
+        "type": "regulatory",
+        "title": "FDA Vysis ALK FISH SSED",
+        "version": "P110012 SSED",
+        "last_verified": "2026-08-27",
+        "url": "https://www.accessdata.fda.gov/cdrh_docs/pdf11/P110012b.pdf",
+        "scope_note": "用于核实设备、对照和分析性能背景；不把产品截止值作为其他探针或实验室通用规则。",
+        "evidence_status": "confirmed"
+      }
+    ],
+    "layout": {
+      "mode": "swimlane",
+      "page_width": 1200,
+      "page_height": 1300,
+      "auto_size": true,
+      "show_source_note": true,
+      "center_x": 600,
+      "start_y": 40,
+      "level_gap": 140,
+      "lane_gap": 360,
+      "stage_gap": 24,
+      "margin": 40
+    }
+  },
+  "measurements": [
+    {
+      "id": "evaluable_nuclei",
+      "name": "可评估细胞核",
+      "unit": "个",
+      "description": "可用于信号计数的目标细胞核数量，具体要求按 IFU/SOP。",
+      "evidence_refs": [
+        "fda_alk_label"
+      ]
+    },
+    {
+      "id": "signal_pattern",
+      "name": "ALK 探针信号模式",
+      "unit": "模式与比例",
+      "description": "正常、分离或其他标签定义的信号模式；截止值待匹配 IFU 确认。",
+      "evidence_refs": [
+        "fda_alk_label",
+        "fda_alk_ssed"
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "label": "接收 ALK FISH 检测切片",
+      "stage": "样本与切片",
+      "evidence_refs": [
+        "fda_alk_label"
+      ]
+    },
+    {
+      "id": "section_check",
+      "type": "decision",
+      "label": "组织区域、切片及可评估细胞是否满足当前 SOP？",
+      "stage": "样本与切片",
+      "condition": {
+        "operator": "CUSTOM",
+        "expression": "依据样本类型、目标区域和切片要求判断可评估性",
+        "missing_policy": "manual_review"
+      },
+      "evidence_refs": [
+        "fda_alk_label"
+      ]
+    },
+    {
+      "id": "section_fail",
+      "type": "invalid",
+      "label": "切片不通过<br>重切、重新选区或退样",
+      "stage": "样本与切片",
+      "terminal_result": "invalid",
+      "evidence_refs": [
+        "fda_alk_label"
+      ]
+    },
+    {
+      "id": "hybridization",
+      "type": "process",
+      "label": "脱蜡与预处理 → 探针杂交 → 洗涤与 DAPI 复染",
+      "stage": "预处理与杂交",
+      "evidence_refs": [
+        "fda_alk_label"
+      ]
+    },
+    {
+      "id": "signal_check",
+      "type": "decision",
+      "label": "阳性/阴性对照及样本信号质量是否满足 IFU/SOP？",
+      "stage": "信号质控",
+      "condition": {
+        "operator": "CUSTOM",
+        "expression": "依据匹配探针 IFU 和实验室 SOP 判断对照、背景、信号及可计数性",
+        "missing_policy": "invalid"
+      },
+      "evidence_refs": [
+        "fda_alk_label",
+        "fda_alk_ssed"
+      ]
+    },
+    {
+      "id": "signal_fail",
+      "type": "invalid",
+      "label": "信号质控不通过<br>调查、重处理或重复杂交",
+      "stage": "信号质控",
+      "terminal_result": "invalid",
+      "evidence_refs": [
+        "fda_alk_label"
+      ]
+    },
+    {
+      "id": "counting",
+      "type": "process",
+      "label": "选择目标细胞并按当前 IFU/SOP 计数信号模式",
+      "stage": "计数与结果判读",
+      "evidence_refs": [
+        "fda_alk_label"
+      ]
+    },
+    {
+      "id": "interpretation_check",
+      "type": "decision",
+      "label": "计数、截止值及复核要求是否全部满足？",
+      "stage": "计数与结果判读",
+      "condition": {
+        "operator": "CUSTOM",
+        "expression": "依据当前探针 IFU、实验室验证和 SOP 执行计数及判读",
+        "missing_policy": "manual_review"
+      },
+      "evidence_refs": [
+        "fda_alk_label",
+        "fda_alk_ssed"
+      ]
+    },
+    {
+      "id": "manual_review",
+      "type": "end",
+      "label": "待人工处理<br>增加计数、第二阅片或重做",
+      "stage": "计数与结果判读",
+      "terminal_result": "manual_review",
+      "evidence_refs": [
+        "fda_alk_label"
+      ]
+    },
+    {
+      "id": "pass",
+      "type": "pass",
+      "label": "质控与复核完成<br>按项目规则报告结果",
+      "stage": "计数与结果判读",
+      "terminal_result": "pass",
+      "evidence_refs": [
+        "fda_alk_label"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "start",
+      "target": "section_check",
+      "label": "",
+      "branch": "next",
+      "evidence_refs": [
+        "fda_alk_label"
+      ]
+    },
+    {
+      "id": "e2",
+      "source": "section_check",
+      "target": "hybridization",
+      "label": "是",
+      "branch": "yes",
+      "evidence_refs": [
+        "fda_alk_label"
+      ]
+    },
+    {
+      "id": "e3",
+      "source": "section_check",
+      "target": "section_fail",
+      "label": "否",
+      "branch": "no",
+      "evidence_refs": [
+        "fda_alk_label"
+      ]
+    },
+    {
+      "id": "e4",
+      "source": "hybridization",
+      "target": "signal_check",
+      "label": "",
+      "branch": "next",
+      "evidence_refs": [
+        "fda_alk_label"
+      ]
+    },
+    {
+      "id": "e5",
+      "source": "signal_check",
+      "target": "counting",
+      "label": "是",
+      "branch": "yes",
+      "evidence_refs": [
+        "fda_alk_label"
+      ]
+    },
+    {
+      "id": "e6",
+      "source": "signal_check",
+      "target": "signal_fail",
+      "label": "否",
+      "branch": "no",
+      "evidence_refs": [
+        "fda_alk_label"
+      ]
+    },
+    {
+      "id": "e7",
+      "source": "counting",
+      "target": "interpretation_check",
+      "label": "",
+      "branch": "next",
+      "evidence_refs": [
+        "fda_alk_label"
+      ]
+    },
+    {
+      "id": "e8",
+      "source": "interpretation_check",
+      "target": "pass",
+      "label": "是",
+      "branch": "yes",
+      "evidence_refs": [
+        "fda_alk_label"
+      ]
+    },
+    {
+      "id": "e9",
+      "source": "interpretation_check",
+      "target": "manual_review",
+      "label": "否",
+      "branch": "no",
+      "evidence_refs": [
+        "fda_alk_label"
+      ]
+    }
+  ]
+}

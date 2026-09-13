@@ -1,0 +1,11 @@
+{
+  "name": "musk-perspective",
+  "slug": "musk-perspective",
+  "displayName": "马斯克思维操作系统",
+  "display_name_en": "Musk Thinking OS",
+  "version": "1.0.0",
+  "visibility": "public",
+  "pricing": "free",
+  "description_zh": "用马斯克的视角看世界：10 个心智模型、18 条决策启发式、伪语录防伪。遇到生意/工程/风险/组织问题，先算数、先查证，再下判断。",
+  "description_en": "Think like Elon Musk: 10 mental models, 18 decision heuristics, and a quote-forgery detector. For business/engineering/risk/org questions, compute first, then judge."
+}

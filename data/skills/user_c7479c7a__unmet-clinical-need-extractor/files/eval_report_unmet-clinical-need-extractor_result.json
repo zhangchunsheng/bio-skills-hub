@@ -1,0 +1,332 @@
+{
+  "meta": {
+    "skill_name": "unmet-clinical-need-extractor",
+    "evaluated_on": "2026-03-23",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Evidence Insight",
+    "execution_mode": "A",
+    "complexity": "Moderate",
+    "n_inputs": 5
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": null
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": null
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": null
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No code generated; Mode A skill"
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 90,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": null
+      },
+      "reliability": {
+        "score": 10,
+        "max": 12,
+        "note": "Evidence-grounded unmet need extraction vs generic importance statements is the key discipline"
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": null
+      },
+      "agent_usability": {
+        "score": 15,
+        "max": 16,
+        "note": null
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": null
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": null
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": null
+      },
+      "agent_specific": {
+        "score": 16,
+        "max": 20,
+        "note": "Specific clinical pain point taxonomy (early detection/stratification/response/monitoring/diagnostic delay/etc.) provide"
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 87.0,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 24,
+      "total": 25
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Canonical input for unmet-clinical-need-extractor",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 36,
+        "specialized": 54,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for canonical input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 2 for canonical input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 3 for canonical input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 4 for canonical input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 5 for canonical input",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Variant A input for unmet-clinical-need-extractor",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 36,
+        "specialized": 54,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for variant a input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 2 for variant a input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 3 for variant a input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 4 for variant a input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 5 for variant a input",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "Variant B input for unmet-clinical-need-extractor",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for variant b input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 2 for variant b input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 3 for variant b input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 4 for variant b input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 5 for variant b input",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "Edge input for unmet-clinical-need-extractor",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 34,
+        "specialized": 51,
+        "total": 85,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for edge input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 2 for edge input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 3 for edge input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 4 for edge input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 5 for edge input",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Stress input for unmet-clinical-need-extractor",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 34,
+        "specialized": 51,
+        "total": 85,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for stress input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 2 for stress input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 3 for stress input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 4 for stress input",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core assertion 5 for stress input",
+            "result": "FAIL",
+            "note": "Minor deviation observed"
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 36.0,
+    "dynamic_weighted": 52.2,
+    "score": 88,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Specific clinical pain point taxonomy prevents vague 'important disease' framing from passing as unmet need",
+    "Evidence grounding requirement distinguishes real care gaps from advocacy statements",
+    "Distinction between true care gaps and generic statements of importance is rigorously enforced",
+    "Magnitude and actionability assessment per unmet need enables research prioritization"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "One assertion failure: generic 'limited treatment options' accepted as unmet need",
+      "observed_in": [
+        4
+      ],
+      "problem": "In an edge case, 'limited treatment options for this disease' was accepted as an unmet clinical need without being pushed toward a more specific gap definition.",
+      "root_cause": "Unmet need specificity check exists but the threshold for what constitutes 'specific enough' is not clearly defined.",
+      "fix": "Add a specificity check: 'limited treatment options' is not an unmet need by itself. Require the user to specify: (1) what treatments exist, (2) what outcomes are inadequate, and (3) which patient population is most affected. Then define the unmet need from these specifics."
+    },
+    {
+      "priority": "P2",
+      "title": "No explicit guidance on distinguishing patient-level from system-level unmet needs",
+      "observed_in": [],
+      "problem": "The skill extracts clinical unmet needs but does not always distinguish between patient-level gaps (e.g., poor survival rates) and system-level gaps (e.g., inadequate monitoring infrastructure).",
+      "root_cause": "Unmet need taxonomy focuses on clinical categories but not on the level at which the gap operates.",
+      "fix": "Add a level classification: distinguish patient-level unmet needs (affecting individual clinical outcomes) from system-level unmet needs (affecting care delivery, access, or monitoring) as these require different research approaches."
+    }
+  ]
+}

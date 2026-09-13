@@ -1,0 +1,79 @@
+{
+  "name": "seedance-prompt-expert",
+  "version": "2.1.7",
+  "description": "Seedance 2.0 电影级AI视频提示词生成器（可执行代码技能）— 真实 Python 工具，集成八大行业模板、反模式过滤器、问题诊断引擎、多模态绑定组装器。",
+  "author": "团子 🦐 | 知灵技舍",
+  "license": "MIT",
+  "entry_point": "seedance.py",
+  "type": "executable-python",
+  "dependencies": {
+    "python": ">=3.8",
+    "packages": []
+  },
+  "keywords": [
+    "seedance",
+    "ai-video",
+    "prompt-engineering",
+    "cinematic",
+    "executable-skill",
+    "python",
+    "AI视频",
+    "电影级",
+    "提示词"
+  ],
+  "tags": [
+    "seedance",
+    "ai-video",
+    "prompt-engineering",
+    "executable-skill"
+  ],
+  "cli_commands": {
+    "template": "python3 seedance.py --template T1 --subject '主体'",
+    "custom": "python3 seedance.py --custom --subject '...' --scene '...' --style '...'",
+    "diagnose": "python3 seedance.py --diagnose '症状'",
+    "check": "python3 seedance.py --check '提示词'",
+    "list_templates": "python3 seedance.py --list-templates",
+    "list_diagnostics": "python3 seedance.py --list-diagnostics"
+  },
+  "target_model": {
+    "name": "Seedance",
+    "version": "2.1.7",
+    "capabilities": {
+      "max_duration_seconds": 60,
+      "max_resolution": "2K",
+      "lip_sync_accuracy": 0.924,
+      "stable_success_rate": 0.90,
+      "multi_shot_narrative": true,
+      "native_audio_sync": true
+    }
+  },
+  "methodology": {
+    "framework": "女娲四层建筑方法论",
+    "layers": {
+      "L1": "技术地基（画幅/帧率/质感/颗粒/暗角）",
+      "L2": "空间搭建（前景/中景/后景/构图）",
+      "L3": "光影设计（光源/色温/光质/阴影）",
+      "L4": "运动编排（镜头运动/主体动作/速度）"
+    }
+  },
+  "features": {
+    "prompt_generator": true,
+    "template_library": true,
+    "anti_pattern_filter": true,
+    "diagnosis_engine": true,
+    "multimodal_binding": true,
+    "boundary_check": true,
+    "cli": true,
+    "python_api": true
+  },
+  "templates": {
+    "T1": "电商产品展示",
+    "T2": "社交媒体治愈生活",
+    "T3": "科幻史诗场景",
+    "T4": "美食特写",
+    "T5": "运动潮流",
+    "T6": "音乐舞蹈MV",
+    "T7": "情感叙事微电影",
+    "T8": "国风古风"
+  }
+}

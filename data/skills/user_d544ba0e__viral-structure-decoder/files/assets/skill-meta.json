@@ -1,0 +1,13 @@
+{
+  "name": "viral-structure-decoder",
+  "displayName": "爆款内容结构逆向分析器",
+  "version": "1.4.0",
+  "entry": "SKILL.md",
+  "category": "content-creation",
+  "oneLiner": "粘贴爆款开头⚡结构速览：DNA一句+框架+弱点；五维拆解与空槽蓝图——教你写不替你写。",
+  "modes": ["full", "quick", "single", "retarget", "compare", "train", "coach", "scan-first"],
+  "promptNative": true,
+  "noGhostwriting": true,
+  "suggestedTemperature": 0.4,
+  "tags": ["爆款", "结构DNA", "钩子", "内容蓝图", "创作教育", "AstronClaw"]
+}

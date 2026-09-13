@@ -1,0 +1,118 @@
+{
+  "version": "1.0",
+  "reality_mode": "B",
+  "target_scope": "regional_original",
+  "as_of_date": "2026-07-14",
+  "coordinate_transform_note": "卫星正射采用CGCS2000；POI采用GCJ-02，只用于周边关系核验，已通过合规服务完成坐标转换，不直接叠加原始坐标。",
+  "sources": [
+    {
+      "id": "sat-01",
+      "source_type": "satellite",
+      "source_name": "授权的2026年区域正射卫星影像",
+      "capture_date": "2026-03-18",
+      "access_date": "2026-07-14",
+      "geographic_precision": "街区范围",
+      "coordinate_system": "CGCS2000",
+      "spatial_resolution": "0.8m全色等效产品",
+      "license_or_permission": "licensed_for_internal_analysis_and_derivative_prompting",
+      "supported_claims": [
+        "道路方向与街区尺度",
+        "建筑屋顶与覆盖密度",
+        "大型停车与开放空间"
+      ],
+      "unsupported_claims": [
+        "门头、店名和一层立面细节",
+        "人物身份、年龄和具体行为",
+        "室内布局、商品和设备",
+        "具体门店经营、营业状态、客流和销量"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "ground-01",
+      "source_type": "ground_photo",
+      "source_name": "用户确认可用于概念设计的同区域地面照片",
+      "capture_date": "2026-05-10",
+      "access_date": "2026-07-14",
+      "geographic_precision": "同街区同物业类型",
+      "coordinate_system": "N/A",
+      "spatial_resolution": "手机地面照片",
+      "license_or_permission": "user_confirmed_reuse_for_concept_generation",
+      "supported_claims": [
+        "首层门面宽度范围",
+        "人行道、雨棚、空调与停车方式",
+        "同物业类型的材料和维护状态"
+      ],
+      "unsupported_claims": [
+        "目标门店真实存在",
+        "真实店名与品牌",
+        "真实顾客身份和客流",
+        "目标室内精确布局"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "poi-01",
+      "source_type": "poi",
+      "source_name": "合规地图服务周边POI快照",
+      "capture_date": "2026-07-01",
+      "access_date": "2026-07-14",
+      "geographic_precision": "街区周边500米",
+      "coordinate_system": "GCJ-02",
+      "spatial_resolution": "POI点与道路关系",
+      "license_or_permission": "licensed_api_use_for_internal_location_analysis",
+      "supported_claims": [
+        "社区、便利店、洗衣店和公共交通的周边关系",
+        "道路等级与街区服务构成"
+      ],
+      "unsupported_claims": [
+        "完整客流与销量",
+        "具体门店实时营业状态",
+        "店内设备和人物"
+      ],
+      "confidence": "medium"
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim-macro-01",
+      "statement": "目标区域属于高密住宅街区，支路与连续底商建筑关系明确。",
+      "claim_level": "macro",
+      "status": "observed",
+      "source_ids": ["sat-01", "poi-01"],
+      "current_state": true
+    },
+    {
+      "id": "claim-ground-01",
+      "statement": "同物业类型常见窄人行道、深雨棚、电动车短停和外露空调。",
+      "claim_level": "ground",
+      "status": "observed",
+      "source_ids": ["ground-01"],
+      "current_state": true
+    },
+    {
+      "id": "claim-store-01",
+      "statement": "68㎡单开间宠物洗护店可采用右门左窗和前部等候、后部洗护的同类原创布局。",
+      "claim_level": "store",
+      "status": "inferred",
+      "source_ids": ["ground-01"],
+      "current_state": false
+    },
+    {
+      "id": "claim-people-01",
+      "statement": "人物为原创、非特定、不可识别的社区居民和骑手。",
+      "claim_level": "people",
+      "status": "original",
+      "source_ids": [],
+      "current_state": false
+    },
+    {
+      "id": "claim-interior-01",
+      "statement": "洗护台、吹水机、毛巾消毒柜和用品陈列为行业逻辑原创。",
+      "claim_level": "interior",
+      "status": "original",
+      "source_ids": [],
+      "current_state": false
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "医药商业成本毛利初筛"
+  short_description: "检查成本、报价和毛利假设是否自洽"
+  default_prompt: "Use $pharma-cost-margin-check for paid 医药商业 成本毛利初筛."

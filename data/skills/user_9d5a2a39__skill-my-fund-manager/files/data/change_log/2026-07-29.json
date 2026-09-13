@@ -1,0 +1,1071 @@
+{
+  "date": "2026-07-29",
+  "runs": [
+    {
+      "run_time": "2026-07-29 12:20",
+      "engine": "auto",
+      "managers": []
+    },
+    {
+      "run_time": "2026-07-29 12:00",
+      "engine": "auto",
+      "managers": []
+    },
+    {
+      "run_time": "2026-07-29 13:09",
+      "engine": "auto",
+      "managers": []
+    },
+    {
+      "run_time": "2026-07-29 13:10",
+      "engine": "auto",
+      "managers": [
+        {
+          "name": "某私募经理",
+          "manager_id": "amac_12345",
+          "changed": true,
+          "reasons": [
+            "私募经理直接更新"
+          ]
+        },
+        {
+          "name": "第101个经理",
+          "manager_id": "99999",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "甲",
+          "manager_id": "1",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "乙",
+          "manager_id": "2",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "存在经理",
+          "manager_id": "exists_id",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M0",
+          "manager_id": "0",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M3",
+          "manager_id": "3",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M4",
+          "manager_id": "4",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M5",
+          "manager_id": "5",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M6",
+          "manager_id": "6",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M7",
+          "manager_id": "7",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M8",
+          "manager_id": "8",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M9",
+          "manager_id": "9",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M10",
+          "manager_id": "10",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M11",
+          "manager_id": "11",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M12",
+          "manager_id": "12",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M13",
+          "manager_id": "13",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M14",
+          "manager_id": "14",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M15",
+          "manager_id": "15",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M16",
+          "manager_id": "16",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M17",
+          "manager_id": "17",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M18",
+          "manager_id": "18",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M19",
+          "manager_id": "19",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M20",
+          "manager_id": "20",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M21",
+          "manager_id": "21",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M22",
+          "manager_id": "22",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M23",
+          "manager_id": "23",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M24",
+          "manager_id": "24",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M25",
+          "manager_id": "25",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M26",
+          "manager_id": "26",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M27",
+          "manager_id": "27",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M28",
+          "manager_id": "28",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M29",
+          "manager_id": "29",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M30",
+          "manager_id": "30",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M31",
+          "manager_id": "31",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M32",
+          "manager_id": "32",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M33",
+          "manager_id": "33",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M34",
+          "manager_id": "34",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M35",
+          "manager_id": "35",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M36",
+          "manager_id": "36",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M37",
+          "manager_id": "37",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M38",
+          "manager_id": "38",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M39",
+          "manager_id": "39",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M40",
+          "manager_id": "40",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M41",
+          "manager_id": "41",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M42",
+          "manager_id": "42",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M43",
+          "manager_id": "43",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M44",
+          "manager_id": "44",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M45",
+          "manager_id": "45",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M46",
+          "manager_id": "46",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M47",
+          "manager_id": "47",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M48",
+          "manager_id": "48",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M49",
+          "manager_id": "49",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M50",
+          "manager_id": "50",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M51",
+          "manager_id": "51",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M52",
+          "manager_id": "52",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M53",
+          "manager_id": "53",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M54",
+          "manager_id": "54",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M55",
+          "manager_id": "55",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M56",
+          "manager_id": "56",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M57",
+          "manager_id": "57",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M58",
+          "manager_id": "58",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M59",
+          "manager_id": "59",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M60",
+          "manager_id": "60",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M61",
+          "manager_id": "61",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M62",
+          "manager_id": "62",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M63",
+          "manager_id": "63",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M64",
+          "manager_id": "64",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M65",
+          "manager_id": "65",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M66",
+          "manager_id": "66",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M67",
+          "manager_id": "67",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M68",
+          "manager_id": "68",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M69",
+          "manager_id": "69",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M70",
+          "manager_id": "70",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M71",
+          "manager_id": "71",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M72",
+          "manager_id": "72",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M73",
+          "manager_id": "73",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M74",
+          "manager_id": "74",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M75",
+          "manager_id": "75",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M76",
+          "manager_id": "76",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M77",
+          "manager_id": "77",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M78",
+          "manager_id": "78",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M79",
+          "manager_id": "79",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M80",
+          "manager_id": "80",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M81",
+          "manager_id": "81",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M82",
+          "manager_id": "82",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M83",
+          "manager_id": "83",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M84",
+          "manager_id": "84",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M85",
+          "manager_id": "85",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M86",
+          "manager_id": "86",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M87",
+          "manager_id": "87",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M88",
+          "manager_id": "88",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M89",
+          "manager_id": "89",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M90",
+          "manager_id": "90",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M91",
+          "manager_id": "91",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M92",
+          "manager_id": "92",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M93",
+          "manager_id": "93",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "M94",
+          "manager_id": "94",
+          "changed": false,
+          "reasons": []
+        }
+      ]
+    },
+    {
+      "run_time": "2026-07-29 13:11",
+      "engine": "auto",
+      "managers": []
+    },
+    {
+      "run_time": "2026-07-29 13:11",
+      "engine": "auto",
+      "managers": []
+    },
+    {
+      "run_time": "2026-07-29 13:11",
+      "engine": "auto",
+      "managers": []
+    },
+    {
+      "run_time": "2026-07-29 13:12",
+      "engine": "auto",
+      "managers": []
+    },
+    {
+      "run_time": "2026-07-29 13:12",
+      "engine": "auto",
+      "managers": []
+    },
+    {
+      "run_time": "2026-07-29 13:12",
+      "engine": "auto",
+      "managers": []
+    },
+    {
+      "run_time": "2026-07-29 13:12",
+      "engine": "auto",
+      "managers": []
+    },
+    {
+      "run_time": "2026-07-29 13:13",
+      "engine": "auto",
+      "managers": []
+    },
+    {
+      "run_time": "2026-07-29 13:13",
+      "engine": "auto",
+      "managers": []
+    },
+    {
+      "run_time": "2026-07-29 13:13",
+      "engine": "auto",
+      "managers": []
+    },
+    {
+      "run_time": "2026-07-29 13:15",
+      "engine": "auto",
+      "managers": []
+    },
+    {
+      "run_time": "2026-07-29 13:16",
+      "engine": "auto",
+      "managers": []
+    },
+    {
+      "run_time": "2026-07-29 13:16",
+      "engine": "auto",
+      "managers": []
+    },
+    {
+      "run_time": "2026-07-29 13:16",
+      "engine": "auto",
+      "managers": []
+    },
+    {
+      "run_time": "2026-07-29 13:16",
+      "engine": "auto",
+      "managers": []
+    },
+    {
+      "run_time": "2026-07-29 13:16",
+      "engine": "auto",
+      "managers": []
+    },
+    {
+      "run_time": "2026-07-29 13:17",
+      "engine": "auto",
+      "managers": []
+    },
+    {
+      "run_time": "2026-07-29 16:50",
+      "engine": "auto",
+      "managers": [
+        {
+          "name": "刘彦春",
+          "manager_id": "30042957",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "葛兰",
+          "manager_id": "30324814",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "朱少醒",
+          "manager_id": "30040544",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "傅鹏博",
+          "manager_id": "30048332",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "谢治宇",
+          "manager_id": "30198031",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "周蔚",
+          "manager_id": "30040539",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "王崇",
+          "manager_id": "30301239",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "李晓星",
+          "manager_id": "30358212",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "乔迁",
+          "manager_id": "30544882",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "杨锐文",
+          "manager_id": "30301688",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "刘格菘",
+          "manager_id": "30201494",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "曲扬",
+          "manager_id": "30198132",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "杜猛",
+          "manager_id": "30074106",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "归凯",
+          "manager_id": "30435557",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "杨瑨",
+          "manager_id": "30521043",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "王培",
+          "manager_id": "30073914",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "唐晓斌",
+          "manager_id": "30062778",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "陆彬",
+          "manager_id": "30671187",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "何帅",
+          "manager_id": "30358211",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "张峰",
+          "manager_id": "30070935",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "胡涛",
+          "manager_id": "30666580",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "郑澄",
+          "manager_id": "30699974",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "邓晓峰",
+          "manager_id": "amac_101000002641",
+          "changed": true,
+          "reasons": [
+            "私募经理直接更新"
+          ]
+        },
+        {
+          "name": "蒋彤",
+          "manager_id": "amac_101000000211",
+          "changed": true,
+          "reasons": [
+            "私募经理直接更新"
+          ]
+        },
+        {
+          "name": "裘国根",
+          "manager_id": "amac_101000000194",
+          "changed": true,
+          "reasons": [
+            "私募经理直接更新"
+          ]
+        },
+        {
+          "name": "但斌",
+          "manager_id": "amac_101000000224",
+          "changed": true,
+          "reasons": [
+            "私募经理直接更新"
+          ]
+        },
+        {
+          "name": "林园",
+          "manager_id": "amac_101000003102",
+          "changed": true,
+          "reasons": [
+            "私募经理直接更新"
+          ]
+        },
+        {
+          "name": "杨振宁",
+          "manager_id": "amac_1801171633100737",
+          "changed": true,
+          "reasons": [
+            "私募经理直接更新"
+          ]
+        },
+        {
+          "name": "庄涛",
+          "manager_id": "amac_101000074348",
+          "changed": true,
+          "reasons": [
+            "私募经理直接更新"
+          ]
+        },
+        {
+          "name": "韩广斌",
+          "manager_id": "amac_101000001922",
+          "changed": true,
+          "reasons": [
+            "私募经理直接更新"
+          ]
+        },
+        {
+          "name": "王亚伟",
+          "manager_id": "amac_101000001762",
+          "changed": true,
+          "reasons": [
+            "私募经理直接更新"
+          ]
+        },
+        {
+          "name": "李驰",
+          "manager_id": "amac_101000005779",
+          "changed": true,
+          "reasons": [
+            "私募经理直接更新"
+          ]
+        },
+        {
+          "name": "石波",
+          "manager_id": "amac_101000000578",
+          "changed": true,
+          "reasons": [
+            "私募经理直接更新"
+          ]
+        },
+        {
+          "name": "裘慧明",
+          "manager_id": "amac_101000006882",
+          "changed": true,
+          "reasons": [
+            "私募经理直接更新"
+          ]
+        },
+        {
+          "name": "卓利军",
+          "manager_id": "amac_101000003017",
+          "changed": true,
+          "reasons": [
+            "私募经理直接更新"
+          ]
+        },
+        {
+          "name": "王强",
+          "manager_id": "amac_101000030760",
+          "changed": true,
+          "reasons": [
+            "私募经理直接更新"
+          ]
+        },
+        {
+          "name": "李彦",
+          "manager_id": "30702919",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "张军",
+          "manager_id": "30043326",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "张金涛",
+          "manager_id": "30430383",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "柳军",
+          "manager_id": "30050008",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "曹璐迪",
+          "manager_id": "30700110",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "许之彦",
+          "manager_id": "30044485",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "张弘弢",
+          "manager_id": "30201042",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "劳杰男",
+          "manager_id": "30354709",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "胡剑",
+          "manager_id": "30159168",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "李瑞",
+          "manager_id": "30564304",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "邢军亮",
+          "manager_id": "30740011",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "赵蓓",
+          "manager_id": "30301680",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "韩创",
+          "manager_id": "30647388",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "冯明远",
+          "manager_id": "30066552",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "杨宗昌",
+          "manager_id": "30665624",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "范妍",
+          "manager_id": "30072426",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "钟帅",
+          "manager_id": "30709105",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "杨金金",
+          "manager_id": "30698430",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "万方方",
+          "manager_id": "30710473",
+          "changed": false,
+          "reasons": []
+        },
+        {
+          "name": "邹立虎",
+          "manager_id": "30171966",
+          "changed": false,
+          "reasons": []
+        }
+      ]
+    }
+  ]
+}

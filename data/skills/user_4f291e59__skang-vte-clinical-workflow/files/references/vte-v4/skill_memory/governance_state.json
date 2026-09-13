@@ -1,0 +1,13 @@
+{
+  "version": "4.0",
+  "last_governance_date": "",
+  "total_interactions": 0,
+  "interactions_since_governance": 0,
+  "governance_threshold": 20,
+  "branch_stats": {
+    "general": { "count": 0, "max": 50 },
+    "task_vte": { "count": 0, "max": 50 },
+    "action_tools": { "count": 0, "max": 50 }
+  },
+  "next_governance_trigger": "interaction 20"
+}

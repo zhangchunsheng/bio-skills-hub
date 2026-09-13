@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Spatial transcriptomics deconvolution">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f766e"/>
+      <stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
+  <g fill="#fff" opacity=".95">
+    <circle cx="34" cy="34" r="9"/><circle cx="64" cy="27" r="9"/><circle cx="94" cy="40" r="9"/>
+    <circle cx="27" cy="69" r="9"/><circle cx="58" cy="61" r="9"/><circle cx="91" cy="72" r="9"/>
+    <circle cx="42" cy="97" r="9"/><circle cx="75" cy="96" r="9"/>
+  </g>
+  <g stroke="#bfdbfe" stroke-width="4" fill="none" stroke-linecap="round">
+    <path d="M34 34 58 61 94 40M27 69l31-8 33 11M42 97l16-36 17 35"/>
+  </g>
+  <path d="M58 61c9-13 21-16 36-21" stroke="#fef08a" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <circle cx="58" cy="61" r="5" fill="#fef08a"/>
+</svg>

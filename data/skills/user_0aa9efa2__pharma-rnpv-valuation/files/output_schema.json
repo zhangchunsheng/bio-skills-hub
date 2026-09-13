@@ -1,0 +1,297 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://priced-in/output_schema.json",
+  "title": "priced-in 输出契约 (reverse DCF 双读数)",
+  "description": "priced-in reverse DCF 双读数输出的结构化契约。强制包含:严格的计算过程(公式+步骤+敏感性,每步带解释)、核心假设(数值/来源/置信度/T级别/错了的影响)、承担的风险(概率/影响/什么被破坏)。LLM 填假设与解释,所有 CAGR 由 calc_script 计算非手算(算术代码化纪律)。",
+  "type": "object",
+  "required": ["metadata", "baseline", "calculation_process", "core_assumptions", "risks", "reality_anchor", "verdict", "operation_signal"],
+  "additionalProperties": false,
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["ticker", "name", "date", "current_price", "market_cap_yi", "currency", "method"],
+      "additionalProperties": false,
+      "properties": {
+        "ticker": {"type": "string"},
+        "name": {"type": "string"},
+        "date": {"type": "string", "format": "date"},
+        "current_price": {"type": "number", "minimum": 0},
+        "market_cap_yi": {"type": "number", "description": "市值,单位亿"},
+        "currency": {"type": "string"},
+        "method": {"type": "string", "description": "人类可读方法描述(自由文本)。路由判读不用本字段,用 asset_class。"},
+        "asset_class": {"type": "string", "enum": ["semiconductor", "pharma", "other"], "description": "路由键(决定走半导体/医药模板,#1 s_curve 强制以此为准)。缺失时 validate fallback 到 method 子串。"},
+        "framework_migration": {"type": "string", "description": "非本流水线产出时注明来源框架,正常产出必须省略(validate lint 强制)"},
+        "version": {"type": "integer", "description": "重审版本号(首版=1,每次重审+1)。v3 修订"},
+        "supersedes": {"type": "string", "description": "被本次重审取代的旧版日期(YYYY-MM-DD),首版省略。v3 修订"}
+      }
+    },
+    "baseline": {
+      "type": "object",
+      "required": ["pe_ttm", "pe_current", "financials", "consensus", "capital_structure", "cycle_position"],
+      "additionalProperties": false,
+      "properties": {
+        "pe_ttm": {"type": "number", "description": "PE(TTM),yahoo trailingPE 等"},
+        "pe_current": {"type": "number", "description": "当前PE = 市值/FY25归母"},
+        "financials": {
+          "type": "object",
+          "required": ["fy25_net_income_yi", "fy25_eps", "fy25_ni_yoy", "source"],
+          "additionalProperties": false,
+          "properties": {
+            "fy25_net_income_yi": {"type": "number", "description": "FY25归母净利,亿"},
+            "fy25_eps": {"type": "number"},
+            "fy25_ni_yoy": {"type": "number", "description": "同比,小数"},
+            "source": {"type": "string"}
+          }
+        },
+        "consensus": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "required": ["year", "eps", "net_income_yi", "pe_at_current", "source"],
+            "additionalProperties": false,
+            "properties": {
+              "year": {"type": "string"},
+              "eps": {"type": "number"},
+              "net_income_yi": {"type": "number"},
+              "pe_at_current": {"type": "number", "description": "当前价对应PE"},
+              "source": {"type": "string"}
+            }
+          }
+        },
+        "capital_structure": {
+          "type": "object",
+          "required": ["net_debt_yi", "fcf_yi", "roe", "source"],
+          "additionalProperties": false,
+          "properties": {
+            "net_debt_yi": {"type": "number"},
+            "fcf_yi": {"type": "number"},
+            "roe": {"type": "number", "description": "小数"},
+            "source": {"type": "string", "description": "来源;[未验证-估算] 须显式标注"}
+          }
+        },
+        "cycle_position": {
+          "type": "object",
+          "description": "周期位置(reverse-implied §八硬要求:周期峰顶市值虚高,须标注当前周期位置)",
+          "required": ["current", "rationale"],
+          "additionalProperties": false,
+          "properties": {
+            "current": {"type": "string", "description": "扩产高峰/mid-cycle/底部/周期峰顶等定性位置"},
+            "normalized_mc_yi": {"type": "number", "description": "normalized市值(亿),周期调整后;可选"},
+            "rationale": {"type": "string"}
+          }
+        },
+        "s_curve": {
+          "type": "object",
+          "description": "S曲线位置(国产替代/技术渗透阶段;与cycle_position周期位置正交:S曲线=渗透率增长阶段,周期=价格/库存周期)。半导体标的必填(validate层强制),Phase2升级全局required",
+          "required": ["position", "adjusted_anchor", "lambda_option", "rationale"],
+          "additionalProperties": false,
+          "properties": {
+            "position": {"type": "string", "enum": ["0-1突破", "1-10放量", "10-100成熟", "过渡/不确定"]},
+            "penetration_rate": {"type": ["number", "null"], "description": "国产替代渗透率/份额%(T4标[未验证-估算];未量化时null或省略)"},
+            "adjusted_anchor": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number"}, "description": "source of truth:按S曲线调整后的现实锚[CAGR下界,上界];0-1:0.20-0.25/1-10:0.15-0.18/10-100:0.08-0.12;过渡态取相邻档区间"},
+            "lambda_option": {"type": "string", "enum": ["启用", "降级方向陈述", "分部启用"], "description": "0-1临界+读数A核心CAGR≤调整锚上界才启用;否则降级;conglomerate任一0-1分部启用时整体标'分部启用'"},
+            "confidence": {"type": "string", "enum": ["高", "中", "低"], "description": "S曲线位置判断置信度;T4渗透率不确定标低;默认中"},
+            "segments": {
+              "type": "array",
+              "description": "conglomerate SOTP分部;各分部独立position/锚;整体adjusted_anchor按weight区间端点加权=[Σ(下界×w),Σ(上界×w)];空数组视同无segments(v1兼容)",
+              "items": {
+                "type": "object",
+                "required": ["segment", "position", "adjusted_anchor", "weight"],
+                "additionalProperties": false,
+                "properties": {
+                  "segment": {"type": "string"},
+                  "position": {"type": "string", "enum": ["0-1突破", "1-10放量", "10-100成熟", "过渡/不确定"]},
+                  "penetration_rate": {"type": ["number", "null"], "description": "分部渗透率/份额%"},
+                  "adjusted_anchor": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number"}, "description": "分部调整锚[CAGR下,上]"},
+                  "weight": {"type": "number", "minimum": 0, "maximum": 1, "description": "分部市值占比,0-1,各分部和≤1"},
+                  "lambda_option": {"type": "string", "enum": ["启用", "降级方向陈述"], "description": "分部级:本分部是否启用λ;'分部启用'仅父级用(整体多分部混合)。"}
+                }
+              }
+            },
+            "rationale": {"type": "string"}
+          }
+        }
+      }
+    },
+    "calculation_process": {
+      "type": "object",
+      "description": "严格的计算过程,每步带公式+输入+输出+解释",
+      "required": ["method", "formula", "parameters", "steps", "sensitivity", "calc_script", "arithmetic_discipline"],
+      "additionalProperties": false,
+      "properties": {
+        "method": {"type": "string"},
+        "formula": {
+          "type": "object",
+          "required": ["expression", "explanation"],
+          "additionalProperties": false,
+          "properties": {
+            "expression": {"type": "string"},
+            "explanation": {"type": "string", "description": "公式口径说明(如equity口径/净现金已内含)"}
+          }
+        },
+        "parameters": {
+          "type": "object",
+          "required": ["irr", "horizon_years", "fv_factor"],
+          "additionalProperties": false,
+          "properties": {
+            "irr": {"type": "number"},
+            "horizon_years": {"type": "integer"},
+            "fv_factor": {"type": "number", "description": "(1+IRR)^horizon"}
+          }
+        },
+        "steps": {
+          "type": "array",
+          "minItems": 2,
+          "description": "每个读数的计算步骤(读数A严苛 + 读数B宽松,至少2个)",
+          "items": {
+            "type": "object",
+            "required": ["reading", "label", "exit_pe", "pe_rationale", "ni_10y_yi", "base_cases", "core_cagr", "core_base"],
+            "additionalProperties": false,
+            "properties": {
+              "reading": {"type": "string", "enum": ["A", "B", "C"]},
+              "label": {"type": "string"},
+              "exit_pe": {"type": "number"},
+              "pe_rationale": {"type": "string", "description": "退出PE选取理由"},
+              "ni_10y_yi": {"type": "number", "description": "10年后净利,亿"},
+              "base_cases": {
+                "type": "array",
+                "minItems": 3,
+                "description": "基准净利区间制:下限FY25实际/中位当年共识/上限远期共识(强制三档纪律)",
+                "items": {
+                  "type": "object",
+                  "required": ["base", "base_ni_yi", "implied_cagr", "source", "interpretation"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "base": {"type": "string"},
+                    "base_ni_yi": {"type": "number"},
+                    "implied_cagr": {"type": "number", "description": "隐含CAGR,小数"},
+                    "source": {"type": "string"},
+                    "interpretation": {"type": "string", "description": "vs现实锚的判读"}
+                  }
+                }
+              },
+              "core_cagr": {"type": "number", "description": "核心CAGR(通常from当年共识),小数"},
+              "core_base": {"type": "string"}
+            }
+          }
+        },
+        "sensitivity": {
+          "type": "array",
+          "description": "WACC/PE/NI 多轴敏感性;axis+axis_values让results可机器判读(避免口径矛盾)",
+          "items": {
+            "type": "object",
+            "required": ["test", "axis", "axis_values", "results", "conclusion"],
+            "additionalProperties": false,
+            "properties": {
+              "test": {"type": "string"},
+              "axis": {"type": "string", "description": "自变量名如 IRR/退出PE/基准净利"},
+              "axis_values": {"type": "array", "items": {"type": "number"}, "description": "对应results各值的自变量取值,长度须与results一致"},
+              "results": {"type": "array", "items": {"type": "number"}},
+              "conclusion": {"type": "string"}
+            }
+          }
+        },
+        "calc_script": {"type": "string", "description": "计算脚本路径,所有CAGR由此脚本算得,可复现"},
+        "arithmetic_discipline": {"type": "string", "description": "算术代码化声明:LLM不手算CAGR"}
+      }
+    },
+    "core_assumptions": {
+      "type": "array",
+      "minItems": 3,
+      "description": "核心假设清单,每个标注数值/来源/置信度/T级别/错了的影响",
+      "items": {
+        "type": "object",
+        "required": ["name", "value", "source", "confidence", "t_level", "if_wrong"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {"type": "string"},
+          "value": {"type": "string"},
+          "source": {"type": "string"},
+          "confidence": {"type": "string", "enum": ["高", "中", "低"]},
+          "t_level": {"type": "string", "description": "T1-T4,允许复合如 T1(基准)/T2-3(现实锚)"},
+          "adjustment_rationale": {"type": "string"},
+          "if_wrong": {"type": "string", "description": "假设错了的影响", "maxLength": 500}
+        }
+      }
+    },
+    "risks": {
+      "type": "array",
+      "minItems": 3,
+      "description": "承担的风险清单",
+      "items": {
+        "type": "object",
+        "required": ["name", "probability", "impact", "what_breaks"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {"type": "string"},
+          "probability": {"type": "string", "enum": ["高", "中", "低"]},
+          "impact": {"type": "string", "enum": ["高", "中", "低"]},
+          "what_breaks": {"type": "string", "description": "风险兑现时什么假设被破坏"},
+          "timeline": {"type": "string"},
+          "mitigation": {"type": "string"}
+        }
+      }
+    },
+    "reality_anchor": {
+      "type": "object",
+      "required": ["cagr_range", "midpoint", "rationale", "implied_vs_anchor"],
+      "additionalProperties": false,
+      "properties": {
+        "cagr_range": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number"}, "description": "现实锚CAGR[下界,上界];半导体标的须=s_curve.adjusted_anchor(validate硬检查)"},
+        "midpoint": {"type": "number"},
+        "rationale": {"type": "string"},
+        "implied_vs_anchor": {"type": "string", "enum": ["落入区间", "高于上界", "低于下界"]},
+        "anchor_uncertainty": {"type": "string"}
+      }
+    },
+    "verdict": {
+      "type": "object",
+      "required": ["judgment", "rationale", "robustness"],
+      "additionalProperties": false,
+      "properties": {
+        "judgment": {"type": "string"},
+        "rationale": {"type": "string"},
+        "robustness": {"type": "string", "description": "敏感性下是否翻转"}
+      }
+    },
+    "operation_signal": {
+      "type": "object",
+      "required": ["action", "current_price_in_trigger", "trigger_zone", "better_entry", "position_advice"],
+      "additionalProperties": false,
+      "properties": {
+        "action": {"type": "string", "description": "操作信号。建议标准值:买入/加仓/持有/减仓/观察/回避(validate warning 若偏离,不阻断历史自由文本)。"},
+        "current_price_in_trigger": {"type": "boolean"},
+        "trigger_zone": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number"}},
+        "price_to_cagr_map": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["price", "cagr", "label"],
+            "additionalProperties": false,
+            "properties": {
+              "price": {"type": "number"},
+              "cagr": {"type": "number"},
+              "label": {"type": "string"}
+            }
+          }
+        },
+        "better_entry": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number"}},
+        "position_advice": {"type": "string"},
+        "catalysts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["date", "event", "impact"],
+            "additionalProperties": false,
+            "properties": {
+              "date": {"type": "string"},
+              "event": {"type": "string"},
+              "impact": {"type": "string"}
+            }
+          }
+        }
+      }
+    }
+  }
+}

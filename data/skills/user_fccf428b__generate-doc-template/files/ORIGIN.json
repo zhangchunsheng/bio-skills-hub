@@ -1,0 +1,17 @@
+{
+  "schema": "jianshi-skill-origin/v1",
+  "sourceRepo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "sourcePath": "plugins/design/brand-forge/skills/generate-doc-template/SKILL.md",
+  "sourceCommit": "5985bf3259d3cacf75175f8e5512b0c1d6e29998",
+  "sourceUrl": "https://github.com/jeremylongshore/claude-code-plugins-plus-skills/blob/5985bf3259d3cacf75175f8e5512b0c1d6e29998/plugins/design/brand-forge/skills/generate-doc-template/SKILL.md",
+  "license": "MIT",
+  "licenseFile": "LICENSE.md",
+  "sourceBodySha256": "96f99bba0e89b67bdde6b7b7176d666461942f42092417aceec1c6fa29ab3917",
+  "modifications": [
+    "使用新的语义化英文 slug 形成独立发布对象",
+    "增加中国业务场景中文展示名与摘要",
+    "增加 agents/openai.yaml",
+    "增加每次回复帮助标准块",
+    "保留原能力边界、许可证和来源记录"
+  ]
+}

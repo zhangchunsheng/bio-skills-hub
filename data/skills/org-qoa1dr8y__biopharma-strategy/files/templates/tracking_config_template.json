@@ -1,0 +1,34 @@
+{
+  "company": "公司中文名",
+  "company_en": "English Name",
+  "cde_company": "CDE查询用公司名（可用简称，如\"信达\"）",
+  "ticker": "00000.HK",
+  "description": "公司描述 + 股价驱动类型（临床数据读出型 / 获批型 / 两者兼有）。判断追踪价值先看有没有重磅创新药（first-in-class/大适应症）。",
+  "updated": "YYYY-MM-DD",
+  "pipeline_molecules": [
+    {
+      "name_cn": "中文名",
+      "name_en": "INN英文通用名",
+      "code": "研发代号（如 AK112）",
+      "brand_cn": "中国商品名",
+      "brand_eu": "欧盟/海外商品名（EMA/FDA匹配用英文，没有则留空）",
+      "type": "创新药 / 生物类似药",
+      "note": "机制+适应症+临床阶段"
+    }
+  ],
+  "bd_partners": [
+    {
+      "name_cn": "合作方中文名",
+      "name_en": "合作方英文名",
+      "ticker": "美股代码（如果是美股，SEC 8-K 源有效；非美股则无效）",
+      "region": "合作区域",
+      "deal": "交易内容+金额"
+    }
+  ],
+  "watch_keywords": [
+    "英文INN",
+    "研发代号",
+    "试验代号（如 HARMONi）",
+    "商品名英文"
+  ]
+}

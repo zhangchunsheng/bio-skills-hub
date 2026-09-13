@@ -1,0 +1,4 @@
+interface:
+  display_name: "品牌文档与演示模板生成｜简诗 AI"
+  short_description: "Generates on-brand document and deck templates — letterhead, slide, and"
+  default_prompt: "使用 $generate-doc-template 完成“品牌文档与演示模板生成”任务。"

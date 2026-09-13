@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{DIAGNOSIS}} - 治疗路径时序线图</title>
+<style>
+  :root {
+    --primary: #0B7A75;
+    --primary-light: #F0F9F8;
+    --medical: #2B6CB0;
+    --nursing: #C05621;
+    --pharm: #B83280;
+    --drug: #2C7A7B;
+    --border: #E2E8F0;
+    --text: #2D3748;
+    --text-light: #718096;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    background: #F7FAFC;
+    color: var(--text);
+    padding: 2rem;
+  }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    overflow: hidden;
+  }
+  .header {
+    background: linear-gradient(135deg, var(--primary), #0D9488);
+    color: #fff;
+    padding: 1.5rem 2rem;
+  }
+  .header h1 { font-size: 1.5rem; font-weight: 600; }
+  .header .meta { font-size: .875rem; opacity: .85; margin-top: .5rem; }
+  .legend {
+    display: flex; gap: 1.5rem; padding: 1rem 2rem;
+    border-bottom: 1px solid var(--border); flex-wrap: wrap;
+  }
+  .legend-item { display: flex; align-items: center; gap: .5rem; font-size: .8rem; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+  .legend-dot.medical { background: var(--medical); }
+  .legend-dot.nursing { background: var(--nursing); }
+  .legend-dot.pharm { background: var(--pharm); box-shadow: 0 0 0 3px rgba(184,50,128,.3); }
+  .legend-dot.drug { background: var(--drug); }
+  .timeline { padding: 2rem; overflow-x: auto; }
+  .timeline table {
+    width: 100%; border-collapse: collapse; min-width: 800px;
+  }
+  .timeline th {
+    background: var(--primary-light);
+    color: var(--primary);
+    padding: .75rem .5rem;
+    font-size: .8rem; font-weight: 600;
+    border: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .timeline th.current { background: var(--primary); color: #fff; }
+  .timeline td {
+    padding: .6rem .5rem; font-size: .8rem;
+    border: 1px solid var(--border); vertical-align: top;
+    line-height: 1.5;
+  }
+  .timeline td.category {
+    font-weight: 600; background: #F7FAFC;
+    white-space: nowrap; width: 80px;
+  }
+  .timeline .row-medical .category { color: var(--medical); }
+  .timeline .row-nursing .category { color: var(--nursing); }
+  .timeline .row-pharm .category { background: rgba(184,50,128,.08); color: var(--pharm); }
+  .timeline .row-drug .category { color: var(--drug); }
+  .highlight { background: rgba(11,122,117,.1); font-weight: 600; color: var(--primary); }
+  .tag { display: inline-block; padding: 2px 6px; border-radius: 4px; font-size: .7rem; }
+  .tag-crit { background: #FED7D7; color: #C53030; }
+  .tag-warn { background: #FEFCBF; color: #975A16; }
+  .tag-info { background: #BEE3F8; color: #2A4365; }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .container { box-shadow: none; border-radius: 0; }
+    .timeline { overflow: visible; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>{{DIAGNOSIS}} - 治疗路径时序线图</h1>
+    <div class="meta">版本 {{VERSION}} | 生成日期 {{DATE}} | 依据指南 {{GUIDELINE}}</div>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot medical"></span> 诊疗行为</div>
+    <div class="legend-item"><span class="legend-dot nursing"></span> 护理操作</div>
+    <div class="legend-item"><span class="legend-dot pharm"></span> ★ 药学监护节点</div>
+    <div class="legend-item"><span class="legend-dot drug"></span> 用药节点</div>
+  </div>
+  <div class="timeline">
+    <table>
+      <thead>
+        <tr>
+          <th>类别</th>
+          <!-- 时间节点动态生成 -->
+          {{TIMELINE_HEADERS}}
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 诊疗行为行 -->
+        <tr class="row-medical">
+          <td class="category">诊疗</td>
+          {{MEDICAL_ACTIONS}}
+        </tr>
+        <!-- 护理操作行 -->
+        <tr class="row-nursing">
+          <td class="category">护理</td>
+          {{NURSING_ACTIONS}}
+        </tr>
+        <!-- 用药节点行 -->
+        <tr class="row-drug">
+          <td class="category">用药</td>
+          {{DRUG_ACTIONS}}
+        </tr>
+        <!-- 药学监护行 -->
+        <tr class="row-pharm">
+          <td class="category">★ 药学监护</td>
+          {{PHARM_ACTIONS}}
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>

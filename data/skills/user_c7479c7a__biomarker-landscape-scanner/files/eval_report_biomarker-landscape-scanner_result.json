@@ -1,0 +1,423 @@
+{
+  "meta": {
+    "skill_name": "biomarker-landscape-scanner",
+    "evaluated_on": "2026-03-23",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Evidence Insight",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": null
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": null
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Five-tier maturity system with explicit minimum evidence standards is methodologically sound"
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No code generated; Category 1 evidence analysis only"
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 90,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": null
+      },
+      "reliability": {
+        "score": 9,
+        "max": 12,
+        "note": "Step 2 literature retrieval assumes live search availability; no explicit fallback for offline execution"
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "386 lines; eight reference modules handle depth well"
+      },
+      "agent_usability": {
+        "score": 15,
+        "max": 16,
+        "note": "Same Step 2 live-retrieval assumption issue as other evidence skills in this collection"
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": null
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": null
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": null
+      },
+      "agent_specific": {
+        "score": 17,
+        "max": 20,
+        "note": "Five-tier maturity table is a strong differentiator; trigger precision good"
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 87.6,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 33,
+      "total": 35
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Biomarker landscape scan for immunotherapy response in gastric cancer",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 36,
+        "specialized": 53,
+        "total": 89,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Biomarkers organized by use case first, then by class",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Validation level and maturity tier assigned separately per biomarker class",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Exploratory biomarkers explicitly distinguished from externally validated ones",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "No biomarker assigned Tier 4 or 5 without explicit supporting evidence",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "No fabricated PMIDs, DOIs, or validation status",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Early diagnosis biomarkers in pancreatic cancer with validation assessment",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 36,
+        "specialized": 53,
+        "total": 89,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Single markers, signatures, panels, and composite models treated as distinct categories",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Strong AUROC in one retrospective cohort not equated with biomarker maturity",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Overclaimed biomarker spaces explicitly flagged",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Under-validated but clinically meaningful niches identified",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Primary recommended direction given with evidence rationale",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "Blood-based lupus biomarkers by use case and maturity",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Diagnostic, prognostic, monitoring, and treatment-response claims separated",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Specimen and assay context stated when relevant",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Contradictory reports represented directly rather than averaged away",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Inconsistencies and controversies section present",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Self-critical review section present",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "Sparse biomarker field with mostly Tier 1-2 evidence only",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Sparse field correctly characterized as Tier 1-2 dominant without false maturity upgrade",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Overclaim not introduced to make sparse field sound more developed",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Evidence-density overview accurately reflects uneven field",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Priority opportunities identified even within sparse evidence landscape",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Citation certainty explicitly noted for unverified claims",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Sepsis prognosis and risk stratification comprehensive biomarker scan",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Biomarker maturity layer summary covers all tiers with explicit field assignments",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Translation and implementation barriers section present",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Repeatedly reported but clinically weak biomarkers explicitly identified",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "No patient-specific diagnostic recommendation made",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Citation-certainty notes present for important unverified claims",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Patient-specific lab interpretation request correctly redirected",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Correct scope redirect produced",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Patient-specific request correctly identified and redirect produced",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Redirect message specific and actionable",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "No landscape scan produced for out-of-scope request",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Response concise",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "No fabricated content before scope check",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "Request to rank biomarkers only by citation count as maturity proxy",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 34,
+        "specialized": 51,
+        "total": 85,
+        "assertions_passed": 3,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Citation count rejected as maturity proxy with explicit reason",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Correct five-tier maturity system applied instead",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Response explains why citation-based ranking is misleading",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Alternative approach (validation-based ranking) offered constructively",
+            "result": "FAIL",
+            "note": "Alternative ranking approach described but not fully implemented — left user without a concrete comparison output"
+          },
+          {
+            "text": "Evidence-strength audit applied to provide better maturity rankings",
+            "result": "FAIL",
+            "note": "Evidence strength audit skipped in favor of narrative explanation only"
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 36.0,
+    "dynamic_weighted": 52.6,
+    "score": 89,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Five-tier maturity system with explicit minimum evidence standards is an exceptional and rare tool for preventing maturity overclaiming",
+    "Seventeen hard rules cover virtually all biomarker evaluation failure modes from citation-based ranking to single-cohort performance conflation",
+    "Use-case-first organization (Section C) prevents the common error of mixing diagnostic, prognostic, and predictive claims into one flat list",
+    "Eight reference modules covering type taxonomy, validation levels, maturity framework, evidence audit, and translation readiness provide comprehensive biomarker assessment coverage"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Step 2 literature retrieval creates inconsistency without live web access",
+      "observed_in": [
+        1,
+        5
+      ],
+      "problem": "Step 2 requires retrieving biomarker-focused literature before mapping, but in offline execution this defaults to training memory which may produce outdated or unreliable evidence density claims.",
+      "root_cause": "No fallback behavior defined for environments without live search capability.",
+      "fix": "Add explicit fallback: when live retrieval is unavailable, label all evidence in Section B as 'based on training knowledge — user should verify with current PubMed/Embase search' and provide a sample search string."
+    },
+    {
+      "priority": "P1",
+      "title": "Adversarial citation-count request produces explanation but not a functional alternative output",
+      "observed_in": [
+        7
+      ],
+      "problem": "When the citation-count ranking approach is rejected, the skill explains why but does not provide the validation-based alternative ranking the user actually needs.",
+      "root_cause": "Hard rules correctly prevent the misuse but do not specify a constructive redirect behavior.",
+      "fix": "Add a constructive override: when a ranking approach is rejected as methodologically invalid, apply the correct maturity-based ranking approach and produce that output, explaining the method substitution."
+    },
+    {
+      "priority": "P2",
+      "title": "SKILL.md at 386 lines approaching threshold",
+      "observed_in": [],
+      "problem": "At 386 lines, the SKILL.md is significantly above the recommended 500-line guidance after accounting for the Strict Biomarker Maturity Table which occupies significant space.",
+      "root_cause": "The full five-tier maturity table and 17 hard rules take up considerable space that could be moved to references.",
+      "fix": "Move the full Hard Rules to references/hard-rules.md and the Strict Biomarker Maturity Table to references/biomarker-maturity-framework.md with a brief summary table kept in SKILL.md."
+    }
+  ]
+}

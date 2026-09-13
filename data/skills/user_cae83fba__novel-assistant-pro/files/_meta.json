@@ -1,0 +1,26 @@
+{
+  "ownerId": "novel-assistant-pro",
+  "publishedAt": 1757416685000,
+  "slug": "novel-assistant-pro",
+  "name": "novel-assistant-pro",
+  "version": "2.0.0",
+  "author": "小浣熊肖恩",
+  "license": "MIT-0",
+  "homepage": "",
+  "tags": [
+    "writing",
+    "fiction",
+    "novel",
+    "longform",
+    "continuity",
+    "worldbuilding",
+    "memory-management"
+  ],
+  "description": "面向长篇小说与多作品创作的项目管理型助手。",
+  "minHostVersion": "1.0.0",
+  "compatibility": {
+    "platforms": ["app-state", "codebuddy", "openai-functions", "anthropic-tools"],
+    "python": ">=3.9",
+    "os": ["darwin", "linux", "win32"]
+  }
+}

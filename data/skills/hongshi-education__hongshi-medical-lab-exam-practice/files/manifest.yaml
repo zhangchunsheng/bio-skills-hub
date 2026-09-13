@@ -1,0 +1,11 @@
+name: hongshi-medical-lab-exam-practice
+version: 1.0.0
+description: "军队文职医学检验技术专业科目刷题陪练，按科目、章节、知识点生成练习题，判分并逐题解析，错题管理，帮助考生科学提分。"
+category: education
+author: 红师教育（王国华）
+keywords:
+  - 军队文职
+  - 医学检验技术
+  - 专业科目
+  - 刷题
+  - 备考

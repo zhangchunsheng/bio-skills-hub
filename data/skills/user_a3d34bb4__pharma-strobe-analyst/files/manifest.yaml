@@ -1,0 +1,31 @@
+name: 药学数据分析助手
+slug: pharmaceutical-data-analyst
+version: 1.0.0
+category: data-analysis
+summary: 药学真实世界研究STROBE规范完整数据分析，从Excel数据到Word报告一键生成
+description: |
+  药学真实世界研究（RWS）STROBE规范完整数据分析工作流。
+  当用户提供Excel数据（含多sheet的患者基本信息、用药记录、随访记录、实验室检查、结局事件），
+  要求做数据分析、STROBE报告、基线特征三线表、PSM匹配、KM生存曲线、森林图、中介效应分析、
+  箱线图/热力图、生成Word数据分析报告时触发。
+  覆盖数据体检、清洗、Table 1、主要/次要结局、PSM、4张标准图表、中介效应Bootstrap、
+  docx-js Word报告全流程。
+  药学专用：血肌酐单位换算（mg/dL→µmol/L×88.4）、MoCA认知量表、HOMA-IR、hs-CRP。
+
+tags:
+  - 药学
+  - 数据分析
+  - STROBE
+  - 真实世界研究
+  - 队列研究
+  - 三线表
+  - PSM
+  - 生存分析
+  - 中介效应
+  - RWS
+
+platforms:
+  - workbuddy
+
+author: 药学AI培训
+icon: 📊

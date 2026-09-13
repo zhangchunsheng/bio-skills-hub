@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>个人医疗险方案推荐</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    background: #f5f5f5; color: #1a1a1a; line-height: 1.7;
+    font-size: 15px; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 480px; margin: 0 auto; background: #ffffff; padding: 0 0 32px; }
+  .head {
+    background: #E8543A; color: #fff;
+    padding: 22px 20px 18px;
+  }
+  .head h1 { font-size: 20px; font-weight: 700; letter-spacing: 0.5px; }
+  .head .sub { font-size: 13px; opacity: 0.92; margin-top: 6px; font-weight: 400; }
+  .head .date { font-size: 12px; opacity: 0.85; margin-top: 4px; font-weight: 400; }
+
+  .section { padding: 18px 20px 4px; }
+  .sec-title {
+    font-size: 16px; font-weight: 700; color: #1a1a1a;
+    border-left: 4px solid #E8543A; padding-left: 10px; margin: 6px 0 14px;
+  }
+
+  .cond {
+    background: #fff7f4; border: 1px solid #f3c9bd; border-radius: 8px;
+    padding: 12px 14px; margin-bottom: 4px;
+  }
+  .cond .ttl { font-weight: 700; color: #E8543A; font-size: 14px; margin-bottom: 8px; }
+  .cond ul { list-style: none; }
+  .cond li {
+    font-size: 13.5px; padding: 4px 0 4px 16px; position: relative; color: #333;
+  }
+  .cond li::before {
+    content: "·"; color: #E8543A; font-weight: 700; position: absolute; left: 4px; top: 2px;
+  }
+  .cond .note { font-size: 12px; color: #555; margin-top: 8px; }
+
+  .req {
+    background: #fff7f4; border: 1px solid #f3c9bd; border-radius: 8px;
+    padding: 12px 14px; margin-bottom: 4px; font-size: 13.5px; color: #333;
+  }
+  .req .ttl { font-weight: 700; color: #E8543A; font-size: 14px; margin-bottom: 8px; }
+  .req li { padding: 3px 0; }
+
+  .card {
+    border: 1px solid #eaeaea; border-radius: 10px; margin: 14px 0; overflow: hidden;
+  }
+  .card-head {
+    background: #2F3B52; color: #fff; padding: 12px 14px;
+  }
+  .card-head .pname { font-size: 15.5px; font-weight: 700; }
+  .card-head .pmeta { font-size: 12px; opacity: 0.85; margin-top: 3px; font-weight: 400; }
+  .card-body { padding: 12px 14px; }
+  .row { padding: 7px 0; border-bottom: 1px dashed #eee; }
+  .row:last-child { border-bottom: none; }
+  .row .k { font-size: 12.5px; color: #555; font-weight: 400; }
+  .row .v { font-size: 14px; color: #1a1a1a; font-weight: 400; margin-top: 2px; }
+  .row .v b { font-weight: 700; }
+
+  .hl {
+    background: #E8543A; color: #fff; font-weight: 700;
+    padding: 1px 6px; border-radius: 4px; font-size: 13px;
+  }
+  .hl-soft { color: #E8543A; font-weight: 700; }
+  .box {
+    background: #fff7f4; border: 1px solid #f3c9bd; border-radius: 8px;
+    padding: 10px 12px; margin: 10px 0; font-size: 13.5px; color: #333;
+  }
+  .box .bt { font-weight: 700; color: #E8543A; margin-bottom: 5px; font-size: 13.5px; }
+  .box-gray { background: #f7f8fa; border: 1px solid #e3e6ea; }
+  .box-gray .bt { font-weight: 700; color: #555; margin-bottom: 5px; font-size: 13.5px; }
+
+  .highlights { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 0 0; }
+  .highlights span { background: #fff; color: #E8543A; font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 12px; border: 1px solid #f3c9bd; }
+
+  .uw {
+    background: #f7f8fa; border: 1px solid #e3e6ea; border-radius: 8px;
+    padding: 10px 12px; margin: 10px 0;
+  }
+  .uw .ut { font-size: 12.5px; color: #555; font-weight: 400; }
+  .uw .uc { font-size: 14px; font-weight: 700; color: #1a1a1a; margin-top: 3px; }
+  .uw .src { font-size: 11.5px; color: #888; margin-top: 3px; }
+
+  .family {
+    background: #fff7f4; border: 1px solid #f3c9bd; border-radius: 8px;
+    padding: 12px 14px; margin: 10px 0; font-size: 13.5px; color: #333;
+  }
+  .family .ttl { font-weight: 700; color: #E8543A; font-size: 14px; margin-bottom: 8px; }
+
+  table { width: 100%; border-collapse: collapse; margin: 10px 0 4px; font-size: 12.5px; }
+  th, td { border: 1px solid #e6e6e6; padding: 7px 5px; text-align: center; vertical-align: middle; }
+  th { background: #2F3B52; color: #fff; font-weight: 700; font-size: 12px; }
+  td.lab { text-align: left; font-weight: 700; background: #fafafa; }
+  td.price { color: #E8543A; font-weight: 700; }
+  td.bad { color: #c62828; font-weight: 700; }
+  td.good { color: #2e7d32; font-weight: 700; }
+  .tcap { font-size: 12px; color: #555; margin: 4px 0 8px; }
+
+  .footer {
+    padding: 18px 20px 0; font-size: 11.5px; color: #555; line-height: 1.6;
+    border-top: 1px solid #eee; margin-top: 18px;
+  }
+  .footer b { color: #333; }
+  .warn { color: #E8543A; font-weight: 700; }
+
+  @media print {
+    body { background: #fff; font-size: 12.5px; }
+    .wrap { max-width: 100%; }
+    .card, .cond, .req, .box, .uw, .family { break-inside: avoid; }
+    .head { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .card-head { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .hl, .hl-soft { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="head">
+    <h1>个人医疗险方案推荐</h1>
+    <!-- 模块二摘要：称呼 + 性别 + 年龄 + 社保 + 关键产品要求 -->
+    <div class="sub">{{称呼}} · {{年龄}}岁{{性别}} · 有社保 · {{关键要求，如0免赔/特需部}}</div>
+    <div class="date">{{日期}} · 仅供投保参考，以正式核保结论为准</div>
+    <div class="highlights">
+      <!-- 标签：根据方案特点填，如 ✅0免赔 ✅特需部 ✅院外特药 -->
+      <span>大童在售产品</span>
+      <span>{{标签1}}</span><span>{{标签2}}</span>
+    </div>
+  </div>
+
+  <!-- 模块一：方案对象与基本体况 -->
+  <div class="section">
+    <div class="sec-title">一、方案对象与当前体况</div>
+    <div class="cond">
+      <div class="ttl">{{称呼}} · {{年龄}}岁{{性别}} · 有/无社保 · {{现有保障}}</div>
+      <ul>
+        <!-- 每个体况一行；健康体则写"体况健康，无异常告知" -->
+        <li>{{体况1：名称 + 确诊时间 + 检查方式 + 结果}}</li>
+        <li>{{体况2}}</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 模块二：产品要求 -->
+  <div class="section">
+    <div class="sec-title">二、产品要求</div>
+    <div class="req">
+      <div class="ttl">客户对产品的硬性要求</div>
+      <ul>
+        <li>保证续保：{{是/否/不限}}</li>
+        <li>免赔额：{{0免赔/1万免赔/…}}</li>
+        <li>病房/医疗部：{{单人病房/特需部/国际部/普通部}}</li>
+        <li>附加责任：{{院外药/博鳌/门诊/津贴/无}}</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 模块三：核保结论（仅体况客户显示；健康体删除整段） -->
+  <div class="section">
+    <div class="sec-title">三、核保结论提示</div>
+    <div class="uw">
+      <div class="ut">{{体况名称}}</div>
+      <div class="uc">{{结论：拒保 / 除外 / 标体预期；须源于产品健康告知或免健告产品既往症资料}}</div>
+      <div class="src">来源：{{产品健康告知第X条 / 大童在售产品既往症资料}}</div>
+    </div>
+    <div class="box box-gray">
+      <div class="bt">重要说明</div>
+      本 skill 不能给出准确的核保结论，以上仅为资料整理与提示，最终以保险公司正式核保结论为准。除外部分需顾问本人确认。
+    </div>
+  </div>
+
+  <!-- 模块四：产品建议（单个或多个，每个产品一个 .card + 价格表） -->
+  <div class="section">
+    <div class="sec-title">四、产品建议（大童在售）</div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="pname">{{产品全称}}</div>
+        <div class="pmeta">{{计划描述 + 保额}}</div>
+      </div>
+      <div class="card-body">
+        <div class="row"><div class="k">当年价格（{{有/无社保}} · {{计划档位}}）</div><div class="v"><b>{{¥XXX/年}}</b> · 来源：{{ima大童在售/本地文件}}</div></div>
+        <div class="row"><div class="k">责任（免赔额 / 赔付比例）</div><div class="v">{{0免赔，社保后100%}}</div></div>
+        <div class="row"><div class="k">附加责任</div><div class="v">{{院外特药 / 博鳌 / …}}</div></div>
+        <div class="row"><div class="k">特点</div><div class="v">{{一句话定位}}</div></div>
+        <div class="row"><div class="k">体况核保结论</div><div class="v">{{基于产品健康告知/既往症资料的结论，须顾问确认}}</div></div>
+      </div>
+    </div>
+
+    <table>
+      <tr><th>项目</th><th>{{年龄}}岁</th><th>+5岁</th><th>+10岁</th><th>+15岁</th></tr>
+      <tr><td class="lab">{{责任项}}</td><td>{{价}}</td><td>{{价}}</td><td>{{价}}</td><td>{{价}}</td></tr>
+      <tr><td class="lab">年合计</td><td class="price">{{¥}}</td><td class="price">{{¥}}</td><td class="price">{{¥}}</td><td class="price">{{¥}}</td></tr>
+    </table>
+    <div class="tcap">单位：元/年。来源：{{产品费率表}}。60岁及上查续保费率。⚠️ 来源待确认项请标注。</div>
+  </div>
+
+  <!-- 模块五：家庭成员与家庭费率（仅多人规划显示；单人删除整段） -->
+  <!--
+  <div class="section">
+    <div class="sec-title">五、家庭费率（可选）</div>
+    <div class="family">
+      <div class="ttl">家庭成员组合费率</div>
+      <ul>
+        <li>{{成员1}}：{{¥XXX/年}}</li>
+        <li>{{成员2}}：{{¥XXX/年}}</li>
+        <li>家庭合计：{{¥XXX/年}} · {{是否有家庭优惠及条件}}</li>
+      </ul>
+      <div class="tcap">来源：{{产品费率表家庭单}}。单人方案不显示本模块。</div>
+    </div>
+  </div>
+  -->
+
+  <!-- 模块六：最终建议配置思路 -->
+  <div class="section">
+    <div class="sec-title">六、最终建议配置思路</div>
+    <div class="box">
+      <div class="bt">配置思路</div>
+      {{综合前5模块的取舍逻辑；结合现有保障说明补充层级；不替客户假设偏好}}
+    </div>
+  </div>
+
+  <div class="footer">
+    <b>免责说明：</b>本方案仅供参考，不构成投保建议。核保结论以保险公司正式反馈为准，费率以投保时系统报价为准。本 skill 基于大童保险顾问制作，所列产品为大童在售产品，责任与价格以产品条款及投保系统为准。
+  </div>
+
+</div>
+</body>
+</html>

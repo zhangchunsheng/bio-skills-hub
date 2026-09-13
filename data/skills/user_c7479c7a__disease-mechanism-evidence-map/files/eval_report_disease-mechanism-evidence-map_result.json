@@ -1,0 +1,342 @@
+{
+  "meta": {
+    "skill_name": "disease-mechanism-evidence-map",
+    "evaluated_on": "2026-03-23",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Evidence Insight",
+    "execution_mode": "A",
+    "complexity": "Moderate",
+    "n_inputs": 5
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "Citation verification rule requires real, verifiable references with DOI when formal citations are included"
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": null
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": null
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No code generated; Category 1 evidence mapping only"
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 87,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 11,
+        "max": 12,
+        "note": "Description is accurate but does not include natural trigger phrases for the wide range of mechanism mapping scenarios"
+      },
+      "reliability": {
+        "score": 9,
+        "max": 12,
+        "note": "Literature verification requirement is strong; gap: no defined behavior when no verifiable citations are available at all"
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "267 lines; eleven reference modules appropriately organized"
+      },
+      "agent_usability": {
+        "score": 14,
+        "max": 16,
+        "note": "Output requirement section mixes structural guidance with hard rules in a way that may cause agents to miss the mandatory K section for verified citations"
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": null
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": null
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": null
+      },
+      "agent_specific": {
+        "score": 16,
+        "max": 20,
+        "note": "Nine-step execution logic is thorough; downstream routing integration is a composability strength"
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 85.4,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 24,
+      "total": 25
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Disease mechanism map for sepsis immune paralysis",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 35,
+        "specialized": 51,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Mechanism evidence organized into layered chains (molecule → pathway → cell → tissue → phenotype)",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Direct vs indirect vs inference labels applied to each key link",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Human evidence distinguished from animal and cell-line evidence",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Weak links identified without premature conversion to formal research gaps",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Verified citations with DOI where available; unverifiable citations not presented as formal support",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Ferroptosis in diabetic nephropathy — pathway-centered mechanism map",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 35,
+        "specialized": 51,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Dominant mechanism axes prioritized over exhaustive pathway list",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Cell types and tissue compartments linked to phenotype in Section D/E",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Evidence strength and chain completeness labeled per segment",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Mechanism hypothesis entry points suggested without overclaiming causality",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Downstream routing recommendation present",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "HCC immunosuppressive microenvironment — cell-type-centered mechanism map",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 35,
+        "specialized": 51,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Cell-state evidence distinguished from bulk-population evidence",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Indirect associations not presented as completed mechanism chains",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Key evidence chain table present with mechanism axes summarized",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "No generic pathway dump produced",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Citation DOIs verified where included or absence explicitly noted",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "Very early-stage mechanism with only cell-line evidence and no human data",
+        "status": "COMPLETED",
+        "status_flag": "⚠️",
+        "note": "Evidence density very low; output appropriately constrained but could provide more structure",
+        "basic": 33,
+        "specialized": 49,
+        "total": 82,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Cell-line-only evidence correctly not equated with human disease validation",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Chain completeness labeled as 'incomplete' for all cross-layer connections",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Speculative segments clearly labeled as speculative",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Hypothesis entry points suggested conservatively",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "When no verifiable formal citations available, this is stated explicitly rather than omitting Section K entirely",
+            "result": "FAIL",
+            "note": "Section K was omitted entirely rather than producing a 'No verified formal citations available for this emerging topic' statement"
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Lupus nephritis tubulointerstitial injury — multi-compartment mechanism map",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 34,
+        "specialized": 50,
+        "total": 84,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Multiple tissue compartments mapped with separate evidence chains",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Contradictory mechanism reports represented directly",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Evidence strength and chain completeness labeled per compartment",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Map does not confuse model-system evidence with human disease closure",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Section K verified citations present with appropriate caveats",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 34.8,
+    "dynamic_weighted": 51.2,
+    "score": 86,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Citation verification requirement with mandatory DOI and explicit unverifiability statements is one of the strongest integrity safeguards in this collection",
+    "Five-layer evidence chain structure (molecule → pathway → cell → tissue → phenotype) provides a systematic and reproducible mapping framework",
+    "Direct vs indirect vs inference labeling at the individual link level prevents mechanism chain overclaiming",
+    "Downstream routing integration makes this skill a strong natural upstream tool in the research workflow"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Section K omitted entirely when no verifiable citations are available",
+      "observed_in": [
+        4
+      ],
+      "problem": "When no verified formal citations can be included for an emerging/sparse topic, Section K is sometimes omitted rather than producing an explicit statement that no verified formal citations are currently available.",
+      "root_cause": "Output structure guidance says Section K is for 'when citations are included' but does not mandate a 'No verified citations' placeholder when the topic is evidence-sparse.",
+      "fix": "Update Section K guidance: if no formal verified citations can be produced, output the section with text: 'No verified formal citations were identified for this topic at the required confidence level. Key mechanism claims are based on training knowledge and should be verified with current PubMed/Embase search.'"
+    },
+    {
+      "priority": "P1",
+      "title": "Output requirement section mixes structural guidance with hard rules — risk of Section K being skipped",
+      "observed_in": [
+        4
+      ],
+      "problem": "Section K for verified citations is in 'Output Requirements' but labeled as conditional ('when citations are included'), making it easier for agents to skip when citations are uncertain.",
+      "root_cause": "Optional framing reduces enforcement of citation integrity in sparse evidence contexts.",
+      "fix": "Make Section K mandatory for all outputs: either include verified citations OR include an explicit statement that no verified citations are available. Remove the conditional 'when citations are included' language."
+    },
+    {
+      "priority": "P2",
+      "title": "Description lacks natural trigger phrases for diverse mapping scenarios",
+      "observed_in": [],
+      "problem": "Description focuses on formal structure ('layered mechanism evidence chains') but omits the natural user phrases that would trigger this skill.",
+      "root_cause": "Description written for content accuracy rather than triggering optimization.",
+      "fix": "Add trigger phrases: 'mechanism evidence map', 'disease pathway overview', 'mechanism architecture before study design', 'how this disease works', 'evidence chain for this pathway'."
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Excel 风水检测器"
+  short_description: "检查合并单元格、隐藏区域、异常格式和公式风险，输出电子风水报告"
+  default_prompt: "使用 $excel-feng-shui-detector 检查这份 Excel 的表格风水，并给出安全修复顺序。"

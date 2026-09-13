@@ -1,0 +1,19 @@
+name: clinical-governance
+version: 1.0.0
+description: 医疗核心制度与质控管理引擎——把18项医疗质量安全核心制度、病历质控红线、医疗安全不良事件分级、临床路径与PDCA，作为诊疗系统的"前置风控层"，从源头防范医疗风险。
+triggers:
+  - "医疗核心制度"
+  - "十八项核心制度"
+  - "病历质控红线"
+  - "不良事件分级"
+  - "医疗质量安全"
+  - "临床路径"
+  - "制度核查"
+category: healthcare
+requires_api_key: false
+author: 老陈（基层医务管理）
+tags:
+  - 医疗质量
+  - 核心制度
+  - 质控
+  - 不良事件

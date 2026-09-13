@@ -1,0 +1,7 @@
+# Arrfounder Learnings
+
+Accumulated tips, gotchas, and corrections discovered during use. Claude reads this at the start of each invocation and appends new learnings as they're discovered.
+
+<!-- Add entries below in format: **YYYY-MM-DD**: Learning description -->
+**2026-04-16**: Research baseline (from git history) — platform docs were captured on/around this date and the API surface, pricing, and webhooks have NOT been re-verified against live docs since. Re-verify specifics before relying on them.
+**2026-06-13**: API re-verified against live official docs — no drift on the core model (still free, still no public API — `/api` returns HTTP 404, still Airtable-form submission with 24-48h manual approval, still Twitter/X bio auto-sync within hours, still social-proof verification with no payment-provider integration, still made by @withfolyd). Refinements: live `/founders` page now exposes SEVEN founder ARR tiers `<$1K`/`$1K-10K`/`$10K-100K`/`$100K-1M`/`$1M-10M`/`$10M-100M`/`>$100M` (skill previously collapsed the top two into `$10M+`/`$100M+`); homepage now publishes `$50M+ total ARR` alongside 1000+ founders / 1500+ products; sponsor/Friends strip expanded to Geddle, Aiberm, Bytebase, PPT.ai, Clipsend, Meiguo.app. The 4 review criteria (real founders+products / transparent MRR-ARR / active Twitter/X / clear product info) and the data-accuracy disclaimer match the skill verbatim. Sources: https://arrfounder.com/, https://arrfounder.com/about, https://arrfounder.com/how-to-join, https://arrfounder.com/founders, https://arrfounder.com/api (404).

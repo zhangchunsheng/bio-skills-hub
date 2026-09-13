@@ -1,0 +1,22 @@
+{
+  "slug": "medical-career-move",
+  "name": "医护跳槽转岗副业-小护圈",
+  "version": "1.0.0",
+  "source": "skillhub",
+  "iconSource": "letter:auto",
+  "examples_zh": [
+    "护士想跳槽去哪家医院",
+    "医生跳槽要注意什么",
+    "护士不想干了能转行做什么",
+    "护士想转科室怎么办",
+    "医护有什么靠谱的兼职",
+    "护士适合做什么副业",
+    "国企医院招聘岗位表在哪看"
+  ],
+  "examples_en": [
+    "nurse changing hospitals",
+    "doctor career change options",
+    "part-time jobs for nurses",
+    "state-owned hospital job list"
+  ]
+}

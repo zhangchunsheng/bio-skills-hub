@@ -1,0 +1,10 @@
+{
+  "name": "港股生物创新药重点追踪清单（3家）",
+  "last_updated": "2026-08-20",
+  "说明": "已收敛到 3 家重点追踪。这三家是回测里'可捕捉'事件最集中的标的：康方=临床数据读出（会议摘要，最可靠）、复宏汉霖=获批（EMA CHMP/FDA）、信达=临床数据+获批。其余 7 家（百济/科伦博泰/荣昌/诺诚健华/再鼎/康诺亚/君实）不再每日追踪（配置文件保留，需要时可随时加回）。",
+  "configs": [
+    "akeso_tracking_config.json",
+    "henlius_tracking_config.json",
+    "innovent_tracking_config.json"
+  ]
+}

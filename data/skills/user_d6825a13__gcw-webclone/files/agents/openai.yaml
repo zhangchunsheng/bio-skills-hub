@@ -1,0 +1,4 @@
+interface:
+  display_name: "GCW"
+  short_description: "Staged evidence-driven website reconstruction"
+  default_prompt: "Use $gcw to run mandatory Design DNA and conditional Shader teardown, finalize SITE_SPEC from evidence, build a faithful baseline, and stop at the review gate."

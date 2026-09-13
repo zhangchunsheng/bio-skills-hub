@@ -1,0 +1,4 @@
+interface:
+  display_name: "药店AI获客视频制作"
+  short_description: "把药店人物、环境和产品素材变成获客视频方案、分镜与生成提示词。"
+  default_prompt: "使用 $pharmacy-health-education，根据我上传的人物、场景和产品素材，制作一套药店AI获客视频方案与可直接生成的视频提示词。"

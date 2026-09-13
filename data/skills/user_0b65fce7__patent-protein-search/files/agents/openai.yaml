@@ -1,0 +1,7 @@
+interface:
+  display_name: "Local Patent Sequence Search"
+  short_description: "Run patent protein searches locally in an agent"
+  default_prompt: "Use $patent-sequence-selfhosted to search this public protein sequence locally without a PatSeek API or backend service."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,32 @@
+{
+  "owner": "vassiliylakhonin",
+  "slug": "fitness-coach",
+  "displayName": "Fitness Coach",
+  "latest": {
+    "version": "1.1.7",
+    "publishedAt": 1776403550340,
+    "commit": "https://github.com/openclaw/skills/commit/27f6699bd865ec0b08099f665deb0dc47b367067"
+  },
+  "history": [
+    {
+      "version": "1.1.6",
+      "publishedAt": 1775971041773,
+      "commit": "https://github.com/openclaw/skills/commit/0f300948cf1ca7be025c129ae893a63ca3c611e9"
+    },
+    {
+      "version": "1.1.4",
+      "publishedAt": 1773811111682,
+      "commit": "https://github.com/openclaw/skills/commit/3c609463cca7635e159753a071615baecf6e9941"
+    },
+    {
+      "version": "1.1.1",
+      "publishedAt": 1773331612807,
+      "commit": "https://github.com/openclaw/skills/commit/b3bbd96f8e84efb793d6018ba4a4d897caecf9f9"
+    },
+    {
+      "version": "1.1.0",
+      "publishedAt": 1772174301479,
+      "commit": "https://github.com/openclaw/skills/commit/b6835a5f0988601ca60a0feb1e12f334fb99eb7b"
+    }
+  ]
+}

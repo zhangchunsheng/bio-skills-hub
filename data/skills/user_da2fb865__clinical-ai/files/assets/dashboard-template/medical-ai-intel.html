@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>医疗AI情报台 · 每日一个医疗AI项目</title>
+<style>
+  :root{
+    --bg:#f4f6fb; --panel:#ffffff; --ink:#1f2937; --muted:#64748b; --line:#e5e9f2;
+    --c-entry:#8b5cf6; --c-paper:#8b5cf6; --c-product:#ef4444; --c-method:#3b82f6;
+    --c-scene:#06b6d4; --c-org:#22c55e; --c-metric:#f97316; --c-dataset:#a855f7; --c-approval:#16a34a;
+    --accent:#534ab7; --danger:#ef4444; --ok:#16a34a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
+    font-size:14px;line-height:1.6}
+  .wrap{max-width:1080px;margin:0 auto;padding:14px 14px calc(28px + env(safe-area-inset-bottom))}
+  header{display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;margin-bottom:12px}
+  h1{font-size:18px;margin:0;font-weight:700}
+  h1 small{font-size:12px;color:var(--muted);font-weight:400;margin-left:6px}
+  .btns{display:flex;gap:8px;flex-wrap:wrap}
+  button{font-family:inherit;font-size:14px;border:1px solid var(--line);background:#fff;color:var(--ink);
+    border-radius:10px;padding:9px 12px;cursor:pointer;min-height:44px;display:inline-flex;align-items:center;gap:6px}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  button.ghost{background:#fff}
+  button:active{transform:translateY(1px)}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px}
+  .stat b{display:block;font-size:22px;font-weight:700}
+  .stat span{color:var(--muted);font-size:12px}
+  .tabs{display:flex;gap:8px;margin-bottom:12px}
+  .tab{padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:14px;min-height:44px}
+  .tab.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .today{background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:12px;margin-bottom:12px}
+  .today h2{margin:0 0 6px;font-size:14px;color:#9a3412}
+  .today ul{margin:0;padding-left:18px}
+  .today li{margin:2px 0}
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;align-items:center}
+  .toolbar input,.toolbar select{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px;background:#fff;min-height:44px}
+  .toolbar input{flex:1;min-width:160px}
+  .cols{display:grid;grid-template-columns:minmax(260px,320px) 1fr;gap:12px;align-items:start}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px}
+  #list,#detail{position:sticky;top:12px;max-height:calc(100vh - 196px);overflow:auto}
+  .item{border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:8px;cursor:pointer}
+  .item:hover{border-color:var(--accent)}
+  .item.sel{border-color:var(--accent);box-shadow:0 0 0 2px rgba(83,74,183,.15)}
+  .item .t{font-weight:600;font-size:13.5px}
+  .item .m{color:var(--muted);font-size:12px;margin-top:3px;display:flex;gap:8px;flex-wrap:wrap}
+  .pill{display:inline-block;padding:1px 8px;border-radius:999px;font-size:11px;border:1px solid var(--line)}
+  .pill.paper{background:#f5f3ff;color:#5b21b6;border-color:#ddd6fe}
+  .pill.product{background:#fef2f2;color:#b91c1c;border-color:#fecaca}
+  .detail h3{margin:0 0 4px;font-size:16px}
+  .detail .meta{color:var(--muted);font-size:12px;margin-bottom:8px}
+  .detail .sec{margin:10px 0}
+  .detail .sec b{color:var(--accent);font-size:13px;display:block;margin-bottom:2px}
+  .detail .field{font-size:13px}
+  .detail .sub{margin:6px 0;padding:6px 8px;background:#f8f9fc;border:1px solid var(--line);border-radius:8px}
+  .detail .sub .k{display:inline-block;min-width:96px;font-weight:600;color:var(--accent)}
+  .detail .sub .v{color:var(--text)}
+  .detail .sub .v.ok{color:#15a34a;font-weight:600}
+  .detail .sub .v.warn{color:#dc2626}
+  .graphbox{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:8px}
+  #graph{width:100%;height:auto;display:block;touch-action:none}
+  .gnode{cursor:pointer}
+  .gtools{display:flex;gap:8px;align-items:center;margin:6px 2px 2px}
+  .gtools button{font-size:12px;padding:3px 10px;border:1px solid var(--line);background:var(--panel);border-radius:8px;cursor:pointer;color:var(--text)}
+  .gtools button:hover{background:var(--hover)}
+  .ghint{font-size:11px;color:var(--muted)}
+  .legend{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:6px;padding:0 4px}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:middle}
+  .ginfo{font-size:12px;color:var(--muted);margin-top:8px;min-height:18px}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#111827;color:#fff;
+    padding:10px 16px;border-radius:10px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:50}
+  .toast.show{opacity:.95}
+  a{color:var(--accent)}
+  @media(max-width:768px){
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .cols{grid-template-columns:1fr}
+    #list,#detail{position:static;max-height:none;overflow:visible}
+    h1{font-size:16px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>医疗AI情报台<small>每天搞懂一个医疗AI项目</small></h1>
+    <div class="btns">
+      <button class="ghost" onclick="document.getElementById('file').click()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>导入JSON</button>
+      <button class="ghost" onclick="exportAll()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21V9m0 0l-4 4m4-4l4 4M4 3h16"/></svg>导出备份</button>
+    </div>
+    <input id="file" type="file" accept="application/json,.json" style="display:none" onchange="importFile(event)" />
+  </header>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="tabs">
+    <div class="tab on" id="tab-lib" onclick="switchTab('lib')">文献库 / 解读</div>
+    <div class="tab" id="tab-graph" onclick="switchTab('graph')">知识图谱</div>
+  </div>
+
+  <div id="view-lib">
+    <div class="today" id="today"></div>
+    <div class="toolbar">
+      <input id="q" placeholder="搜索标题 / 标签 / 期刊" oninput="render()" />
+      <select id="ftype" onchange="render()">
+        <option value="all">全部类型</option>
+        <option value="paper">论文</option>
+        <option value="product">产品</option>
+      </select>
+      <select id="sort" onchange="render()">
+        <option value="date">按日期↓</option>
+        <option value="if">按IF↓</option>
+        <option value="cite">按引用↓</option>
+      </select>
+    </div>
+    <div class="cols">
+      <div class="card" id="list"></div>
+      <div class="card detail" id="detail"><p style="color:var(--muted)">从左侧选择一条查看解读。</p></div>
+    </div>
+  </div>
+
+  <div id="view-graph" style="display:none">
+    <div class="graphbox">
+      <svg id="graph" viewBox="0 0 680 460" role="img" aria-label="知识图谱"></svg>
+      <div class="gtools">
+        <button onclick="graphReset()">重置视图</button>
+        <span class="ghint">拖拽节点可手动排布 · 滚轮/双指缩放 · 点击节点高亮其关联</span>
+      </div>
+      <div class="legend">
+        <span><i style="background:var(--c-paper)"></i>论文</span>
+        <span><i style="background:var(--c-product)"></i>产品</span>
+        <span><i style="background:var(--c-method)"></i>方法/模型</span>
+        <span><i style="background:var(--c-scene)"></i>临床场景</span>
+        <span><i style="background:var(--c-org)"></i>机构/团队</span>
+        <span><i style="background:var(--c-dataset)"></i>数据集</span>
+        <span><i style="background:var(--c-metric)"></i>测评指标</span>
+        <span><i style="background:var(--c-approval)"></i>审批</span>
+      </div>
+      <div class="ginfo" id="ginfo">点击节点查看其关联关系。</div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===== 内置演示数据（与 archive/entries.json、graph.json 一致；导入后覆盖） ===== */
+const DEMO_ENTRIES = [
+  {
+    "id": "2018-04-11-idxdr",
+    "date": "2018-04-11",
+    "type": "product",
+    "title": "IDx-DR: An Autonomous AI System for Diabetic Retinopathy Screening",
+    "titleZh": "IDx-DR：用于糖尿病视网膜病变筛查的自主AI系统（示例）",
+    "source": "FDA / 官网",
+    "pmid": "",
+    "doi": "",
+    "journal": "Digital Diagnostics Inc.",
+    "year": 2018,
+    "if": null,
+    "citations": 0,
+    "aiTags": [
+      "医学影像",
+      "自主AI",
+      "眼底筛查",
+      "监管获批"
+    ],
+    "url": "https://www.digitaldiagnostics.com/",
+    "interpretation": {
+      "background": "糖尿病视网膜病变（DR）是糖尿病患者失明的主因；基层缺乏眼科医师，需可自动化、无需专家解读的筛查工具。",
+      "method": {
+        "algorithm": "自主AI（autonomous AI）：卷积神经网络对眼底彩照分级，输出可诊断/需转诊，无需人为中间判读。",
+        "datasets": "多中心前瞻性临床验证（NCT02963441），10 个基层点。",
+        "dataVolume": "900 例受试者的眼底图像。",
+        "pipeline": "眼底相机(Topcon NW400)采集 → AI 自动分级 → 输出「轻度以上DR阳性/建议转诊眼科」。",
+        "evaluation": "敏感度 87.2%、特异度 90.7%（以眼科医师 consensus 为金标准）。"
+      },
+      "clinicalStatus": {
+        "stage": "已上市并规模化部署",
+        "approval": "2018 年获 FDA De Novo 批准（DEN180001），首个获准「自主诊断」的 AI 设备。",
+        "commercial": "公司：Digital Diagnostics（原 IDx LLC，2010 由 Michael D. Abramoff 创立）；产品名 LumineticsCore；融资 Series A $33M(2018)、Series B $75M(2022, KKR)，累计>$130M；部署 Johns Hopkins/Stanford/Mayo 等约 20+ 机构；医保 CPT 92229，Medicare 约 $40–47/例。"
+      },
+      "similar": "与 Google ARDA（需专科医生确认）、Eyenuk EyeArt 等同为 DR 自动筛查，但 IDx-DR 是首个「自主AI、无需专家解读」获批产品。",
+      "advantages": "无需眼科专家在场即可完成筛查；在基层可大规模部署；结果客观一致。",
+      "limitations": "仅限成人糖尿病视网膜病变；不适用于其他眼底疾病；依赖合规眼底相机与图像质量。"
+    },
+    "status": "draft",
+    "publishedUrl": ""
+  }
+];
+
+const DEMO_GRAPH = {
+  "nodes": [
+    {
+      "id": "e_idxdr",
+      "label": "IDx-DR 自主AI眼底筛查",
+      "type": "entry"
+    },
+    {
+      "id": "m_dl",
+      "label": "深度学习/CNN",
+      "type": "method"
+    },
+    {
+      "id": "m_xai",
+      "label": "自主AI(无需专家解读)",
+      "type": "method"
+    },
+    {
+      "id": "s_retina",
+      "label": "糖尿病视网膜病变筛查",
+      "type": "scene"
+    },
+    {
+      "id": "o_dd",
+      "label": "Digital Diagnostics",
+      "type": "org"
+    },
+    {
+      "id": "d_trial",
+      "label": "NCT02963441(900例)",
+      "type": "dataset"
+    },
+    {
+      "id": "met_acc",
+      "label": "敏感度87.2%/特异度90.7%",
+      "type": "metric"
+    },
+    {
+      "id": "reg_fda",
+      "label": "FDA De Novo(2018)",
+      "type": "approval"
+    }
+  ],
+  "edges": [
+    {
+      "source": "e_idxdr",
+      "target": "m_dl",
+      "relation": "采用"
+    },
+    {
+      "source": "e_idxdr",
+      "target": "m_xai",
+      "relation": "采用"
+    },
+    {
+      "source": "e_idxdr",
+      "target": "s_retina",
+      "relation": "场景"
+    },
+    {
+      "source": "e_idxdr",
+      "target": "o_dd",
+      "relation": "公司"
+    },
+    {
+      "source": "e_idxdr",
+      "target": "d_trial",
+      "relation": "数据"
+    },
+    {
+      "source": "e_idxdr",
+      "target": "met_acc",
+      "relation": "指标"
+    },
+    {
+      "source": "e_idxdr",
+      "target": "reg_fda",
+      "relation": "获批"
+    }
+  ]
+};
+
+/* ===== 状态 ===== */
+let DATA = { entries: JSON.parse(JSON.stringify(DEMO_ENTRIES)), graph: JSON.parse(JSON.stringify(DEMO_GRAPH)) };
+let selectedId = DATA.entries[0] ? DATA.entries[0].id : null;
+
+const TYPE_COLOR = { entry:'var(--c-entry)', method:'var(--c-method)', scene:'var(--c-scene)', org:'var(--c-org)', metric:'var(--c-metric)', dataset:'var(--c-dataset)', approval:'var(--c-approval)' };
+function nodeColor(n){ if(n.type==='entry') return n.kind==='product'?'var(--c-product)':'var(--c-paper)'; return TYPE_COLOR[n.type]; }
+
+/* ===== 渲染 ===== */
+function switchTab(t){
+  document.getElementById('tab-lib').classList.toggle('on', t==='lib');
+  document.getElementById('tab-graph').classList.toggle('on', t==='graph');
+  document.getElementById('view-lib').style.display = t==='lib'?'block':'none';
+  document.getElementById('view-graph').style.display = t==='graph'?'block':'none';
+  if(t==='graph') drawGraph();
+}
+function fmtIf(e){ return (e.if==null)?'—':e.if; }
+function filtered(){
+  const q = document.getElementById('q').value.trim().toLowerCase();
+  const ft = document.getElementById('ftype').value;
+  const sort = document.getElementById('sort').value;
+  let arr = DATA.entries.filter(e=>{
+    if(ft!=='all' && e.type!==ft) return false;
+    if(q){
+      const hay = (e.title+' '+(e.titleZh||'')+' '+(e.journal||'')+' '+(e.aiTags||[]).join(' ')).toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+  arr.sort((a,b)=>{
+    if(sort==='if') return (b.if??-1)-(a.if??-1);
+    if(sort==='cite') return (b.citations||0)-(a.citations||0);
+    return (b.date||'').localeCompare(a.date||'');
+  });
+  return arr;
+}
+function render(){
+  const arr = filtered();
+  // stats
+  const papers = DATA.entries.filter(e=>e.type==='paper');
+  const ifs = papers.map(e=>e.if).filter(x=>x!=null);
+  const avgIf = ifs.length? (ifs.reduce((s,x)=>s+x,0)/ifs.length).toFixed(1):'—';
+  const scenes = DATA.graph.nodes.filter(n=>n.type==='scene').length;
+  document.getElementById('stats').innerHTML =
+    `<div class="stat"><b>${DATA.entries.length}</b><span>总条目</span></div>`+
+    `<div class="stat"><b>${papers.length} / ${DATA.entries.filter(e=>e.type==='product').length}</b><span>论文 / 产品</span></div>`+
+    `<div class="stat"><b>${avgIf}</b><span>论文平均IF</span></div>`+
+    `<div class="stat"><b>${scenes}</b><span>覆盖临床场景</span></div>`;
+  // today
+  const today = new Date().toISOString().slice(0,10);
+  const drafts = DATA.entries.filter(e=>e.status==='draft');
+  const td = DATA.entries.filter(e=>e.date===today);
+  let html = '<h2>今日要处理</h2><ul>';
+  if(td.length) html += td.map(e=>`<li><b>今日新增：</b>${esc(e.titleZh||e.title)}</li>`).join('');
+  if(drafts.length) html += `<li><b>${drafts.length}</b> 条待发布（草稿）：`+drafts.map(e=>`${esc(e.titleZh||e.title)}`).join('、')+`</li>`;
+  if(!td.length && !drafts.length) html += '<li>暂无待处理项。</li>';
+  html += '</ul>';
+  document.getElementById('today').innerHTML = html;
+  // list
+  document.getElementById('list').innerHTML = arr.length? arr.map(e=>`
+    <div class="item ${e.id===selectedId?'sel':''}" onclick="select('${e.id}')">
+      <div class="t">${esc(e.titleZh||e.title)}</div>
+      <div class="m">
+        <span class="pill ${e.type}">${e.type==='paper'?'论文':'产品'}</span>
+        <span>${esc(e.journal||e.source||'')}</span>
+        <span>${e.year||''}</span>
+        <span>IF ${fmtIf(e)}</span>
+        <span>引 ${e.citations||0}</span>
+      </div>
+    </div>`).join('') : '<p style="color:var(--muted)">无匹配结果。</p>';
+  if(arr.find(e=>e.id===selectedId)) renderDetail();
+  else { document.getElementById('detail').innerHTML='<p style="color:var(--muted)">从左侧选择一条查看解读。</p>'; }
+}
+function select(id){ selectedId=id; render(); }
+function renderDetail(){
+  const e = DATA.entries.find(x=>x.id===selectedId); if(!e) return;
+  const i = e.interpretation||{};
+  const sec = (k,label)=> i[k]? `<div class="sec"><b>${label}</b><div class="field">${esc(i[k])}</div></div>`:'';
+  const secRich = (k,label,sub)=>{
+    const o=i[k]; if(!o) return '';
+    let inner = typeof o==='string' ? esc(o)
+      : Object.keys(sub).filter(sk=>o[sk]).map(sk=>{
+          const v=o[sk]; let cls=/已/.test(v)&&!/未/.test(v)?' ok':(/未/.test(v)?' warn':'');
+          return `<div class="sub"><span class="k">${sub[sk]}</span><span class="v${cls}">${esc(v)}</span></div>`;
+        }).join('');
+    return `<div class="sec"><b>${label}</b><div class="field">${inner}</div></div>`;
+  };
+  document.getElementById('detail').innerHTML = `
+    <h3>${esc(e.titleZh||e.title)}</h3>
+    <div class="meta">${esc(e.title||'')}<br>
+      ${e.journal?('期刊：'+esc(e.journal)+' · '):''}${e.year||''} · IF ${fmtIf(e)} · 引用 ${e.citations||0} · 来源 ${esc(e.source||'')}<br>
+      ${e.url?`<a href="${esc(e.url)}" target="_blank" rel="noopener">原文链接</a>`:''}
+      ${e.pmid?` · PMID ${esc(e.pmid)}`:''}
+    </div>
+    ${sec('background','背景')}
+    ${secRich('method','方法',{algorithm:'具体算法 / 模型',datasets:'采用数据集',dataVolume:'数据量',pipeline:'技术流程',evaluation:'测试 / 验证'})}
+    ${secRich('clinicalStatus','临床应用现状',{stage:'所处阶段',approval:'审批阶段',commercial:'商业化阶段'})}
+    ${sec('advantages','优势 / 特点')}
+    ${sec('limitations','局限')}
+    ${sec('similar','相似研究 / 产品')}
+    <div class="sec"><b>标签</b><div class="field">${(e.aiTags||[]).map(t=>`<span class="pill">${esc(t)}</span>`).join(' ')}</div></div>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+      <button class="primary" onclick="copyMd('${e.id}')">复制为公众号/腾讯文档 Markdown</button>
+      <button class="ghost" onclick="markPublished('${e.id}')">标记为已发布</button>
+    </div>`;
+}
+function markPublished(id){
+  const e=DATA.entries.find(x=>x.id===id); if(!e) return;
+  e.status='published'; toast('已标记为已发布'); render();
+}
+function copyMd(id){
+  const e=DATA.entries.find(x=>x.id===id); if(!e) return;
+  const i=e.interpretation||{};
+  const subMap = {
+    method:{algorithm:'具体算法 / 模型',datasets:'采用数据集',dataVolume:'数据量',pipeline:'技术流程',evaluation:'测试 / 验证'},
+    clinicalStatus:{stage:'所处阶段',approval:'审批阶段',commercial:'商业化阶段'}
+  };
+  const mdLine=(k,v)=> v?`**${k}**：${v}\n`:'';
+  const mdRich=(k,label)=>{
+    const o=i[k]; if(!o) return '';
+    if(typeof o==='string') return `**${label}**：${o}\n`;
+    const lines=Object.keys(subMap[k]).filter(sk=>o[sk]).map(sk=>`- ${subMap[k][sk]}：${o[sk]}`);
+    return lines.length?`**${label}**：\n${lines.join('\n')}\n`:'';
+  };
+  const md = `# ${e.titleZh||e.title}\n\n> ${e.title||''}\n\n`+
+    `期刊/来源：${e.journal||e.source||'—'} · ${e.year||''} · IF ${fmtIf(e)} · 引用 ${e.citations||0}`+
+    (e.url?`\n原文：${e.url}`:'')+`\n\n`+
+    mdLine('背景',i.background)+mdRich('method','方法')+
+    mdRich('clinicalStatus','临床应用现状')+mdLine('优势/特点',i.advantages)+mdLine('局限',i.limitations)+
+    mdLine('相似研究/产品',i.similar)+
+    `\n标签：${(e.aiTags||[]).join('、')}`;
+  navigator.clipboard.writeText(md).then(()=>toast('已复制 Markdown，可粘贴到腾讯文档/公众号')).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=md;document.body.appendChild(ta);ta.select();
+    document.execCommand('copy');ta.remove();toast('已复制 Markdown');
+  });
+}
+/* ===== 导入 / 导出 ===== */
+function importFile(ev){
+  const f=ev.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=()=>{ try{
+    const j=JSON.parse(r.result);
+    if(j.entries) DATA.entries=j.entries;
+    if(j.graph) DATA.graph=j.graph;
+    selectedId = DATA.entries[0]?DATA.entries[0].id:null;
+    toast('已导入 '+DATA.entries.length+' 条'); render();
+  }catch(err){ toast('JSON 解析失败'); } };
+  r.readAsText(f); ev.target.value='';
+}
+function exportAll(){
+  const blob=new Blob([JSON.stringify(DATA,null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='medical-ai-intel-backup-'+new Date().toISOString().slice(0,10)+'.json';
+  a.click(); toast('已导出备份 JSON');
+}
+/* ===== 知识图谱（增强力导 + 自适应画布 + 拖拽/缩放 + 高亮） ===== */
+let _g={nodes:[],edges:[],active:null}, _gview={sc:1,tx:0,ty:0}, _gBound=false;
+function graphLabelShort(t){ t=String(t||''); return t.length>9? t.slice(0,9)+'…':t; }
+function graphLabelW(t){ return Math.max(22,(graphLabelShort(t).length)*5.4); }
+function drawGraph(){
+  const svg=document.getElementById('graph');
+  const raw=DATA.graph.nodes||[], E=DATA.graph.edges||[];
+  if(!raw.length){ svg.setAttribute('viewBox','0 0 680 460'); svg.innerHTML='<text x="340" y="230" text-anchor="middle" fill="#94a3b8" font-size="14">暂无图谱数据</text>'; return; }
+  // 相似边（两条 entry 共享≥2个邻居）
+  const neigh={}; raw.forEach(n=>neigh[n.id]=[]);
+  E.forEach(e=>{ if(neigh[e.source])neigh[e.source].push(e.target); if(neigh[e.target])neigh[e.target].push(e.source); });
+  const eIds=raw.filter(n=>n.type==='entry').map(n=>n.id);
+  const sim=[];
+  for(let a=0;a<eIds.length;a++)for(let b=a+1;b<eIds.length;b++){
+    const sh=neigh[eIds[a]].filter(x=>neigh[eIds[b]].includes(x));
+    if(sh.length>=2) sim.push({source:eIds[a],target:eIds[b],relation:'相似'});
+  }
+  const allE=E.concat(sim);
+  const nodes=raw.map(n=>({...n}));
+  nodes.forEach(n=>{ n.r=n.type==='entry'?11:7; n.vr=n.r+graphLabelW(n.label)*0.5+6; });
+  // 初始：按类型聚类的网格（保证初始即不重叠，同类型相邻便于 FR 聚合）
+  const types=[...new Set(nodes.map(n=>n.type))];
+  const order={}; types.forEach((t,i)=>order[t]=i);
+  const seq=nodes.slice().sort((a,b)=>order[a.type]-order[b.type]);
+  const N=nodes.length, cols=Math.ceil(Math.sqrt(N*1.6)), GAP=52;
+  seq.forEach((n,i)=>{ n.x=(i%cols)*GAP+40; n.y=Math.floor(i/cols)*GAP+40; });
+  // Fruchterman-Reingold 轻量：斥力按视觉半径放大 + 边引力聚合 + 弱向心
+  const idxOf={}; nodes.forEach((n,i)=>idxOf[n.id]=i);
+  let temp=42; const K=40; const cxG=cols*GAP/2, cyG=Math.ceil(N/cols)*GAP/2;
+  for(let it=0; it<200; it++){
+    const disp=nodes.map(()=>({x:0,y:0}));
+    for(let i=0;i<N;i++)for(let j=i+1;j<N;j++){
+      let dx=nodes[i].x-nodes[j].x, dy=nodes[i].y-nodes[j].y; let d=Math.hypot(dx,dy)||0.01; const ux=dx/d,uy=dy/d;
+      const rep=(K*K/d)*(1+(nodes[i].vr+nodes[j].vr)/120);
+      disp[i].x+=ux*rep; disp[i].y+=uy*rep; disp[j].x-=ux*rep; disp[j].y-=uy*rep;
+    }
+    allE.forEach(e=>{ const ia=idxOf[e.source], ib=idxOf[e.target]; if(ia==null||ib==null)return;
+      let dx=nodes[ib].x-nodes[ia].x, dy=nodes[ib].y-nodes[ia].y, d=Math.hypot(dx,dy)||0.01; const ux=dx/d,uy=dy/d;
+      const w=e.relation==='相似'?0.4:1; const att=(d*d/K)*0.6*w;
+      disp[ia].x+=ux*att; disp[ia].y+=uy*att; disp[ib].x-=ux*att; disp[ib].y-=uy*att;
+    });
+    nodes.forEach((nd,i)=>{ disp[i].x-=(nd.x-cxG)*0.008; disp[i].y-=(nd.y-cyG)*0.008; });
+    nodes.forEach((nd,i)=>{ const dl=Math.hypot(disp[i].x,disp[i].y)||0.01, lim=Math.min(dl,temp);
+      nd.x+=disp[i].x/dl*lim; nd.y+=disp[i].y/dl*lim; });
+    temp*=0.95;
+  }
+  // 重叠分离后处理：两两保证圆心距 ≥ 视觉半径和 + 间隙（100% 消除圆重叠）
+  for(let p=0;p<40;p++)for(let i=0;i<N;i++)for(let j=i+1;j<N;j++){
+    let dx=nodes[j].x-nodes[i].x, dy=nodes[j].y-nodes[i].y; let d=Math.hypot(dx,dy)||0.01;
+    const md=nodes[i].vr+nodes[j].vr+4;
+    if(d<md){ const ux=dx/d,uy=dy/d,push=(md-d)/2; nodes[i].x-=ux*push; nodes[i].y-=uy*push; nodes[j].x+=ux*push; nodes[j].y+=uy*push; }
+  }
+  _g.nodes=nodes; _g.edges=allE; _g.active=null; _gview={sc:1,tx:0,ty:0};
+  // 自适应 viewBox：按布局范围 + 标签包围盒，留边距，避免空白浪费/贴边
+  let minX=1e9,minY=1e9,maxX=-1e9,maxY=-1e9;
+  nodes.forEach(nd=>{ const lw=graphLabelW(nd.label); minX=Math.min(minX,nd.x-nd.r-lw*0.5-8); maxX=Math.max(maxX,nd.x+nd.r+lw*0.5+8); minY=Math.min(minY,nd.y-nd.r-8); maxY=Math.max(maxY,nd.y+nd.r+18); });
+  const P=24; svg.setAttribute('viewBox', `${(minX-P).toFixed(1)} ${(minY-P).toFixed(1)} ${(maxX-minX+P*2).toFixed(1)} ${(maxY-minY+P*2).toFixed(1)}`);
+  renderGraphSVG(); bindGraphInteractions();
+}
+function renderGraphSVG(){
+  const svg=document.getElementById('graph'); if(!_g.nodes.length) return;
+  const active=_g.active;
+  const relSet=new Set(); if(active){ relSet.add(active); _g.edges.forEach(e=>{ if(e.source===active)relSet.add(e.target); if(e.target===active)relSet.add(e.source); }); }
+  let s=`<g id="gviewport" transform="translate(${_gview.tx},${_gview.ty}) scale(${_gview.sc})">`;
+  _g.edges.forEach(e=>{ const a=_g.nodes.find(n=>n.id===e.source), b=_g.nodes.find(n=>n.id===e.target); if(!a||!b)return;
+    const dim=active&&!(e.source===active||e.target===active);
+    const col=e.relation==='相似'?'#c4b5fd':'#cbd5e1';
+    s+=`<line x1="${a.x.toFixed(1)}" y1="${a.y.toFixed(1)}" x2="${b.x.toFixed(1)}" y2="${b.y.toFixed(1)}" stroke="${col}" stroke-width="${e.relation==='相似'?'1.1':'1.4'}" stroke-dasharray="${e.relation==='相似'?'4,3':''}" opacity="${dim?0.12:0.9}"/>`;
+  });
+  _g.nodes.forEach(nd=>{ const r=nd.r; const dim=active&&!relSet.has(nd.id);
+    s+=`<g class="gnode" data-id="${nd.id}" style="opacity:${dim?0.18:1}">`
+      +`<title>${esc(nd.label)}</title>`
+      +`<circle cx="${nd.x.toFixed(1)}" cy="${nd.y.toFixed(1)}" r="${r}" fill="${nodeColor(nd)}" stroke="#fff" stroke-width="1.6"/>`
+      +`<text x="${nd.x.toFixed(1)}" y="${(nd.y+r+11).toFixed(1)}" text-anchor="middle" font-size="10" fill="#334155">${esc(graphLabelShort(nd.label))}</text></g>`;
+  });
+  s+='</g>';
+  svg.innerHTML=s;
+}
+function toGraphModel(cx,cy){ const svg=document.getElementById('graph'); const r=svg.getBoundingClientRect(); const vb=svg.viewBox.baseVal;
+  const vbx=vb.x+(cx-r.left)/r.width*vb.width, vby=vb.y+(cy-r.top)/r.height*vb.height;
+  return { mx:(vbx-_gview.tx)/_gview.sc, my:(vby-_gview.ty)/_gview.sc, vbx, vby }; }
+function bindGraphInteractions(){
+  const svg=document.getElementById('graph'); if(_gBound)return; _gBound=true;
+  let mode=null, moved=false, dragId=null, start={tx:0,ty:0};
+  svg.addEventListener('pointerdown', ev=>{ const r=svg.getBoundingClientRect();
+    const el=ev.target.closest('.gnode'); dragId=el?el.getAttribute('data-id'):null; mode='pan'; moved=false;
+    start={cx:ev.clientX,cy:ev.clientY,tx:_gview.tx,ty:_gview.ty,vbx:svg.viewBox.baseVal.x,vw:svg.viewBox.baseVal.width,vh:svg.viewBox.baseVal.height}; ev.preventDefault(); });
+  svg.addEventListener('pointermove', ev=>{ if(!mode)return; const dx=ev.clientX-start.cx, dy=ev.clientY-start.cy; if(Math.abs(dx)+Math.abs(dy)>4)moved=true;
+    if(dragId){ const m=toGraphModel(ev.clientX,ev.clientY); const nd=_g.nodes.find(n=>n.id===dragId); if(nd){ nd.x=m.mx; nd.y=m.my; renderGraphSVG(); } }
+    else { const r=svg.getBoundingClientRect(); _gview.tx=start.tx+dx/r.width*start.vw; _gview.ty=start.ty+dy/r.height*start.vh; renderGraphSVG(); }
+  });
+  svg.addEventListener('pointerup', ()=>{ if(dragId&&!moved){ _g.active=dragId; renderGraphSVG(); onNode(dragId); } mode=null; dragId=null; });
+  svg.addEventListener('pointerleave', ()=>{ mode=null; dragId=null; });
+  svg.addEventListener('wheel', ev=>{ ev.preventDefault(); const m=toGraphModel(ev.clientX,ev.clientY); const f=ev.deltaY<0?1.12:1/1.12;
+    _gview.sc=Math.max(0.4,Math.min(3,_gview.sc*f)); _gview.tx=m.vbx-(m.vbx-_gview.tx)*f; _gview.ty=m.vby-(m.vby-_gview.ty)*f; renderGraphSVG(); }, {passive:false});
+}
+function graphReset(){ _g.active=null; _gview={sc:1,tx:0,ty:0}; renderGraphSVG(); document.getElementById('ginfo').textContent='点击节点查看其关联关系。'; }
+function onNode(id){
+  const nd=DATA.graph.nodes.find(n=>n.id===id); if(!nd) return;
+  _g.active=id; renderGraphSVG();
+  const rel=DATA.graph.edges.filter(e=>e.source===id||e.target===id)
+    .map(e=>{ const other=e.source===id?e.target:e.source; const on=DATA.graph.nodes.find(n=>n.id===other);
+      return `${e.relation} → <b>${esc(on.label)}</b>`; });
+  document.getElementById('ginfo').innerHTML = `<b>${esc(nd.label)}</b>（${nd.type}）关联：${rel.join('；')||'无'}`;
+  // also try select related entry
+  if(nd.type==='entry'){ selectedId=nd.id; switchTab('lib'); select(nd.id); }
+}
+/* ===== 工具 ===== */
+function esc(t){ return (t==null?'':String(t)).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),1800); }
+render();
+</script>
+</body>
+</html>

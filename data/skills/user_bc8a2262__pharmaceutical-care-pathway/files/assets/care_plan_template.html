@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{DIAGNOSIS}}药学监护计划</title>
+  <style>
+    /* ============================================
+       中国医院协会药事管理委员会团体标准样式
+       药学监护计划文档 - 统一样式规范
+    ============================================ */
+    :root {
+      --primary-color: #0B7A75;
+      --primary-light: #F0F9F8;
+      --primary-dark: #065F5B;
+      --accent-color: #17A89D;
+      --warning-color: #E85D04;
+      --danger-color: #D62828;
+      --text-primary: #1A1A2E;
+      --text-secondary: #4A4A6A;
+      --border-color: #B2DFDB;
+      --table-header: #004D40;
+      --table-header-text: #FFFFFF;
+      --table-alt: #E0F2F1;
+      --section-bg: #F8FDFC;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Microsoft YaHei", "微软雅黑", "Heiti SC", "黑体", sans-serif;
+      font-size: 12pt;
+      color: var(--text-primary);
+      background: #FAFAFA;
+      line-height: 1.6;
+    }
+
+    .page-wrapper {
+      max-width: 210mm;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+    }
+
+    /* === 文档头部 === */
+    .doc-header {
+      border: 2.5px solid var(--primary-dark);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .doc-header-top {
+      background: var(--primary-dark);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+    }
+
+    .hospital-name {
+      font-size: 16pt;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .doc-logo {
+      font-size: 11pt;
+      text-align: right;
+      opacity: 0.9;
+    }
+
+    .doc-header-title {
+      background: var(--accent-color);
+      color: white;
+      text-align: center;
+      font-size: 18pt;
+      font-weight: bold;
+      padding: 12px;
+      letter-spacing: 4px;
+    }
+
+    .doc-header-meta {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--border-color);
+    }
+
+    .meta-item {
+      padding: 6px 14px;
+      border-right: 1px solid var(--border-color);
+      font-size: 10pt;
+    }
+
+    .meta-item:last-child { border-right: none; }
+
+    .meta-label {
+      color: var(--text-secondary);
+      font-size: 9pt;
+    }
+
+    .meta-value {
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+
+    /* === 区块通用样式 === */
+    .section {
+      margin-bottom: 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .section-header {
+      background: var(--table-header);
+      color: var(--table-header-text);
+      padding: 7px 14px;
+      font-size: 12pt;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-header .section-icon {
+      font-size: 14pt;
+    }
+
+    .section-header .section-code {
+      font-size: 9pt;
+      opacity: 0.8;
+      margin-left: auto;
+    }
+
+    .section-body {
+      padding: 12px 14px;
+      background: var(--section-bg);
+    }
+
+    /* === 信息表格 === */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--border-color);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .info-grid-2col {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .info-cell {
+      padding: 7px 12px;
+      border-right: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .info-cell:nth-child(3n) { border-right: none; }
+
+    .info-cell-label {
+      font-size: 9pt;
+      color: var(--text-secondary);
+      margin-bottom: 2px;
+    }
+
+    .info-cell-value {
+      font-size: 11pt;
+      font-weight: 600;
+      color: var(--text-primary);
+      min-height: 20px;
+      border-bottom: 1px dashed #ccc;
+    }
+
+    /* === 标准数据表格 === */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10.5pt;
+    }
+
+    thead th {
+      background: var(--table-header);
+      color: var(--table-header-text);
+      padding: 7px 10px;
+      text-align: center;
+      font-weight: 600;
+      border: 1px solid #003330;
+    }
+
+    tbody tr:nth-child(even) {
+      background: var(--table-alt);
+    }
+
+    tbody tr:nth-child(odd) {
+      background: white;
+    }
+
+    tbody td {
+      padding: 7px 10px;
+      border: 1px solid var(--border-color);
+      vertical-align: top;
+    }
+
+    /* === 药学监护时序总览表 === */
+    .timeline-table thead th:first-child {
+      width: 100px;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 9pt;
+      font-weight: 600;
+    }
+
+    .badge-todo {
+      background: #FFF3E0;
+      color: #E65100;
+      border: 1px solid #FFB300;
+    }
+
+    .badge-done {
+      background: #E8F5E9;
+      color: #2E7D32;
+      border: 1px solid #66BB6A;
+    }
+
+    .badge-na {
+      background: #F5F5F5;
+      color: #757575;
+      border: 1px solid #BDBDBD;
+    }
+
+    /* === 药学监护子类卡片 === */
+    .care-card {
+      margin-bottom: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .care-card summary {
+      background: var(--primary-color);
+      color: white;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 11pt;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .care-card summary::after {
+      content: "▼ 展开";
+      font-size: 9pt;
+      opacity: 0.8;
+    }
+
+    .care-card[open] summary::after {
+      content: "▲ 收起";
+    }
+
+    .care-card-body {
+      padding: 12px;
+      background: white;
+    }
+
+    /* === 风险提示 === */
+    .alert-box {
+      padding: 10px 14px;
+      border-radius: 4px;
+      margin: 8px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .alert-warning {
+      background: #FFF8E1;
+      border-left: 4px solid var(--warning-color);
+      color: #5D4037;
+    }
+
+    .alert-danger {
+      background: #FFEBEE;
+      border-left: 4px solid var(--danger-color);
+      color: #B71C1C;
+    }
+
+    .alert-info {
+      background: var(--primary-light);
+      border-left: 4px solid var(--accent-color);
+      color: #004D40;
+    }
+
+    /* === 监护要点列表 === */
+    .monitoring-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .monitoring-list li {
+      padding: 5px 10px;
+      border-bottom: 1px dashed var(--border-color);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .monitoring-list li:before {
+      content: "◆";
+      color: var(--primary-color);
+      font-size: 8pt;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+
+    /* === 签名区 === */
+    .signature-section {
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 12px 16px;
+      background: var(--primary-light);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .signature-item {
+      text-align: center;
+    }
+
+    .signature-line {
+      border-bottom: 1.5px solid #333;
+      height: 32px;
+      margin-bottom: 4px;
+    }
+
+    .signature-label {
+      font-size: 9pt;
+      color: var(--text-secondary);
+    }
+
+    /* === 打印样式 === */
+    @media print {
+      body { background: white; }
+      .page-wrapper { padding: 10px; max-width: 100%; }
+      .care-card[open] summary::after { content: ""; }
+      .care-card details { display: block; }
+      .care-card-body { display: block !important; }
+      @page {
+        size: A4;
+        margin: 2cm 2.5cm;
+      }
+    }
+
+    /* === 时序线图样式 === */
+    .timeline-diagram {
+      overflow-x: auto;
+      padding: 10px 0;
+    }
+
+    .timeline-row {
+      display: flex;
+      align-items: center;
+      margin: 6px 0;
+      gap: 0;
+    }
+
+    .timeline-label {
+      min-width: 100px;
+      font-size: 9pt;
+      font-weight: bold;
+      color: var(--primary-dark);
+      text-align: right;
+      padding-right: 10px;
+    }
+
+    .timeline-node {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 80px;
+      height: 32px;
+      border-radius: 16px;
+      font-size: 8.5pt;
+      font-weight: 600;
+      margin: 0 4px;
+      padding: 0 10px;
+      position: relative;
+      cursor: default;
+    }
+
+    .timeline-node.pharma {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .timeline-node.medical {
+      background: #1565C0;
+      color: white;
+    }
+
+    .timeline-node.nursing {
+      background: #6A1B9A;
+      color: white;
+    }
+
+    .timeline-node.empty {
+      background: #ECEFF1;
+      color: #90A4AE;
+    }
+
+    .timeline-connector {
+      flex: 1;
+      height: 2px;
+      background: var(--border-color);
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <!-- 文档头部 -->
+  <div class="doc-header">
+    <div class="doc-header-top">
+      <span class="hospital-name">{{HOSPITAL_NAME}}</span>
+      <span class="doc-logo">药学部<br>Pharmacy Department</span>
+    </div>
+    <div class="doc-header-title">{{DIAGNOSIS}} 药学监护计划</div>
+    <div class="doc-header-meta">
+      <div class="meta-item">
+        <div class="meta-label">文档编号</div>
+        <div class="meta-value">{{DOC_NO}}</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">版本号</div>
+        <div class="meta-value">{{VERSION}}</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">制定日期</div>
+        <div class="meta-value">{{CREATE_DATE}}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 患者基本信息 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">👤</span>
+      患者基本信息
+    </div>
+    <div class="section-body">
+      <div class="info-grid">
+        <div class="info-cell">
+          <div class="info-cell-label">患者姓名</div>
+          <div class="info-cell-value">{{PATIENT_NAME}}</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-cell-label">性别</div>
+          <div class="info-cell-value">{{GENDER}}</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-cell-label">年龄</div>
+          <div class="info-cell-value">{{AGE}} 岁</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-cell-label">住院号</div>
+          <div class="info-cell-value">{{ADMISSION_NO}}</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-cell-label">科室 / 床位号</div>
+          <div class="info-cell-value">{{DEPARTMENT}} / {{BED_NO}}</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-cell-label">入院日期</div>
+          <div class="info-cell-value">{{ADMISSION_DATE}}</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-cell-label">体重(kg) / 身高(cm)</div>
+          <div class="info-cell-value">{{WEIGHT}} / {{HEIGHT}}</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-cell-label">肾功能 (eGFR)</div>
+          <div class="info-cell-value">{{EGFR}} ml/min/1.73m²</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-cell-label">过敏史</div>
+          <div class="info-cell-value" style="color: var(--danger-color);">{{ALLERGY_HISTORY}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 诊断信息 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">🔬</span>
+      诊断信息
+    </div>
+    <div class="section-body">
+      <div class="info-grid">
+        <div class="info-cell" style="grid-column: 1 / span 2;">
+          <div class="info-cell-label">主要诊断</div>
+          <div class="info-cell-value" style="font-size: 13pt; color: var(--primary-dark);">{{PRIMARY_DIAGNOSIS}}</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-cell-label">ICD-10编码</div>
+          <div class="info-cell-value">{{ICD_CODE}}</div>
+        </div>
+        <div class="info-cell" style="grid-column: 1 / span 3;">
+          <div class="info-cell-label">次要诊断 / 合并症</div>
+          <div class="info-cell-value">{{SECONDARY_DIAGNOSIS}}</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-cell-label">特殊状态</div>
+          <div class="info-cell-value">{{SPECIAL_STATUS}}</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-cell-label">药学监护分级（风险分组）</div>
+          <div class="info-cell-value" style="color: var(--warning-color); font-size: 13pt;">{{CARE_LEVEL}}</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-cell-label">预期住院天数</div>
+          <div class="info-cell-value">{{EXPECTED_STAY}} 天</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 治疗方案 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">💊</span>
+      治疗方案
+    </div>
+    <div class="section-body">
+      <div class="alert-info">
+        <span>📋</span>
+        <span>治疗原则：{{TREATMENT_PRINCIPLE}}</span>
+      </div>
+      <br>
+      <table>
+        <thead>
+          <tr>
+            <th>序号</th>
+            <th>药品通用名（商品名）</th>
+            <th>剂型规格</th>
+            <th>单次剂量</th>
+            <th>频次</th>
+            <th>给药途径</th>
+            <th>开始日期</th>
+            <th>预计停用日期</th>
+            <th>备注</th>
+          </tr>
+        </thead>
+        <tbody id="medication-table-body">
+          <!-- 由技能动态填充 -->
+          <tr>
+            <td>1</td>
+            <td>{{DRUG_NAME_1}}</td>
+            <td>{{SPEC_1}}</td>
+            <td>{{DOSE_1}}</td>
+            <td>{{FREQ_1}}</td>
+            <td>{{ROUTE_1}}</td>
+            <td>{{START_DATE_1}}</td>
+            <td>{{END_DATE_1}}</td>
+            <td>{{NOTE_1}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 治疗路径时序线图 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">📅</span>
+      治疗路径时序线图
+    </div>
+    <div class="section-body">
+      <div class="timeline-diagram">
+        <!-- 图例 -->
+        <div style="display: flex; gap: 16px; margin-bottom: 12px; font-size: 9pt; flex-wrap: wrap;">
+          <span style="display: inline-flex; align-items: center; gap: 4px;">
+            <span class="timeline-node pharma" style="min-width: 16px; height: 16px; border-radius: 50%;"></span>药学监护
+          </span>
+          <span style="display: inline-flex; align-items: center; gap: 4px;">
+            <span class="timeline-node medical" style="min-width: 16px; height: 16px; border-radius: 50%;"></span>医疗操作
+          </span>
+          <span style="display: inline-flex; align-items: center; gap: 4px;">
+            <span class="timeline-node nursing" style="min-width: 16px; height: 16px; border-radius: 50%;"></span>护理
+          </span>
+        </div>
+        <!-- 时序内容由技能动态生成 -->
+        <div id="timeline-content">
+          {{TIMELINE_CONTENT}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 药学监护计划总览 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">📋</span>
+      药学监护计划总览
+      <span class="section-code">Pharmaceutical Care Plan</span>
+    </div>
+    <div class="section-body">
+      <table class="timeline-table">
+        <thead>
+          <tr>
+            <th>时间节点</th>
+            <th>药学监护活动</th>
+            <th>子类代码</th>
+            <th>优先级</th>
+            <th>责任药师</th>
+            <th>计划完成时间</th>
+            <th>完成状态</th>
+          </tr>
+        </thead>
+        <tbody id="care-plan-timeline">
+          <!-- 由技能动态填充 -->
+          {{CARE_PLAN_ROWS}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 药学监护要点 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">⚠️</span>
+      重点药学监护要点
+    </div>
+    <div class="section-body">
+      {{MONITORING_POINTS}}
+    </div>
+  </div>
+
+  <!-- 各药学监护子类工作表（可折叠） -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">📑</span>
+      药学监护工作子类表单
+    </div>
+    <div class="section-body">
+
+      <!-- PC-02 患者分组 -->
+      <details class="care-card">
+        <summary>PC-02 患者分组评估表</summary>
+        <div class="care-card-body">
+          {{PC02_FORM}}
+        </div>
+      </details>
+
+      <!-- PC-03 用药重整（入院） -->
+      <details class="care-card">
+        <summary>PC-03 用药重整（入院阶段）</summary>
+        <div class="care-card-body">
+          {{PC03_FORM}}
+        </div>
+      </details>
+
+      <!-- PC-01 药学查房 -->
+      <details class="care-card">
+        <summary>PC-01 药学查房记录（模板）</summary>
+        <div class="care-card-body">
+          {{PC01_FORM}}
+        </div>
+      </details>
+
+      <!-- PC-05 处方审核 -->
+      <details class="care-card">
+        <summary>PC-05 处方审核记录表</summary>
+        <div class="care-card-body">
+          {{PC05_FORM}}
+        </div>
+      </details>
+
+      <!-- PC-08 药学评估 -->
+      <details class="care-card">
+        <summary>PC-08 药学综合评估表</summary>
+        <div class="care-card-body">
+          {{PC08_FORM}}
+        </div>
+      </details>
+
+      <!-- PC-06 处方精简 -->
+      <details class="care-card">
+        <summary>PC-06 处方精简评估表</summary>
+        <div class="care-card-body">
+          {{PC06_FORM}}
+        </div>
+      </details>
+
+      <!-- PC-07 出院用药教育 -->
+      <details class="care-card">
+        <summary>PC-07 出院用药教育记录表</summary>
+        <div class="care-card-body">
+          {{PC07_FORM}}
+        </div>
+      </details>
+
+      <!-- PC-10 药学随访 -->
+      <details class="care-card">
+        <summary>PC-10 药学随访记录表</summary>
+        <div class="care-card-body">
+          {{PC10_FORM}}
+        </div>
+      </details>
+
+    </div>
+  </div>
+
+  <!-- 签名区 -->
+  <div class="signature-section">
+    <div class="signature-item">
+      <div class="signature-line"></div>
+      <div class="signature-label">制定药师 签名/日期</div>
+    </div>
+    <div class="signature-item">
+      <div class="signature-line"></div>
+      <div class="signature-label">上级药师/主任 审核/日期</div>
+    </div>
+    <div class="signature-item">
+      <div class="signature-line"></div>
+      <div class="signature-label">患者/家属 知情确认/日期</div>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <div style="margin-top: 12px; text-align: center; font-size: 8.5pt; color: var(--text-secondary); border-top: 1px solid var(--border-color); padding-top: 6px;">
+    本文档依据中国医院协会药事管理委员会药学服务团体标准制定 | 仅供本院药学服务使用
+  </div>
+
+</div>
+
+<script>
+// 打印功能
+function printDoc() {
+  // 打印前展开所有折叠项
+  document.querySelectorAll('details.care-card').forEach(d => d.open = true);
+  window.print();
+}
+</script>
+</body>
+</html>

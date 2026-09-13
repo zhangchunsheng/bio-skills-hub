@@ -1,0 +1,4 @@
+interface:
+  display_name: "Generic·Fullstack·设计系统｜简诗 AI"
+  short_description: "围绕“Generic·Fullstack·设计系统”提供具体执行方法，涵盖主题创意、视觉结构、物料清单和落地检查。"
+  default_prompt: "使用 $generic-fullstack-design-system 完成“Generic·Fullstack·设计系统”任务。"

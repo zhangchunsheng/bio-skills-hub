@@ -1,0 +1,7 @@
+interface:
+  display_name: "[宠物业务] 病历完整性与矛盾检查"
+  short_description: "核对宠物病历字段、时间线、前后矛盾与未闭环事项，生成待人工复核清单"
+  default_prompt: "使用 $pet-medical-record-quality-check，检查这份脱敏病历并输出可逐项核对的问题清单："
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,34 @@
+{
+  "slug": "kids-activity-go-bag-card",
+  "name": "Kids Activity Go-Bag Card",
+  "displayName": "Kids Activity Go-Bag Card",
+  "version": "1.0.1",
+  "license": "MIT-0",
+  "description": "Create reusable activity-specific packing cards for children's classes, practices, lessons, and outings with weather, location, and readiness prompts but no medical or emergency advice.",
+  "triggerKeywords": [
+    "kids activity bag",
+    "go bag checklist",
+    "sports packing list",
+    "class packing checklist",
+    "practice bag",
+    "activity gear card"
+  ],
+  "tags": [
+    "kids",
+    "activity",
+    "packing",
+    "checklist",
+    "routine",
+    "parent",
+    "gear",
+    "readiness"
+  ],
+  "healthSafety": "This skill supports packing readiness only. It avoids sensitive child or medical data and does not provide emergency, medical, allergy, injury, medication, or supervision advice.",
+  "language": "en",
+  "contentType": "document-only",
+  "hasExecutableCode": false,
+  "requires_api": false,
+  "no_code_execution": true,
+  "no_network": true,
+  "no_credentials": true
+}

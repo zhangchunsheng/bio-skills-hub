@@ -1,0 +1,23 @@
+{
+  "slug": "medical-entry-guide",
+  "name": "医院入职门槛与简历-小护圈",
+  "version": "1.0.0",
+  "source": "skillhub",
+  "iconSource": "letter:auto",
+  "examples_zh": [
+    "进医院需要什么条件",
+    "护士怎么进公立医院",
+    "大专护士能进三甲吗",
+    "护士没有证能找工作吗",
+    "护士规培有工资吗",
+    "医护找工作渠道有哪些",
+    "医院简历模板",
+    "投医院简历注意什么"
+  ],
+  "examples_en": [
+    "requirements to work in a hospital",
+    "how to get a nurse job in a public hospital",
+    "can a college diploma nurse work in a top tertiary hospital",
+    "nurse resume template"
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "output_dir": "~/Documents/covers",
+  "settings": {
+    "base_url": "https://api.modelverse.cn/v1",
+    "model": "doubao-seedream-5-0-260128",
+    "n": 4,
+    "size": "3360x1440",
+    "api_format": "openai"
+  },
+  "secrets": {
+    "api_key": "bVprYCfS16q1rYooDf029fE7-9A9D-447e-9227-3c35EdEc"
+  },
+  "__ui": {
+    "fields": {
+      "output_dir": {
+        "label": "输出目录",
+        "type": "directory",
+        "required": true,
+        "description": "封面图保存到该目录下"
+      },
+      "settings.base_url": {
+        "label": "API 地址",
+        "type": "string",
+        "required": true,
+        "description": "OpenAI 或 Gemini 兼容的 API base_url"
+      },
+      "settings.model": {
+        "label": "模型名称",
+        "type": "string",
+        "required": true,
+        "description": "如 doubao-seedream-5-0-260128"
+      },
+      "settings.n": {
+        "label": "生成张数",
+        "type": "number",
+        "required": false,
+        "description": "默认 4 张"
+      },
+      "settings.size": {
+        "label": "图片尺寸",
+        "type": "string",
+        "required": false,
+        "description": "如 3360x1440（21:9 比例）"
+      },
+      "settings.api_format": {
+        "label": "API 格式",
+        "type": "select",
+        "required": false,
+        "options": ["openai", "gemini"],
+        "description": "API 协议格式"
+      },
+      "secrets.api_key": {
+        "label": "API 密钥",
+        "type": "secret",
+        "required": true,
+        "description": "敏感信息，不回显"
+      }
+    },
+    "order": [
+      "output_dir",
+      "settings.base_url",
+      "settings.model",
+      "settings.n",
+      "settings.size",
+      "settings.api_format",
+      "secrets.api_key"
+    ]
+  }
+}

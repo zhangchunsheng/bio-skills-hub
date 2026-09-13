@@ -1,0 +1,31 @@
+{
+  "scope": "national",
+  "layer_name": "国家标准（标点符号）",
+  "source": "GB/T 15834-2011",
+  "auto": true,
+  "rules": [
+    {
+      "id": "PUN-ELLIPSIS",
+      "category": "punct",
+      "severity": "warning",
+      "pattern": "\\.{3,}",
+      "is_regex": true,
+      "suggestion": "改为「……」（六点，占两字）",
+      "message": "省略号应使用「……」而非三个点或更多点（命中：{found}）",
+      "example": "结果......",
+      "counter_example": "结果……"
+    },
+    {
+      "id": "PUN-HALF",
+      "category": "punct",
+      "severity": "warning",
+      "pattern": "(?<=[\\u4e00-\\u9fff\\d])[,.!?;:](?=\\s*[\\u4e00-\\u9fff])",
+      "is_regex": true,
+      "capture": "repl",
+      "suggestion": "改为对应全角标点",
+      "message": "中文正文应使用全角标点（命中：{found}）",
+      "example": "结果, 差异",
+      "counter_example": "结果，差异"
+    }
+  ]
+}

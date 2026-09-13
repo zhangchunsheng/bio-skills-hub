@@ -1,0 +1,32 @@
+{
+  "version": "1.0",
+  "reality_mode": "A",
+  "target_scope": "exact_location",
+  "as_of_date": "2026-07-14",
+  "sources": [
+    {
+      "id": "sat-only",
+      "source_type": "satellite",
+      "source_name": "unknown satellite screenshot",
+      "capture_date": "2021-01-01",
+      "access_date": "2026-07-14",
+      "geographic_precision": "exact location",
+      "coordinate_system": "WGS84",
+      "spatial_resolution": "10m",
+      "license_or_permission": "unknown",
+      "supported_claims": ["门头颜色、人物排队、室内布局"],
+      "unsupported_claims": ["天气"],
+      "confidence": "high"
+    }
+  ],
+  "claims": [
+    {
+      "id": "bad-store",
+      "statement": "卫星证明该店门头为蓝色并且顾客正在排队。",
+      "claim_level": "store",
+      "status": "observed",
+      "source_ids": ["sat-only"],
+      "current_state": true
+    }
+  ]
+}

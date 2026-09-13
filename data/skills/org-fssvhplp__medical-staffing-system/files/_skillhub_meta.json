@@ -1,0 +1,20 @@
+{
+  "slug": "medical-staffing-system",
+  "name": "医院编制考编-小护圈",
+  "version": "1.0.0",
+  "source": "skillhub",
+  "iconSource": "letter:auto",
+  "examples_zh": [
+    "医院备案制和事业编有什么区别",
+    "医院编内编外待遇差多少",
+    "医院人事代理算不算编制",
+    "护士怎么考编制",
+    "公立医院编制怎么考",
+    "医院劳务派遣稳定吗"
+  ],
+  "examples_en": [
+    "hospital staffing system",
+    "hospital establishment vs contract",
+    "how to get hospital tenure for nurses"
+  ]
+}

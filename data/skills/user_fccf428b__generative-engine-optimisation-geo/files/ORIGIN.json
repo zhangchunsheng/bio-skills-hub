@@ -1,0 +1,19 @@
+{
+  "source_key": "whyashthakker__agent-skills-marketing",
+  "repo_url": "https://github.com/whyashthakker/agent-skills-marketing",
+  "commit": "985b4becb89bf441c1abd714177a8f99079bd25e",
+  "source_relative_path": ".claude/skills/generative-engine-optimisation-geo/SKILL.md",
+  "source_skill_sha256": "02c64a943e33e41bc4811f596b126dae08706970befac7eeda951a0e8e4bed8c",
+  "source_tree_sha256": "31839b031c68fc85fe96c30b4aa60d851304c302f73173a67b4586f7106abb40",
+  "effective_license": "MIT",
+  "license_files": [
+    "LICENSE"
+  ],
+  "target_category": "growth-traffic",
+  "selected_rank": 218,
+  "public_branding_applied": true,
+  "product_display_name": "网站在搜索和AI回答中提升曝光｜简诗 AI",
+  "product_slug": "generative-engine-optimisation-geo",
+  "productization": "简诗 AI canonical v1",
+  "product_summary": "检查网站是否可抓取、可索引、可摘录和易引用，同时优化传统搜索排名与生成式答案中的品牌曝光。"
+}

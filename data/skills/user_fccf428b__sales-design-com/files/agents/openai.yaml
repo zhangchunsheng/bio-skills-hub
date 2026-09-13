@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design.com 邮件营销与用户触达｜简诗 AI"
+  short_description: "围绕“Design.com 邮件营销与用户触达”提供具体执行方法，涵盖主题创意、视觉结构、物料清单和落地检查。"
+  default_prompt: "使用 $sales-design-com 完成“Design.com 邮件营销与用户触达”任务。"

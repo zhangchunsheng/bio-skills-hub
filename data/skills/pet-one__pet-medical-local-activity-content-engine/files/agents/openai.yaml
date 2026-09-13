@@ -1,0 +1,8 @@
+interface:
+  display_name: "宠物医疗｜本地门店活动内容与转化引擎"
+  short_description: "宠物医疗 / 本地生活运营 / 活动策划 / 内容营销"
+  brand_color: "#22C55E"
+  default_prompt: "调用 $local-business-content-engine，按当前可变活动对象生成中文宠物医疗或本地门店活动内容包；包含抖音本地推、美团、高德、朋友圈、私域联动，以及预约、到店、核销、真实评价、复诊和人工审核边界。"
+
+policy:
+  allow_implicit_invocation: true

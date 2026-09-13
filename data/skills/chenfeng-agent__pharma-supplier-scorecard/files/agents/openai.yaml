@@ -1,0 +1,4 @@
+interface:
+  display_name: "医药商业供应商评分卡"
+  short_description: "按交期、质量、成本和响应评估供应商"
+  default_prompt: "Use $pharma-supplier-scorecard for paid 医药商业 供应商评分卡."

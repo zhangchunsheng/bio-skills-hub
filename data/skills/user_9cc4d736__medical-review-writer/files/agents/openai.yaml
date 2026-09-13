@@ -1,0 +1,4 @@
+interface:
+  display_name: "Medical Review Writer"
+  short_description: "Write scholarly reviews with sequential PubMed-linked citations."
+  default_prompt: "Use $medical-review-writer to write a review with citations numbered from 1 and linked to verified PubMed records."

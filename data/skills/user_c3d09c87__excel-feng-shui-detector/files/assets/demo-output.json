@@ -1,0 +1,27 @@
+{
+  "feng_shui_score": 58,
+  "label": "暗流涌动",
+  "findings": [
+    {
+      "code": "merged_cells",
+      "severity": "review",
+      "sheet": "订单明细",
+      "count": 8,
+      "evidence": ["A2:A5", "B2:B5"]
+    },
+    {
+      "code": "numeric_text_candidate",
+      "severity": "review",
+      "sheet": "订单明细",
+      "count": 17,
+      "evidence": ["F3", "F8", "F12"]
+    },
+    {
+      "code": "formula_error",
+      "severity": "high",
+      "sheet": "汇总",
+      "count": 1,
+      "evidence": ["D19=#REF!"]
+    }
+  ]
+}

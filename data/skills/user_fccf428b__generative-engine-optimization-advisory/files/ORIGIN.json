@@ -1,0 +1,22 @@
+{
+  "source_key": "kostja94__marketing-skills",
+  "repo_url": "https://github.com/kostja94/marketing-skills",
+  "commit": "70987bad4ebe9dce1f74858c1c64f3f8810f18e4",
+  "source_relative_path": "skills/strategies/commercial/geo/SKILL.md",
+  "source_skill_sha256": "2ec798a15761f7125ce5b057f385b580b667b945900f1a5b22271433f593cf3f",
+  "source_tree_sha256": "45a43bb0910bbe683734b9bc6d55719ce7d1cd9eabbe63ebefa6e3c7ce0a8496",
+  "effective_license": "MIT",
+  "license_files": [
+    "LICENSE"
+  ],
+  "target_category": "growth-traffic",
+  "selected_rank": 31,
+  "public_branding_applied": true,
+  "product_display_name": "AI搜索引用增长顾问｜简诗 AI",
+  "product_slug": "generative-engine-optimization-advisory",
+  "productization": "简诗 AI canonical v1",
+  "product_summary": "优化内容在ChatGPT、Claude、Perplexity和AI搜索摘要中的被引用概率，提升品牌AI搜索曝光。",
+  "original_product_slug": "generative-engine-optimization",
+  "semantic_reslug_version": "1.0.2",
+  "semantic_reslug_reason": "依据“AI搜索引用增长顾问”的真实交付物设计英文语义，明确表达顾问方案，不使用品牌机械前缀或随机编号。"
+}

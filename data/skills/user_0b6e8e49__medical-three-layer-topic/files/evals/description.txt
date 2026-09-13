@@ -1,0 +1,1 @@
+Use when a doctor or medical content creator asks to build a specialty topic library, generate doctor-IP short-video topics, avoid repeated medical topics, or export the results as CSV for Excel.

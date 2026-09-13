@@ -1,0 +1,108 @@
+{
+  "name": "生物医药数据源登记表（10 源）",
+  "version": "1.0",
+  "updated": "2026-08-27",
+  "description": "港股/美股生物医药投资分析的全部官方免费数据源，分「基础分析层（6 源）」与「上游追踪层（4 源）」。所有脚本统一经 biopharma_data.py / biopharma_tracker.py 入口调用。",
+  "sources": [
+    {
+      "id": "biopharma_clinical_trials",
+      "layer": "基础分析",
+      "name": "ClinicalTrials.gov",
+      "url": "https://clinicaltrials.gov/api/v2/studies",
+      "region": "全球",
+      "stability": "高",
+      "entry": "biopharma_data.get_clinical_trials(kw)",
+      "purpose": "全球试验阶段分布、适应症广度、NCT 状态"
+    },
+    {
+      "id": "biopharma_fda",
+      "layer": "基础分析",
+      "name": "FDA openFDA",
+      "url": "https://api.fda.gov",
+      "region": "美国",
+      "stability": "高",
+      "entry": "biopharma_data.get_fda_drug(brand) / get_fda_orange_book(ingredient)",
+      "purpose": "FDA 批准记录 + 橙皮书成分/市场状态"
+    },
+    {
+      "id": "biopharma_ema",
+      "layer": "基础分析",
+      "name": "EMA EPAR",
+      "url": "https://www.ema.europa.eu",
+      "region": "欧洲",
+      "stability": "高",
+      "entry": "biopharma_data.get_ema_drugs(active_substance)",
+      "purpose": "欧洲批准/适应症/治疗领域（带 7 天本地缓存）"
+    },
+    {
+      "id": "biopharma_pubmed",
+      "layer": "基础分析",
+      "name": "PubMed (NCBI)",
+      "url": "https://eutils.ncbi.nlm.nih.gov",
+      "region": "全球",
+      "stability": "高",
+      "entry": "biopharma_data.search_pubmed(kw) / get_pubmed_summaries(pmids)",
+      "purpose": "最新临床数据首发地（ASCO/ASH、ORR/PFS/OS）"
+    },
+    {
+      "id": "biopharma_patents",
+      "layer": "基础分析",
+      "name": "Google Patents",
+      "url": "https://patents.google.com/xhr/query",
+      "region": "全球",
+      "stability": "中",
+      "entry": "biopharma_data.get_patents(kw)",
+      "purpose": "专利到期、各国 active 状态（护城河）"
+    },
+    {
+      "id": "biopharma_nmpa",
+      "layer": "基础分析",
+      "name": "NMPA 临床试验平台",
+      "url": "https://chinadrugtrials.org.cn",
+      "region": "中国",
+      "stability": "中",
+      "entry": "nmpa_clinical_trials.search_clinical_trials(kw)",
+      "purpose": "国内 CTR 编号/状态/适应症（Playwright 有头模式）"
+    },
+    {
+      "id": "biopharma_cde_priority",
+      "layer": "上游追踪",
+      "name": "CDE 优先审评/突破性治疗",
+      "url": "https://www.cde.org.cn",
+      "region": "中国",
+      "stability": "中",
+      "entry": "cde_priority_collector.collect()",
+      "purpose": "中国获批前哨，数月尺度（仅做催化剂日历标记节点，非买入信号）"
+    },
+    {
+      "id": "biopharma_ema_chmp",
+      "layer": "上游追踪",
+      "name": "EMA CHMP 会议纪要",
+      "url": "https://www.ema.europa.eu/en/homepage",
+      "region": "欧洲",
+      "stability": "高",
+      "entry": "biopharma_tracker.check_ema_chmp(config, pushed)",
+      "purpose": "欧盟获批前哨，4-7 天（可操作）"
+    },
+    {
+      "id": "biopharma_sec_8k",
+      "layer": "上游追踪",
+      "name": "SEC 8-K (EDGAR full-text)",
+      "url": "https://efts.sec.gov/LATEST/search-index",
+      "region": "美国",
+      "stability": "高",
+      "entry": "biopharma_tracker.check_partner_sec(config, pushed)",
+      "purpose": "美股合作方先披露 BD/数据（合作方为美股才有效）"
+    },
+    {
+      "id": "biopharma_news_rss",
+      "layer": "上游追踪",
+      "name": "行业媒体 RSS（7 家）",
+      "url": "Endpoints / Fierce Biotech / Fierce Pharma / BioPharma Dive / STAT / PharmaTimes / GEN",
+      "region": "全球",
+      "stability": "中",
+      "entry": "biopharma_tracker.check_industry_news(config, pushed)",
+      "purpose": "BD 爆料，需合作方 8-K 交叉验证防假消息"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-08-20",
+  "说明": "关键III期试验日历 + 预期基准。核心价值：数据读出【后】瞬间对比'实际 vs 基准'，抢在港股开盘反应前判断方向。不能预测方向（临床数据不确定性无法消除），但能消除信息不对称。",
+  "判断框架": {
+    "数据读出前": "盯试验日历，知道【何时、何药、何试验、对照是谁、同类药基准多少】",
+    "数据读出时": "瞬间对比【实际ORR/PFS/OS vs 同类药历史基准】，判断超预期/达标/不及预期",
+    "超预期": "头对头胜出、或ORR/PFS显著高于同类基准 → 看涨",
+    "不及预期": "数据低于基准/对照 → 看跌（如康方HARMONi-A跌20%）",
+    "达标": "符合预期 → 温和反应，看市场预期差"
+  },
+  "历史基准样本": [
+    {"company": "康方", "trial": "HARMONi-2", "design": "头对头vs K药", "result": "胜出HR=0.51", "move": "+37.5%", "lesson": "头对头战胜药王=颠覆性"},
+    {"company": "康方", "trial": "HARMONi-A", "design": "对照化疗", "result": "不及预期", "move": "-20%", "lesson": "同一公司摘要可涨可跌，方向看数据"},
+    {"company": "信达", "trial": "IBI363", "design": "单臂免疫耐药", "result": "ORR36.7%", "move": "+14.1%", "lesson": "免疫耐药低预期+超预期=大涨"},
+    {"company": "再鼎", "trial": "ZL-1310", "design": "单臂二线SCLC", "result": "ORR79%", "move": "+12.2%", "lesson": "ADC高ORR超预期=大涨"},
+    {"company": "康诺亚", "trial": "CM310", "design": "安慰剂对照AD", "result": "EASI-75达标", "move": "+14.5%", "lesson": "达标+大适应症=大涨"}
+  ],
+  "即将读出试验（前10关键III期，需持续更新）": [
+    {"company": "康方", "drug": "依沃西(ivonescimab)", "trial": "HARMONi-3/7", "design": "头对头vs K药", "indication": "鳞状NSCLC/PD-L1高表达", "readout": "待确认会议", "benchmark": "K药PFS中位约7-8个月", "note": "全球III期，Summit(SMMT)主导，SEC 8-K会披露"},
+    {"company": "信达", "drug": "IBI363", "trial": "PD-1/IL-2双抗III期", "design": "对照", "indication": "实体瘤", "readout": "待确认", "benchmark": "免疫耐药ORR约10-20%", "note": "武田(TAK)全球共同开发"}
+  ]
+}

@@ -1,0 +1,591 @@
+{
+  "meta": {
+    "topic": "KRAS G12D 靶点药物在胰腺癌的临床数据",
+    "target": "KRAS G12D",
+    "search_date": "2026-07-17",
+    "search_scope": "PubMed；ASCO 2026；AACR 2026；ESMO 2025；CSCO 2025；WebSearch",
+    "date_range": "2023-01-01 至 2026-07-17",
+    "tools": "PubMed E-utilities API；WebSearch；WebFetch",
+    "keywords": "KRAS G12D；pancreatic cancer；inhibitor；clinical trial；胰腺癌；临床试验"
+  },
+  "background": "KRAS G12D 是胰腺癌（PDAC）中最常见的驱动突变，约 40% 的 PDAC 携带该突变，在结直肠癌、胆道癌、非小细胞肺癌等实体瘤中亦有分布。G12D 突变导致 KRAS 蛋白持续处于 GTP 结合（激活）态， constitutively 激活下游 RAF-MEK-ERK 与 PI3K 通路，驱动肿瘤增殖与存活。\n\nPDAC 整体预后极差，五年生存率不足 13%；后线治疗客观缓解率（ORR）常低于 10%、中位总生存（mOS）约 6 个月，存在巨大的未满足临床需求。长期以来 KRAS 被视为\"不可成药\"靶点，直至 KRAS G12C 抑制剂获批才被打破；而占比更高、临床需求更迫切的 G12D 亚型，其靶向药物直到近年才集中进入临床，当前尚无任何 KRAS G12D 选择性抑制剂获批上市。",
+  "summary_table": {
+    "rows": [
+      {
+        "drug": "Daraxonrasib\n(RMC-6236)",
+        "company": "Revolution\nMedicines",
+        "progress": "III 期\n(RASolute 302)\nNEJM 发表\nFDA 申报中",
+        "phase": "III期",
+        "tumor": "PDAC\n(泛 RAS,\n覆盖 G12D)",
+        "efficacy": "mOS 13.2 vs 6.7 个月\n(HR 0.40, p<0.001)\nASCO 2026 全会报告",
+        "safety": "详见 III 期报告\n(ASCO 2026 Plenary)"
+      },
+      {
+        "drug": "HRS-4642",
+        "company": "恒瑞医药",
+        "progress": "III 期\n(2025.11 启动,\n全球首个 G12D\n抑制剂 III 期)",
+        "phase": "III期",
+        "tumor": "PDAC (一线)\nNSCLC",
+        "efficacy": "单药: NSCLC ORR 23.7%\nmPFS 5.6m, mOS 13.7m\nPDAC ORR 20.8%\n+GA一线PDAC:\nORR 63.3%, DCR 93.3%\n6mo-PFS 89.3%",
+        "safety": "单药: ≥3级TRAE 23.8%\n(高甘油三酯血症、\n中性粒细胞减少)\n联合: ≥3级TRAE 87.1%\n(血液学毒性为主)\n无治疗相关死亡"
+      },
+      {
+        "drug": "DN022150",
+        "company": "科睿药业\n(青峰医药\n子公司)",
+        "progress": "III 期\n(2026.06.17\n启动)",
+        "phase": "III期",
+        "tumor": "PDAC (二线+)\n实体瘤",
+        "efficacy": "650mg IV QW:\nPDAC 2L+ ORR 41.9%\nDCR 93.5%\n96.8% 靶病灶缩小\n71% 缩小≥20%\nRP2D: 650mg",
+        "safety": "无DLT\n≥3级TRAE 32.8%\n(650mg: 27.7%)\n无4-5级TRAE\n常见: 中性粒细胞减少、\n贫血、白细胞减少\n胃肠道耐受性良好"
+      },
+      {
+        "drug": "Zoldonrasib\n(RMC-9805)",
+        "company": "Revolution\nMedicines",
+        "progress": "注册性临床\nFDA BTD\n(2026.01,\nNSCLC)",
+        "phase": "注册性临床",
+        "tumor": "NSCLC\nPDAC",
+        "efficacy": "NSCLC ORR 61%\nDCR 89%\nmPFS 11.1m (AACR 2026)\n12mo OS 73%\nPDAC ORR 30%\nRP2D: 1200mg QD",
+        "safety": "G1 TRAE 54%\nG2 18%\nG3 2%\n无G4/5\n耐受性良好"
+      },
+      {
+        "drug": "GFH375 /\nVS-7375",
+        "company": "劲方医药 /\nVerastem",
+        "progress": "II 期 (中国)\nI/IIa (美国)\nFDA 快速通道\n(PDAC+NSCLC)",
+        "phase": "II期",
+        "tumor": "NSCLC\nPDAC\nCCA",
+        "efficacy": "NSCLC 600mg:\nORR 68.8%, DCR 93.8%\nPDAC: ORR 52%, DCR 100%\nCCA: ORR 40%, DCR 95%\nRP2D: 600mg QD",
+        "safety": "G1-2: 腹泻、恶心、呕吐\n≥3级: 中性粒细胞减少 8%\n腹泻 5%\n耐受性良好"
+      },
+      {
+        "drug": "Setidegrasib\n(ASP3082)",
+        "company": "Astellas",
+        "progress": "I 期\n(203例)\nNEJM 发表\n(2026.04)",
+        "phase": "I期",
+        "tumor": "NSCLC\nPDAC",
+        "efficacy": "NSCLC 600mg:\nORR 36%, mPFS 8.3m\n12mo OS 59%\nPDAC:\nORR 24%, mPFS 3.0m\nmOS 10.3m\nRP2D: 600mg",
+        "safety": "≥3级AE 42%\n输注相关反应 80%\n恶心 30%\n2例停药"
+      },
+      {
+        "drug": "INCB161734",
+        "company": "Incyte",
+        "progress": "I 期",
+        "phase": "I期",
+        "tumor": "PDAC\nCRC\n卵巢癌等",
+        "efficacy": "≥600mg QD:\nORR 30%, DCR 85%\nctDNA分子应答 65%\n(1200mg: 72%)",
+        "safety": "全部G1-2\n恶心67%, 腹泻58%\n呕吐50%\n无停药"
+      },
+      {
+        "drug": "RNK08954",
+        "company": "Revolution\nMedicines",
+        "progress": "I 期\n(ASCO 2026\n口头报告)",
+        "phase": "I期",
+        "tumor": "NSCLC\nPDAC",
+        "efficacy": "NSCLC:\nORR 42.9%, DCR 95.9%\nctDNA完全清除 44.4%",
+        "safety": "早期数据\n耐受性良好\n(详见ASCO摘要)"
+      }
+    ]
+  },
+  "drug_details": [
+    {
+      "name": "DN022150",
+      "company": "科睿药业（青峰医药子公司）",
+      "content": [
+        {
+          "h": "ASCO 2026 口头报告（Abstract 3007，数据截止 2026年4月5日）：",
+          "bullets": [
+            "入组情况：56 例患者入组，83.9% ECOG PS 1，66.1% 胰腺癌，约 80% 接受过 ≥2 线治疗",
+            "有效性（650mg RP2D）：31 例可评估 PDAC（2L+）患者，接受 650mg IV 每周一次：",
+            "ORR 41.9%，DCR 93.5%",
+            "96.8%（30/31）首次评估即出现靶病灶缩小",
+            "71%（22/31）缩小 ≥20%",
+            "其他剂量：450mg 组：ORR 37.5%（3/8），DCR 87.5%（7/8）",
+            "650mg 组（截止 1月22日数据）：ORR 31.3%（5/16），DCR 93.8%（15/16）",
+            "安全性（67例）：无剂量限制性毒性（DLT），所有剂量水平（20-650mg）均未出现",
+            "≥3 级 TRAE 32.8%（22/67）；650mg 组 27.7%（10/36）",
+            "无 4-5 级 TRAE",
+            "最常见 ≥3 级 TRAE：中性粒细胞减少、贫血、白细胞减少",
+            "剂量延迟 14.3%，治疗中断 16.3%",
+            "与口服候选药物相比，胃肠道耐受性及 ≥3 级 TRAE 发生率展现竞争力"
+          ]
+        },
+        {
+          "h": "III 期临床试验（2026年6月17日启动）：",
+          "bullets": [
+            "设计：DN022150 单药对比化疗，二线及以上晚期 KRAS G12D 突变 PDAC",
+            "多中心、开放、随机、对照",
+            "计划入组 360 例（中国）",
+            "主要终点：PFS 和 OS"
+          ]
+        },
+        {
+          "p": "要点概括：DN022150 是全球第三个进入 III 期的 KRAS G12D 抑制剂（继 HRS-4642 和 Daraxonrasib 之后），也是中国原研第二款进入 III 期的 G12D 抑制剂。PDAC 二线 ORR 41.9%、DCR 93.5% 的数据在同类药物中具有竞争力，静脉给药每周一次的便利性和良好的胃肠道耐受性是其差异化优势。"
+        }
+      ],
+      "mechanism": "新型高选择性非共价小分子 KRAS G12D 抑制剂，通过特异性结合突变型 KRAS G12D 蛋白的 Switch-II 口袋，同时作用于 GDP 结合态（OFF）和 GTP 结合态（ON），抑制 KRAS 介导的信号转导及下游 RAS-MAPK 通路激活。剂型为静脉注射（每周一次）。",
+      "pi": "PI：复旦大学附属中山医院 刘天舒教授；ASCO 2026 报告人：北京协和医院 程月鹃教授",
+      "trial_reg": "试验注册：CTR20242749 / ChiCTR2400088951",
+      "phase": "III期"
+    },
+    {
+      "name": "Daraxonrasib (RMC-6236)",
+      "company": "Revolution Medicines",
+      "content": [
+        {
+          "h": "",
+          "bullets": [
+            "mOS 13.2 vs 6.7 个月（HR 0.40），获 42 秒起立鼓掌",
+            "NEJM 同步发表",
+            "FDA 申报准备中"
+          ]
+        },
+        {
+          "p": "要点概括：Daraxonrasib 虽非 G12D 选择性抑制剂，但其泛 RAS 机制覆盖 G12D 突变患者。III 期 OS 数据 HR 0.40 是 KRAS 靶向治疗领域的重大突破，可能成为 PDAC 二线新标准。"
+        }
+      ],
+      "mechanism": "口服泛 RAS(ON) 多价抑制剂，覆盖 KRAS G12D/G12V/G12C/G13D 等多种突变型及野生型 KRAS、NRAS、HRAS 的激活态。",
+      "trial_reg": "ASCO 2026 全会报告（RASolute 302 III 期，NCT06625320）：",
+      "phase": "III期"
+    },
+    {
+      "name": "Zoldonrasib (RMC-9805)",
+      "company": "Revolution Medicines",
+      "content": [
+        {
+          "h": "",
+          "bullets": [
+            "NSCLC（1200mg QD）：ORR 61%，DCR 89%，中位至应答时间 1.4 个月",
+            "PDAC：ORR 30%，DCR 80%",
+            "AACR 2026 更新：mPFS 11.1 个月，12 个月 OS 率 73%",
+            "里程碑：FDA 突破性疗法（2026年1月，NSCLC）"
+          ]
+        },
+        {
+          "p": "要点概括：Zoldonrasib 是目前 KRAS G12D 单药疗效最突出的分子，NSCLC ORR 61% 远超标准治疗的 10-15%。mPFS 11.1 个月的数据进一步巩固了其注册路径优势。"
+        }
+      ],
+      "mechanism": "突变选择性共价 RAS(ON) G12D 抑制剂，靶向 GTP 结合态（激活态）的 KRAS G12D 蛋白。口服给药。",
+      "trial_reg": "AACR 2025（NCT06040541）+ AACR 2026 更新：",
+      "phase": "注册性临床"
+    },
+    {
+      "name": "GFH375 / VS-7375",
+      "company": "劲方医药 / Verastem Oncology",
+      "content": [
+        {
+          "h": "ASCO 2025（Abstract 3013）+ WCLC 2025 更新：",
+          "bullets": [
+            "PDAC（n=23）：ORR 52%，DCR 100%",
+            "NSCLC 600mg QD：ORR 68.8%，DCR 93.8%（WCLC 2025 更新）",
+            "胆管癌（CCA）：ORR 40%，DCR 95%（全球首个 CCA RAS 抑制剂数据）",
+            "里程碑：FDA 快速通道（PDAC 2025.07；NSCLC 2026.06）"
+          ]
+        },
+        {
+          "p": "要点概括：GFH375 是中国原研口服 G12D 抑制剂中进展最快的。PDAC DCR 100% 和 CCA 新适应症数据尤为亮眼。"
+        }
+      ],
+      "mechanism": "口服高活性、高选择性非共价 KRAS G12D (ON/OFF) 双态抑制剂。",
+      "phase": "II期"
+    },
+    {
+      "name": "HRS-4642",
+      "company": "恒瑞医药",
+      "content": [
+        {
+          "h": "",
+          "bullets": [
+            "NSCLC：cORR 23.7%，cDCR 76.3%，mPFS 5.6m，mOS 13.7m",
+            "PDAC：cORR 20.8%，cDCR 79.2%，mPFS 4.1m，mOS 7.2m",
+            "1200mg Q2W：PDAC cORR 25%，cDCR 100%"
+          ]
+        },
+        {
+          "h": "ESMO 2025 联合 GA 方案（Abstract 2215O，NCT06520488）— 仁济医院王理伟教授牵头：",
+          "bullets": [
+            "初治 PDAC：cORR 63.3%，DCR 93.3%，6 个月 PFS 率 89.3%",
+            "88.9% 患者第 9 周 ctDNA G12D 清除"
+          ]
+        },
+        {
+          "h": "Nature Medicine 2026年7月发表（PMID 42426224）",
+          "bullets": []
+        },
+        {
+          "h": "III 期（HRS-4642-302，2025.11.21 启动）：HRS-4642 + GA vs GA 一线 PDAC，全球首个 G12D 抑制剂 III 期",
+          "bullets": []
+        },
+        {
+          "p": "要点概括：HRS-4642 是全球第一个进入 III 期的 KRAS G12D 选择性抑制剂。联合 GA 方案在一线 PDAC 中 ORR 63.3% 极为亮眼，ctDNA 清除率 88.9% 证实靶点抑制强度。"
+        }
+      ],
+      "mechanism": "高选择性、长效非共价 KRAS G12D 抑制剂，脂质体纳米粒静脉制剂。",
+      "trial_reg": "ESMO 2025 单药 I 期（Abstract 915O，NCT05983889）：",
+      "phase": "III期"
+    },
+    {
+      "name": "Setidegrasib (ASP3082)",
+      "company": "Astellas",
+      "content": [
+        {
+          "h": "",
+          "bullets": [
+            "203 例患者入组，RP2D 600mg",
+            "NSCLC：ORR 36%，mPFS 8.3 个月，12 个月 OS 率 59%",
+            "PDAC：ORR 24%，mPFS 3.0 个月，mOS 10.3 个月",
+            "安全性：≥3 级 AE 42%，输注相关反应 80%，2 例停药"
+          ]
+        },
+        {
+          "p": "要点概括：全球首个进入临床的 KRAS G12D 蛋白降解剂，NEJM 发表。NSCLC mPFS 8.3 个月是其最大亮点。"
+        }
+      ],
+      "mechanism": "首创（first-in-class）KRAS G12D 靶向蛋白降解剂（PROTAC），静脉给药。",
+      "trial_reg": "NEJM 2026年4月发表（NCT05382559）：",
+      "phase": "I期"
+    },
+    {
+      "name": "INCB161734",
+      "company": "Incyte",
+      "content": [
+        {
+          "h": "",
+          "bullets": [
+            "≥600mg QD：ORR 30%，DCR 85%",
+            "ctDNA 分子应答：600mg 组 41%，1200mg 组 72%",
+            "安全性：全部 G1-2（恶心 67%、腹泻 58%、呕吐 50%），无停药"
+          ]
+        },
+        {
+          "p": "要点概括：ctDNA 动态监测指导剂量递增，72% 分子应答率提示强效靶点抑制。口服给药、安全性温和。"
+        }
+      ],
+      "mechanism": "口服非共价高选择性 KRAS G12D 开关抑制剂。",
+      "trial_reg": "ESMO 2025（Abstract 916O，NCT06179160）：",
+      "phase": "I期"
+    },
+    {
+      "name": "RNK08954",
+      "company": "Revolution Medicines",
+      "content": [
+        {
+          "h": "ASCO 2026 口头报告，新型 KRAS G12D 抑制剂（具体机制待确认）。",
+          "bullets": [
+            "有效性：NSCLC：ORR 42.9%，DCR 95.9%",
+            "ctDNA 完全清除 44.4%"
+          ]
+        },
+        {
+          "h": "Cancer Discovery（PMID 42299111）将其与 GFH375、DN022150 并列为 ASCO 2026 鼓舞人心的早期数据。",
+          "bullets": []
+        }
+      ],
+      "phase": "I期"
+    }
+  ],
+  "non_mainstream": {
+    "analysis": "非小分子模态（TCR-T / siRNA / 疫苗 / 外泌体 / 抗体等）多聚焦于辅助、维持或免疫联合场景，机制与给药路径与小分子抑制剂差异显著，不作本次重点。其在术后辅助治疗、ctDNA 阴性转化、以及联合免疫检查点抑制剂等方向具备差异化价值，是 G12D 综合治疗图景的重要补充。",
+    "rows": [
+      {
+        "drug": "siG12D-LODER",
+        "company": "Silenseed",
+        "progress": "II 期",
+        "phase": "II期",
+        "tumor": "PDAC",
+        "efficacy": "G12D/V 亚组 OS 22.7m vs 13.5m",
+        "safety": "局部植入, 耐受良好"
+      },
+      {
+        "drug": "ELI-002 2P",
+        "company": "Elicio\nTherapeutics",
+        "progress": "I 期\n(AMPLIFY-201)",
+        "phase": "I期",
+        "tumor": "PDAC\nCRC",
+        "efficacy": "84% T细胞应答\nRFS 显著延长",
+        "safety": "G1-2 为主"
+      },
+      {
+        "drug": "iExoKrasG12D",
+        "company": "MD Anderson",
+        "progress": "I 期\n(iEXPLORE)",
+        "phase": "I期",
+        "tumor": "PDAC",
+        "efficacy": "耐受良好\n部分 SD",
+        "safety": "安全"
+      },
+      {
+        "drug": "mKRAS肽疫苗",
+        "company": "NCI",
+        "progress": "I 期",
+        "phase": "I期",
+        "tumor": "PDAC\n(术后)",
+        "efficacy": "11/12 患者\nT细胞应答",
+        "safety": "G1-2"
+      }
+    ]
+  },
+  "conference_data": [
+    {
+      "conf": "ASCO 2026（美国临床肿瘤学会年会，2026年6月）",
+      "items": [
+        {
+          "abstract": "",
+          "drug": "Daraxonrasib",
+          "tumor": "PDAC",
+          "key_data": "III期 mOS 13.2 vs 6.7m (HR 0.40), NEJM同步发表",
+          "session": "Plenary"
+        },
+        {
+          "abstract": "",
+          "drug": "DN022150",
+          "tumor": "PDAC 2L+",
+          "key_data": "ORR 41.9%, DCR 93.5%, 96.8%靶病灶缩小, RP2D 650mg",
+          "session": "Oral"
+        },
+        {
+          "abstract": "",
+          "drug": "RNK08954",
+          "tumor": "NSCLC",
+          "key_data": "ORR 42.9%, DCR 95.9%, ctDNA清除44.4%",
+          "session": "Oral"
+        },
+        {
+          "abstract": "",
+          "drug": "GFH375",
+          "tumor": "CCA",
+          "key_data": "ORR 40%, DCR 95% (全球首个CCA RAS抑制剂数据)",
+          "session": "Oral"
+        }
+      ]
+    },
+    {
+      "conf": "AACR 2026（美国癌症研究协会年会，2026年4月）",
+      "items": [
+        {
+          "abstract": "CT021",
+          "drug": "Zoldonrasib",
+          "tumor": "NSCLC",
+          "key_data": "mPFS 11.1m, 12mo OS 73% (更新数据)",
+          "session": ""
+        }
+      ]
+    },
+    {
+      "conf": "ESMO 2025（欧洲肿瘤内科学会年会，2025年10月）",
+      "items": [
+        {
+          "abstract": "915O",
+          "drug": "HRS-4642 单药",
+          "tumor": "NSCLC+PDAC",
+          "key_data": "NSCLC ORR 23.7% mPFS 5.6m; PDAC ORR 20.8% mPFS 4.1m",
+          "session": ""
+        },
+        {
+          "abstract": "2215O",
+          "drug": "HRS-4642+GA",
+          "tumor": "一线PDAC",
+          "key_data": "ORR 63.3% DCR 93.3% 6mo-PFS 89.3%",
+          "session": ""
+        },
+        {
+          "abstract": "916O",
+          "drug": "INCB161734",
+          "tumor": "实体瘤",
+          "key_data": "ORR 30% DCR 85% ctDNA应答65%",
+          "session": ""
+        },
+        {
+          "abstract": "1514O",
+          "drug": "NW-301V TCR-T",
+          "tumor": "G12V实体瘤",
+          "key_data": "ORR 37.5% DCR 62.5%",
+          "session": ""
+        }
+      ]
+    },
+    {
+      "conf": "CSCO 2025（中国临床肿瘤学会年会）",
+      "items": []
+    }
+  ],
+  "resistance_mechanisms": [
+    "CDK8 重塑 TME\n促进免疫逃逸：CDK8 抑制剂\n± αCTLA-4（来源：PMID 42436354\nEMBO J 2026.07）",
+    "UPR 经 MEK/ERK\n通路再激活：HRS-4642 +\n尼妥珠单抗（来源：PMID 42303056\nCancer Lett 2026.09）",
+    "EGFR/HER2\n表达上调：MRTX1133 +\n阿法替尼(泛ERBB)（来源：CSCO 2025）",
+    "USP20 去泛素化\n稳定 KRAS G12D：USP20 抑制剂\n(临床前)（来源：PubMed 2026）",
+    "SMPD1 调控\n膜脂代谢：SMPD1 调节剂\n(临床前)（来源：PubMed 2026）",
+    "DHA (二十二碳\n六烯酸) 增强\nG12D抑制：DHA + G12D\n抑制剂（来源：PubMed 2026）"
+  ],
+  "pubmed_refs": [
+    {
+      "pmid": "42426224",
+      "type": "Journal Article",
+      "doi": "10.1038/s41591-026-04538-9",
+      "title": "KRAS-G12D inhibitor HRS-4642 plus chemotherapy in advanced KRASG12D-mutant pancreatic cancer: a phase 1b/2 trial",
+      "first_author": "Cui J",
+      "journal": "Nature Medicine",
+      "year": "2026.07"
+    },
+    {
+      "pmid": "42299111",
+      "type": "Journal Article",
+      "doi": "10.1158/2159-8290.CD-NW2026-0069",
+      "title": "The KRAS G12D Inhibitor Pipeline Grows",
+      "first_author": "—",
+      "journal": "Cancer Discovery",
+      "year": "2026.06"
+    },
+    {
+      "pmid": "41879829",
+      "type": "Clinical Trial Phase I",
+      "doi": "10.1056/NEJMoa2600752",
+      "title": "Setidegrasib in Advanced Non-Small-Cell Lung Cancer and Pancreatic Cancer",
+      "first_author": "Park W",
+      "journal": "NEJM",
+      "year": "2026.04"
+    },
+    {
+      "pmid": "41528981",
+      "type": "Clinical Trial Phase II",
+      "doi": "10.1158/1078-0432.CCR-25-3189",
+      "title": "Phase II Trial of Extended-Release siRNA Implant Targeting KRASG12D/V in PDAC",
+      "first_author": "Alagesan B",
+      "journal": "Clin Cancer Res",
+      "year": "2026.03"
+    },
+    {
+      "pmid": "41667470",
+      "type": "Clinical Trial Phase I",
+      "doi": "10.1038/s41467-026-68324-4",
+      "title": "Mutant KRAS vaccine with dual checkpoint blockade in resected pancreatic cancer",
+      "first_author": "Huff AL",
+      "journal": "Nat Commun",
+      "year": "2026.02"
+    },
+    {
+      "pmid": "40790272",
+      "type": "Clinical Trial Phase I",
+      "doi": "10.1038/s41591-025-03876-4",
+      "title": "Lymph node-targeted mKRAS amphiphile vaccine: AMPLIFY-201 final results",
+      "first_author": "Wainberg ZA",
+      "journal": "Nature Medicine",
+      "year": "2025.11"
+    },
+    {
+      "pmid": "41027940",
+      "type": "Clinical Trial Phase I",
+      "doi": "10.1038/s41467-025-63718-2",
+      "title": "Engineered exosomes with KrasG12D specific siRNA: phase I study",
+      "first_author": "Kalluri VS",
+      "journal": "Nat Commun",
+      "year": "2025.09"
+    },
+    {
+      "pmid": "38942026",
+      "type": "Clinical Trial Phase I",
+      "doi": "10.1016/j.ccell.2024.06.001",
+      "title": "Anti-tumor efficacy of HRS-4642 and combination with proteasome inhibition",
+      "first_author": "Zhou C",
+      "journal": "Cancer Cell",
+      "year": "2024.07"
+    },
+    {
+      "pmid": "38195752",
+      "type": "Clinical Trial Phase I",
+      "doi": "10.1038/s41591-023-02760-3",
+      "title": "Lymph-node-targeted mKRAS amphiphile vaccine: AMPLIFY-201 trial",
+      "first_author": "Pant S",
+      "journal": "Nature Medicine",
+      "year": "2024.02"
+    },
+    {
+      "pmid": "42436354",
+      "type": "Journal Article",
+      "doi": "10.1038/s44318-026-00854-5",
+      "title": "CDK8 remodels TME and promotes resistance to KRASG12D inhibitors and daraxonrasib",
+      "first_author": "McAndrews KM",
+      "journal": "EMBO J",
+      "year": "2026.07"
+    },
+    {
+      "pmid": "42303056",
+      "type": "Journal Article",
+      "doi": "10.1016/j.canlet.2026.218684",
+      "title": "Reversal of KRAS G12D inhibitor resistance by nimotuzumab via MEK/ERK pathway",
+      "first_author": "Xue S",
+      "journal": "Cancer Letters",
+      "year": "2026.09"
+    }
+  ],
+  "conclusion": {
+    "treatment_landscape": {
+      "paras": [
+        "G12D 是胰腺癌（PDAC）最常见驱动突变（约 40%），而 PDAC 后线治疗 ORR 常 <10%、mOS 约 6 个月，长期缺乏靶向治疗。",
+        "KRAS G12D 抑制剂直接靶向主导驱动变异：后线单药 ORR 达 20-42%（历史化疗 <10%），联合化疗一线 ORR 61-82%（化疗单药约 30-40%），后线 mOS 从约 6.7 个月延长至 13.2 个月（HR 0.40），实现从「仅化疗」到「靶向+化疗」的范式转变。"
+      ],
+      "bullets": [
+        "对照标准疗法：2L+ 单药 ORR 20-42% vs 化疗 <10%；1L 联合 ORR 61-82% vs 化疗单药 30-40%。",
+        "尚未获批、跨试验不可直接横比，长期获益与耐药仍需验证。"
+      ]
+    },
+    "efficacy_tiers": {
+      "paras": [
+        "按疗效梯队划分：一线联合化疗为第一梯队（ORR 60-82%），后线单药为第二梯队（ORR 37-52%），早期单药为第三梯队（ORR 20-37%）。"
+      ],
+      "bullets": [
+        "NSCLC 单药 ORR：GFH375 68.8% > Zoldonrasib 61% > RNK08954 42.9% > Setidegrasib 36% > HRS-4642 23.7%（基线不同，不可横比）。",
+        "PDAC（核心适应症）：HRS-4642+GA 一线 ORR 63.3% > GFH375 二线 52% > DN022150 二线 41.9% > Daraxonrasib 二线 mOS 13.2m > Zoldonrasib 30% > HRS-4642 单药 20.8%。"
+      ]
+    },
+    "competitive": {
+      "paras": [
+        "全球至少 8 款 KRAS G12D 小分子抑制剂已公开临床数据，中国原研（恒瑞、科睿、劲方）占据近半席位；截至 2026-07 已有 3 款进入 III 期，但全球尚无获批药物。"
+      ],
+      "bullets": [
+        "中美双轨：美国（Revolution/Daraxonrasib 泛RAS、Astellas/Zoldonrasib、Incyte/INCB161734） vs 中国（恒瑞、科睿、劲方）。",
+        "模态分野：G12D 选择性小分子（主流）、泛 RAS（Daraxonrasib）、PROTAC 降解剂（Setidegrasib/ASP3082）、非小分子（TCR-T/siRNA/疫苗）。"
+      ]
+    },
+    "differentiation": {
+      "paras": [
+        "差异化来自选择性、给药方式、联合定位与注册地理布局。"
+      ],
+      "bullets": [
+        "选择性：G12D 选择性 vs 泛 RAS（更广谱但毒性更高）；ON/OFF 双态结合（DN022150）vs Switch-II 口袋。",
+        "给药：每周一次 IV（DN022150）vs 口服（多数）；便捷性差异。",
+        "定位：1L 化疗联合（HRS-4642+GA）vs 2L 单药 vs 维持；适应症优先 PDAC / NSCLC(BTD) / CCA。",
+        "注册：中国 NMPA 快速跟进（大 PDAC 人群）+ 美国 FDA BTD/快速通道，双轨加速全球可及。"
+      ]
+    },
+    "resistance": {
+      "paras": [
+        "耐药是 G12D 靶向长期获益的主要威胁，机制研究正加速以指导联合方案设计。"
+      ],
+      "bullets": [
+        "机制：旁路激活（RTK/MAPK 再激活）、二次 KRAS 突变/等位基因转换、表型可塑性（EMT）。",
+        "新发现：CDK8、UPR/MEK-ERK、EGFR/HER2 反馈、USP20 去泛素化酶。",
+        "应对：联合下游（MEK/ERK）或上游（EGFR/HER2）抑制剂；ctDNA 动态监测早期预警；序贯/轮换联合；PROTAC 降解剂克服部分耐药。"
+      ]
+    },
+    "regulatory": {
+      "paras": [
+        "注册策略呈中美双轨推进，多项突破性/快速通道认定加速上市路径。"
+      ],
+      "bullets": [
+        "Daraxonrasib（泛RAS）：III 期已完成，NEJM 同步发表，FDA 申报准备中。",
+        "Zoldonrasib：FDA 突破性疗法（2026.01，NSCLC），注册性临床推进；NSCLC ORR 61% 远超标准治疗 10-15%，mPFS 11.1 个月巩固注册路径优势。",
+        "HRS-4642：中国 III 期启动（2025.11，一线 PDAC），NMPA 路径；联合 GA 一线 ORR 63.3%。",
+        "DN022150：中国 III 期启动（2026.06，NCT07689539，2L+ PDAC，360 例，PFS+OS 双主要终点）。",
+        "GFH375/VS-7375：中国 III 期「麒麟-翼01」（后线），美国 I/IIa；Setidegrasib（PROTAC）NEJM 发表、注册性临床推进。"
+      ]
+    },
+    "outlook": {
+      "paras": [
+        "KRAS G12D 抑制剂是 PDAC 精准治疗的首个靶向突破口，临床意义显著。"
+      ],
+      "bullets": [
+        "2L mOS 翻倍（Daraxonrasib 13.2 vs 6.7m）具临床意义；推动 PDAC 从「仅化疗」迈向精准肿瘤学。",
+        "展望：预计 2027-2028 年首个 G12D 靶向药获批；1L 联合化疗有望成新标准；ctDNA 生物标志物指导患者筛选；合理联合管理耐药；向 NSCLC/CCA 拓展；中国原研全球领跑。"
+      ]
+    }
+  }
+}

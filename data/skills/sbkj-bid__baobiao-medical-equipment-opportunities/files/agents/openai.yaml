@@ -1,0 +1,4 @@
+interface:
+  display_name: "医疗设备采购商机与医院客户分析"
+  short_description: "查询医疗设备采购意向和中标项目，梳理医院需求与历史供应商线索"
+  default_prompt: "使用 $baobiao-medical-equipment-opportunities，我们销售超声设备，查广东近30天医院采购意向和招标，整理项目及需求证据。"

@@ -1,0 +1,7 @@
+interface:
+  display_name: "报销单腾讯文档整理"
+  short_description: "邮箱发票整理成报销单并上传腾讯文档"
+  default_prompt: "Use $expense-reimbursement-tencent-docs to整理邮箱发票、生成报销单并上传到腾讯文档。"
+
+policy:
+  allow_implicit_invocation: true

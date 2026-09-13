@@ -1,0 +1,134 @@
+# -*- coding: utf-8 -*-
+"""Example poster_data.py — copy this file into your project working directory
+as `poster_data.py` and edit the fields. This example uses the Sinus XL run.
+
+All image filenames resolve against resources/images/. Keep bullets to <=6 per
+card to avoid overflow at A1 size. Every clinical/outcome claim must come from
+the source deck verbatim (no escalation) and be tracked in claim-ledger.csv.
+"""
+
+POSTER = {
+    "out_pptx": "SinusXL_academic_poster.pptx",
+    "out_pdf":  "SinusXL_academic_poster.pdf",
+
+    "title": "Sinus XL 大直径自膨式镍钛合金支架用于主动脉与腔静脉病变",
+    "subtitle": (
+        "Large-Diameter Self-Expandable Nitinol Stent for Aortic and "
+        "Vena Cava Lesions: Design Features and Representative Cases"
+    ),
+    "author_line": "作者 / 单位：__________________________    日期：2026-07-28",
+
+    "top_sections": [
+        {
+            "title": "01  Background 背景",
+            "bullets": [
+                "主动脉/腔静脉直段病变（狭窄、闭塞、夹层、旁路吻合口弹性回缩）常需大口径支架重建管腔。",
+                "镍钛合金（Nitinol）的超弹性、抗折性与形状记忆特性使其适用于大直径血管。",
+                "背景证据：Zhang et al. 报道多层裸镍钛支架技术成功率 96.8%、临床成功率 90.3%，平均随访 11.8 个月（J Vasc Surg）。",
+                "注：该文献为裸镍钛支架总体证据，非 Sinus-XL 专属。",
+            ],
+        },
+        {
+            "title": "02  Design & Specs 设计与规格",
+            "bullets": [
+                "材料：Ni/Ti 50/50，超弹性形状记忆合金，非铁磁性（MR 兼容）。",
+                "结构：闭环正弦曲线、激光雕刻一体合金；内层镍 / 外层钛氧化层。",
+                "工艺：电解抛光，形成薄而稳定的氧化层，支架表面光滑。",
+                "规格：直径 Ø 16–36 mm（2 mm 递增）。",
+                "输送系统：10F，有效长度 100 cm，适配 0.035\" 导丝。",
+                "定位：近远端各 4 个钽标记；\"防跳\"装置，有助于短支架精准释放。",
+            ],
+            "img": "slide04_img03.jpg",
+            "img_cap": "NiTi 氧化层示意图（源 slide 4）",
+            "img_h_mm": 55,
+        },
+        {
+            "title": "03  Intended Use 适应症",
+            "bullets": [
+                "血管成形术治疗效果不佳",
+                "球囊扩张后残余段狭窄",
+                "血管夹层",
+                "血管旁路吻合口弹性回缩",
+                "血管闭塞",
+                "适用部位：腹主动脉、胸主动脉平直段、腔静脉平直段（见说明书）。",
+            ],
+            "img": "slide12_img36.png",
+            "img_cap": "目标血管示意图（源 slide 12）",
+            "img_h_mm": 85,
+        },
+    ],
+
+    "cases_title": "04  Representative Cases 代表性病例",
+    "cases": [
+        {
+            "title": "Case 1 · Wels-Grieskirchen, Austria",
+            "img": "slide14_img44.jpg",
+            "bullets": [
+                "22 × 60 mm Sinus-XL 植入",
+                "术前/术后血管造影：支架展开良好",
+                "来源：Institute of Radiology Clinic Wels-Grieskirchen",
+            ],
+        },
+        {
+            "title": "Case 2 · University Hospital of Essen, Germany",
+            "img": "slide15_img45.png",
+            "bullets": [
+                "急性 1 型主动脉夹层合并腹腔干灌注不佳",
+                "Sinus XL 植入后腹主动脉成型、分支灌注恢复",
+                "来源：University Hospital of Essen",
+            ],
+        },
+        {
+            "title": "Case 3 · Changhai Hospital, China",
+            "img": "slide16_img47.png",
+            "bullets": [
+                "巨大腹主动脉瘤（最大径 90 mm）合并 type I 内漏",
+                "近端植入 Sinus XL 后内漏减少",
+                "来源：长海医院",
+            ],
+        },
+    ],
+
+    "bottom_sections": [
+        {
+            "title": "05  Evidence & Limitations 证据与局限",
+            "bullets": [
+                "源材料引用 Zhang et al.（J Vasc Surg）作为裸镍钛支架背景证据。",
+                "本海报病例为个案/单中心观察，不构成系统性疗效证据。",
+                "所有临床结果须以正式临床研究及说明书为准。",
+            ],
+        },
+        {
+            "title": "06  Conclusions 结论",
+            "bullets": [
+                "Sinus XL 是大直径自膨式镍钛支架，适用于主动脉与腔静脉直段病变。",
+                "闭环正弦设计、电解抛光表面与 10F 输送系统与源材料一致。",
+                "代表性病例提示可行性，但仍需更多临床证据支持。",
+            ],
+        },
+    ],
+
+    "footer_lines": [
+        "Sources: (已瘦身)第一市场部产品介绍7.14.pptx (slides 3–8, 12, 14–20).",
+        "Claim ledger: build/claim-ledger.csv (17 claims, 0 errors).",
+        "DRAFT — For use by trained healthcare professionals in medical institutions only; not for home use.",
+        "Patient consent and publication rights for case images must be verified before conference display.",
+    ],
+
+    "notes": (
+        "[Sources]\n"
+        "- Product deck: (已瘦身)第一市场部产品介绍7.14.pptx\n"
+        "- Sinus XL overview: slide 3; Material & design: slide 4; Manufacturing: slide 5\n"
+        "- Delivery system: slide 8; Intended use: slide 12\n"
+        "- Cases: slide 14 (Wels-Grieskirchen), slide 15 (Essen), slide 16 (Changhai)\n"
+        "- Background literature: slide 17, slide 20 (Zhang et al. J Vasc Surg)\n\n"
+        "[Claim Audit]\n"
+        "- Claim ledger: build/claim-ledger.csv\n"
+        "- Case outcomes use source wording ('内漏减少', '分支灌注良好') without escalation.\n"
+        "- Literature data attributed to Zhang et al. J Vasc Surg, noted as general bare-nitinol evidence.\n\n"
+        "[Review Points]\n"
+        "- Confirm author names, affiliations, and presenter details.\n"
+        "- Verify patient consent / IRB / publication rights for all case images.\n"
+        "- Medical Affairs and Regulatory must approve before any conference display."
+    ),
+}

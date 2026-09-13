@@ -1,0 +1,4 @@
+interface:
+  display_name: "生物科技库存需求计划"
+  short_description: "根据销售、库存和补货约束提出计划"
+  default_prompt: "Use $biotech-inventory-demand-plan for paid 生物科技 库存需求计划."

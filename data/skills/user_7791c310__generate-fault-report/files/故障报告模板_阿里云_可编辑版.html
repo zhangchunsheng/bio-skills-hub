@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>故障分析报告 - 模板</title>
+    <style>
+        :root {
+            --brand-primary: #ff6a00;
+            --brand-primary-dark: #e85f00;
+            --brand-primary-soft: #fff2e8;
+            --brand-border-soft: #ffd7bf;
+            --brand-text: #2f3a45;
+            --brand-heading: #d95b00;
+            --brand-muted: #6b7280;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Microsoft YaHei", "SimSun", Arial, sans-serif;
+            line-height: 1.8;
+            color: #2f3a45;
+            background-color: #eef2f6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 50px;
+            box-shadow: 0 8px 28px rgba(31, 45, 61, 0.08);
+            position: relative;
+            border: 1px solid #d8e1ea;
+        }
+        
+        /* Edit Mode Toggle Button */
+        .edit-toggle {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 1000;
+            background: rgba(255, 106, 0, 0.92);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 12px;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+        
+        .edit-toggle:hover {
+            opacity: 1;
+            background: rgba(232, 95, 0, 1);
+        }
+        
+        .edit-toggle.active {
+            background: rgba(125, 54, 54, 0.92);
+        }
+        
+        /* Edit Mode Indicator - Hidden by default */
+        .edit-indicator {
+            display: none;
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            z-index: 999;
+            background: rgba(125, 54, 54, 0.92);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: normal;
+        }
+        
+        /* Editable Elements */
+        [contenteditable="true"] {
+            outline: none;
+            border: 1px dashed #f29d64;
+            padding: 5px;
+            border-radius: 4px;
+            background-color: rgba(255, 106, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        [contenteditable="true"]:hover {
+            background-color: rgba(255, 106, 0, 0.08);
+            border-color: #d97736;
+        }
+        
+        [contenteditable="true"]:focus {
+            background-color: rgba(255, 106, 0, 0.12);
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 3px rgba(255, 106, 0, 0.16);
+        }
+        
+        /* Header with Logo */
+        .header {
+            text-align: center;
+            margin-bottom: 36px;
+            padding-bottom: 24px;
+            border-bottom: 3px solid var(--brand-primary);
+        }
+        
+        .header-logo {
+            margin-bottom: 25px;
+        }
+        
+        .header-logo img {
+            max-width: 280px;
+            height: auto;
+        }
+        
+        .header h1 {
+            color: var(--brand-heading);
+            font-size: 42px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+        }
+
+        .header .report-subtitle {
+            color: #5f6f82;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        
+        /* Basic Info Table */
+        .basic-info-section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            background-color: var(--brand-primary);
+            color: white;
+            padding: 12px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 0;
+        }
+        
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid var(--brand-primary);
+        }
+        
+        .info-table td {
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            vertical-align: middle;
+        }
+        
+        .info-table .label {
+            background-color: #f7f9fb;
+            font-weight: bold;
+            color: var(--brand-heading);
+            width: 18%;
+            text-align: center;
+        }
+        
+        .info-table .value {
+            width: 32%;
+            color: #333;
+        }
+        
+        /* Content Sections */
+        .content-section {
+            margin-bottom: 40px;
+        }
+        
+        .section-header {
+            font-size: 22px;
+            color: var(--brand-heading);
+            font-weight: bold;
+            padding: 15px 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ffd2b4;
+        }
+        
+        .subsection-title {
+            font-size: 18px;
+            color: #333;
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+            padding-left: 10px;
+            border-left: 4px solid var(--brand-primary);
+        }
+        
+        /* Text Content */
+        .text-content {
+            margin-bottom: 20px;
+        }
+        
+        .text-content p {
+            margin-bottom: 12px;
+            text-indent: 2em;
+        }
+        
+        .highlight-box {
+            background-color: #fff9e6;
+            border-left: 4px solid #d08a18;
+            padding: 15px 20px;
+            margin: 20px 0;
+        }
+        
+        .highlight-box p {
+            margin: 0;
+            text-indent: 0;
+        }
+        
+        /* Lists */
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        .editable-list .editable {
+            display: list-item;
+            min-height: 1.8em;
+        }
+        
+        /* Images */
+        .image-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .image-caption {
+            font-size: 13px;
+            color: #666;
+            margin-top: 8px;
+            text-align: center;
+            font-style: italic;
+        }
+        
+        .image-grid {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 25px 0;
+        }
+        
+        .image-grid .image-item {
+            flex: 1;
+            min-width: 280px;
+            max-width: 45%;
+            text-align: center;
+        }
+        
+        .image-grid .image-item img {
+            width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* Node Details */
+        .node-detail {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #fbfcfd;
+            border: 1px solid #d9e2ec;
+            border-left: 4px solid #8aa6c1;
+        }
+        
+        .node-detail h4 {
+            color: var(--brand-heading);
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .detail-item {
+            margin-bottom: 10px;
+        }
+        
+        .detail-item strong {
+            color: #555;
+        }
+
+        .detail-item + .detail-item {
+            margin-top: 12px;
+        }
+
+        .detail-item ul {
+            margin-top: 8px;
+        }
+
+        .recommendation-box {
+            background-color: #fff4ec;
+            padding: 12px 15px;
+            margin-top: 15px;
+            border-radius: 4px;
+            border: 1px solid var(--brand-border-soft);
+        }
+        
+        .recommendation-box strong {
+            color: var(--brand-heading);
+        }
+        
+        /* Analysis Section */
+        .analysis-section {
+            background-color: #f8fafc;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid #d9e2ec;
+            border-left: 4px solid #9bb3ca;
+        }
+        
+        .analysis-section h3 {
+            color: var(--brand-heading);
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .analysis-section.analysis-soft {
+            background-color: #f6f8fb;
+        }
+
+        .analysis-section.analysis-excluded {
+            background-color: #eef6ef;
+            border-left-color: #7aa37a;
+        }
+
+        /* Timeline for Recommendations */
+        .timeline-section {
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item {
+            margin-bottom: 25px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 8px;
+            bottom: -15px;
+            width: 2px;
+            background-color: var(--brand-primary);
+        }
+        
+        .timeline-item:last-child::before {
+            display: none;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 3px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background-color: var(--brand-primary);
+            border-radius: 50%;
+        }
+        
+        .timeline-item h4 {
+            color: var(--brand-heading);
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+        
+        .phase-badge {
+            display: inline-block;
+            background-color: var(--brand-primary);
+            color: white;
+            padding: 3px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            margin-right: 10px;
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 50px;
+            padding-top: 25px;
+            border-top: 2px solid var(--brand-primary);
+            text-align: center;
+            color: #666;
+        }
+        
+        .footer p {
+            margin-bottom: 8px;
+        }
+        
+        .footer strong {
+            color: var(--brand-heading);
+            font-size: 16px;
+        }
+        
+        /* Save Button (appears in edit mode) */
+        .save-btn {
+            display: none;
+            position: fixed;
+            bottom: 15px;
+            left: 15px;
+            z-index: 1000;
+            background: rgba(39, 110, 73, 0.92);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 12px;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+        
+        .save-btn:hover {
+            opacity: 1;
+            background: rgba(29, 90, 59, 1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 32px;
+            }
+            
+            .image-grid {
+                flex-direction: column;
+            }
+            
+            .image-grid .image-item {
+                max-width: 100%;
+                margin-bottom: 20px;
+            }
+            
+            .info-table .label,
+            .info-table .value {
+                width: 50%;
+            }
+            
+            .image-container {
+                max-width: 100% !important;
+            }
+            
+            .edit-toggle {
+                top: 10px;
+                right: 10px;
+                padding: 10px 18px;
+                font-size: 12px;
+            }
+            
+            .edit-indicator {
+                top: 10px;
+                left: 10px;
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .image-grid .image-item {
+                min-width: 250px;
+                max-width: 48%;
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 12mm 14mm 12mm 14mm;
+            }
+            
+            body {
+                background: white;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                overflow: visible;
+                padding: 0;
+                font-size: 12px;
+                line-height: 1.6;
+            }
+            
+            /* Force background colors for all elements */
+            .section-title,
+            .highlight-box,
+            .recommendation-box,
+            .analysis-section,
+            .node-detail,
+            .info-table .label,
+            .phase-badge,
+            .edit-toggle,
+            .edit-indicator,
+            .save-btn {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            
+            .container {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+                border: none;
+            }
+            
+            .edit-toggle,
+            .edit-indicator,
+            .save-btn {
+                display: none !important;
+            }
+            
+            [contenteditable="true"] {
+                border: none !important;
+                background: transparent !important;
+            }
+            
+            /* Keep header and basic info together on first page */
+            .header {
+                break-inside: avoid-page;
+                page-break-inside: avoid !important;
+                page-break-after: avoid !important;
+                margin-bottom: 20px;
+                padding-bottom: 20px;
+            }
+            
+            .header-logo {
+                margin-bottom: 15px;
+            }
+            
+            .header-logo img {
+                max-width: 200px;
+            }
+            
+            .header h1 {
+                font-size: 32px;
+                margin-bottom: 5px;
+            }
+            
+            .basic-info-section {
+                break-inside: avoid-page;
+                page-break-inside: avoid !important;
+                margin-top: 15px;
+                margin-bottom: 18px;
+            }
+            
+            .section-title {
+                padding: 8px 15px;
+                font-size: 16px;
+            }
+            
+            /* Prevent table from breaking */
+            .info-table {
+                page-break-inside: avoid !important;
+                page-break-after: avoid !important;
+                font-size: 12px;
+            }
+            
+            .info-table td {
+                padding: 5px 8px;
+                line-height: 1.3;
+            }
+            
+            .info-table tr {
+                page-break-inside: avoid !important;
+            }
+            
+            .info-table .label {
+                font-size: 12px;
+                width: 16%;
+            }
+            
+            .info-table .value {
+                font-size: 12px;
+            }
+            
+            .content-section {
+                page-break-before: auto !important;
+                break-before: auto;
+                break-inside: auto;
+                margin-top: 0;
+                margin-bottom: 24px;
+            }
+            
+            /* Keep major sections 2/3 starting on a new page for formal PDF output */
+            .content-section + .content-section {
+                break-before: page;
+                page-break-before: always !important;
+            }
+            
+            .content-section:first-of-type .subsection-title {
+                page-break-before: auto !important;
+                break-before: auto;
+                page-break-after: avoid !important;
+                break-after: avoid-page;
+                margin-top: 20px;
+                margin-bottom: 15px;
+            }
+            
+            .section-header,
+            .subsection-title,
+            .analysis-section h3,
+            .timeline-item h4 {
+                break-after: avoid-page;
+                page-break-after: avoid !important;
+            }
+
+            .node-detail {
+                break-inside: avoid-page;
+                page-break-inside: avoid !important;
+                page-break-before: avoid !important;
+                margin-top: 12px;
+            }
+            
+            .content-section:last-of-type {
+                page-break-after: avoid !important;
+                break-after: auto;
+                margin-bottom: 12px !important;
+            }
+            
+            .footer {
+                break-inside: avoid-page;
+                page-break-before: avoid !important;
+                page-break-after: avoid !important;
+                margin-top: 24px !important;
+                margin-bottom: 0 !important;
+            }
+            
+            .image-container,
+            .image-grid,
+            .analysis-section,
+            .timeline-item {
+                break-inside: avoid-page;
+                page-break-inside: avoid !important;
+            }
+
+            .image-container img {
+                max-height: 150mm;
+                width: auto;
+            }
+
+            .image-grid .image-item img {
+                max-height: 90mm;
+                object-fit: contain;
+            }
+            
+            ul,
+            ol,
+            p {
+                orphans: 3;
+                widows: 3;
+            }
+            
+            .header h1 {
+                font-size: 36px;
+            }
+            
+            .section-header {
+                font-size: 20px;
+            }
+            
+            .info-table {
+                page-break-inside: avoid !important;
+                font-size: 13px;
+            }
+            
+            .info-table td {
+                padding: 6px 8px;
+                line-height: 1.4;
+            }
+            
+            .info-table .label {
+                font-size: 13px;
+            }
+            
+            .info-table .value {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Edit Mode Toggle -->
+    <button class="edit-toggle" id="editToggle" onclick="toggleEditMode()">
+        编辑
+    </button>
+    
+    <!-- Edit Mode Indicator -->
+    <div class="edit-indicator" id="editIndicator">
+        编辑中
+    </div>
+    
+    <!-- Save Button -->
+    <button class="save-btn" id="saveBtn" onclick="saveContent()">
+        保存
+    </button>
+    
+    <div class="container" id="reportContainer">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-logo">
+                <!-- 请替换为公司Logo图片URL -->
+                <img src="https://obsidian-1305309714.cos.ap-chengdu.myqcloud.com/image/%E9%98%BF%E9%87%8C%E4%BA%91%E5%AE%98%E6%96%B9-%E4%B8%AD%E6%96%87LOGO-2026-07-26-18-46-53-bnp4Afgs.png" alt="阿里云 Logo">
+            </div>
+            <h1 class="editable">故障分析报告</h1>
+        </div>
+        
+        <!-- Basic Information Table -->
+        <div class="basic-info-section">
+            <div class="section-title editable">故障基本信息</div>
+            <table class="info-table">
+                <tr>
+                    <td class="label">问题主题</td>
+                    <td class="value editable" colspan="3">[请填写本次故障主题]</td>
+                </tr>
+                <tr>
+                    <td class="label">客户名称</td>
+                    <td class="value editable" colspan="3">[请填写客户名称]</td>
+                </tr>
+                <tr>
+                    <td class="label">故障影响和范围</td>
+                    <td class="value editable" colspan="3">[请描述故障影响范围和受影响的服务/系统]</td>
+                </tr>
+                <tr>
+                    <td class="label">软件产品</td>
+                    <td class="value editable">[请填写产品名称]</td>
+                    <td class="label">版本号</td>
+                    <td class="value editable">[请填写版本号]</td>
+                </tr>
+                <tr>
+                    <td class="label">故障发生时间</td>
+                    <td class="value editable">[YYYY年MM月DD日 HH:MM]</td>
+                    <td class="label">业务恢复时间</td>
+                    <td class="value editable">[请填写恢复时间或"待确认"]</td>
+                </tr>
+                <tr>
+                    <td class="label">故障总耗时长</td>
+                    <td class="value editable">[请填写时长或"/"]</td>
+                    <td class="label">影响级别</td>
+                    <td class="value editable">[P1 / P2 / P3 / P4]</td>
+                </tr>
+                <tr>
+                    <td class="label">支持团队</td>
+                    <td class="value editable">阿里云 ZStack 团队</td>
+                    <td class="label">报告日期</td>
+                    <td class="value editable">[YYYY年MM月DD日]</td>
+                </tr>
+            </table>
+        </div>
+        
+        <!-- Fault Description Section -->
+        <div class="content-section">
+            <div class="section-header editable">一、故障情况描述</div>
+            
+            <div class="highlight-box">
+                <p class="editable"><strong>故障现象：</strong>[请详细描述故障现象，包括发现时间、具体表现、影响范围等]</p>
+            </div>
+            
+            <!-- 如有截图，取消下面注释并替换图片URL -->
+            <!--
+            <div class="image-container" style="max-width: 900px; margin: 25px auto;">
+                <img src="[图片URL]" alt="故障截图">
+                <div class="image-caption editable">图1：故障现象截图</div>
+            </div>
+            -->
+            
+            <div class="subsection-title editable">详细排查经过</div>
+
+            <!-- 节点/组件详情模板 - 可复制多个 -->
+            <div class="node-detail">
+                <h4 class="editable">1. [节点/组件名称] ([标识信息])</h4>
+                <div class="detail-item">
+                    <strong>受影响部分：</strong><span class="editable">[请描述受影响的具体部分]</span>
+                </div>
+                <div class="detail-item">
+                    <strong>现场现象与排查要点：</strong>
+                    <ul class="editable-list">
+                        <li class="editable">[问题点1]</li>
+                        <li class="editable">[问题点2]</li>
+                        <li class="editable">[问题点3]</li>
+                    </ul>
+                </div>
+                
+                <!-- 如有相关截图，取消下面注释并替换图片URL -->
+                <!--
+                <div class="image-container" style="max-width: 800px; margin: 20px auto;">
+                    <img src="[图片URL]" alt="相关截图">
+                    <div class="image-caption editable">图X：[图片说明]</div>
+                </div>
+                -->
+                
+                <div class="recommendation-box">
+                    <strong>排查结论：</strong><span class="editable">[请填写基于当前证据形成的排查结论，避免在此处直接写处置建议]</span>
+                </div>
+            </div>
+            
+            <!-- 复制上面的 node-detail 块来添加更多节点/组件 -->
+            
+        </div>
+        
+        <!-- Root Cause Analysis Section -->
+        <div class="content-section">
+            <div class="section-header editable">二、原因分析</div>
+            
+            <div class="analysis-section">
+                <h3 class="editable">已确认原因</h3>
+                <ol class="editable-list">
+                    <li class="editable"><strong>[原因类别1]：</strong>[请填写已形成证据闭环的原因描述，明确事实、日志、配置或现场核验依据]</li>
+                    
+                    <li class="editable"><strong>[原因类别2]：</strong>[如存在多个已确认原因，请继续补充]</li>
+                </ol>
+            </div>
+
+            <div class="analysis-section analysis-soft">
+                <h3 class="editable">初步判断</h3>
+                <ul class="editable-list">
+                    <li class="editable">[请填写当前证据指向但仍需进一步验证的判断，建议同步说明后续核验方向]</li>
+                    
+                    <li class="editable">[如无初步判断，可填写“当前暂无新增初步判断”]</li>
+                </ul>
+            </div>
+            
+            <div class="analysis-section analysis-excluded">
+                <h3 class="editable">排除因素</h3>
+                <ul class="editable-list">
+                    <li class="editable">✓ [请填写已明确排除的因素及依据]</li>
+                    <li class="editable">✓ [如暂无，可填写“当前暂未形成需单列说明的排除因素”]</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Solution Section -->
+        <div class="content-section">
+            <div class="section-header editable">三、处置与治理方案</div>
+            
+            <div class="timeline-section">
+                <div class="timeline-item">
+                    <h4 class="editable"><span class="phase-badge">临时</span>临时处置方案（建议在维护窗口内执行）</h4>
+                    <ul class="editable-list">
+                        <li class="editable">[请填写临时处置动作，重点描述止血、恢复、隔离、验证等措施]</li>
+                        <li class="editable">[措施应体现执行条件、影响范围或验证目标]</li>
+                        <li class="editable">[保持措辞稳妥，避免口语化表达]</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <h4 class="editable"><span class="phase-badge">长期</span>长期治理方案</h4>
+                    <ul class="editable-list">
+                        <li class="editable">[请填写长期治理动作，重点描述机制、巡检、兼容性、预防性治理等措施]</li>
+                        <li class="editable">[可包含流程优化、版本治理、监控补强、预案建设等内容]</li>
+                        <li class="editable">[避免空泛口号，应体现可执行的治理方向]</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 预防措施清单 - 如需要可取消注释 -->
+            <!--
+            <div class="analysis-section" style="background-color: #fff3e0;">
+                <h3 class="editable">预防措施清单</h3>
+                <ul class="editable-list">
+                    <li class="editable">[预防措施1]</li>
+                    <li class="editable">[预防措施2]</li>
+                    <li class="editable">[预防措施3]</li>
+                </ul>
+            </div>
+            -->
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong class="editable">阿里云 ZStack 团队</strong></p>
+            <p class="editable">报告日期：[YYYY年MM月DD日]</p>
+        </div>
+    </div>
+    
+    <script>
+        let isEditMode = false;
+
+        function focusEditableEnd(element) {
+            const selection = window.getSelection();
+            const range = document.createRange();
+            range.selectNodeContents(element);
+            range.collapse(false);
+            selection.removeAllRanges();
+            selection.addRange(range);
+            element.focus();
+        }
+
+        function createEditableListItem(text = '') {
+            const item = document.createElement('li');
+            item.className = 'editable';
+            item.innerHTML = text || '[请填写内容]';
+            return item;
+        }
+        
+        function toggleEditMode() {
+            isEditMode = !isEditMode;
+            const container = document.getElementById('reportContainer');
+            const editables = container.querySelectorAll('.editable');
+            const toggleBtn = document.getElementById('editToggle');
+            const indicator = document.getElementById('editIndicator');
+            const saveBtn = document.getElementById('saveBtn');
+            
+            if (isEditMode) {
+                // Enable edit mode
+                editables.forEach(el => {
+                    el.contentEditable = 'true';
+                });
+                toggleBtn.textContent = '退出';
+                toggleBtn.classList.add('active');
+                indicator.style.display = 'block';
+                saveBtn.style.display = 'block';
+                
+                // Add visual feedback
+                document.body.style.cursor = 'text';
+            } else {
+                // Disable edit mode
+                editables.forEach(el => {
+                    el.contentEditable = 'false';
+                });
+                toggleBtn.textContent = '编辑';
+                toggleBtn.classList.remove('active');
+                indicator.style.display = 'none';
+                saveBtn.style.display = 'none';
+                
+                // Reset cursor
+                document.body.style.cursor = 'default';
+            }
+        }
+        
+        async function saveContent() {
+            // First, exit edit mode to remove all contenteditable attributes
+            if (isEditMode) {
+                const container = document.getElementById('reportContainer');
+                const editables = container.querySelectorAll('.editable');
+                const toggleBtn = document.getElementById('editToggle');
+                const indicator = document.getElementById('editIndicator');
+                const saveBtn = document.getElementById('saveBtn');
+                
+                // Disable edit mode
+                editables.forEach(el => {
+                    el.contentEditable = 'false';
+                    el.removeAttribute('contenteditable');
+                });
+                toggleBtn.textContent = '编辑';
+                toggleBtn.classList.remove('active');
+                indicator.style.display = 'none';
+                saveBtn.style.display = 'none';
+                document.body.style.cursor = 'default';
+                isEditMode = false;
+            }
+            
+            // Wait a moment for DOM to update
+            await new Promise(resolve => setTimeout(resolve, 100));
+            
+            // Get the clean HTML content (without edit mode artifacts)
+            const container = document.getElementById('reportContainer');
+            const htmlContent = container.innerHTML;
+            
+            // Create a Blob with the full HTML document
+            const fullHTML = `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>故障分析报告</title>
+    <style>
+${document.querySelector('style').innerHTML}
+    </style>
+</head>
+<body>
+${htmlContent}
+</body>
+</html>`;
+            
+            const blob = new Blob([fullHTML], { type: 'text/html' });
+            
+            // Try to use File System Access API (Chrome 86+, Edge 86+)
+            if (window.showSaveFilePicker) {
+                try {
+                    // Show save dialog
+                    window.showSaveFilePicker({
+                        suggestedName: '故障报告模板_可编辑版.html',
+                        types: [{
+                            description: 'HTML文件',
+                            accept: {'text/html': ['.html']}
+                        }]
+                    }).then(async (fileHandle) => {
+                        // Write to the file
+                        const writable = await fileHandle.createWritable();
+                        await writable.write(blob);
+                        await writable.close();
+                        
+                        alert('✅ 文件已保存！');
+                    }).catch((err) => {
+                        // User cancelled or error occurred
+                        console.error('保存失败:', err);
+                        if (err.name !== 'AbortError') {
+                            alert('❌ 保存失败，请重试或使用Ctrl+S快捷键');
+                        }
+                    });
+                } catch (err) {
+                    console.error('File System API error:', err);
+                    fallbackDownload(blob);
+                }
+            } else {
+                // Fallback to download for older browsers
+                fallbackDownload(blob);
+            }
+        }
+        
+        function fallbackDownload(blob) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = '故障报告模板_可编辑版.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('💡 提示：您的浏览器不支持直接保存功能，文件已下载到Downloads文件夹。\n\n建议使用Chrome或Edge浏览器以获得更好的保存体验。');
+        }
+        
+        // Keyboard shortcut: Ctrl+S to save
+        document.addEventListener('keydown', function(e) {
+            const activeListItem = document.activeElement;
+
+            if (
+                isEditMode &&
+                activeListItem &&
+                activeListItem.tagName === 'LI' &&
+                activeListItem.classList.contains('editable')
+            ) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    const list = activeListItem.parentElement;
+                    const newItem = createEditableListItem();
+                    activeListItem.insertAdjacentElement('afterend', newItem);
+                    focusEditableEnd(newItem);
+                    return;
+                }
+
+                if ((e.key === 'Backspace' || e.key === 'Delete') && activeListItem.textContent.trim() === '') {
+                    const list = activeListItem.parentElement;
+                    if (list && list.children.length > 1) {
+                        e.preventDefault();
+                        const fallback = activeListItem.previousElementSibling || activeListItem.nextElementSibling;
+                        activeListItem.remove();
+                        if (fallback) {
+                            focusEditableEnd(fallback);
+                        }
+                    }
+                    return;
+                }
+            }
+
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                if (isEditMode) {
+                    saveContent();
+                }
+            }
+        });
+        
+        // Warn before leaving if in edit mode
+        window.addEventListener('beforeunload', function(e) {
+            if (isEditMode) {
+                e.preventDefault();
+                e.returnValue = '您正在编辑模式中，确定要离开吗？未保存的修改将会丢失。';
+            }
+        });
+    </script>
+</body>
+</html>

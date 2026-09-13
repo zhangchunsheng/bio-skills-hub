@@ -1,0 +1,331 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://workbuddy.local/schemas/medication-reconciliation-record.form-a1.schema.json",
+  "title": "Medication Reconciliation Record - Form A.1 Intermediate Representation",
+  "description": "Intermediate Representation (IR) for 表 A.1 医疗机构药物重整记录表, derived from T/CHAS 20-2-3—2021. All fields must carry source provenance; missing data must be preserved with evidence_status=missing rather than deleted.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "encounter",
+    "sources",
+    "drug_records",
+    "reconciliation_outcomes",
+    "open_questions"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "encounter": {
+      "type": "object",
+      "required": [
+        "patient_name",
+        "patient_age",
+        "patient_gender",
+        "patient_id",
+        "primary_diagnosis",
+        "info_sources",
+        "encounter_id",
+        "suspected_other_patient"
+      ],
+      "properties": {
+        "patient_name": {"type": "string", "minLength": 1},
+        "patient_age": {"type": "string", "minLength": 1},
+        "patient_gender": {"type": "string", "enum": ["男", "女", "其他"]},
+        "patient_contact": {"type": ["string", "null"]},
+        "patient_id": {"type": "string", "minLength": 1},
+        "admission_time": {"type": ["string", "null"], "format": "date-time"},
+        "transfer_in_time": {"type": ["string", "null"], "format": "date-time"},
+        "discharge_time": {"type": ["string", "null"], "format": "date-time"},
+        "transfer_out_time": {"type": ["string", "null"], "format": "date-time"},
+        "primary_diagnosis": {
+          "type": "array",
+          "items": {"type": "string"},
+          "minItems": 1
+        },
+        "allergies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["substance", "category", "source_id"],
+            "properties": {
+              "substance": {"type": "string", "minLength": 1},
+              "category": {"type": "string"},
+              "manifestation": {"type": ["string", "null"]},
+              "source_id": {"type": "string"},
+              "page_or_image": {"type": ["string", "null"]},
+              "evidence_status": {
+                "type": "string",
+                "enum": [
+                  "direct_visible",
+                  "cross_confirmed",
+                  "conflict",
+                  "ambiguous",
+                  "missing",
+                  "pharmacist_verified",
+                  "physician_confirmed"
+                ]
+              }
+            }
+          }
+        },
+        "info_sources": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "encounter_id": {"type": "string", "minLength": 1},
+        "suspected_other_patient": {"type": "boolean"}
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["source_id", "file_name"],
+        "properties": {
+          "source_id": {"type": "string", "pattern": "^src-[A-Za-z0-9_-]+$"},
+          "file_name": {"type": "string"},
+          "file_type": {"type": "string"},
+          "patient_or_encounter": {"type": ["string", "null"]},
+          "doc_date": {"type": ["string", "null"]},
+          "clinical_timepoint": {"type": ["string", "null"]},
+          "page_or_image": {"type": ["string", "null"]},
+          "raw_text": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["field_path", "source_id", "evidence_status"],
+        "properties": {
+          "field_path": {"type": "string"},
+          "value": {},
+          "raw_text": {"type": ["string", "null"]},
+          "source_id": {"type": "string"},
+          "page_or_image": {"type": ["string", "null"]},
+          "evidence_status": {
+            "type": "string",
+            "enum": [
+              "direct_visible",
+              "cross_confirmed",
+              "conflict",
+              "ambiguous",
+              "missing",
+              "pharmacist_verified",
+              "physician_confirmed"
+            ]
+          },
+          "conflict_with": {"type": "array", "items": {"type": "string"}},
+          "pharmacist_verified": {"type": "boolean"},
+          "physician_confirmed": {"type": "boolean"}
+        }
+      }
+    },
+    "drug_records": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "record_id",
+          "original_name",
+          "category",
+          "source_id",
+          "evidence_status"
+        ],
+        "properties": {
+          "record_id": {"type": "string", "pattern": "^drug-[A-Za-z0-9_-]+$"},
+          "original_name": {"type": "string", "minLength": 1},
+          "generic_name": {"type": ["string", "null"]},
+          "brand_name": {"type": ["string", "null"]},
+          "dosage_form": {"type": ["string", "null"]},
+          "strength": {"type": ["string", "null"]},
+          "route": {"type": ["string", "null"]},
+          "dose": {"type": ["string", "null"]},
+          "frequency": {"type": ["string", "null"]},
+          "administration_time": {"type": ["string", "null"]},
+          "indication": {"type": ["string", "null"]},
+          "start_time": {"type": ["string", "null"]},
+          "stop_time": {"type": ["string", "null"]},
+          "stop_reason": {"type": ["string", "null"]},
+          "patient_brought": {"type": "boolean"},
+          "adherence": {"type": ["string", "null"]},
+          "source_id": {"type": "string"},
+          "page_or_image": {"type": ["string", "null"]},
+          "category": {
+            "type": "string",
+            "enum": [
+              "pre_admission_home_med",
+              "inpatient_long_term",
+              "inpatient_temp_order",
+              "pre_transfer_med",
+              "post_transfer_med",
+              "discharge_med",
+              "stopped_med",
+              "patient_brought_med",
+              "otc_supplement",
+              "unconfirmed_med"
+            ]
+          },
+          "current_status": {
+            "type": "string",
+            "enum": [
+              "继续用药",
+              "停药",
+              "加药",
+              "恢复用药",
+              "换药",
+              "临时暂停",
+              "临时调整"
+            ]
+          },
+          "evidence_status": {
+            "type": "string",
+            "enum": [
+              "direct_visible",
+              "cross_confirmed",
+              "conflict",
+              "ambiguous",
+              "missing",
+              "pharmacist_verified",
+              "physician_confirmed"
+            ]
+          },
+          "open_questions": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "discrepancies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "discrepancy_id",
+          "drug_generic_name",
+          "category",
+          "objective_diff",
+          "evidence_status"
+        ],
+        "properties": {
+          "discrepancy_id": {"type": "string"},
+          "drug_generic_name": {"type": "string"},
+          "category": {
+            "type": "string",
+            "enum": [
+              "omission",
+              "duplication",
+              "drug_inconsistency",
+              "form_or_strength",
+              "dose_inconsistency",
+              "frequency_inconsistency",
+              "route_inconsistency",
+              "start_or_stop_time",
+              "stopped_but_still_ordered",
+              "patient_still_uses_but_not_ordered",
+              "allergy_or_contraindication",
+              "drug_drug_or_food_interaction",
+              "incompatibility",
+              "indication_to_verify",
+              "renal_hepatic_risk",
+              "special_population_risk",
+              "special_form_or_device",
+              "procedure_pause_resume",
+              "iv_or_defined_course"
+            ]
+          },
+          "source_a": {
+            "type": "object",
+            "properties": {
+              "source_id": {"type": "string"},
+              "raw_text": {"type": "string"}
+            }
+          },
+          "source_b": {
+            "type": "object",
+            "properties": {
+              "source_id": {"type": "string"},
+              "raw_text": {"type": "string"}
+            }
+          },
+          "objective_diff": {"type": "string"},
+          "evidence_status": {
+            "type": "string",
+            "enum": [
+              "direct_visible",
+              "cross_confirmed",
+              "conflict",
+              "ambiguous",
+              "missing",
+              "pharmacist_verified",
+              "physician_confirmed"
+            ]
+          },
+          "needs_answer_from": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["patient", "family", "pharmacist", "physician"]
+            }
+          },
+          "open_questions": {"type": "array", "items": {"type": "string"}},
+          "pharmacist_verified": {"type": "boolean"},
+          "physician_confirmed": {"type": "boolean"},
+          "proposed_action": {
+            "type": "string",
+            "enum": ["建议讨论", "待医师确认", "已确认"]
+          }
+        }
+      }
+    },
+    "reconciliation_outcomes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["drug_record_id", "result", "decided_by_role"],
+        "properties": {
+          "drug_record_id": {"type": "string"},
+          "result": {
+            "type": "string",
+            "enum": [
+              "继续用药",
+              "停药",
+              "加药",
+              "恢复用药",
+              "换药",
+              "临时暂停",
+              "临时调整"
+            ]
+          },
+          "reason": {"type": ["string", "null"]},
+          "decided_at": {"type": ["string", "null"]},
+          "decided_by_role": {
+            "type": "string",
+            "enum": ["pharmacist_suggestion", "physician_confirmed"]
+          },
+          "source_id": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "open_questions": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "qc_report": {
+      "type": "object",
+      "properties": {
+        "completeness_missing": {"type": "array", "items": {"type": "string"}},
+        "unsourced_fields": {"type": "array", "items": {"type": "string"}},
+        "conflict_fields": {"type": "array", "items": {"type": "string"}},
+        "suspected_fabrication": {"type": "array", "items": {"type": "string"}},
+        "patient_brought_marked": {"type": "boolean"},
+        "signature_blank": {"type": "boolean"},
+        "physician_confirmation_conflict": {"type": "boolean"}
+      }
+    }
+  },
+  "additionalProperties": false
+}

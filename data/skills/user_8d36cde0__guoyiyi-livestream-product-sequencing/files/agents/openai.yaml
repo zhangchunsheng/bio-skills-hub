@@ -1,0 +1,7 @@
+interface:
+  display_name: "直播排品策略｜郭亿易"
+  short_description: "输入商品池、利润、库存和历史表现，产出排品顺序、角色分工和替换规则。"
+  default_prompt: "使用 $guoyiyi-livestream-product-sequencing 将商品池、利润、库存和历史表现整理为排品顺序、角色分工和替换规则。"
+  icon_small: "./assets/icon.png"
+  icon_large: "./assets/icon.png"
+  brand_color: "#7CB342"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "国内社媒品牌配图与模板生成｜简诗 AI"
+  short_description: "Generates platform-sized, on-brand social templates as SVG from the active 当用户需要处理相关业务场景时使用。"
+  default_prompt: "使用 $generate-social 完成“国内社媒品牌配图与模板生成”任务，并给出可执行结果。"

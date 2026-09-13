@@ -1,0 +1,4 @@
+interface:
+  display_name: "Arrfounder 产品发布、收录与曝光｜简诗 AI"
+  short_description: "围绕“Arrfounder 产品发布、收录与曝光”提供具体执行方法，涵盖平台内容、发布节奏、互动增长和效果复盘。"
+  default_prompt: "使用 $sales-arrfounder 完成“Arrfounder 产品发布、收录与曝光”任务。"

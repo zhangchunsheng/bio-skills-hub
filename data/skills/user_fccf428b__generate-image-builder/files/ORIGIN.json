@@ -1,0 +1,22 @@
+{
+  "source_key": "OpenClaudia__openclaudia-skills",
+  "repo_url": "https://github.com/OpenClaudia/openclaudia-skills",
+  "commit": "bdd8b4ff4ed9c231ff22a8900c4ec390d717ab64",
+  "source_relative_path": "skills/ai-image-gen/SKILL.md",
+  "source_skill_sha256": "78549be873049c2877d3a9face33f24730b77f4cbf167d162e1c1644760dc60b",
+  "source_tree_sha256": "97fccc8fcc53165a6c74bc9d14f3be012886638099486b4734e68082345add4b",
+  "effective_license": "MIT",
+  "license_files": [
+    "LICENSE"
+  ],
+  "target_category": "design-brand",
+  "selected_rank": 844,
+  "public_branding_applied": true,
+  "product_display_name": "AI文本生图批量生成｜简诗 AI",
+  "product_slug": "generate-image-builder",
+  "productization": "简诗 AI canonical v1",
+  "product_summary": "通过OpenAI GPT Image和Stability AI两种引擎进行文生图，支持多模型切换和批量生成，输出本地保存的图片文件。",
+  "original_product_slug": "generate-image",
+  "semantic_reslug_version": "1.0.2",
+  "semantic_reslug_reason": "依据“AI文本生图批量生成”的真实交付物设计英文语义，明确表达生成工具，不使用品牌机械前缀或随机编号。"
+}

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 大V拆解 · 通用档案模板 | 单文件、内联CSS、无外部依赖 -->
+<title>{{BIGV_NAME}} · 大V拆解档案</title>
+<style>
+:root{
+  --bg:#f4f5f8; --surface:#ffffff; --ink:#1f2430; --ink-soft:#5b6472;
+  --line:#e7e9ee; --accent:#e11d48; --accent-2:#f59e0b; --accent-3:#2563eb;
+  --good:#16a34a; --warn:#d97706; --radius:16px; --shadow:0 6px 24px rgba(20,24,40,.07);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.75;font-size:16px;}
+a{color:var(--accent-3);text-decoration:none}
+.wrap{max-width:960px;margin:0 auto;padding:0 18px}
+
+/* Header */
+header.hero{background:linear-gradient(135deg,#2a1a2e 0%,#7a1f3d 55%,#e11d48 100%);color:#fff;padding:54px 0 46px;position:relative;overflow:hidden}
+header.hero::after{content:"";position:absolute;right:-80px;top:-80px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.08)}
+header.hero .kicker{letter-spacing:.32em;font-size:12px;opacity:.85;text-transform:uppercase}
+header.hero h1{font-size:34px;margin:10px 0 6px;line-height:1.25}
+header.hero .sub{font-size:16px;opacity:.92;max-width:680px}
+header.hero .meta{margin-top:16px;font-size:13px;opacity:.82}
+
+/* Top nav */
+nav.toc{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);overflow-x:auto}
+nav.toc .wrap{display:flex;gap:6px;padding:10px 18px;white-space:nowrap}
+nav.toc a{font-size:13px;padding:6px 11px;border-radius:999px;color:var(--ink-soft);background:transparent}
+nav.toc a:hover,nav.toc a.active{background:var(--accent);color:#fff}
+
+/* Sections */
+section{padding:40px 0 8px;scroll-margin-top:60px}
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.sec-no{flex:0 0 auto;width:38px;height:38px;border-radius:12px;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:700;font-size:18px;box-shadow:var(--shadow)}
+.sec-head h2{font-size:23px;margin:0}
+.lead{color:var(--ink-soft);margin:0 0 18px}
+
+/* Cards grid */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+.card .ico{font-size:26px}
+.card h3{margin:8px 0 6px;font-size:18px}
+.card .one{font-weight:700;color:var(--ink)}
+.card .logic{color:var(--ink-soft);font-size:14.5px;margin:10px 0 0}
+.warnbox{margin-top:12px;font-size:13.5px;background:#fff7ed;border-left:4px solid var(--warn);color:#9a3412;padding:10px 12px;border-radius:8px}
+
+/* Profile */
+.profile{display:grid;grid-template-columns:1fr 1fr;gap:10px 26px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+.profile div{display:flex;gap:8px;border-bottom:1px dashed var(--line);padding:8px 0}
+.profile .k{color:var(--ink-soft);flex:0 0 92px}
+.profile .v{font-weight:600}
+
+/* Dictionary */
+.dict{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.dict .term{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+.dict .term b{color:var(--accent);font-size:16px}
+.dict .term p{margin:6px 0 0;font-size:14.5px;color:var(--ink-soft)}
+
+/* Quotes */
+.qcat{margin:22px 0 10px;font-size:18px;font-weight:700;border-left:5px solid var(--accent-2);padding-left:12px}
+.quote{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0;box-shadow:var(--shadow);position:relative}
+.quote .txt{font-size:15.5px}
+.quote .src{display:inline-block;margin-top:8px;font-size:12.5px;color:var(--accent-3);background:#eef4ff;padding:2px 9px;border-radius:999px}
+
+/* Cases */
+.case{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:18px 20px;margin:16px 0;box-shadow:var(--shadow)}
+.case .ttl{font-weight:700;font-size:16px;margin-bottom:6px}
+.case .who{color:var(--ink-soft);font-size:14px}
+.case .logic{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);color:#374151}
+
+/* Top quotes */
+.topq{counter-reset:q;list-style:none;padding:0;margin:0}
+.topq li{display:flex;gap:14px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin:9px 0;box-shadow:var(--shadow)}
+.topq li::before{counter-increment:q;content:counter(q);flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:700;margin-top:2px}
+.topq .tag{display:block;font-size:12px;color:var(--accent-3);margin-top:4px}
+
+/* Distribution bars */
+.dist{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+.dist .row{display:flex;align-items:center;gap:12px;margin:9px 0}
+.dist .lab{flex:0 0 120px;font-size:14px}
+.dist .bar{flex:1;height:18px;background:#eef0f4;border-radius:999px;overflow:hidden}
+.dist .fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:999px}
+.dist .num{flex:0 0 34px;text-align:right;font-weight:700;font-size:14px}
+
+/* Logic flow */
+.flow{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+.flow .step{position:relative;padding:14px 18px;border-radius:12px;background:#fbfbfd;border:1px solid var(--line);margin:0 auto;max-width:560px}
+.flow .step .lab{font-size:12px;letter-spacing:.1em;color:var(--accent);font-weight:700}
+.flow .step .body{font-size:15px;margin-top:3px}
+.flow .arrow{text-align:center;color:var(--accent-2);font-size:22px;margin:6px 0}
+.flow .note{margin-top:18px;font-size:14px;color:var(--ink-soft);background:#f8fafc;border-radius:12px;padding:14px 16px}
+
+/* Timeline */
+.tl{position:relative;margin-left:8px;padding-left:26px;border-left:3px solid var(--line)}
+.tl .ev{position:relative;margin:0 0 18px}
+.tl .ev::before{content:"";position:absolute;left:-34px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--accent);border:3px solid #fff;box-shadow:0 0 0 2px var(--accent)}
+.tl .yr{font-weight:700;color:var(--accent)}
+.tl .desc{color:var(--ink-soft);font-size:14.5px}
+
+/* Controversy */
+.contro{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+.contro h3{margin-top:0}
+.contro ul{margin:8px 0 0;padding-left:20px}
+.contro li{margin:7px 0;color:#374151}
+
+footer{margin-top:40px;padding:30px 0 50px;color:var(--ink-soft);font-size:13px;text-align:center;border-top:1px solid var(--line)}
+
+@media(max-width:680px){
+  .grid,.dict,.profile{grid-template-columns:1fr}
+  header.hero h1{font-size:27px}
+  .dist .lab{flex-basis:90px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">{{DOMAIN}} · 大V拆解</div>
+    <h1>{{BIGV_NAME}}</h1>
+    <div class="sub">{{BIGV_TITLE}} —— {{BIGV_ONE_LINER}}</div>
+    <div class="meta">资料来源：{{SOURCE_NOTE}} ｜ 收录语录 {{QUOTE_COUNT}}+ 条</div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="wrap">
+    <a href="#s1">一、人物画像</a>
+    <a href="#s2">二、认知总览</a>
+    <a href="#s3">三、心智模型</a>
+    <a href="#s4">四、黑话体系</a>
+    <a href="#s5">五、表达DNA</a>
+    <a href="#s6">六、语录大全</a>
+    <a href="#s7">七、案例实录</a>
+    <a href="#s8">八、金句TOP</a>
+    <a href="#s9">九、逻辑闭环</a>
+    <a href="#s10">十、时间线·争议</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- 一、人物画像 -->
+  <section id="s1">
+    <div class="sec-head"><div class="sec-no">1</div><h2>人物画像：{{BIGV_NAME}}是谁</h2></div>
+    <p class="lead">{{PROFILE_LEAD}}</p>
+    <div class="profile">
+      <div><span class="k">本名 / 年龄</span><span class="v">{{REAL_NAME}}</span></div>
+      <div><span class="k">籍贯</span><span class="v">{{HOMETOWN}}</span></div>
+      <div><span class="k">职业轨迹</span><span class="v">{{CAREER}}</span></div>
+      <div><span class="k">走红节点</span><span class="v">{{RISE}}</span></div>
+      <div><span class="k">代表平台</span><span class="v">{{PLATFORMS}}</span></div>
+      <div><span class="k">当前状态</span><span class="v">{{STATUS}}</span></div>
+    </div>
+    <div class="warnbox">⚠️ 重要背景：{{STATUS_NOTE}}</div>
+  </section>
+
+  <!-- 二、认知总览 -->
+  <section id="s2">
+    <div class="sec-head"><div class="sec-no">2</div><h2>认知操作系统总览（心智模型地图）</h2></div>
+    <p class="lead">{{MODELS_OVERVIEW_LEAD}}</p>
+    <div class="grid">
+      <!-- 复制此卡片块以新增模型 -->
+      <div class="card">
+        <div class="ico">🔄</div>
+        <h3>{{MODEL_1_NAME}}</h3>
+        <div class="one">{{MODEL_1_ONE_LINER}}</div>
+        <div class="logic">{{MODEL_1_EFFECT}}</div>
+      </div>
+      <div class="card">
+        <div class="ico">🔥</div>
+        <h3>{{MODEL_2_NAME}}</h3>
+        <div class="one">{{MODEL_2_ONE_LINER}}</div>
+        <div class="logic">{{MODEL_2_EFFECT}}</div>
+      </div>
+      <!-- ... 其余模型卡片 ... -->
+    </div>
+  </section>
+
+  <!-- 三、心智模型详解 -->
+  <section id="s3">
+    <div class="sec-head"><div class="sec-no">3</div><h2>核心心智模型详解</h2></div>
+    <div class="grid">
+      <div class="card">
+        <div class="ico">①</div>
+        <h3>{{MODEL_1_NAME}}</h3>
+        <div class="one">一句话：{{MODEL_1_ONE_LINER}}</div>
+        <div class="logic"><b>核心逻辑：</b>{{MODEL_1_LOGIC}}</div>
+        <div class="warnbox">⚠️ 局限：{{MODEL_1_LIMIT}}</div>
+      </div>
+      <!-- ... 其余模型详解卡片 ... -->
+    </div>
+  </section>
+
+  <!-- 四、黑话体系 -->
+  <section id="s4">
+    <div class="sec-head"><div class="sec-no">4</div><h2>黑话体系与术语图谱</h2></div>
+    <p class="lead">{{JARGON_LEAD}}</p>
+    <div class="dict">
+      <div class="term"><b>{{TERM_1}}</b><p>{{TERM_1_DEF}}</p></div>
+      <div class="term"><b>{{TERM_2}}</b><p>{{TERM_2_DEF}}</p></div>
+      <!-- ... 其余词条 ... -->
+    </div>
+  </section>
+
+  <!-- 五、表达DNA -->
+  <section id="s5">
+    <div class="sec-head"><div class="sec-no">5</div><h2>标志性表达 DNA</h2></div>
+    <p class="lead">{{DNA_LEAD}}</p>
+    <div class="dict">
+      <div class="term"><b>「{{PHRASE_1}}」</b><p>{{PHRASE_1_MEANING}}</p></div>
+      <div class="term"><b>「{{PHRASE_2}}」</b><p>{{PHRASE_2_MEANING}}</p></div>
+      <!-- ... 其余句式 ... -->
+    </div>
+  </section>
+
+  <!-- 六、语录分类大全 -->
+  <section id="s6">
+    <div class="sec-head"><div class="sec-no">6</div><h2>语录分类大全（核心档案）</h2></div>
+    <p class="lead">以下按主题归类，每条均标注出处语境。</p>
+
+    <div class="qcat">💡 一、{{QUOTE_CAT_1}}</div>
+    <div class="quote"><div class="txt">{{QUOTE_1}}</div><span class="src">{{QUOTE_1_SRC}}</span></div>
+    <div class="quote"><div class="txt">{{QUOTE_2}}</div><span class="src">{{QUOTE_2_SRC}}</span></div>
+    <!-- ... 该分类其他语录 ... -->
+
+    <div class="qcat">💡 二、{{QUOTE_CAT_2}}</div>
+    <div class="quote"><div class="txt">{{QUOTE_3}}</div><span class="src">{{QUOTE_3_SRC}}</span></div>
+    <!-- ... -->
+  </section>
+
+  <!-- 七、案例实录 -->
+  <section id="s7">
+    <div class="sec-head"><div class="sec-no">7</div><h2>经典案例实录</h2></div>
+    <div class="case">
+      <div class="ttl">📞 案例一：{{CASE_1_TITLE}}</div>
+      <div class="who">{{CASE_1_DESC}}</div>
+      <div class="logic"><b>他的拆解逻辑：</b>{{CASE_1_LOGIC}}</div>
+    </div>
+    <!-- ... 其余案例 ... -->
+  </section>
+
+  <!-- 八、金句TOP -->
+  <section id="s8">
+    <div class="sec-head"><div class="sec-no">8</div><h2>金句 TOP {{TOP_N}} 与主题分布</h2></div>
+    <div class="dist">
+      <div class="row"><div class="lab">{{THEME_1}}</div><div class="bar"><div class="fill" style="width:{{THEME_1_PCT}}%"></div></div><div class="num">{{THEME_1_CNT}}</div></div>
+      <div class="row"><div class="lab">{{THEME_2}}</div><div class="bar"><div class="fill" style="width:{{THEME_2_PCT}}%"></div></div><div class="num">{{THEME_2_CNT}}</div></div>
+      <!-- ... 其余主题 ... -->
+    </div>
+    <ol class="topq">
+      <li><div>{{TOP_QUOTE_1}}<span class="tag">— {{TOP_QUOTE_1_THEME}}</span></div></li>
+      <li><div>{{TOP_QUOTE_2}}<span class="tag">— {{TOP_QUOTE_2_THEME}}</span></div></li>
+      <!-- ... 其余金句 ... -->
+    </ol>
+  </section>
+
+  <!-- 九、逻辑闭环 -->
+  <section id="s9">
+    <div class="sec-head"><div class="sec-no">9</div><h2>理论体系逻辑图</h2></div>
+    <div class="flow">
+      <div class="step"><div class="lab">观察起点</div><div class="body">{{LOGIC_START}}</div></div>
+      <div class="arrow">↓</div>
+      <div class="step"><div class="lab">归因</div><div class="body">{{LOGIC_ATTR}}</div></div>
+      <div class="arrow">↓</div>
+      <div class="step"><div class="lab">个体解药</div><div class="body">{{LOGIC_FIX}}</div></div>
+      <div class="arrow">↓</div>
+      <div class="step"><div class="lab">社会映射</div><div class="body">{{LOGIC_SOCIAL}}</div></div>
+      <div class="arrow">↓</div>
+      <div class="step"><div class="lab">方法论底座</div><div class="body">{{LOGIC_BASE}}</div></div>
+      <div class="note">{{LOGIC_NOTE}}</div>
+    </div>
+  </section>
+
+  <!-- 十、时间线·争议 -->
+  <section id="s10">
+    <div class="sec-head"><div class="sec-no">10</div><h2>人生时间线 · 争议 · 局限与结语</h2></div>
+    <div class="tl">
+      <div class="ev"><div class="yr">{{YEAR_1}}</div><div class="desc">{{EVENT_1}}</div></div>
+      <div class="ev"><div class="yr">{{YEAR_2}}</div><div class="desc">{{EVENT_2}}</div></div>
+      <!-- ... 其余事件 ... -->
+    </div>
+    <div class="contro" style="margin-top:24px">
+      <h3>📌 争议与局限</h3>
+      <ul>
+        <li>{{CONTRO_1}}</li>
+        <li>{{CONTRO_2}}</li>
+      </ul>
+      <h3 style="margin-top:18px">结语</h3>
+      <p style="color:#374151;margin:6px 0 0">{{CONCLUSION}}</p>
+    </div>
+    <div class="warnbox" style="margin-top:18px">⚠️ 免责声明：本档案素材截止 {{CUT_OFF_DATE}}，整理自公开内容，不代表 {{BIGV_NAME}} 当下立场。仅供研究与学习，不构成任何投资 / 情感 / 生活建议。</div>
+  </section>
+
+</main>
+
+<footer>
+  {{BIGV_NAME}} · 大V拆解档案 ｜ 由 WorkBuddy「大V拆解」技能生成 ｜ 素材截止 {{CUT_OFF_DATE}}
+</footer>
+
+<script>
+// 目录高亮（scrollspy）
+const links=[...document.querySelectorAll('nav.toc a')];
+const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+const obs=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){
+    const id='#'+e.target.id;
+    links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')===id));
+  }});
+},{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(s=>s&&obs.observe(s));
+</script>
+</body>
+</html>

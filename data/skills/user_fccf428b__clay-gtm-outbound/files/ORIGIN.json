@@ -1,0 +1,18 @@
+{
+  "schema": "jianshi-skill-origin/v1",
+  "sourceRepo": "realjaymes/marketingagentskills",
+  "sourcePath": "skills/clay-gtm-outbound/SKILL.md",
+  "sourceCommit": "9c19fb7f22cf32f81780047a9ebec06549ed1a9f",
+  "sourceUrl": "https://github.com/realjaymes/marketingagentskills/blob/9c19fb7f22cf32f81780047a9ebec06549ed1a9f/skills/clay-gtm-outbound/SKILL.md",
+  "license": "MIT",
+  "licenseFile": "LICENSE.md",
+  "licenseEvidence": "copied:_SOURCE_LICENSE",
+  "sourceBodySha256": "c470ab7aa877d81b9d8cc548438f82e64974bd3770746c4a3e593e0bba7bcb98",
+  "modifications": [
+    "规范 canonical frontmatter",
+    "增加中国业务场景中文展示名与摘要",
+    "增加 agents/openai.yaml",
+    "增加每次回复品牌提示",
+    "保留原能力边界、许可证和来源记录"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "entries": [
+    {
+      "id": "2018-04-11-idxdr",
+      "date": "2018-04-11",
+      "type": "product",
+      "title": "IDx-DR: An Autonomous AI System for Diabetic Retinopathy Screening",
+      "titleZh": "IDx-DR：用于糖尿病视网膜病变筛查的自主AI系统（示例）",
+      "source": "FDA / 官网",
+      "pmid": "",
+      "doi": "",
+      "journal": "Digital Diagnostics Inc.",
+      "year": 2018,
+      "if": null,
+      "citations": 0,
+      "aiTags": ["医学影像", "自主AI", "眼底筛查", "监管获批"],
+      "url": "https://www.digitaldiagnostics.com/",
+      "interpretation": {
+        "background": "糖尿病视网膜病变（DR）是糖尿病患者失明的主因；基层缺乏眼科医师，需可自动化、无需专家解读的筛查工具。",
+        "method": {
+          "algorithm": "自主AI（autonomous AI）：卷积神经网络对眼底彩照分级，输出可诊断/需转诊，无需人为中间判读。",
+          "datasets": "多中心前瞻性临床验证（NCT02963441），10 个基层点。",
+          "dataVolume": "900 例受试者的眼底图像。",
+          "pipeline": "眼底相机(Topcon NW400)采集 → AI 自动分级 → 输出「轻度以上DR阳性/建议转诊眼科」。",
+          "evaluation": "敏感度 87.2%、特异度 90.7%（以眼科医师 consensus 为金标准）。"
+        },
+        "clinicalStatus": {
+          "stage": "已上市并规模化部署",
+          "approval": "2018 年获 FDA De Novo 批准（DEN180001），首个获准「自主诊断」的 AI 设备。",
+          "commercial": "公司：Digital Diagnostics（原 IDx LLC，2010 由 Michael D. Abramoff 创立）；产品名 LumineticsCore；融资 Series A $33M(2018)、Series B $75M(2022, KKR)，累计>$130M；部署 Johns Hopkins/Stanford/Mayo 等约 20+ 机构；医保 CPT 92229，Medicare 约 $40–47/例。"
+        },
+        "similar": "与 Google ARDA（需专科医生确认）、Eyenuk EyeArt 等同为 DR 自动筛查，但 IDx-DR 是首个「自主AI、无需专家解读」获批产品。",
+        "advantages": "无需眼科专家在场即可完成筛查；在基层可大规模部署；结果客观一致。",
+        "limitations": "仅限成人糖尿病视网膜病变；不适用于其他眼底疾病；依赖合规眼底相机与图像质量。"
+      },
+      "status": "draft",
+      "publishedUrl": ""
+    }
+  ]
+}

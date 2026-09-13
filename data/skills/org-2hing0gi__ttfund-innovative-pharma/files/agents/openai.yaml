@@ -1,0 +1,7 @@
+interface:
+  display_name: "天天港股创新药分析"
+  short_description: "分析港股创新药赛道与对比相关ETF，适合天天基金用户查询与分析需求"
+  brand_color: "#E9303E"
+  default_prompt: "使用 $ttfund-innovative-pharma 处理“天天港股创新药分析”相关需求。"
+policy:
+  allow_implicit_invocation: true

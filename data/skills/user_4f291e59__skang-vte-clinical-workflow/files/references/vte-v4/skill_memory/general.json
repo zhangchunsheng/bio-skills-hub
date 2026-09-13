@@ -1,0 +1,6 @@
+{
+  "branch": "general",
+  "description": "通用临床推理技能——跨场景可复用的诊疗逻辑",
+  "skills": [],
+  "_skill_schema_note": "每条技能结构：{ id, trigger, content, evidence, source_date, source_case, utility, adoptions, status, tags[] }"
+}

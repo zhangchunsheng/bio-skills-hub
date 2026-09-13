@@ -1,0 +1,4 @@
+interface:
+  display_name: "品牌·DNA｜简诗 AI"
+  short_description: "围绕“品牌·DNA”提供具体执行方法，涵盖主题创意、视觉结构、物料清单和落地检查。"
+  default_prompt: "使用 $brand-dna-jianshiai 完成“品牌·DNA”任务。"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "人群再营销与广告触达策略｜简诗 AI"
+  short_description: "Design retargeting strategy. Use when: planning cross-platform remarketing, audience segmentation, or ad sequencing."
+  default_prompt: "使用 $retargeting-strategy 完成“人群再营销与广告触达策略”任务。"

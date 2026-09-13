@@ -1,0 +1,137 @@
+{
+  "optimizer_hints": {
+    "capability": "Generate three-layer doctor-IP medical topics and export an Excel-compatible CSV",
+    "inputs": ["specialty", "department", "科室", "专业方向"],
+    "trigger_actions": ["generate medical topics", "build a topic library", "生成医生IP选题", "建立科室选题库", "导出CSV"],
+    "exclusions": ["individual diagnosis", "prescription advice", "full script writing", "personal branding strategy"]
+  },
+  "fallback_positive_concepts": [
+    "medical_topic_generation",
+    "specialty_library",
+    "topic_deduplication",
+    "csv_export"
+  ],
+  "positive_concepts": {
+    "medical_topic_generation": {
+      "weight": 0.38,
+      "phrases": [
+        "doctor-ip short-video topics",
+        "doctor ip topics",
+        "medical topics",
+        "doctor topics",
+        "generate topics",
+        "医生ip选题",
+        "医生 ip 选题",
+        "医生短视频选题",
+        "医疗选题",
+        "科普选题",
+        "生成选题",
+        "选题"
+      ]
+    },
+    "specialty_library": {
+      "weight": 0.28,
+      "phrases": [
+        "specialty topic library",
+        "topic library",
+        "specialty",
+        "department",
+        "科室选题库",
+        "专业选题库",
+        "关键词库",
+        "科室",
+        "专业方向",
+        "内分泌科",
+        "心内科",
+        "儿科",
+        "外科",
+        "康复科"
+      ]
+    },
+    "topic_deduplication": {
+      "weight": 0.18,
+      "phrases": [
+        "avoid repeated medical topics",
+        "deduplicate topics",
+        "topic history",
+        "avoid duplicates",
+        "选题去重",
+        "避免重复",
+        "历史选题"
+      ]
+    },
+    "csv_export": {
+      "weight": 0.16,
+      "phrases": [
+        "export the results as csv",
+        "excel-compatible csv",
+        "export csv",
+        "csv for excel",
+        "导出csv",
+        "csv表格",
+        "excel表格"
+      ]
+    },
+    "three_layer_method": {
+      "weight": 0.12,
+      "phrases": [
+        "three-layer topic",
+        "three layer",
+        "三层选题",
+        "三层关键词",
+        "三层选题法"
+      ]
+    }
+  },
+  "negative_concepts": {
+    "individual_medical_advice": {
+      "weight": 0.7,
+      "exclusive": true,
+      "phrases": [
+        "diagnose this patient",
+        "prescribe medicine",
+        "stop medication",
+        "个人诊断",
+        "给患者诊断",
+        "开药",
+        "停药方案"
+      ]
+    },
+    "full_content_creation": {
+      "weight": 0.5,
+      "exclusive": true,
+      "phrases": [
+        "write a full video script",
+        "complete video script",
+        "full article",
+        "完整口播稿",
+        "完整视频脚本",
+        "写整篇文章"
+      ]
+    },
+    "branding_strategy": {
+      "weight": 0.5,
+      "exclusive": true,
+      "phrases": [
+        "personal brand positioning",
+        "content strategy",
+        "account operation plan",
+        "医生ip定位",
+        "医生 ip 定位",
+        "账号运营方案",
+        "完整内容战略"
+      ]
+    },
+    "non_medical_topic": {
+      "weight": 0.45,
+      "exclusive": true,
+      "phrases": [
+        "restaurant topics",
+        "real estate topics",
+        "餐饮选题",
+        "餐饮账号",
+        "房地产选题"
+      ]
+    }
+  }
+}

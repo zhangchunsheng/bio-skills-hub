@@ -1,0 +1,4 @@
+interface:
+  display_name: "活动设计·Fullstack Code Reviewer｜简诗 AI"
+  short_description: "围绕“活动设计·Fullstack Code Reviewer”提供具体执行方法，涵盖主题创意、视觉结构、物料清单和落地检查。"
+  default_prompt: "使用 $generic-fullstack-code-reviewer 完成“活动设计·Fullstack Code Reviewer”任务。"

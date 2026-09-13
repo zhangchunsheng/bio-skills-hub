@@ -1,0 +1,45 @@
+{
+  "slug": "home-first-aid-kit-audit-card",
+  "name": "Home First Aid Kit Audit Card",
+  "displayName": "Home First Aid Kit Audit Card",
+  "version": "1.0.1",
+  "type": "prompt-flow",
+  "description": "Create a printable first aid kit audit card with readiness status, missing or expired supplies, a restock list, and a visible kit label while staying within supply readiness boundaries only.",
+  "author": "Golden Bean / coder",
+  "license": "MIT-0",
+  "category": "Health, Safety, and Preparedness",
+  "triggerKeywords": [
+    "first aid kit audit",
+    "home first aid kit checklist",
+    "first aid supplies restock",
+    "expired first aid supplies",
+    "emergency kit audit",
+    "family first aid kit",
+    "car first aid kit checklist",
+    "printable first aid card",
+    "kit readiness check",
+    "home safety supplies"
+  ],
+  "tags": [
+    "first-aid-kit",
+    "preparedness",
+    "home-safety",
+    "audit-card",
+    "restock-list",
+    "emergency-readiness"
+  ],
+  "language": "en",
+  "contentType": "document-only",
+  "hasExecutableCode": false,
+  "requiresApi": false,
+  "requires_api": false,
+  "no_code_execution": true,
+  "no_network": true,
+  "no_credentials": true,
+  "file_count": 3,
+  "files": [
+    "SKILL.md",
+    "skill.json",
+    "ACCEPTANCE.md"
+  ]
+}

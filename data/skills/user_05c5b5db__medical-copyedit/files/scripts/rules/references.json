@@ -1,0 +1,10 @@
+{
+  "scope": "national",
+  "layer_name": "国家标准（参考文献著录）",
+  "source": "GB/T 7714-2025",
+  "auto": true,
+  "rules": [
+    {"id": "REF-TYPE", "category": "references", "severity": "warning", "pattern": ".*", "is_regex": true, "ref_only": true, "whole_line": true, "exclude_pattern": "[\\[［〔][A-Z]", "suggestion": "补充 [文献类型标志]", "message": "参考文献条目疑似缺文献类型标志（如 [J] [M] [D]）", "example": "[1] 作者. 题名. 刊名, 2020.", "counter_example": "[1] 作者. 题名[J]. 刊名, 2020."},
+    {"id": "REF-PAGE", "category": "references", "severity": "error", "pattern": "\\d+[～~]\\d+", "is_regex": true, "ref_only": true, "suggestion": "将页码范围改为半字线「-」连接", "message": "参考文献页码范围应使用半字线「-」而非「～」（命中：{found}）", "example": "[1] 作者. 题名[J]. 刊名, 2020, 30～36.", "counter_example": "[1] 作者. 题名[J]. 刊名, 2020, 30-36."}
+  ]
+}

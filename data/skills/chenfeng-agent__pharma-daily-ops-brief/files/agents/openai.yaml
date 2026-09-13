@@ -1,0 +1,4 @@
+interface:
+  display_name: "医药商业日常运营简报"
+  short_description: "把班前/日运营记录压缩为可执行简报"
+  default_prompt: "Use $pharma-daily-ops-brief for paid 医药商业 日常运营简报."

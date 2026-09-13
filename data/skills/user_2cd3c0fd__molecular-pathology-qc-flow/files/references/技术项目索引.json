@@ -1,0 +1,681 @@
+{
+  "index_version": "1.2",
+  "author": "WangYunL",
+  "last_updated": "2026-08-27",
+  "scope_note": "用于快速定位技术、方法、项目和质控阶段；不包含可脱离具体试剂、平台、SOP 或验证报告使用的实验室阈值。",
+  "entries": [
+    {
+      "id": "technology_pcr",
+      "kind": "technology",
+      "name": "聚合酶链式反应（PCR）",
+      "aliases": [
+        "PCR",
+        "聚合酶链反应",
+        "polymerase chain reaction"
+      ],
+      "technology": "PCR",
+      "methods": [
+        "常规终点 PCR",
+        "实时荧光定量 PCR（qPCR）",
+        "ARMS-PCR",
+        "数字 PCR"
+      ],
+      "summary": "PCR 是在体外对特定 DNA 片段进行选择性扩增的技术大类；BRAF、EGFR 等是检测项目或靶点，不是 PCR 技术本身。",
+      "principle": "通过引物界定目标区域，并以变性、退火和延伸循环实现目标核酸扩增；具体信号读取方式取决于终点电泳、荧光探针、等位基因特异引物或数字分区等方法。",
+      "common_measurements": [
+        "模板浓度与纯度（单位按 SOP）",
+        "扩增曲线或终点产物",
+        "Ct/Cq（仅实时 PCR）",
+        "阳性、阴性和空白对照结果",
+        "内参结果"
+      ],
+      "qc_stages": [
+        "样本质控",
+        "核酸提取",
+        "反应体系制备",
+        "扩增运行",
+        "下机数据质控",
+        "结果判读"
+      ],
+      "keywords": [
+        "扩增",
+        "引物",
+        "探针",
+        "Ct",
+        "Cq",
+        "质控"
+      ],
+      "reference_file": "references/PCR技术与通用质控.md",
+      "scope_note": "通用原理和质控维度可复用；Ct、ΔCt、扩增效率、对照接受标准等必须使用具体试剂说明书、平台和实验室 SOP。",
+      "sources": [
+        {
+          "title": "NHGRI Polymerase Chain Reaction Fact Sheet",
+          "url": "https://www.genome.gov/about-genomics/fact-sheets/Polymerase-Chain-Reaction-Fact-Sheet",
+          "last_verified": "2026-08-27"
+        },
+        {
+          "title": "NHGRI PCR Glossary",
+          "url": "https://www.genome.gov/genetics-glossary/Polymerase-Chain-Reaction-PCR",
+          "last_verified": "2026-08-27"
+        }
+      ]
+    },
+    {
+      "id": "method_qpcr",
+      "kind": "method",
+      "name": "实时荧光 PCR（qPCR）",
+      "aliases": [
+        "qPCR",
+        "real-time PCR",
+        "实时荧光定量PCR",
+        "荧光PCR"
+      ],
+      "technology": "PCR",
+      "methods": [
+        "染料法",
+        "探针法",
+        "等位基因特异性实时 PCR"
+      ],
+      "summary": "qPCR 在扩增过程中连续采集荧光信号，可用于定量或按照特定试剂规则进行靶标判读。",
+      "principle": "扩增产物累积带来荧光变化，软件生成扩增曲线和 Ct/Cq 等读数；阈值线、基线、通道和算法由平台及方法定义。",
+      "common_measurements": [
+        "扩增曲线形态",
+        "Ct/Cq",
+        "ΔCt 或其他派生值（若 SOP 定义）",
+        "内参 Ct/Cq",
+        "外部对照状态"
+      ],
+      "qc_stages": [
+        "反应体系制备",
+        "扩增运行",
+        "下机数据质控",
+        "结果判读"
+      ],
+      "keywords": [
+        "Ct",
+        "Cq",
+        "FAM",
+        "VIC",
+        "扩增曲线"
+      ],
+      "reference_file": "references/PCR技术与通用质控.md",
+      "scope_note": "qPCR 只说明读数类型，不自动确定阳性、阴性、灰区或无效阈值。",
+      "sources": [
+        {
+          "title": "NHGRI Polymerase Chain Reaction Fact Sheet",
+          "url": "https://www.genome.gov/about-genomics/fact-sheets/Polymerase-Chain-Reaction-Fact-Sheet",
+          "last_verified": "2026-08-27"
+        }
+      ]
+    },
+    {
+      "id": "method_arms_pcr",
+      "kind": "method",
+      "name": "ARMS-PCR（等位基因特异性 PCR）",
+      "aliases": [
+        "ARMS",
+        "ARMS-PCR",
+        "Amplification Refractory Mutation System",
+        "扩增阻滞突变系统",
+        "等位基因特异性PCR"
+      ],
+      "technology": "PCR",
+      "methods": [
+        "终点 ARMS-PCR",
+        "实时荧光 ARMS-PCR",
+        "多重 ARMS-PCR"
+      ],
+      "summary": "ARMS-PCR 利用引物 3' 端与模板是否匹配来偏向扩增目标等位基因，适合检测方法声明范围内的已知变异。",
+      "principle": "在适当反应条件下，3' 端不匹配会抑制引物延伸；通过野生型、突变型或内参反应的预定义组合进行判读。",
+      "common_measurements": [
+        "终点条带或扩增曲线",
+        "Ct/Cq（实时荧光设计）",
+        "内参结果",
+        "阳性、阴性和空白对照",
+        "ΔCt 或反应组合（仅在 SOP 定义时）"
+      ],
+      "qc_stages": [
+        "样本与核酸质控",
+        "反应体系制备",
+        "扩增运行",
+        "下机数据质控",
+        "结果判读"
+      ],
+      "keywords": [
+        "等位基因特异",
+        "3'端",
+        "突变型",
+        "野生型",
+        "内参",
+        "Ct"
+      ],
+      "reference_file": "references/ARMS-PCR技术与通用质控.md",
+      "scope_note": "ARMS 只确定特异扩增思路，不自动确定引物、通道、Ct/ΔCt、灰区、检出限或可报告变异范围。",
+      "sources": [
+        {
+          "title": "Newton et al. Analysis of any point mutation in DNA: ARMS",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/2785681/",
+          "last_verified": "2026-08-27"
+        },
+        {
+          "title": "NHGRI Polymerase Chain Reaction Fact Sheet",
+          "url": "https://www.genome.gov/about-genomics/fact-sheets/Polymerase-Chain-Reaction-Fact-Sheet",
+          "last_verified": "2026-08-27"
+        }
+      ]
+    },
+    {
+      "id": "method_digital_pcr",
+      "kind": "method",
+      "name": "数字 PCR（dPCR）",
+      "aliases": [
+        "dPCR",
+        "digital PCR",
+        "数字PCR",
+        "ddPCR",
+        "droplet digital PCR",
+        "液滴数字PCR"
+      ],
+      "technology": "PCR",
+      "methods": [
+        "芯片或微流控数字 PCR",
+        "液滴数字 PCR（ddPCR）"
+      ],
+      "summary": "数字 PCR 将反应划分为大量独立分区，终点读取阳性和阴性分区，并通过统计模型估计目标核酸数量。",
+      "principle": "目标分子被随机分配到分区；依据阳性与阴性分区比例、分区体积和统计模型计算拷贝数或浓度。",
+      "common_measurements": [
+        "总分区数和有效分区数",
+        "阳性、阴性及中间分区分布",
+        "阳性分区比例",
+        "拷贝数或浓度及置信区间",
+        "阳性、阴性、空白和过程对照"
+      ],
+      "qc_stages": [
+        "样本与核酸质控",
+        "反应体系制备",
+        "分区生成",
+        "扩增与终点读取",
+        "分区分类与统计",
+        "结果复核"
+      ],
+      "keywords": [
+        "分区",
+        "液滴",
+        "拷贝数",
+        "泊松",
+        "置信区间",
+        "中间液滴"
+      ],
+      "reference_file": "references/数字PCR技术与通用质控.md",
+      "scope_note": "有效分区数、阈值线、动态范围、LoB/LoD/LoQ、最低变异频率和报告单位必须绑定平台、软件、SOP 与验证报告。",
+      "sources": [
+        {
+          "title": "NIST Digital PCR",
+          "url": "https://www.nist.gov/programs-projects/digital-pcr",
+          "last_verified": "2026-08-27"
+        },
+        {
+          "title": "NIST dMIQE Guidelines publication",
+          "url": "https://www.nist.gov/publications/guidelines-minimum-information-publication-quantitative-digital-pcr-experiments",
+          "last_verified": "2026-08-27"
+        },
+        {
+          "title": "NIST Digital PCR Reference Measurement Procedure publication",
+          "url": "https://www.nist.gov/publications/application-digital-pcr-reference-measurement-procedure-support-accuracy-quality",
+          "last_verified": "2026-08-27"
+        }
+      ]
+    },
+    {
+      "id": "project_braf_v600e",
+      "kind": "project",
+      "name": "BRAF V600E 检测",
+      "aliases": [
+        "BRAF",
+        "BRAF V600E",
+        "BRAF_V600E",
+        "PCR BRAF",
+        "BRAF PCR"
+      ],
+      "technology": "PCR",
+      "methods": [
+        "实时 PCR（具体方法待试剂确认）",
+        "其他经验证的分子方法"
+      ],
+      "summary": "BRAF V600E 是 BRAF 基因特定位点变异检测项目；它可以由 PCR 类方法或其他经验证的方法完成，不能仅凭项目名确定试剂、信号通道或阈值。",
+      "principle": "项目通过能区分目标变异与非目标序列的方法检测 BRAF V600E；具体引物、探针、内参和算法属于试剂或实验室方法学范围。",
+      "common_measurements": [
+        "靶标通道 Ct/Cq（若为 qPCR）",
+        "内参 Ct/Cq",
+        "ΔCt（仅当 SOP 定义）",
+        "阳性、阴性和空白对照"
+      ],
+      "qc_stages": [
+        "样本质控",
+        "核酸提取",
+        "扩增运行",
+        "下机数据质控",
+        "结果判读"
+      ],
+      "keywords": [
+        "V600E",
+        "FAM",
+        "VIC",
+        "Ct",
+        "ΔCt",
+        "下机质控"
+      ],
+      "reference_file": "references/BRAF-V600E下机质控示例.md",
+      "qc_spec_file": "assets/BRAF-V600E下机质控.json",
+      "scope_note": "Skill 内置 Ct/ΔCt 数值只复现用户提供的 BRAF Draw.io 样例；FDA 设备资料用于证明存在特定 PCR 检测实例，不代表所有 BRAF 方法共享同一规则。",
+      "sources": [
+        {
+          "title": "NCBI Gene: BRAF",
+          "url": "https://www.ncbi.nlm.nih.gov/gene/673",
+          "last_verified": "2026-08-27"
+        },
+        {
+          "title": "FDA cobas 4800 BRAF V600 Mutation Test PMA",
+          "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpma/pma.cfm?id=P110020",
+          "last_verified": "2026-08-27"
+        },
+        {
+          "title": "FDA cobas BRAF Labeling",
+          "url": "https://www.accessdata.fda.gov/cdrh_docs/pdf11/P110020C.pdf",
+          "last_verified": "2026-08-27"
+        }
+      ]
+    },
+    {
+      "id": "project_egfr",
+      "kind": "project",
+      "name": "EGFR 变异检测",
+      "aliases": [
+        "EGFR",
+        "EGFR PCR",
+        "PCR EGFR",
+        "EGFR突变"
+      ],
+      "technology": "PCR",
+      "methods": [
+        "实时 PCR",
+        "ARMS-PCR",
+        "NGS",
+        "其他经验证方法"
+      ],
+      "summary": "EGFR 变异检测是项目层概念，可采用 PCR 或 NGS 等不同方法；可报告区域、样本类型和变异范围必须绑定具体方法。",
+      "principle": "采用特异扩增、探针或测序等策略识别方法声明范围内的 EGFR 变异。",
+      "common_measurements": [
+        "靶标和内参 Ct/Cq（PCR 方法）",
+        "测序深度与支持读数（NGS 方法）",
+        "对照状态"
+      ],
+      "qc_stages": [
+        "样本质控",
+        "核酸提取",
+        "扩增或建库",
+        "下机数据质控",
+        "结果判读"
+      ],
+      "keywords": [
+        "EGFR",
+        "突变",
+        "外显子",
+        "PCR",
+        "NGS"
+      ],
+      "reference_file": "references/PCR技术与通用质控.md",
+      "scope_note": "不内置 EGFR 阳性阈值或变异清单；先确认试剂、版本、适用样本和报告范围。",
+      "sources": [
+        {
+          "title": "NCBI Gene: EGFR",
+          "url": "https://www.ncbi.nlm.nih.gov/gene/1956",
+          "last_verified": "2026-08-27"
+        },
+        {
+          "title": "FDA cobas EGFR Mutation Test v2 Labeling",
+          "url": "https://www.accessdata.fda.gov/cdrh_docs/pdf15/P150047c.pdf",
+          "last_verified": "2026-08-27"
+        }
+      ]
+    },
+    {
+      "id": "project_lung_3_plus_8",
+      "kind": "project",
+      "name": "肺癌3+8",
+      "aliases": [
+        "肺癌3+8",
+        "肺癌3加8",
+        "肺癌11基因",
+        "肿瘤相关11基因",
+        "PCR-11基因",
+        "Pan Lung Cancer PCR Panel"
+      ],
+      "technology": "PCR",
+      "methods": [
+        "实时荧光 PCR（候选匹配）",
+        "DNA 突变与 RNA 融合联合检测（候选产品公开信息）"
+      ],
+      "summary": "本机“肺癌3+8”报告模板覆盖 EGFR、BRAF、KRAS、HER2、ALK、ROS1、RET、MET、NTRK1、NTRK2、NTRK3 共 11 个唯一基因；该范围与艾德生物公开的 Pan Lung Cancer PCR Panel 高度一致，但尚未由本地试剂盒名称、注册证或 IFU 完成唯一匹配。",
+      "principle": "公开候选产品为实时 PCR 多基因联合检测，厂家页面说明覆盖 85 个 DNA 突变和 82 个 RNA 融合；本机报告模板显示 FAM/ROX 管位映射。具体扩增化学、反应管组成和判读算法仍必须读取本地匹配版本 IFU/SOP。",
+      "common_measurements": [
+        "DNA/RNA 样本有效性（具体规则待确认）",
+        "阳性、阴性、空白和提取对照",
+        "内参 Ct/Cq 或软件有效性状态",
+        "FAM/ROX 曲线与 Ct/Cq",
+        "位点、管号/通道和结果映射"
+      ],
+      "qc_stages": [
+        "资料门控",
+        "批次质控",
+        "样本质控",
+        "下机数据质控",
+        "结果复核"
+      ],
+      "keywords": [
+        "肺癌",
+        "11基因",
+        "FAM",
+        "ROX",
+        "DNA",
+        "RNA",
+        "融合",
+        "突变"
+      ],
+      "reference_file": "references/肺癌3+8项目资料与质控边界.md",
+      "delivery_name": "肺癌3+8下机质控",
+      "qc_method": "实时荧光 PCR（公开候选产品高度匹配，具体本地试剂与版本待确认）",
+      "qc_stage": "下机质控",
+      "scope_note": "在线资料只把本项目定位到高度相似的 11 基因实时 PCR 产品；在核对本地厂家、注册证、货号、IFU 和软件版本前，不导入任何 Ct、ΔCt、灰区或复检阈值。",
+      "project_profile": {
+        "report_title": "肿瘤相关11基因突变检测报告",
+        "mutation_genes": [
+          "EGFR",
+          "BRAF",
+          "KRAS",
+          "HER2"
+        ],
+        "fusion_genes": [
+          "ALK",
+          "NTRK1",
+          "NTRK2",
+          "NTRK3",
+          "ROS1",
+          "MET",
+          "RET"
+        ],
+        "observed_channels": [
+          "FAM",
+          "ROX"
+        ],
+        "naming_note": "“肺癌3+8”是本地文件名；报告表呈现 4 个突变类基因和 7 个融合/剪接类基因。简称的正式分组含义仍需由本地项目资料确认。"
+      },
+      "pending_items": [
+        "确认本地项目是否确为 AmoyDx Pan Lung Cancer PCR Panel，以及厂家、注册证、货号和 IFU 版本。",
+        "确认 3+8 的正式分组定义及其与报告中 4 个突变类、7 个融合/剪接类基因的关系。",
+        "确认 DNA/RNA 提取、适用样本、肿瘤含量和核酸输入要求。",
+        "确认每种对照和内参的通道、接受标准、失败处置及是否由软件自动判定。",
+        "确认各反应管、位点和通道的 Ct/Cq、ΔCt、曲线、灰区、无效和复检规则。",
+        "确认平台、分析软件、结果枚举和报告范围。"
+      ],
+      "qc_sources": [
+        {
+          "id": "lung_report_template",
+          "type": "user-file",
+          "title": "肺癌3+8 Word 报告模板",
+          "version": "未提供",
+          "last_verified": "2026-08-27",
+          "path": "D:\\yingpeWork\\昆华分子病理\\分子病理PCR报告模板整理\\肺癌3+8.docx",
+          "scope_note": "确认报告标题、11 个唯一基因及 FAM/ROX 管位展示；不包含质控阈值",
+          "evidence_status": "confirmed"
+        },
+        {
+          "id": "amoydx_plc_candidate",
+          "type": "official-technical-document",
+          "title": "AmoyDx Pan Lung Cancer PCR Panel 官方产品页（候选匹配）",
+          "version": "网页版本",
+          "last_verified": "2026-08-27",
+          "url": "https://www.amoydiagnostics.com/products/amoydx-pan-lung-cancer-pcr-panel",
+          "scope_note": "支持 11 基因、实时 PCR、85 个 DNA 突变和 82 个 RNA 融合等公开产品信息；尚未证明就是本地在用试剂",
+          "evidence_status": "inferred"
+        }
+      ],
+      "sources": [
+        {
+          "title": "AmoyDx Pan Lung Cancer PCR Panel official product page",
+          "url": "https://www.amoydiagnostics.com/products/amoydx-pan-lung-cancer-pcr-panel",
+          "last_verified": "2026-08-27"
+        },
+        {
+          "title": "AmoyDx PLC Panel 2025 Japan companion diagnostic approval announcement",
+          "url": "https://www.amoydiagnostics.com/about/press-releases/268",
+          "last_verified": "2026-08-27"
+        }
+      ]
+    },
+    {
+      "id": "technology_ngs",
+      "kind": "technology",
+      "name": "下一代测序（NGS）",
+      "aliases": [
+        "NGS",
+        "二代测序",
+        "高通量测序",
+        "next-generation sequencing"
+      ],
+      "technology": "NGS",
+      "methods": [
+        "扩增子建库",
+        "杂交捕获建库",
+        "全外显子组测序",
+        "其他经验证建库策略"
+      ],
+      "summary": "NGS 通过并行测定大量核酸片段获得序列数据，分子病理流程通常包括核酸制备、文库制备、测序和生物信息分析。",
+      "principle": "样本核酸被转换为可测序文库，经平台产生读段，再通过质量过滤、比对、变异检测、注释和审核形成项目结果。",
+      "common_measurements": [
+        "核酸数量与质量",
+        "文库浓度与片段分布",
+        "运行对照状态",
+        "Q30 等碱基质量指标",
+        "测序深度、覆盖度和均一性",
+        "变异支持读数或频率"
+      ],
+      "qc_stages": [
+        "样本质控",
+        "核酸提取",
+        "文库制备",
+        "上机质控",
+        "下机数据质控",
+        "生物信息分析",
+        "结果复核"
+      ],
+      "keywords": [
+        "文库",
+        "Q30",
+        "深度",
+        "覆盖度",
+        "比对",
+        "变异检测"
+      ],
+      "reference_file": "references/NGS技术与通用质控.md",
+      "scope_note": "Q30 的含义可以通用解释，但 Q30 比例、深度、覆盖度和变异频率的接受阈值必须绑定平台、panel、算法版本和验证结果。",
+      "sources": [
+        {
+          "title": "FDA NGS Analytical Validation Guidance",
+          "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/considerations-design-development-and-analytical-validation-next-generation-sequencing-ngs-based",
+          "last_verified": "2026-08-27"
+        },
+        {
+          "title": "Illumina NGS Workflow",
+          "url": "https://www.illumina.com/science/technology/next-generation-sequencing/beginners/ngs-workflow.html",
+          "last_verified": "2026-08-27"
+        },
+        {
+          "title": "Illumina Quality Scores",
+          "url": "https://www.illumina.com/science/technology/next-generation-sequencing/plan-experiments/quality-scores.html",
+          "last_verified": "2026-08-27"
+        }
+      ]
+    },
+    {
+      "id": "technology_sanger",
+      "kind": "technology",
+      "name": "Sanger 测序",
+      "aliases": [
+        "Sanger",
+        "一代测序",
+        "双脱氧终止法",
+        "毛细管测序"
+      ],
+      "technology": "Sanger",
+      "methods": [
+        "PCR 产物直接测序",
+        "单向测序",
+        "双向测序"
+      ],
+      "summary": "Sanger 测序是基于链终止反应和毛细管电泳读取目标区域序列的技术，常用于特定位点检测或其他方法结果确认。",
+      "principle": "模板经测序反应生成不同长度、带荧光标记的终止片段，通过毛细管电泳分离并形成峰图，再进行碱基判读和人工复核。",
+      "common_measurements": [
+        "PCR 产物质量",
+        "峰图信号强度与背景",
+        "可读长度",
+        "正反向序列一致性",
+        "对照结果"
+      ],
+      "qc_stages": [
+        "PCR 产物质控",
+        "测序反应",
+        "毛细管电泳",
+        "峰图质控",
+        "结果复核"
+      ],
+      "keywords": [
+        "峰图",
+        "毛细管电泳",
+        "正向",
+        "反向",
+        "测序反应"
+      ],
+      "reference_file": "references/Sanger技术与通用质控.md",
+      "scope_note": "峰高、信噪比、可读长度和最低变异比例等数值不得脱离仪器、软件、项目和实验室验证直接使用。",
+      "sources": [
+        {
+          "title": "Thermo Fisher: What is Sanger Sequencing?",
+          "url": "https://www.thermofisher.com/us/en/home/life-science/sequencing/sequencing-learning-center/capillary-electrophoresis-information/what-is-sanger-sequencing.html",
+          "last_verified": "2026-08-27"
+        }
+      ]
+    },
+    {
+      "id": "technology_fish",
+      "kind": "technology",
+      "name": "荧光原位杂交（FISH）",
+      "aliases": [
+        "FISH",
+        "荧光原位杂交",
+        "fluorescence in situ hybridization"
+      ],
+      "technology": "FISH",
+      "methods": [
+        "分离探针",
+        "融合探针",
+        "扩增探针",
+        "缺失探针"
+      ],
+      "summary": "FISH 使用荧光标记探针在细胞或组织原位识别特定核酸区域，可用于评估重排、扩增、缺失或其他探针定义的异常。",
+      "principle": "经过切片预处理、探针与靶序列杂交、洗涤和复染后，在荧光显微镜下评估目标信号模式并按方法规则计数和解释。",
+      "common_measurements": [
+        "组织和细胞核质量",
+        "杂交信号强度与背景",
+        "可计数细胞数",
+        "异常信号比例或信号比值（按具体探针）",
+        "阳性和阴性对照"
+      ],
+      "qc_stages": [
+        "样本与切片质控",
+        "预处理",
+        "探针杂交",
+        "洗涤与复染",
+        "信号质控",
+        "计数与结果判读"
+      ],
+      "keywords": [
+        "探针",
+        "杂交",
+        "DAPI",
+        "信号",
+        "计数"
+      ],
+      "reference_file": "references/FISH技术与通用质控.md",
+      "scope_note": "信号模式、计数数量、截止值和灰区规则均取决于探针说明书及实验室验证。",
+      "sources": [
+        {
+          "title": "FDA Vysis ALK Break Apart FISH Probe Kit PMA",
+          "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpma/pma.cfm?id=p110012",
+          "last_verified": "2026-08-27"
+        },
+        {
+          "title": "FDA Vysis ALK FISH Labeling",
+          "url": "https://www.accessdata.fda.gov/cdrh_docs/pdf11/P110012C.pdf",
+          "last_verified": "2026-08-27"
+        }
+      ]
+    },
+    {
+      "id": "project_alk_fish",
+      "kind": "project",
+      "name": "ALK 重排 FISH 检测",
+      "aliases": [
+        "ALK FISH",
+        "FISH ALK",
+        "ALK重排",
+        "ALK break apart"
+      ],
+      "technology": "FISH",
+      "methods": [
+        "ALK 分离探针法（具体探针待确认）"
+      ],
+      "summary": "ALK 重排 FISH 是使用与 ALK 区域相关的探针信号模式评估重排的项目；项目结果必须按匹配版本的探针说明书和实验室 SOP 判读。",
+      "principle": "组织切片经预处理和杂交后观察探针信号是否呈现方法定义的分离模式，并在规定细胞范围内计数、复核和报告。",
+      "common_measurements": [
+        "可评估肿瘤细胞核数量",
+        "分离信号模式",
+        "异常细胞比例（阈值按 IFU/SOP）",
+        "阳性与阴性对照"
+      ],
+      "qc_stages": [
+        "样本与切片质控",
+        "预处理与杂交",
+        "信号质控",
+        "计数与结果判读",
+        "人工复核"
+      ],
+      "keywords": [
+        "ALK",
+        "break apart",
+        "分离信号",
+        "FFPE",
+        "对照"
+      ],
+      "reference_file": "references/FISH技术与通用质控.md",
+      "scope_note": "FDA 文件只支持相应获批产品和标签范围；Skill 示例不复制其中具体截止值，必须读取当前匹配 IFU 后建模。",
+      "sources": [
+        {
+          "title": "FDA Vysis ALK Break Apart FISH Probe Kit PMA",
+          "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpma/pma.cfm?id=p110012",
+          "last_verified": "2026-08-27"
+        },
+        {
+          "title": "FDA Vysis ALK FISH Labeling",
+          "url": "https://www.accessdata.fda.gov/cdrh_docs/pdf11/P110012C.pdf",
+          "last_verified": "2026-08-27"
+        },
+        {
+          "title": "FDA Vysis ALK FISH SSED",
+          "url": "https://www.accessdata.fda.gov/cdrh_docs/pdf11/P110012b.pdf",
+          "last_verified": "2026-08-27"
+        }
+      ]
+    }
+  ]
+}

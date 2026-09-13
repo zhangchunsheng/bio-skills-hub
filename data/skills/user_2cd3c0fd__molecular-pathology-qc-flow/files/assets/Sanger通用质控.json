@@ -1,0 +1,285 @@
+{
+  "$schema": "../references/qc-flow.schema.json",
+  "schema_version": "1.1",
+  "diagram": {
+    "name": "Sanger通用质控流程",
+    "id": "sanger_general_qc_flow",
+    "technology": "Sanger",
+    "method": "PCR 产物毛细管测序（具体方案待确认）",
+    "project": "通用模板",
+    "qc_stage": "PCR产物至结果复核",
+    "stages": [
+      "PCR产物质控",
+      "测序反应",
+      "毛细管电泳",
+      "峰图与结果复核"
+    ],
+    "sources": [
+      {
+        "id": "thermo_sanger_overview",
+        "type": "official-technical-document",
+        "title": "Thermo Fisher: What is Sanger Sequencing?",
+        "version": "网页现行版",
+        "last_verified": "2026-08-27",
+        "url": "https://www.thermofisher.com/us/en/home/life-science/sequencing/sequencing-learning-center/capillary-electrophoresis-information/what-is-sanger-sequencing.html",
+        "scope_note": "用于说明 PCR、测序反应、毛细管电泳和数据分析工作流；数值接受标准仍需实验室验证。",
+        "evidence_status": "confirmed"
+      }
+    ],
+    "layout": {
+      "mode": "swimlane",
+      "page_width": 1200,
+      "page_height": 1300,
+      "auto_size": true,
+      "show_source_note": true,
+      "center_x": 600,
+      "start_y": 40,
+      "level_gap": 140,
+      "lane_gap": 360,
+      "stage_gap": 24,
+      "margin": 40
+    }
+  },
+  "measurements": [
+    {
+      "id": "pcr_product_qc",
+      "name": "PCR 产物质量",
+      "unit": "按项目 SOP",
+      "description": "目标产物特异性、数量和污染控制等项目定义指标。",
+      "evidence_refs": [
+        "thermo_sanger_overview"
+      ]
+    },
+    {
+      "id": "chromatogram_qc",
+      "name": "峰图质量",
+      "unit": "按仪器与软件 SOP",
+      "description": "峰形、背景、可读长度及方向一致性等指标，阈值待实验室确认。",
+      "evidence_refs": [
+        "thermo_sanger_overview"
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "label": "接收目标区域 PCR 产物",
+      "stage": "PCR产物质控",
+      "evidence_refs": [
+        "thermo_sanger_overview"
+      ]
+    },
+    {
+      "id": "product_check",
+      "type": "decision",
+      "label": "PCR 产物是否满足当前项目 SOP？",
+      "stage": "PCR产物质控",
+      "condition": {
+        "operator": "CUSTOM",
+        "expression": "依据目标区域、产物特异性、数量和污染控制要求判断",
+        "missing_policy": "manual_review"
+      },
+      "evidence_refs": [
+        "thermo_sanger_overview"
+      ]
+    },
+    {
+      "id": "product_fail",
+      "type": "invalid",
+      "label": "PCR 产物不通过<br>重新扩增或调查污染",
+      "stage": "PCR产物质控",
+      "terminal_result": "invalid",
+      "evidence_refs": [
+        "thermo_sanger_overview"
+      ]
+    },
+    {
+      "id": "sequencing_reaction",
+      "type": "process",
+      "label": "按方向完成测序反应与纯化",
+      "stage": "测序反应",
+      "evidence_refs": [
+        "thermo_sanger_overview"
+      ]
+    },
+    {
+      "id": "capillary_run",
+      "type": "process",
+      "label": "毛细管电泳并采集峰图",
+      "stage": "毛细管电泳",
+      "evidence_refs": [
+        "thermo_sanger_overview"
+      ]
+    },
+    {
+      "id": "chromatogram_check",
+      "type": "decision",
+      "label": "峰图、可读区间和对照是否满足当前 SOP？",
+      "stage": "峰图与结果复核",
+      "condition": {
+        "operator": "CUSTOM",
+        "expression": "依据仪器、软件、方向和项目验证规则判断峰图质量",
+        "missing_policy": "manual_review"
+      },
+      "evidence_refs": [
+        "thermo_sanger_overview"
+      ]
+    },
+    {
+      "id": "trace_fail",
+      "type": "invalid",
+      "label": "峰图不通过<br>重复测序、反向测序或重新扩增",
+      "stage": "峰图与结果复核",
+      "terminal_result": "invalid",
+      "evidence_refs": [
+        "thermo_sanger_overview"
+      ]
+    },
+    {
+      "id": "sequence_review",
+      "type": "process",
+      "label": "比对参考序列并复核正反向证据与命名",
+      "stage": "峰图与结果复核",
+      "evidence_refs": [
+        "thermo_sanger_overview"
+      ]
+    },
+    {
+      "id": "review_check",
+      "type": "decision",
+      "label": "结果证据是否满足项目最终审核要求？",
+      "stage": "峰图与结果复核",
+      "condition": {
+        "operator": "CUSTOM",
+        "expression": "依据项目 SOP 复核方向一致性、参考序列和变异命名",
+        "missing_policy": "manual_review"
+      },
+      "evidence_refs": [
+        "thermo_sanger_overview"
+      ]
+    },
+    {
+      "id": "review_pending",
+      "type": "end",
+      "label": "待人工处理<br>补充方向、重测或记录限制",
+      "stage": "峰图与结果复核",
+      "terminal_result": "manual_review",
+      "evidence_refs": [
+        "thermo_sanger_overview"
+      ]
+    },
+    {
+      "id": "pass",
+      "type": "pass",
+      "label": "质控与复核通过<br>进入结果签发流程",
+      "stage": "峰图与结果复核",
+      "terminal_result": "pass",
+      "evidence_refs": [
+        "thermo_sanger_overview"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "start",
+      "target": "product_check",
+      "label": "",
+      "branch": "next",
+      "evidence_refs": [
+        "thermo_sanger_overview"
+      ]
+    },
+    {
+      "id": "e2",
+      "source": "product_check",
+      "target": "sequencing_reaction",
+      "label": "是",
+      "branch": "yes",
+      "evidence_refs": [
+        "thermo_sanger_overview"
+      ]
+    },
+    {
+      "id": "e3",
+      "source": "product_check",
+      "target": "product_fail",
+      "label": "否",
+      "branch": "no",
+      "evidence_refs": [
+        "thermo_sanger_overview"
+      ]
+    },
+    {
+      "id": "e4",
+      "source": "sequencing_reaction",
+      "target": "capillary_run",
+      "label": "",
+      "branch": "next",
+      "evidence_refs": [
+        "thermo_sanger_overview"
+      ]
+    },
+    {
+      "id": "e5",
+      "source": "capillary_run",
+      "target": "chromatogram_check",
+      "label": "",
+      "branch": "next",
+      "evidence_refs": [
+        "thermo_sanger_overview"
+      ]
+    },
+    {
+      "id": "e6",
+      "source": "chromatogram_check",
+      "target": "sequence_review",
+      "label": "是",
+      "branch": "yes",
+      "evidence_refs": [
+        "thermo_sanger_overview"
+      ]
+    },
+    {
+      "id": "e7",
+      "source": "chromatogram_check",
+      "target": "trace_fail",
+      "label": "否",
+      "branch": "no",
+      "evidence_refs": [
+        "thermo_sanger_overview"
+      ]
+    },
+    {
+      "id": "e8",
+      "source": "sequence_review",
+      "target": "review_check",
+      "label": "",
+      "branch": "next",
+      "evidence_refs": [
+        "thermo_sanger_overview"
+      ]
+    },
+    {
+      "id": "e9",
+      "source": "review_check",
+      "target": "pass",
+      "label": "是",
+      "branch": "yes",
+      "evidence_refs": [
+        "thermo_sanger_overview"
+      ]
+    },
+    {
+      "id": "e10",
+      "source": "review_check",
+      "target": "review_pending",
+      "label": "否",
+      "branch": "no",
+      "evidence_refs": [
+        "thermo_sanger_overview"
+      ]
+    }
+  ]
+}

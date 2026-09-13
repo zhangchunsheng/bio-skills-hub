@@ -1,0 +1,4 @@
+interface:
+  display_name: "药房零售排班与人力计划"
+  short_description: "依据业务峰值和岗位规则检查排班"
+  default_prompt: "Use $pharmacy-retail-staffing-shift-plan for paid 药房零售 排班与人力计划."

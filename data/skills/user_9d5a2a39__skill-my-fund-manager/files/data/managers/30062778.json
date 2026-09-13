@@ -1,0 +1,38 @@
+{
+  "id": "30062778",
+  "top_holdings": [],
+  "holdings_report_date": "",
+  "holdings_updated": "2026-07-29 16:50",
+  "performance": {
+    "summary": {},
+    "funds": []
+  },
+  "performance_updated": "2026-07-29 16:50",
+  "style_radar": {
+    "value_growth": {
+      "value": 50,
+      "growth": 50
+    },
+    "market_cap": {
+      "large": 50,
+      "mid": 50
+    },
+    "momentum": {
+      "high": 40,
+      "low": 60
+    },
+    "quality": {
+      "high": 50,
+      "low": 50
+    },
+    "concentration": {
+      "high": 50,
+      "low": 50
+    },
+    "turnover": {
+      "high": 40,
+      "low": 60
+    },
+    "computed_at": "2026-08-07 11:11"
+  }
+}

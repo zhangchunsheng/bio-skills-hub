@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "reviewed_at": "2026-07-20",
+  "capabilities": {
+    "file_write": {
+      "decision": "approved",
+      "reviewer": "kbtime repository owner",
+      "scope": "Only write the keyword library, generated topic CSV, topic history, and atomic temporary files inside the user-selected local output directory.",
+      "reason": "Local file writing is the core delivery path because this skill exports Excel-compatible CSV files and preserves local topic history for deduplication.",
+      "expires_at": "2027-07-20",
+      "evidence": [
+        "SKILL.md",
+        "tests/test_csv_store.py"
+      ],
+      "target_enforcement": {
+        "openai": "The skill instructions require an explicit local output directory; csv_store.py validates every generated filename remains inside it.",
+        "claude": "Not an advertised adapter target; any future adapter must preserve the same local output-directory boundary.",
+        "generic": "The neutral package uses the same local CLI and output-directory containment checks.",
+        "vscode": "Not an advertised adapter target; any future adapter must preserve the same local output-directory boundary."
+      }
+    }
+  }
+}

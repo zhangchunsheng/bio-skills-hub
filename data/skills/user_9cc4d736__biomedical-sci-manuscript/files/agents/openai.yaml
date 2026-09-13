@@ -1,0 +1,4 @@
+interface:
+  display_name: "Biomedical SCI Writer"
+  short_description: "Revise SCI manuscripts with zero data and format loss."
+  default_prompt: "Use $biomedical-sci-manuscript to revise this manuscript while preserving its original data, figures, tables, and format."

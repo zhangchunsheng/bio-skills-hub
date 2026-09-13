@@ -1,0 +1,30 @@
+# SkillHub / ClawHub 上架清单元数据
+# 本文件用于技能市场发布时的列表信息，不影响 WorkBuddy 本地加载（本地仅读取 SKILL.md）。
+name: general-mentor-studio-helper
+version: 1.0.0
+display_name: 名师工作室通用运营助手
+description: 一键生成名师工作室年度/学期计划、研修活动方案、新闻简报、阶段与年度总结、结题报告、讲座提纲、主持人发言稿、职称评审佐证文稿，输出符合教育系统公文规范的正式文稿或精简提纲。
+category: education
+author: 张兴焕
+license: MIT
+platforms:
+  - WorkBuddy
+  - QClaw
+  - ima
+  - Claude Code
+  - Cursor
+tags:
+  - 教育
+  - 名师工作室
+  - 公文写作
+  - 学校行政
+  - 教师发展
+triggers:
+  - 工作室方案
+  - 名师工作室材料
+  - 工作室活动策划
+  - 职称材料
+  - 工作室简报
+  - 工作室总结
+  - 工作室发言稿
+  - 工作室结题

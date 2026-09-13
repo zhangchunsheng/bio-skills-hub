@@ -1,0 +1,4 @@
+interface:
+  display_name: "静态网站功能开发、自动化与内容验证｜简诗 AI"
+  short_description: "围绕“静态网站功能开发、自动化与内容验证”提供具体执行方法，涵盖需求拆解、内容产出、质量检查和迭代优化。"
+  default_prompt: "使用 $generic-static-feature-developer 完成“静态网站功能开发、自动化与内容验证”任务。"

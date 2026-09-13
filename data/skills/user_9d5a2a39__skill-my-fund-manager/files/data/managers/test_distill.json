@@ -1,0 +1,16 @@
+{
+  "id": "test_distill",
+  "bio": "我是测试经理，专注成长投资。",
+  "viewpoint_human": "重仓科技板块",
+  "style_dna": "成长 + 集中",
+  "specialty": "科技",
+  "style_tags": [
+    "成长"
+  ],
+  "industry_preference": [
+    "科技"
+  ],
+  "style_code": "GROWTH-MED_POS-SECTOR_CONCENTRATED-LOW_TURNOVER-A_SHARE",
+  "distill_engine": "rules",
+  "distill_date": "2026-07-29 13:17"
+}

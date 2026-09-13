@@ -1,0 +1,19 @@
+name: medical-dispute-prevention
+version: 1.0.0
+description: 医疗纠纷防范与风险管理子系统——覆盖医疗风险识别、纠纷预警、沟通留痕、证据保存、不良事件处理、投诉闭环。基于《医疗纠纷预防和处理条例》《民法典》医疗损害责任专章等法规。
+triggers:
+  - "医疗纠纷"
+  - "纠纷防范"
+  - "投诉管理"
+  - "不良事件"
+  - "医患矛盾"
+  - "纠纷预警"
+  - "证据保存"
+category: healthcare
+requires_api_key: false
+author: 老陈（基层医务管理）
+tags:
+  - 医疗纠纷
+  - 投诉
+  - 法律风险
+  - 不良事件

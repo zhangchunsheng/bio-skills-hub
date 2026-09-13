@@ -1,0 +1,4 @@
+interface:
+  display_name: "Excel to Markdown"
+  short_description: "Convert Excel sheets into clean Markdown."
+  default_prompt: "Use $excel-to-markdown to convert this Excel workbook into clean, structured Markdown documents."

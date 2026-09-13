@@ -1,0 +1,11 @@
+{
+  "ima_kb_id": null,
+  "ima_kb_name": null,
+  "last_verified": null,
+  "target_kb": {
+    "name": "静脉血栓栓塞症(VTE)指南和高级别证据",
+    "creator_hint": "佘康 / 北京大学第一医院介入血管外科",
+    "share_link": "https://ima.qq.com/wiki/?shareId=451724f5dc1f7309bd0882301715c198ba30acaf129558d73a1e56876ed1febf",
+    "qr_asset": "assets/vte-kb-qrcode.png"
+  }
+}

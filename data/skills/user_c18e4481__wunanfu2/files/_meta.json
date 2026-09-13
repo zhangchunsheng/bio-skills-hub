@@ -1,0 +1,17 @@
+{
+  "slug": "dy-operations",
+  "version": "1.0.0",
+  "category": "content-creation",
+  "compatibility": {
+    "workbuddy": ">=1.0.0"
+  },
+  "triggers": ["/dy", "/dy-script", "/dy-hook", "/dy-benchmark", "/dy-compliance", "/dy-content"],
+  "modules": [
+    {"name": "dy", "file": "modules/dy.md", "description": "主入口/路由"},
+    {"name": "dy-script", "file": "modules/dy-script.md", "description": "脚本生成"},
+    {"name": "dy-hook", "file": "modules/dy-hook.md", "description": "钩子优化"},
+    {"name": "dy-benchmark", "file": "modules/dy-benchmark.md", "description": "爆款对标拆解"},
+    {"name": "dy-compliance", "file": "modules/dy-compliance.md", "description": "合规检查"},
+    {"name": "dy-content", "file": "modules/dy-content.md", "description": "内容诊断"}
+  ]
+}

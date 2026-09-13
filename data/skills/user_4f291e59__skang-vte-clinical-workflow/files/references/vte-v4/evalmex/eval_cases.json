@@ -1,0 +1,5 @@
+{
+  "description": "EvalMex 评估病例池——16 例（11 例确诊 + 5 例待查），用于触发式评估",
+  "cases": [],
+  "_case_schema_note": "每例病例结构示例：{ case_id, case_type(confirmed|pending), diagnosis, age, sex, key_params, actual_plan, source }"
+}

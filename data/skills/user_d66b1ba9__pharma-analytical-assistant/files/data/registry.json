@@ -1,0 +1,216 @@
+{
+  "meta": {
+    "last_full_refresh": "2026-07-30",
+    "version": 1,
+    "freshness_months": 6
+  },
+  "methods": {
+    "含量测定": {
+      "name": "含量测定",
+      "last_checked": "2026-07-30",
+      "source": "seed-baseline(待regulatory-monitor/ChP复核)",
+      "analyte": "API 主成分",
+      "technique": "RP-HPLC (UV) / 滴定(ChP 0701)",
+      "conditions": "C18, 等度/梯度, λmax; 滴定用于无紫外或常量",
+      "validation": "专属性/线性/准确度/精密度(含量: 准确度98-102%, RSD≤2.0%)",
+      "note": "溶液/混悬液均须保证取样代表性"
+    },
+    "有关物质(降解物)": {
+      "name": "有关物质(降解物)",
+      "last_checked": "2026-07-30",
+      "source": "seed-baseline(待regulatory-monitor/ChP复核)",
+      "analyte": "有机杂质/降解产物",
+      "technique": "RP-HPLC + PDA/ MS 确证",
+      "conditions": "梯度, 全波长扫描峰纯度; 强制降解定位降解途径",
+      "validation": "LOQ≤报告阈值; 准确度80-120%; RSD≤15%; 稳定性指示",
+      "note": "须做强制降解(酸/碱/氧化/高湿/高温/光照)+ mass balance"
+    },
+    "手性有关物质": {
+      "name": "手性有关物质",
+      "last_checked": "2026-07-30",
+      "source": "seed-baseline(待regulatory-monitor/ChP复核)",
+      "analyte": "对映异构体/非对映体",
+      "technique": "手性 HPLC / CE / SFC",
+      "conditions": "手性柱(多糖/冠醚/蛋白)或手性衍生化",
+      "validation": "对映体分离度≥1.5; LOQ 满足报告水平",
+      "note": "创新药/手性 API 必检"
+    },
+    "残留溶剂(ICH Q3C)": {
+      "name": "残留溶剂(ICH Q3C)",
+      "last_checked": "2026-07-30",
+      "source": "seed-baseline(待regulatory-monitor/ChP复核)",
+      "analyte": "挥发性有机溶剂",
+      "technique": "GC 顶空(HS-GC-FID/MS)",
+      "conditions": "DB-624/DB-5 柱; 一类禁用/限, 二类限度, 三类低毒",
+      "validation": "专属性/线性/准确度/精密度(LDO)",
+      "note": "二类溶剂(甲醇/乙腈/二氯甲烷等)须定限量"
+    },
+    "元素杂质(ICH Q3D)": {
+      "name": "元素杂质(ICH Q3D)",
+      "last_checked": "2026-07-30",
+      "source": "seed-baseline(待regulatory-monitor/ChP复核)",
+      "analyte": "Cd/Pb/As/Hg + 催化剂(Pd/Ru/Ni/Co...)",
+      "technique": "ICP-MS",
+      "conditions": "微波消解后进样; 按 PDE 算限度",
+      "validation": "专属性/准确度(加标回收)/精密度",
+      "note": "合成路线决定元素谱(Suzuki→Pd, 氢化→Ni/Pd)"
+    },
+    "抑菌剂含量(苯扎氯铵等)": {
+      "name": "抑菌剂含量(苯扎氯铵等)",
+      "last_checked": "2026-07-30",
+      "source": "seed-baseline(待regulatory-monitor/ChP复核)",
+      "analyte": "防腐剂/抑菌剂",
+      "technique": "HPLC (PDA)",
+      "conditions": "C18 等度; 单独方法, 不与主成分混测",
+      "validation": "线性/准确度/精密度; 联动抑菌效力(ChP 9206/USP<51>)",
+      "note": "眼科多剂量必检; 趋势降浓度/无防腐剂单剂量"
+    },
+    "混悬液API含量": {
+      "name": "混悬液API含量",
+      "last_checked": "2026-07-30",
+      "source": "seed-baseline(待regulatory-monitor/ChP复核)",
+      "analyte": "混悬体系 API 总量",
+      "technique": "充分再分散后 HPLC",
+      "conditions": "涡旋+超声再分散 → 溶剂溶解/萃取 → 离心取上清",
+      "validation": "取样代表性+回收率验证; 防只测上清偏高",
+      "note": "不溶辅料干扰须排除"
+    },
+    "植入剂体外释放": {
+      "name": "植入剂体外释放",
+      "last_checked": "2026-07-30",
+      "source": "seed-baseline(待regulatory-monitor/ChP复核)",
+      "analyte": "释放介质中 API 累积释放%",
+      "technique": "HPLC 测累积释放",
+      "conditions": "Franz 池 / USP 4 流池 / USP 7; 拟合零级/一级/Higuchi/K-P",
+      "validation": "取样时间点设计+释放介质稳定性",
+      "note": "释放曲线由材料 MW/占比/形态决定"
+    },
+    "微粒/粒度(混悬/乳剂)": {
+      "name": "微粒/粒度(混悬/乳剂)",
+      "last_checked": "2026-07-30",
+      "source": "seed-baseline(待regulatory-monitor/ChP复核)",
+      "analyte": "PSD(D10/D50/D90)/液滴粒径/ζ电位",
+      "technique": "激光衍射/动态光散射/纳米粒跟踪",
+      "conditions": "ChP 0982; 再分散性评价",
+      "validation": "仪器适用性+重复性",
+      "note": "混悬 D90 控制; 乳剂液滴粒径"
+    },
+    "渗透压摩尔浓度": {
+      "type": "methods",
+      "name": "渗透压摩尔浓度",
+      "analyte": "滴眼液等渗性",
+      "technique": "渗透压摩尔浓度测定(ChP 0923)",
+      "conditions": "冰点下降法",
+      "validation": "系统适用性(标准液)",
+      "note": "眼科必检",
+      "source": "user-query-verify",
+      "last_checked": "2026-07-30"
+    }
+  },
+  "guidances": {
+    "ICH Q2(R2)": {
+      "name": "ICH Q2(R2)",
+      "last_checked": "2026-07-30",
+      "source": "seed-baseline(待regulatory-monitor/ChP复核)",
+      "scope": "分析方法论证(验证)",
+      "applicability": "全球主流",
+      "note": "2023 修订版, 强调分析方法生命周期与多变量"
+    },
+    "中国药典 0512": {
+      "name": "中国药典 0512",
+      "last_checked": "2026-07-30",
+      "source": "seed-baseline(待regulatory-monitor/ChP复核)",
+      "scope": "高效液相色谱法",
+      "applicability": "国内申报",
+      "note": "ChP2025 四部通则"
+    },
+    "中国药典 0521": {
+      "name": "中国药典 0521",
+      "last_checked": "2026-07-30",
+      "source": "seed-baseline(待regulatory-monitor/ChP复核)",
+      "scope": "气相色谱法",
+      "applicability": "国内申报",
+      "note": "残留溶剂/挥发性"
+    },
+    "中国药典 0513": {
+      "name": "中国药典 0513",
+      "last_checked": "2026-07-30",
+      "source": "seed-baseline(待regulatory-monitor/ChP复核)",
+      "scope": "离子色谱法",
+      "applicability": "国内申报",
+      "note": "离子化合物"
+    },
+    "中国药典 0941": {
+      "name": "中国药典 0941",
+      "last_checked": "2026-07-30",
+      "source": "seed-baseline(待regulatory-monitor/ChP复核)",
+      "scope": "释放度测定法",
+      "applicability": "国内申报",
+      "note": "植入/缓释"
+    },
+    "中国药典 0982": {
+      "name": "中国药典 0982",
+      "last_checked": "2026-07-30",
+      "source": "seed-baseline(待regulatory-monitor/ChP复核)",
+      "scope": "粒度和粒度分布",
+      "applicability": "国内申报",
+      "note": "混悬/粉体"
+    },
+    "中国药典 0633": {
+      "name": "中国药典 0633",
+      "last_checked": "2026-07-30",
+      "source": "seed-baseline(待regulatory-monitor/ChP复核)",
+      "scope": "黏度测定法",
+      "applicability": "国内申报",
+      "note": "凝胶/乳剂流变"
+    },
+    "中国药典 9206": {
+      "name": "中国药典 9206",
+      "last_checked": "2026-07-30",
+      "source": "seed-baseline(待regulatory-monitor/ChP复核)",
+      "scope": "抑菌效力检查法",
+      "applicability": "国内申报",
+      "note": "多剂量含抑菌剂"
+    },
+    "ICH Q3A/B": {
+      "name": "ICH Q3A/B",
+      "last_checked": "2026-07-30",
+      "source": "seed-baseline(待regulatory-monitor/ChP复核)",
+      "scope": "新原料药/制剂杂质",
+      "applicability": "全球",
+      "note": "有机杂质/降解物"
+    },
+    "ICH Q3C": {
+      "name": "ICH Q3C",
+      "last_checked": "2026-07-30",
+      "source": "seed-baseline(待regulatory-monitor/ChP复核)",
+      "scope": "残留溶剂",
+      "applicability": "全球",
+      "note": "三类分级"
+    },
+    "ICH Q3D": {
+      "name": "ICH Q3D",
+      "last_checked": "2026-07-30",
+      "source": "seed-baseline(待regulatory-monitor/ChP复核)",
+      "scope": "元素杂质",
+      "applicability": "全球",
+      "note": "四类元素+PDE"
+    },
+    "ICH M7": {
+      "name": "ICH M7",
+      "last_checked": "2026-07-30",
+      "source": "seed-baseline(待regulatory-monitor/ChP复核)",
+      "scope": "遗传毒性杂质",
+      "applicability": "全球",
+      "note": "警示结构/AI/AIA"
+    },
+    "中国药典 9001": {
+      "name": "中国药典 9001",
+      "last_checked": "2026-07-30",
+      "source": "seed-baseline(待regulatory-monitor/ChP复核)",
+      "scope": "原料药与制剂稳定性",
+      "applicability": "国内申报",
+      "note": "稳定性指示方法"
+    }
+  }
+}

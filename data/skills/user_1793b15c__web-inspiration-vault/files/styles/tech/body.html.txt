@@ -1,0 +1,155 @@
+<div class="wrap" style="--card-accent:{{ c.primary }}">
+
+  <header class="masthead">
+    <div class="neon"></div>
+    <div class="sysbar">
+      <span class="sysdots"><i></i><i></i><i></i></span>
+      <span>{{ c.page_type | upper if c.page_type else 'PAGE' }}</span>
+      <span>·</span>
+      <span>{{ c.extracted_from }}</span>
+      {% if c.card_count %}<span>·</span><span>{{ c.card_count }} UNITS</span>{% endif %}
+    </div>
+    <p class="site">{{ c.site or c.source_host }}</p>
+    <h1>{{ c.title }}</h1>
+    {% if c.dek %}<p class="dek">{{ c.dek }}</p>{% endif %}
+    <div class="meta">
+      <span>{{ c.style_name }}</span>
+      <span>CONF {{ c.confidence }}</span>
+      {% if c.date %}<span>{{ c.date }}</span>{% endif %}
+      {% if c.author %}<span>{{ c.author }}</span>{% endif %}
+      <span>{{ c.extracted_at }}</span>
+    </div>
+    {% if c.url %}<div class="meta" style="margin-top:9px"><a class="mono" href="{{ c.url }}">{{ c.url }}</a></div>{% endif %}
+  </header>
+
+  {% if c.cards %}
+  <section>
+    <hr class="rule">
+    <p class="label">内容矩阵 {{ c.card_count }}</p>
+    <div class="grid">
+      {% for k in c.cards %}
+      <article class="tcard">
+        <div class="thumb"
+             style="--thumb-a:{{ (c.swatches[loop.index0 % (c.swatches|length)].hex) if c.swatches else '#eef3f7' }};
+                    --thumb-b:{{ (c.swatches[(loop.index0 + 2) % (c.swatches|length)].hex) if c.swatches else '#dbe6ee' }}">
+          <span class="glyph">{{ k.title[:1] }}</span>
+        </div>
+        <div class="body">
+          {% if k.kind %}<div class="kind">{{ k.kind }}</div>{% endif %}
+          <h4>{{ k.title }}</h4>
+          {% if k.date %}<div class="dt">{{ k.date }}</div>{% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    <p class="grid-note">缩略图用原页配色生成（不引用外部图片，离线永久可看）。</p>
+  </section>
+  {% endif %}
+
+  <section>
+    <hr class="rule">
+    <p class="label">配色 Palette</p>
+    <div class="swatches">
+      {% for s in c.swatches %}
+      <div class="sw">
+        <div class="chip" style="background:{{ s.hex }}"></div>
+        <div class="info">
+          <div class="role">{{ s.role }}</div>
+          <div class="hex">{{ s.hex }}</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <p class="note">对比度 {{ c.contrast }}:1（WCAG 正文需 &gt;=4.5:1）　·　在用色 {{ c.palette_size }} 个（彩色 {{ c.vivid_count }} 个）</p>
+  </section>
+
+  <section>
+    <hr class="rule">
+    <p class="label">字体 Typography</p>
+    <div class="spec">
+      <div>
+        <div class="stack"><span class="k">Heading / {{ c.heading_char }}</span>{{ c.heading_stack }}</div>
+        <p class="specimen" style="font-family:{{ c.heading_stack }}">风格 DNA 采集</p>
+      </div>
+      <div>
+        <div class="stack"><span class="k">Body / {{ c.body_char }}</span>{{ c.body_stack }}</div>
+        <p class="specimen" style="font-family:{{ c.body_stack }};font-weight:400;font-size:19px">The quick brown fox 永恒的当下</p>
+      </div>
+    </div>
+    <p class="note">字重 {{ c.weight_count }} 档　·　正文 {{ c.body_size }}px → 最大 {{ c.max_size }}px（比 {{ c.type_ratio }}）
+      {%- if c.is_custom_heading_font %}　·　标题为品牌自定义字体，族系标记为未知而非硬猜{% endif %}</p>
+  </section>
+
+  <section>
+    <hr class="rule">
+    <p class="label">排版节奏 Rhythm</p>
+    <table class="tbl">
+      <tr><td>base_unit</td><td>{{ c.base_unit }}px</td></tr>
+      <tr><td>lh_body / lh_heading</td><td>{{ c.body_line_height or 'n/a' }} / {{ c.heading_line_height or 'n/a' }}</td></tr>
+      <tr><td>prose_width</td><td>{{ c.prose_width or '未单独约束' }}</td></tr>
+      <tr><td>container</td><td>{{ c.container_width }}px</td></tr>
+      <tr><td>radius</td><td>{{ c.radius_style }} ({{ c.max_radius }}px)</td></tr>
+      <tr><td>density / avg_gap</td><td>{{ c.density }} / {{ c.avg_spacing }}px</td></tr>
+      <tr><td>letter_spacing</td><td>{{ c.letter_spacing }}px</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <hr class="rule">
+    <p class="label">风格归类 Classification</p>
+    <div class="scores">
+      {% for s in c.scores %}
+      <div class="score {{ 'win' if s.win else '' }}">
+        <span>{{ s.name }}</span>
+        <span class="bar"><i style="width:{{ s.pct }}%"></i></span>
+        <span class="pct">{{ s.pct }}%</span>
+      </div>
+      {% endfor %}
+    </div>
+    <p class="note">依据：{{ c.evidence }}　·　信号 {{ c.signal_strength }}
+      {%- if c.template_ready %}　·　模板就绪{% else %}　·　该风格模板待建{% endif %}</p>
+    {% for n in c.notes %}<p class="note">{{ n }}</p>{% endfor %}
+  </section>
+
+  {% if c.audit_checks %}
+  <section>
+    <hr class="rule">
+    <p class="label">设计体检 Audit {{ c.audit.grade }}</p>
+    <ul class="checks">
+      {% for ch in c.audit_checks %}
+      <li class="lv-{{ ch.level }}">
+        <span class="dot"></span>
+        <span class="ct"><b>{{ ch.title }}</b> — {{ ch.detail }}
+          {% if ch.source and ch.source != '—' %}<em>{{ ch.source }}</em>{% endif %}</span>
+      </li>
+      {% endfor %}
+    </ul>
+    {% if c.audit.note %}<p class="note">{{ c.audit.note }}</p>{% endif %}
+  </section>
+  {% endif %}
+
+  {% if c.lead or c.outline or c.quotes or c.numbers %}
+  <section>
+    <hr class="rule">
+    <p class="label">内容 Content</p>
+    <div class="prose">{% if c.lead %}<p class="lead">{{ c.lead }}</p>{% endif %}</div>
+    {% for q in c.quotes %}<blockquote>{{ q }}</blockquote>{% endfor %}
+    {% if c.outline %}
+    <ul class="olist">
+      {% for o in c.outline %}<li><em>{{ '%02d' % loop.index }}</em><span>{{ o }}</span></li>{% endfor %}
+    </ul>
+    {% endif %}
+    {% if c.numbers %}
+    <div class="nums">
+      {% for n in c.numbers %}<span class="num">{{ n }}</span>{% endfor %}
+    </div>
+    {% endif %}
+    <p class="note">{{ c.paragraph_count }} 段 / 约 {{ c.word_count }} 字　·　{{ c.page_type }}</p>
+  </section>
+  {% endif %}
+
+  <footer>
+    INSPIRATION CARD · TECH-CYBER TEMPLATE v1.0 · web-inspiration-vault
+  </footer>
+
+</div>

@@ -1,0 +1,5 @@
+numpy
+pandas
+scipy
+matplotlib
+# skbio  # 可选，用于高级多样性指标

@@ -1,0 +1,30 @@
+{
+  "name": "agentbrain-studio-skills",
+  "owner": {
+    "name": "AgentBrainStudio",
+    "email": "agentbrain@skills.dev"
+  },
+  "description": "AgentBrainStudio 角色蒸馏三件套 — 职场沟通风格复刻与数字分身技能集合",
+  "version": "1.1.0",
+  "plugins": [
+    {
+      "name": "self-clone-skill",
+      "source": "self-clone-skill",
+      "description": "你的AI数字孪生。采集10段以上个人真实文本构建十维人格DNA，不只模仿你怎么写而是复刻你怎么想怎么决策。支持人格对话、决策模拟、场景预演。",
+      "description_zh": "你的AI数字孪生。十维人格DNA建模，复刻思维/决策/价值观，人格对话+决策模拟+场景预演",
+      "description_en": "Your AI digital twin. 10-dimension personality DNA from 10+ texts, clones thinking/decisions/values, persona chat + decision sim + scene rehearsal.",
+      "version": "1.1.0",
+      "author": {
+        "name": "AgentBrainStudio",
+        "email": "agentbrain@skills.dev"
+      },
+      "homepage": "https://github.com/agentbrain/self-clone-skill",
+      "repository": "https://github.com/agentbrain/self-clone-skill",
+      "license": "MIT",
+      "keywords": ["数字分身", "人格复刻", "自我克隆", "数字孪生", "AI替身", "决策模拟", "场景预演"],
+      "category": "productivity",
+      "strict": false,
+      "skills": ["./SKILL.md"]
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+# self-clone-skill 依赖
+# 纯Python标准库，零第三方依赖

@@ -1,0 +1,4 @@
+interface:
+  display_name: "可视化 HTML 手册生成器"
+  short_description: "生成带完整导航、流程图、截图和打印样式的专业单页手册"
+  default_prompt: "使用 $build-visual-html-manual 将我的材料整理为一份专业、可视化、可打印的 HTML 操作手册。"

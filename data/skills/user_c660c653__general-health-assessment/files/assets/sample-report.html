@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>通用健康深度评估报告 · 随技能附赠示例（客户「小安」）</title>
+<style>
+  :root{
+    --bg:#f5f7fa; --card:#ffffff; --ink:#1f2933; --sub:#52606d;
+    --blue:#1971c2; --green:#2f9e44; --yellow:#f08c00; --orange:#e8590c; --red:#e03131; --purple:#862e9c; --line:#e1e6eb;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;padding:32px}
+  .wrap{max-width:960px;margin:0 auto}
+  .hero{background:linear-gradient(120deg,#1971c2,#2f9e44);color:#fff;border-radius:18px;padding:28px 32px}
+  .hero h1{font-size:28px;margin-bottom:6px}
+  .hero p{font-size:15px;opacity:.92}
+  .tag{display:inline-block;background:rgba(255,255,255,.18);border-radius:20px;padding:4px 14px;font-size:13px;margin-top:10px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px 28px;margin-top:20px}
+  h2{border-left:8px solid var(--blue);padding-left:14px;font-size:21px;margin-bottom:16px}
+  h2.g{border-color:var(--green)} h2.o{border-color:var(--orange)} h2.r{border-color:var(--red)} h2.p{border-color:var(--purple)}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .kpi{border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+  .kpi .v{font-size:26px;font-weight:700}
+  .kpi .l{font-size:13px;color:var(--sub);margin-top:4px}
+  .kpi .s{font-size:12px;margin-top:6px;padding:2px 8px;border-radius:10px;display:inline-block}
+  .ok{background:#e7f6ec;color:var(--green)} .warn{background:#fff3e6;color:var(--orange)} .bad{background:#fdecec;color:var(--red)} .good{background:#e7f0fb;color:var(--blue)}
+  table{width:100%;border-collapse:collapse;margin-top:8px;font-size:14px}
+  th,td{border:1px solid var(--line);padding:10px 12px;text-align:left}
+  th{background:#f0f4f8;color:var(--sub);font-weight:600}
+  .bar{display:flex;height:46px;border-radius:8px;overflow:hidden;margin:14px 0}
+  .bar div{display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--sub);margin-top:6px}
+  .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:middle}
+  .callout{border-left:6px solid var(--orange);background:#fff6ef;padding:14px 18px;border-radius:0 10px 10px 0;margin-top:14px;font-size:15px}
+  .callout.b{border-color:var(--blue);background:#eef4fc}
+  .cycle{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:8px}
+  .cycle div{border:1px solid var(--line);border-radius:10px;padding:12px;font-size:14px}
+  .week{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:10px}
+  .day{border:1px solid var(--line);border-radius:10px;padding:8px;min-height:96px;font-size:12px}
+  .day b{display:block;font-size:13px;margin-bottom:4px;color:var(--sub)}
+  .note{font-size:13px;color:var(--sub);margin-top:10px}
+  .refs{font-size:13px;color:var(--sub);line-height:1.8}
+  .disc{background:#fdecea;color:#b42318;border:1px solid #f3c2bd;border-radius:12px;padding:14px 18px;margin-top:20px;font-size:14px}
+  footer{text-align:center;color:var(--sub);font-size:13px;margin-top:24px}
+  .banner{background:#fff4e6;border:1px solid var(--orange);color:var(--orange);border-radius:12px;padding:10px 16px;text-align:center;font-weight:700;font-size:15px;margin-bottom:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="banner">虚构数据 · 仅作展示 · 非真实客户案例</div>
+
+  <div class="hero">
+    <h1>通用健康深度评估报告</h1>
+    <p>脱敏示例 · 客户「小安」· 女 / 32岁 / 跑步+健身 · 基于单次运动样本推断</p>
+    <span class="tag">真实计算 · 非模板 · 非医疗诊断</span>
+  </div>
+
+  <!-- 1. 核心指标速览 -->
+  <section>
+    <h2>一、核心指标速览</h2>
+    <div class="cards">
+      <div class="kpi"><div class="v">24.8</div><div class="l">BMI</div><div class="s warn">超重</div></div>
+      <div class="kpi"><div class="v">29%</div><div class="l">体脂率</div><div class="s warn">偏高</div></div>
+      <div class="kpi"><div class="v">0.85</div><div class="l">腰臀比</div><div class="s warn">临界</div></div>
+      <div class="kpi"><div class="v">62</div><div class="l">静息心率</div><div class="s ok">正常</div></div>
+    </div>
+    <p class="note">运动型体成分不佳：每周跑步 3 次 + 健身 2 次，运动量其实不低，但 BMI 超重、体脂偏高、腰臀比临界——典型的「练得多却体脂高」。</p>
+  </section>
+
+  <!-- 2. 体成分评估 -->
+  <section>
+    <h2 class="g">二、体成分深度评估</h2>
+    <p>身高 162cm · 体重 65kg · 体脂率 29% → 脂肪量 <b>18.9kg</b>、瘦体重 <b>46.1kg</b>；目标体重（BMI 22）约 <b>57.7kg</b>。</p>
+    <svg width="100%" viewBox="0 0 900 70" style="margin-top:10px">
+      <rect x="0"   y="20" width="158" height="36" fill="#1971c2"/>
+      <rect x="158" y="20" width="237" height="36" fill="#2f9e44"/>
+      <rect x="395" y="20" width="180" height="36" fill="#f08c00"/>
+      <rect x="575" y="20" width="325" height="36" fill="#e03131"/>
+      <polygon points="452,58 438,84 466,84" fill="#1f2933"/>
+      <text x="0"   y="14" font-size="13" fill="#52606d">15</text>
+      <text x="150" y="14" font-size="13" fill="#52606d">18.5</text>
+      <text x="387" y="14" font-size="13" fill="#52606d">23.9</text>
+      <text x="567" y="14" font-size="13" fill="#52606d">27.9</text>
+      <text x="890" y="14" font-size="13" fill="#52606d" text-anchor="end">35</text>
+      <text x="452" y="104" font-size="14" fill="#1f2933" text-anchor="middle" font-weight="bold">你的位置 24.8（超重区）</text>
+    </svg>
+    <table>
+      <tr><th>指标</th><th>实测</th><th>判定标准（中国成人）</th><th>结论</th></tr>
+      <tr><td>BMI</td><td>24.8</td><td>18.5 / 23.9 / 27.9</td><td><span class="s warn">超重</span></td></tr>
+      <tr><td>体脂率（女）</td><td>29%</td><td>20–30% 健康</td><td><span class="s warn">偏高</span></td></tr>
+      <tr><td>腰围</td><td>80cm</td><td>女 ≥80 中心性肥胖</td><td><span class="s warn">临界</span></td></tr>
+      <tr><td>腰臀比</td><td>0.85</td><td>女 ≥0.85 中心性肥胖</td><td><span class="s warn">临界</span></td></tr>
+    </table>
+  </section>
+
+  <!-- 3. 运动数据解读 -->
+  <section>
+    <h2 class="o">三、运动数据深度解读</h2>
+    <p>数据来源：Garmin 手表 · 单次跑步 10.0km / 58min / 配速 5'48''/km / 28℃。<br>
+       最大心率实测 <b>184</b> bpm（公式 220−32=188，误差在 ±10–15 内，采用实测值）；静息心率 <b>58</b> bpm。<br>
+       运动类型为跑步，心率区间采用<b>储备心率法（%HRR / Karvonen）</b>：靶心率 = (184−58) × 区间% + 58。</p>
+    <p style="margin-top:8px;font-size:12px;color:#52606d">※ 本示例为有心率设备（B 路）场景。若用户<b>无心率设备（A 路）</b>，则跳过本节心率区间计算与强度倒挂诊断，在报告标注「无心率数据，未评估强度倒挂」，强度管理改以 RPE 谈话测试（能聊天=Z2、微喘=Z3、喘不上气=Z4+）或功率区间替代，其余体成分 / 运动模式 / 损伤防护 / 女性周期照常给出。</p>
+    <p style="margin-top:10px"><b>心率区间分布（核心反直觉洞察）</b></p>
+    <div class="bar">
+      <div style="width:3%;background:#1971c2">Z1</div>
+      <div style="width:18%;background:#2f9e44">Z2</div>
+      <div style="width:26%;background:#f08c00">Z3</div>
+      <div style="width:48%;background:#e8590c">Z4</div>
+      <div style="width:5%;background:#e03131">Z5</div>
+    </div>
+    <div class="legend">
+      <span><i style="background:#1971c2"></i>Z1 121–134 (3%)</span>
+      <span><i style="background:#2f9e44"></i>Z2 134–146 (18%)</span>
+      <span><i style="background:#f08c00"></i>Z3 146–159 (26%)</span>
+      <span><i style="background:#e8590c"></i>Z4 159–171 (48%)</span>
+      <span><i style="background:#e03131"></i>Z5 171–184 (5%)</span>
+    </div>
+    <div class="callout"><b>强度倒挂（关键发现）：</b>Z4 阈值区占 48%（健康极化模型应 ≤5%），Z2 有氧区仅 18%（健康应 ≈80%）。长期阈值区硬撑 → 皮质醇升高 → 腹部脂肪囤积，正是「练得多却体脂高」的根因。</div>
+    <table style="margin-top:14px">
+      <tr><th>维度</th><th>实测</th><th>理想</th><th>判定</th></tr>
+      <tr><td>步频（跑步）</td><td>162 spm</td><td>170–180 spm</td><td><span class="s warn">略偏低</span></td></tr>
+      <tr><td>Z2 占比</td><td>18%</td><td>≈80%</td><td><span class="s bad">严重不足</span></td></tr>
+      <tr><td>Z4 占比</td><td>48%</td><td>≤5%</td><td><span class="s bad">严重超标</span></td></tr>
+      <tr><td>平均心率</td><td>160</td><td>—</td><td>长期处于阈值区</td></tr>
+    </table>
+    <p class="note">步频 162spm 略低于业余理想区间，加之跨步略大，使膝关节制动冲击偏高、燃脂效率下降、同配速心率更高续航差——属「运动模式待优化」。</p>
+  </section>
+
+  <!-- 4. 综合诊断 -->
+  <section>
+    <h2 class="r">四、综合诊断：为什么练得多却体脂高</h2>
+    <div class="cycle">
+      <div><b>① 强度倒挂</b><br>48% 卡在 Z4 阈值区，缺 Z2 有氧基底，脂肪氧化窗口被压缩。</div>
+      <div><b>② 运动模式不当</b><br>步频偏低 + 跨步略大，膝应力集中、燃脂效率下降。</div>
+      <div><b>③ 缺力量训练</b><br>虽有健身但缺结构性负荷渐进，基础代谢提升受限，易反弹。</div>
+      <div><b>④ 饮食敏感</b><br>运动人群常见「蛋白够、碳水严重不足且偏油炸」的结构性缺口。</div>
+    </div>
+    <p class="callout b">你不是懒，是强度结构需要调整——把 80% 的跑步拉回 Z2 有氧区，才是真正的燃脂窗口。</p>
+  </section>
+
+  <!-- 5. 周训练计划 -->
+  <section>
+    <h2 class="p">五、修正后周训练计划（7 日）</h2>
+    <div class="week">
+      <div class="day"><b>日</b>Z4 间歇跑<br>4×4min<br>（阈值刺激）</div>
+      <div class="day"><b>一</b>Z2 疗愈跑<br>步频≥170<br>能聊天不喘</div>
+      <div class="day"><b>二</b>力量训练<br>下肢+核心<br>提高基础代谢</div>
+      <div class="day"><b>三</b>短 Z2 / 休息<br>恢复为主</div>
+      <div class="day"><b>四</b>Z2 匀速跑<br>45–60min</div>
+      <div class="day"><b>五</b>休息<br>晨脉监测</div>
+      <div class="day"><b>六</b>长 Z2 跑<br>90min+ 燃脂底盘</div>
+    </div>
+    <p class="note">原则：80% Z2 + 20% 高强度；减脂期蛋白 1.6–2.2 g/kg 瘦体重；刻意安排 Z2 疗愈跑（步频≥170）才是真燃脂。力量训练采用渐进负荷，避免跳跃式加量伤膝。</p>
+  </section>
+
+  <!-- 6. 损伤防护 -->
+  <section>
+    <h2 class="o">六、损伤防护升级</h2>
+    <p>运动数据 + 损伤史发现：步频偏低（162spm）+ 跨步略大，使<b>膝关节</b>制动冲击集中；既往右膝髌骨不适史。建议：</p>
+    <table>
+      <tr><th>部位</th><th>风险</th><th>措施</th></tr>
+      <tr><td>膝（髌股）</td><td>跨步过大 + 步频低，冲击 ×2–3</td><td>提步频至 170+；缩短跨步；强化臀中肌/小腿</td></tr>
+      <tr><td>腰骶</td><td>久坐 + 核心不稳</td><td>核心力量训练；打断久坐每小时起身</td></tr>
+    </table>
+  </section>
+
+  <!-- 7. HRV 说明 -->
+  <section>
+    <h2>七、恢复监测说明</h2>
+    <p>本次未提供 HRV 设备数据。替代恢复监测方案：<b>晨脉趋势</b>（连续偏高提示未恢复）、<b>运动后心率恢复 HRR</b>（2 分钟降 ≥30bpm 为佳）、<b>睡眠</b>与<b>主观疲劳</b>评分。如设备支持 HRV，可在后续跟踪中纳入。</p>
+  </section>
+
+  <!-- 8. 总结与行动项 -->
+  <section>
+    <h2 class="g">八、总结与行动项（按优先级）</h2>
+    <table>
+      <tr><th>#</th><th>行动</th><th>目标</th></tr>
+      <tr><td>1</td><td>把 80% 跑步拉回 Z2（心率 112–130，能聊天）</td><td>重建有氧燃脂底盘</td></tr>
+      <tr><td>2</td><td>提步频至 170+，缩短跨步</td><td>降膝应力、提燃脂效率</td></tr>
+      <tr><td>3</td><td>每周 1 次力量渐进 + 1 次 Z4 间歇</td><td>提基础代谢、破平台</td></tr>
+    </table>
+  </section>
+
+  <!-- 9. 参考文献 -->
+  <section>
+    <h2>九、参考文献</h2>
+    <p class="refs">
+      WHO 身体活动与久坐行为指南；Seiler 等 极化训练 80/20 模型；ACSM 运动测试与处方指南；
+      中国卫生行业标准 WS/T 428；中国居民膳食营养素参考摄入量（DRIs）；运动步频与跑步经济性研究综述。
+    </p>
+  </section>
+
+  <div class="disc">
+    <b>免责声明：</b>本报告为运动健康评估，<b>不构成医疗诊断</b>。旧伤防护为运动建议，如有不适请及时就医。数据仅用于本次报告。
+  </div>
+
+  <footer>青蓝工作室 · 通用健康深度评估 · 随技能附赠示例（虚构数据，客户「小安」）</footer>
+
+</div>
+</body>
+</html>

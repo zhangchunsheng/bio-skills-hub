@@ -1,0 +1,4 @@
+interface:
+  display_name: "Creation DNA - 创作交付进化引擎"
+  short_description: "捕获创作审美偏好，沉淀创作 DNA，减少重复返工"
+  default_prompt: "帮我记住创作偏好，下次同类任务自动适配"

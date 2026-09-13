@@ -1,0 +1,4 @@
+interface:
+  display_name: "医药商业库存需求计划"
+  short_description: "根据销售、库存和补货约束提出计划"
+  default_prompt: "Use $pharma-inventory-demand-plan for paid 医药商业 库存需求计划."

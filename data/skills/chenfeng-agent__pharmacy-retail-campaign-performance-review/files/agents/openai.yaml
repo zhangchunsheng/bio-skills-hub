@@ -1,0 +1,4 @@
+interface:
+  display_name: "药房零售活动效果复盘"
+  short_description: "复盘营销/促销活动的目标、投入和结果"
+  default_prompt: "Use $pharmacy-retail-campaign-performance-review for paid 药房零售 活动效果复盘."

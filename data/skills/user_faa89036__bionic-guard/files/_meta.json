@@ -1,0 +1,18 @@
+{
+  "name": "bionic-guard",
+  "display_name": "神经哨兵 · 三重安全防护",
+  "version": "1.0.0",
+  "description": "ACC冲突监测+杏仁核风险嗅探+免疫系统威胁识别 | Triple-layer defense: ACC monitoring, amygdala risk detection, and immune threat identification",
+  "author": "local",
+  "type": "bionic",
+  "tags": ["security", "safety", "validation", "bionic"],
+  "emoji": "🛡️",
+  "created_at": "2026-04-16",
+  "updated_at": "2026-04-16",
+  "dependencies": [],
+  "scripts": [
+    "scripts/acc_monitor.py",
+    "scripts/risk_sniffer.py",
+    "scripts/immune_system.py"
+  ]
+}

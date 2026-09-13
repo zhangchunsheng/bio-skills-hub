@@ -1,0 +1,27 @@
+{
+  "name": "马云 · 思维操作系统",
+  "source": "marketplace",
+  "version": "1.0.5",
+  "pricing": "free",
+  "examples_zh": [
+    "用马云的视角看：一个赛道所有人都说太早了，但三年后大概率会起来，现在该投多少？",
+    "投资人愿意出钱但要一个董事会席位和一票否决权，这个让不让？",
+    "团队里业绩最好的人价值观跟公司不合，留还是不留？",
+    "对手比我强十倍，我该怎么打？",
+    "现在行业整体下行，我是收缩保命还是逆势扩张？",
+    "这个 Skill 给你的判断，哪些是有据可查的，哪些是你自己推的？",
+    "我想用它做一期付费课程 / 写篇署名文章，可以吗？"
+  ],
+  "examples_en": [
+    "From Jack Ma's perspective: everyone says this market is too early, but it'll likely take off in three years. How much should I invest now?",
+    "An investor will fund me but wants a board seat and veto rights. Should I give it up?",
+    "My top performer doesn't fit the company's values. Keep or let go?",
+    "My competitor is ten times stronger. How do I fight?",
+    "The whole industry is contracting. Do I hunker down or expand against the cycle?",
+    "Which of your judgments are documented, and which are your own inference?",
+    "Can I use this for a paid course or a signed article?"
+  ],
+  "description_zh": "基于6个维度公开调研蒸馏的7个心智模型、11条决策启发式与完整表达DNA，并新增从0到1创业视角（8个研究维度、冷启动三问）。作为思维顾问，用马云的视角做商业判断与项目审视：找需求、定优先级、判断该不该长期投入、设计组织与交棒、处理危机与质疑，也用来审视0到1的新项目能不能活过前三个月。免费、非商业使用。本Skill是对公开资料的研究性归纳，所有观点非本人立场，与任何机构无关联。",
+  "description_en": "Seven mental models, eleven decision heuristics, and a quantified expression profile distilled from six dimensions of public research, now with a 0-to-1 startup lens (8 research dimensions, cold-start three questions). A thinking advisor that reasons from Jack Ma's perspective on demand discovery, prioritization, long-term bets, organizational design, crisis, and whether a 0-to-1 project will survive its first three months. Free and non-commercial.",
+  "iconSource": "letter:auto"
+}

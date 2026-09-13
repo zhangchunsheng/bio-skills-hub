@@ -1,0 +1,4 @@
+interface:
+  display_name: "Clinical Research"
+  short_description: "Plan clinical studies and research compliance."
+  default_prompt: "Use $labclaw-clinical to structure this clinical research study."

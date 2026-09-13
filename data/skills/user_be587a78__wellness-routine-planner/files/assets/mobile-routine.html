@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>养生时间表 · 手机版</title>
+<style>
+  :root{
+    --bg:#faf7f2; --card:#ffffff; --ink:#2b2b2b; --muted:#7a7a7a;
+    --accent:#3b6d11; --accent-soft:#eaf3e1; --warn:#c0392b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.6;
+    padding:16px;font-size:18px;-webkit-text-size-adjust:100%;
+  }
+  header{text-align:center;padding:20px 0 10px}
+  header h1{font-size:24px;color:var(--accent)}
+  header p{color:var(--muted);font-size:14px;margin-top:4px}
+  section{margin:18px 0}
+  h2{font-size:20px;color:var(--accent);border-left:5px solid var(--accent);
+     padding-left:10px;margin-bottom:10px}
+  .card{background:var(--card);border-radius:14px;padding:16px;margin-bottom:12px;
+        box-shadow:0 1px 4px rgba(0,0,0,.06)}
+  .card h3{font-size:18px;margin-bottom:8px;color:var(--ink)}
+  .card ul{list-style:none;padding-left:0}
+  .card li{padding:8px 0;border-bottom:1px dashed #eee;
+           display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+  .card li:last-child{border-bottom:none}
+  .tag{font-size:13px;color:var(--muted);white-space:nowrap;
+       background:#f0f0f0;border-radius:8px;padding:2px 8px}
+  .reminder{background:var(--accent-soft);border-radius:14px;padding:16px;margin-top:8px}
+  .reminder h2{color:var(--accent);border-left-color:var(--accent)}
+  .note{font-size:14px;color:#8a6d3b;background:#fff8e1;border-radius:10px;
+        padding:12px;margin-top:14px;line-height:1.5}
+  @media(max-width:380px){body{font-size:17px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🌿 养生时间表</h1>
+  <p>锚点制 · 不靠死钟数 · 最后更新：YYYY-MM-DD</p>
+</header>
+
+<section>
+  <h2>☀️ 每日</h2>
+  <div class="card">
+    <h3>晨起链（死守）</h3>
+    <ul>
+      <li><span>起身 → 刷牙 → 温水一杯</span><span class="tag">≈10min</span></li>
+      <li><span>洗面 + 护肤</span><span class="tag">≈10min</span></li>
+      <li><span>晨间温和运动</span><span class="tag">12min</span></li>
+      <li><span>早课</span><span class="tag">10min</span></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>吃饭节奏</h3>
+    <ul>
+      <li><span>第一餐（含保健品）</span><span class="tag">11:00–11:30</span></li>
+      <li><span>第二餐（傍晚）</span><span class="tag">尽量早食完</span></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>睡前链（死守）</h3>
+    <ul>
+      <li><span>晚课</span><span class="tag">10min</span></li>
+      <li><span>冲凉 + 洗头吹头</span><span class="tag">≈30min</span></li>
+      <li><span>护肤 + 轻按摩</span><span class="tag">—</span></li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>🗓️ 每周 / 每月 / 每年</h2>
+  <div class="card">
+    <h3>每周</h3>
+    <ul>
+      <li><span>周二晚 保湿面膜</span><span class="tag">20min</span></li>
+      <li><span>周六夜 全面按摩</span><span class="tag">30–45min</span></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>每月 / 每半年·每年</h3>
+    <ul>
+      <li><span>染发（提前 2–3 日提）</span><span class="tag">每月</span></li>
+      <li><span>剪发（提前 1 周提）</span><span class="tag">每两月</span></li>
+      <li><span>洗牙（提前 2–3 周提）</span><span class="tag">每半年</span></li>
+      <li><span>验眼（提前 2–3 周提）</span><span class="tag">每年</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="reminder">
+  <h2>🔔 自动提醒一览</h2>
+  <ul>
+    <li><span>每日 11:15 食保健品</span><span class="tag">自动化</span></li>
+    <li><span>每日 22:00 睡前链</span><span class="tag">自动化</span></li>
+    <li><span>工作期间喝水 / 拉伸</span><span class="tag">口头提醒</span></li>
+  </ul>
+</section>
+
+<div class="note">
+  ⚠️ 本表仅助你组织作息与习惯提醒，不构成医疗建议。健康问题请咨询专业医师。
+</div>
+</body>
+</html>

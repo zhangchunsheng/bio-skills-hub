@@ -1,0 +1,6 @@
+{
+  "description": "EduMex 间隔复习卡片库——到期自动提醒",
+  "pending_reviews": [],
+  "review_history": [],
+  "_card_schema_note": "pending_reviews 中每张卡片结构示例：{ card_id, topic_id, topic, due_date, ebbinghaus_stage, resource_ref, source_type }"
+}

@@ -1,0 +1,43 @@
+{
+  "slug": "posture-break-desk-card",
+  "name": "Posture Break Desk Card",
+  "version": "1.0.1",
+  "type": "prompt-flow",
+  "description": "Build a brief, non-medical desk break routine that resets posture, movement, eyes, and breathing while stopping on pain, numbness, or concerning symptoms.",
+  "author": "Bell (design)",
+  "license": "MIT-0",
+  "category": "Health & Wellness / Desk Routine",
+  "target_user": "Desk workers, students, remote workers, and anyone who wants a gentle non-medical posture or movement break during computer work.",
+  "tags": [
+    "desk-break",
+    "posture",
+    "ergonomics",
+    "wellness-routine",
+    "movement-break"
+  ],
+  "trigger_keywords": [
+    "posture break",
+    "desk stretch",
+    "quick computer break",
+    "ergonomic reset",
+    "movement break at my desk",
+    "shoulders tight at work"
+  ],
+  "use_cases": [
+    "Creating a one-minute desk reset",
+    "Guiding a three-minute posture break",
+    "Adding eye rest and breathing to computer work",
+    "Designing a gentle movement routine for long desk sessions",
+    "Checking simple desk comfort cues"
+  ],
+  "language": "en",
+  "hasExecutableCode": false,
+  "requires": {},
+  "requires_api": false,
+  "no_code_execution": true,
+  "no_network": true,
+  "no_credentials": true,
+  "contentType": "document-only",
+  "project": "daily-50-skills-2026-05-08",
+  "priority": "P2"
+}

@@ -1,0 +1,21 @@
+{
+  "slug": "medical-salary-benefits",
+  "name": "医院工资待遇-小护圈",
+  "version": "1.0.0",
+  "source": "skillhub",
+  "iconSource": "letter:auto",
+  "examples_zh": [
+    "医院护士工资一般多少",
+    "医院年终奖发几个月",
+    "医院公积金按什么比例交",
+    "医院包吃住吗",
+    "医院绩效怎么算",
+    "医院夜班补贴标准"
+  ],
+  "examples_en": [
+    "hospital nurse salary",
+    "hospital year-end bonus",
+    "hospital housing fund contribution",
+    "hospital night shift allowance"
+  ]
+}

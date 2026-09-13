@@ -1,0 +1,19 @@
+# 病案首页数据处理器 - 依赖声明
+# 安装方式: pip install -r requirements.txt
+#
+# 说明:
+#   - pandas 下限 2.0.0 是硬要求：日期解析依赖 pd.to_datetime(format="mixed")
+#     逐元素推断，低于 2.0 时病案首页常见的混合日期格式会大面积解析失败
+#     （"2023/03/26"、"20230326"、"2023-03-26 00:00:00" 混在同一列）
+#   - 上限定在下一个大版本之前，避免被 pandas 4.x / numpy 3.x 的破坏性变更打断
+#   - xlrd 仅在读取 .xls 老格式时需要；不读 .xls 可以不装
+#   - 环境自检: python scripts/cli.py --doctor（打印版本矩阵 + ECharts 资产完整性）
+#   - 需要精确复现旧环境时，按 --doctor 输出的版本号手工 pip install pkg==x.y.z
+
+# 核心依赖 (必需)
+pandas>=2.0.0,<4.0.0
+numpy>=1.24.0,<3.0.0
+openpyxl>=3.1.0,<4.0.0
+
+# 可选依赖 (.xls 老格式读取)
+xlrd>=2.0.1,<3.0.0

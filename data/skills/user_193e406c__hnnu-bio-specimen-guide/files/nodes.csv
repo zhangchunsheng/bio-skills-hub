@@ -1,0 +1,14 @@
+﻿id,name,type,floor,svg_x,svg_y
+entrance,正门入口,entrance,1F,320,520
+lobby_1f,一楼大厅,node,1F,320,500
+stairs_1f,楼梯（1F）,stairs,1F,600,490
+elevator_1f,电梯（1F）,elevator,1F,600,510
+lobby_2f,二楼过厅,node,2F,320,390
+stairs_2f,楼梯（2F）,stairs,2F,600,380
+elevator_2f,电梯（2F）,elevator,2F,600,400
+lobby_3f,三楼过厅,node,3F,320,280
+stairs_3f,楼梯（3F）,stairs,3F,600,270
+elevator_3f,电梯（3F）,elevator,3F,600,290
+lobby_4f,四楼过厅,node,4F,320,120
+stairs_4f,楼梯（4F）,stairs,4F,600,110
+elevator_4f,电梯（4F）,elevator,4F,600,130

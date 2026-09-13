@@ -1,0 +1,173 @@
+/* ============================================================
+   杂志风模板 · magazine v1.0 —— 共享样式
+   签名手法：双宽度版心 / 66ch 正文栏 / 衬线大标题 + 无衬线正文 /
+             首字下沉 / 卡片网格 / 两层向下阴影 / 少用边框
+   强调色由每张卡的 --card-accent 注入。
+   ============================================================ */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: #fdfdfc;
+  color: #23231f;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+               "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 1200px; margin: 0 auto; padding: 56px 32px 104px; }
+
+/* —— 标签：小、浅、字距拉开（Refactoring UI：标签是辅助信息）—— */
+.label {
+  font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
+  color: #97978e; font-weight: 600; margin: 0 0 14px;
+}
+.rule { height: 1px; background: #e6e6e0; border: 0; margin: 0; }
+
+/* —— 报头：上方一条强调色细线，是编辑型版面的惯用手法 —— */
+.masthead { border-top: 2px solid var(--card-accent, #23231f); padding-top: 22px; }
+.site {
+  font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--card-accent, #6b6b62); font-weight: 700; margin: 0 0 16px;
+}
+h1 {
+  font-family: Georgia, "Songti SC", "Source Han Serif SC", "Noto Serif SC",
+               "Times New Roman", serif;
+  font-size: clamp(34px, 4.6vw, 58px);
+  line-height: 1.06;                /* 行高与字号反比：越大越紧 */
+  letter-spacing: -0.02em;
+  font-weight: 700; margin: 0 0 16px; color: #14140f;
+  max-width: 22ch;
+}
+.dek {
+  font-size: 18px; line-height: 1.55; color: #5c5c53;
+  max-width: 54ch; margin: 0 0 24px;
+}
+.meta {
+  font-size: 11.5px; color: #9a9a90; display: flex; flex-wrap: wrap;
+  gap: 6px 16px; letter-spacing: .04em; font-variant-numeric: tabular-nums;
+  border-top: 1px solid #e6e6e0; padding-top: 14px;
+}
+.meta .tag {
+  border: 1px solid #dcdcd4; border-radius: 2px; padding: 1px 7px;
+  color: #6b6b62;
+}
+.meta a { color: #6b6b62; text-decoration: none; border-bottom: 1px solid #d8d8d0; }
+.src { word-break: break-all; }
+
+/* —— 区块：上方间距是下方的 2 倍 —— */
+section { margin-top: 76px; }
+section > .rule { margin-bottom: 38px; }
+
+/* —— 卡片网格：宽版心，与正文窄栏形成"双宽度"对比 —— */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(232px, 1fr)); gap: 30px 26px; }
+.mcard { display: flex; flex-direction: column; }
+.mcard .thumb {
+  position: relative; aspect-ratio: 16 / 10; border-radius: 3px; overflow: hidden;
+  background: linear-gradient(135deg, var(--thumb-a, #eee) 0%, var(--thumb-b, #ddd) 100%);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.06);   /* 内阴影防渗色，不用边框 */
+  margin-bottom: 12px;
+}
+.mcard .thumb .glyph {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-family: Georgia, serif; font-size: 42px; color: rgba(0,0,0,.16); font-weight: 700;
+}
+.mcard .kind {
+  font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--card-accent, #8a8a80); font-weight: 700; margin-bottom: 6px;
+}
+.mcard h4 {
+  font-family: Georgia, "Songti SC", "Noto Serif SC", serif;
+  font-size: 18px; line-height: 1.31; font-weight: 700; color: #1a1a15;
+  margin: 0 0 8px; letter-spacing: -0.01em;
+}
+.mcard .dt { font-size: 11px; color: #a8a89e; font-variant-numeric: tabular-nums; margin-top: auto; padding-top: 8px; }
+.grid-note { font-size: 12px; color: #a8a89e; margin-top: 18px; }
+
+/* —— 配色卡 —— */
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 14px; }
+.sw { border-radius: 3px; overflow: hidden; background: #fff;
+      box-shadow: 0 1px 2px rgba(0,0,0,.05), 0 0 0 1px rgba(0,0,0,.05); }
+.sw .chip { height: 56px; }
+.sw .info { padding: 9px 11px; }
+.sw .role { font-size: 10px; letter-spacing: .09em; text-transform: uppercase; color: #9a9a90; }
+.sw .hex { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+           font-size: 12px; color: #33332d; font-variant-numeric: tabular-nums; }
+
+/* —— 字体与节奏：双栏表格，紧凑而不空旷 —— */
+.spec { display: grid; grid-template-columns: repeat(auto-fit, minmax(272px, 1fr)); gap: 26px 34px; }
+.spec .specimen {
+  font-size: 27px; line-height: 1.22; color: #1a1a15; margin: 8px 0 0;
+  letter-spacing: -0.015em;
+}
+.spec .stack {
+  font-size: 12.5px; color: #4c4c44; word-break: break-word;
+  padding-bottom: 8px; border-bottom: 2px solid var(--card-accent, #666);
+}
+.spec .stack .k { color: #9a9a90; font-size: 10px; letter-spacing: .12em;
+                  text-transform: uppercase; display: block; margin-bottom: 4px; }
+.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+.tbl td { padding: 8px 0; border-bottom: 1px solid #eeeee8; vertical-align: baseline; }
+.tbl td:first-child { color: #9a9a90; font-size: 11px; letter-spacing: .07em;
+                      text-transform: uppercase; width: 42%; }
+.tbl td:last-child { font-variant-numeric: tabular-nums; color: #2c2c26; }
+.tbl b { font-weight: 700; }
+
+/* —— 风格评分：横条 + 数值，杂志式的数据呈现 —— */
+.scores { display: grid; gap: 9px; }
+.score { display: grid; grid-template-columns: 78px 1fr 52px; align-items: center; gap: 14px; font-size: 13px; }
+.score .bar { height: 8px; background: #eeeee8; border-radius: 1px; overflow: hidden; }
+.score .bar i { display: block; height: 100%; background: #cfcfc6; }
+.score.win { font-weight: 700; color: #14140f; }
+.score.win .bar i { background: var(--card-accent, #333); }
+.score .pct { text-align: right; font-size: 12px; color: #9a9a90; font-variant-numeric: tabular-nums; }
+.note { font-size: 12px; color: #9a9a90; margin: 14px 0 0; }
+
+/* —— 正文：66ch 窄版心 + 首字下沉 —— */
+.prose { max-width: 66ch; }              /* Bringhurst：66 字符为理想行宽 */
+.lead { font-size: 17.5px; line-height: 1.7; color: #2a2a24; }
+.lead::first-letter {
+  float: left; font-family: Georgia, serif; font-size: 3.3em; line-height: .84;
+  font-weight: 700; color: var(--card-accent, #333); padding: 6px 10px 0 0;
+}
+blockquote {
+  margin: 30px 0; padding: 4px 0 4px 22px;
+  border-left: 3px solid var(--card-accent, #666);
+  font-family: Georgia, "Songti SC", serif; font-size: 20px; line-height: 1.45;
+  color: #33332b;
+}
+.olist { list-style: none; padding: 0; margin: 0; max-width: 66ch; }
+.olist li {
+  font-size: 14px; color: #3a3a33; padding: 11px 0 11px 0;
+  border-top: 1px solid #efefe9; display: flex; gap: 12px; align-items: baseline;
+}
+.olist li em { font-style: normal; font-family: Georgia, serif; color: var(--card-accent, #999);
+               font-size: 13px; min-width: 20px; }
+.nums { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+.num { font-size: 13px; font-variant-numeric: tabular-nums; color: #2c2c26;
+       border-bottom: 2px solid var(--card-accent, #ccc); padding: 2px 1px; }
+
+/* —— 体检清单：双栏排布，节省纵向空间 —— */
+.checks { list-style: none; padding: 0; margin: 0;
+          display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 0 34px; }
+.checks li { display: flex; gap: 11px; padding: 10px 0; border-bottom: 1px solid #efefe9;
+             font-size: 13px; color: #3a3a33; }
+.checks .dot { flex: 0 0 7px; width: 7px; height: 7px; border-radius: 50%; margin-top: 7px; background: #cfcfc6; }
+.checks li.lv-ok .dot { background: #4f8f6b; }
+.checks li.lv-warn .dot { background: #c08a2e; }
+.checks li.lv-bad .dot { background: #b8544a; }
+.checks .ct { flex: 1 1 auto; line-height: 1.55; }
+.checks .ct b { font-weight: 700; color: #1a1a15; }
+.checks .ct em { display: block; font-style: normal; font-size: 10.5px; color: #adada3;
+                 margin-top: 3px; letter-spacing: .05em; }
+
+footer { margin-top: 84px; padding-top: 20px; border-top: 1px solid #e6e6e0;
+         font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: #b0b0a6; }
+
+@media (max-width: 700px) {
+  .wrap { padding: 36px 20px 72px; }
+  section { margin-top: 54px; }
+  .lead::first-letter { font-size: 2.7em; }
+}
+@media print { body { background: #fff; } .wrap { padding: 0; } }

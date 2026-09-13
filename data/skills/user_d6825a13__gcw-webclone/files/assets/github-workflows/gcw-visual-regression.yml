@@ -1,0 +1,68 @@
+name: GCW visual regression
+
+on:
+  workflow_dispatch:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  visual-regression:
+    runs-on: ubuntu-latest
+    env:
+      GCW_SOURCE_URL: ${{ vars.GCW_SOURCE_URL }}
+      GCW_CANDIDATE_URL: http://127.0.0.1:4173
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: 20
+          cache: npm
+
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.12"
+
+      - name: Install application dependencies
+        run: npm ci
+
+      - name: Install GCW dependencies
+        run: |
+          npm ci --prefix .gcw
+          cd .gcw
+          npx playwright install --with-deps chromium
+          cd ..
+          python -m pip install -r .gcw/requirements.txt
+
+      - name: Build application
+        run: npm run build
+
+      - name: Start preview
+        run: |
+          nohup npm run preview -- --host 127.0.0.1 --port 4173 > .gcw/preview.log 2>&1 &
+          for attempt in {1..60}; do
+            if curl --fail --silent http://127.0.0.1:4173/ > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat .gcw/preview.log
+          exit 1
+
+      - name: Capture paired screenshots
+        run: node .gcw/tools/capture_compare.mjs --config .gcw/capture-scenarios.json --output .gcw/results
+
+      - name: Smoke-test root route
+        run: python .gcw/tools/route_smoke.py --base-url "$GCW_CANDIDATE_URL" --route / --out .gcw/results/route-smoke.json
+
+      - name: Compare screenshots
+        run: python .gcw/tools/batch_image_diff.py .gcw/results --diff-dir .gcw/results/diff --max-changed-pct "${GCW_MAX_CHANGED_PCT:-1.0}" --max-mean-abs "${GCW_MAX_MEAN_ABS:-2.0}"
+
+      - name: Upload GCW evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: gcw-visual-regression
+          path: |
+            .gcw/results
+            .gcw/preview.log

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Buffer 销售线索与客户运营｜简诗 AI"
+  short_description: "围绕“Buffer 销售线索与客户运营”提供具体执行方法，涵盖平台内容、发布节奏、互动增长和效果复盘。"
+  default_prompt: "使用 $sales-buffer 完成“Buffer 销售线索与客户运营”任务。"

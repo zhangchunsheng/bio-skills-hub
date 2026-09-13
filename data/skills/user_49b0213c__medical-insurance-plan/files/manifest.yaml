@@ -1,0 +1,5 @@
+name: medical-insurance-plan
+version: 1.0.1
+description: "基于大童保险顾问制作的定向医疗险方案 Skill。含方案对象与体况、产品要求、核保结论、产品建议、家庭费率、配置建议六大模块；生成前与使用人确认；支持手机 PNG、小程序网页、横版网页、腾讯文档四种输出。产品信息须来源于大童在售产品或本地文件。"
+category: insurance
+author: 大童保险顾问

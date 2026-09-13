@@ -1,0 +1,4 @@
+interface:
+  display_name: "网站在搜索和AI回答中提升曝光｜简诗 AI"
+  short_description: "检查网站是否可抓取、可索引、可摘录和易引用，同时优化传统搜索排名与生成式答案中的品牌曝光。"
+  default_prompt: "使用 $generative-engine-optimisation-geo 完成“网站在搜索和AI回答中提升曝光”任务，并给出可执行结果。"

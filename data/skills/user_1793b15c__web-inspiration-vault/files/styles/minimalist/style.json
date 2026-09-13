@@ -1,0 +1,40 @@
+{
+  "id": "minimalist",
+  "name_zh": "极简风",
+  "name_en": "Minimalist",
+  "version": "1.0.0",
+  "status": "ready",
+  "one_liner": "留白即内容。用发丝线和大间距替代一切装饰。",
+  "signature_moves": [
+    "单栏窄容器（≤720px），两侧留白大于正文宽度",
+    "大量留白：段落间距 >= 1.6em，区块间距 >= 64px",
+    "发丝分隔线：1px、低对比（底色降 12% 亮度），不用阴影",
+    "字重克制：只用 400 / 500 / 600 三档，标题也不加粗到 700",
+    "强调色用量极省：只出现在小标签、关键数字、单条竖线上",
+    "全大写小字距标签：11px / letter-spacing 0.1em / 灰字",
+    "数字用等宽数字（font-variant-numeric: tabular-nums）撑起节奏",
+    "圆角 <= 4px，或用纯直角；禁止大面积色块和渐变"
+  ],
+  "forbidden": [
+    "box-shadow 投影",
+    "多重渐变叠加",
+    "超过 3 种彩色",
+    "居中大标题 + 满宽色块 Hero",
+    "emoji 装饰"
+  ],
+  "best_for": [
+    "长文阅读型页面（博客、周刊、论文）",
+    "财务月度复盘一页纸",
+    "作品集与项目展示"
+  ],
+  "paired_skeletons": ["inspiration_card", "onepager_report", "project_showcase"],
+  "css_vars_prefix": "--mv-",
+  "defaults": {
+    "container": 720,
+    "line_height": 1.75,
+    "section_gap": 72,
+    "radius": 3,
+    "label_size": 11,
+    "label_tracking": 0.1
+  }
+}

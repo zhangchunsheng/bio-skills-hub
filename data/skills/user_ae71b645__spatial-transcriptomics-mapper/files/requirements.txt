@@ -1,0 +1,9 @@
+scanpy
+squidpy
+matplotlib
+seaborn
+pillow
+numpy
+pandas
+h5py
+pyarrow

@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.0",
+  "encounter": {
+    "patient_name": "测试患者C",
+    "patient_age": "60 岁",
+    "patient_gender": "男",
+    "patient_contact": "13800000003",
+    "patient_id": "TEST-2026-003",
+    "admission_time": "2026-08-11T09:00:00",
+    "transfer_in_time": null,
+    "discharge_time": null,
+    "transfer_out_time": null,
+    "primary_diagnosis": ["心房颤动", "高血压"],
+    "allergies": [
+      {
+        "substance": "华法林",
+        "category": "药物",
+        "manifestation": "皮疹",
+        "source_id": "src-002",
+        "page_or_image": "p.1",
+        "evidence_status": "direct_visible"
+      }
+    ],
+    "info_sources": ["患者/家属", "病历资料"],
+    "encounter_id": "ENC-TEST-003",
+    "suspected_other_patient": false
+  },
+  "sources": [
+    {"source_id": "src-001", "file_name": "入院记录.pdf", "file_type": "pdf", "clinical_timepoint": "入院当天", "doc_date": "2026-08-11", "page_or_image": "p.1"},
+    {"source_id": "src-002", "file_name": "长期医嘱单.pdf", "file_type": "pdf", "clinical_timepoint": "入院后 D2", "doc_date": "2026-08-12", "page_or_image": "p.1"},
+    {"source_id": "src-003", "file_name": "医师确认意见.pdf", "file_type": "pdf", "clinical_timepoint": "入院后 D2", "doc_date": "2026-08-12", "page_or_image": "p.1"}
+  ],
+  "drug_records": [
+    {
+      "record_id": "drug-001",
+      "original_name": "利伐沙班片",
+      "generic_name": "利伐沙班",
+      "brand_name": null,
+      "dosage_form": "片剂",
+      "strength": "20 mg",
+      "route": "口服",
+      "dose": "20 mg",
+      "frequency": "每日 1 次",
+      "administration_time": "晚餐后",
+      "indication": "心房颤动抗凝",
+      "start_time": "2026-08-12",
+      "stop_time": null,
+      "stop_reason": null,
+      "patient_brought": false,
+      "adherence": null,
+      "source_id": "src-002",
+      "page_or_image": "p.1",
+      "category": "inpatient_long_term",
+      "current_status": "加药",
+      "evidence_status": "physician_confirmed",
+      "open_questions": []
+    },
+    {
+      "record_id": "drug-002",
+      "original_name": "苯磺酸氨氯地平片",
+      "generic_name": "氨氯地平",
+      "brand_name": null,
+      "dosage_form": "片剂",
+      "strength": "5 mg",
+      "route": "口服",
+      "dose": "5 mg",
+      "frequency": "每日 1 次",
+      "administration_time": "早餐后",
+      "indication": "高血压",
+      "start_time": "2026-08-12",
+      "stop_time": null,
+      "stop_reason": null,
+      "patient_brought": false,
+      "adherence": null,
+      "source_id": "src-002",
+      "page_or_image": "p.1",
+      "category": "inpatient_long_term",
+      "current_status": "继续用药",
+      "evidence_status": "physician_confirmed",
+      "open_questions": []
+    }
+  ],
+  "discrepancies": [
+    {
+      "discrepancy_id": "disc-001",
+      "drug_generic_name": "利伐沙班",
+      "category": "allergy_or_contraindication",
+      "source_a": {"source_id": "src-001", "raw_text": "华法林过敏（皮疹）"},
+      "source_b": {"source_id": "src-002", "raw_text": "利伐沙班 20 mg qd 长期医嘱"},
+      "objective_diff": "华法林过敏史；医嘱启用利伐沙班替代",
+      "evidence_status": "physician_confirmed",
+      "needs_answer_from": ["physician"],
+      "open_questions": [],
+      "pharmacist_verified": true,
+      "physician_confirmed": true,
+      "proposed_action": "已确认"
+    }
+  ],
+  "reconciliation_outcomes": [
+    {
+      "drug_record_id": "drug-001",
+      "result": "加药",
+      "reason": "华法林过敏，使用利伐沙班替代抗凝（责任医师已确认）",
+      "decided_at": "2026-08-12T15:30:00",
+      "decided_by_role": "physician_confirmed",
+      "source_id": "src-003"
+    },
+    {
+      "drug_record_id": "drug-002",
+      "result": "继续用药",
+      "reason": "高血压基础用药继续维持（责任医师已确认）",
+      "decided_at": "2026-08-12T15:30:00",
+      "decided_by_role": "physician_confirmed",
+      "source_id": "src-003"
+    }
+  ],
+  "open_questions": []
+}

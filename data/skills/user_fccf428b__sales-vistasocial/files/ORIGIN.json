@@ -1,0 +1,18 @@
+{
+  "schema": "jianshi-skill-origin/v1",
+  "sourceRepo": "sales-skills/sales",
+  "sourcePath": "skills/sales-vistasocial/SKILL.md",
+  "sourceCommit": "96631e16ebe3e50327a5db9b6ace39d078e376af",
+  "sourceUrl": "https://github.com/sales-skills/sales/blob/96631e16ebe3e50327a5db9b6ace39d078e376af/skills/sales-vistasocial/SKILL.md",
+  "license": "MIT-declared-in-README",
+  "licenseFile": "LICENSE.md",
+  "licenseEvidence": "source-readme-mit-declaration",
+  "sourceBodySha256": "d9f28cd1870c89800f85b993c3f946c42107bf9faf82569c999f2aaea3da322d",
+  "modifications": [
+    "规范 canonical frontmatter",
+    "增加中国业务场景中文展示名与摘要",
+    "增加 agents/openai.yaml",
+    "增加每次回复品牌提示",
+    "保留原能力边界、许可证和来源记录"
+  ]
+}

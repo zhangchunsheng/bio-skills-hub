@@ -1,0 +1,12 @@
+{
+  "scope": "experience",
+  "layer_name": "编辑经验规则（谨慎启用）",
+  "source": "编辑加工经验 / 广告法与保密要求",
+  "auto": false,
+  "note": "以下规则易误报，默认不自动扫描（auto=false）。如需启用，建议结合上下文人工判断；广告法类仅在广告/宣传语境、引文或事实性专名外判错。",
+  "rules": [
+    {"id": "EXP-AD", "category": "terminology", "severity": "info", "pattern": "国家级|世界级|最高级|唯一|最佳|第一品牌", "is_regex": false, "suggestion": "仅在广告/宣传语境判错；学术论文中「国家级科研项目」「国家级重点实验室」等客观表述可保留", "message": "广告法禁用词提示：核实是否出现在广告/宣传语境，客观事实性专名与引文可保留", "example": "国家级重点实验室", "counter_example": ""},
+    {"id": "EXP-SEC", "category": "terminology", "severity": "info", "pattern": "", "is_regex": false, "suggestion": "核对是否含涉密、未发表数据或患者隐私信息", "message": "保密与伦理提示：核对稿件是否含涉密内容、未发表数据或可识别的个体患者信息", "example": "", "counter_example": ""},
+    {"id": "EXP-POL", "category": "terminology", "severity": "info", "pattern": "", "is_regex": false, "suggestion": "核对地图、行政区划、机构归属表述的规范性", "message": "政治性表述提示：核对涉及领土、港澳台等表述是否符合规范", "example": "", "counter_example": ""}
+  ]
+}

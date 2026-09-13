@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">医学论文读图教练</title>
+  <desc id="desc">带有医学十字与趋势图的论文图标</desc>
+  <defs>
+    <linearGradient id="bg" x1="16" y1="12" x2="112" y2="116" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#0F766E"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="112" height="112" rx="24" fill="url(#bg)"/>
+  <path d="M33 25h46l17 17v61H33z" fill="#FFFFFF" opacity="0.96"/>
+  <path d="M79 25v18h17" fill="#BFDBFE"/>
+  <path d="M79 25v18h17" fill="none" stroke="#1D4ED8" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M46 82l12-13 10 8 15-20" fill="none" stroke="#0F766E" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="46" cy="82" r="4" fill="#0F766E"/>
+  <circle cx="58" cy="69" r="4" fill="#0F766E"/>
+  <circle cx="68" cy="77" r="4" fill="#0F766E"/>
+  <circle cx="83" cy="57" r="4" fill="#0F766E"/>
+  <path d="M52 42h7v-7h8v7h7v8h-7v7h-8v-7h-7z" fill="#DC2626"/>
+  <path d="M43 94h43" stroke="#93C5FD" stroke-width="4" stroke-linecap="round"/>
+</svg>

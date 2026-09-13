@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>医药行业晨报 · 学术会议版 · __REPORT_DATE_FULL__</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#fafafa;--card:#fff;--text:#1a1a1a;--text2:#666;--text3:#999;--border:#e8e8e8;--radius:12px;--radius-s:8px;
+--cat6:#D85A30;--cat6-bg:#FAECE7;--cat6-text:#993C1D;
+--cat7:#534AB7;--cat7-bg:#EEEDFE;--cat7-text:#3C3489;
+--cat8:#A32D2D;--cat8-bg:#FCEBEB;--cat8-text:#791F1F;
+--cat4:#185FA5;--cat4-bg:#E6F1FB;--cat4-text:#0C447C;
+--cat3:#3B6D11;--cat3-bg:#EAF3DE;--cat3-text:#27500A;
+--cat5:#0F6E56;--cat5-bg:#E1F5EE;--cat5-text:#085041;
+}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+/* Progress bar */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:9999;
+background:linear-gradient(90deg,#D85A30,#534AB7,#A32D2D,#185FA5,#3B6D11,#0F6E56);
+transition:width .1s linear}
+
+/* Hero */
+.hero{max-width:960px;margin:0 auto;padding:48px 24px 32px}
+.hero-date{font-size:13px;color:var(--text3);letter-spacing:.5px;margin-bottom:8px}
+.hero-title{font-size:28px;font-weight:700;letter-spacing:-.5px;margin-bottom:6px;
+background:linear-gradient(135deg,#D85A30 0%,#A32D2D 50%,#534AB7 100%);
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:14px;color:var(--text2);margin-bottom:28px}
+
+/* Stats grid */
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-bottom:8px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-s);padding:16px;text-align:center;transition:transform .2s,box-shadow .2s}
+.stat-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.stat-num{font-size:32px;font-weight:700;line-height:1;margin-bottom:6px}
+.stat-label{font-size:12px;color:var(--text2)}
+.stat-bar{height:3px;border-radius:2px;margin-top:8px;background:var(--border);overflow:hidden}
+.stat-bar-fill{height:100%;border-radius:2px;transition:width .6s ease}
+
+/* Total badge */
+.total-badge{display:inline-flex;align-items:center;gap:8px;background:#1a1a1a;color:#fff;padding:8px 20px;border-radius:20px;font-size:14px;font-weight:600;margin-bottom:20px}
+.total-badge .dot{width:8px;height:8px;border-radius:50%;background:#4CAF50;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* Nav */
+.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:960px;margin:0 auto;padding:10px 24px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-btn{flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:13px;color:var(--text2);cursor:pointer;transition:all .2s;white-space:nowrap;border:1px solid transparent}
+.nav-btn:hover{background:var(--border)}
+.nav-btn.active{color:#fff;font-weight:600}
+.nav-mobile{display:none}
+
+/* Section */
+.section{max-width:960px;margin:0 auto;padding:32px 24px 8px}
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--border)}
+.section-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0}
+.section-title{font-size:18px;font-weight:700}
+.section-count{font-size:12px;color:var(--text3);margin-left:auto;background:var(--border);padding:2px 10px;border-radius:10px}
+
+/* Cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;transition:transform .2s,box-shadow .2s,border-color .2s;opacity:0;transform:translateY(16px);will-change:transform,opacity}
+.card.visible{animation:cardIn .4s ease forwards}
+@keyframes cardIn{to{opacity:1;transform:translateY(0)}}
+.card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.1);border-color:var(--card-accent)}
+.card-top{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px}
+.card-num{font-size:12px;font-weight:700;color:var(--text3);flex-shrink:0;min-width:24px}
+.card-title{font-size:15px;font-weight:600;line-height:1.5;color:var(--text)}
+.card-title:hover{color:var(--card-accent)}
+.card-summary{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px}
+.card-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.card-tag{font-size:11px;padding:2px 8px;border-radius:4px;font-weight:500}
+.card-meta{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text3)}
+.card-source{font-weight:500}
+.card-dot{width:3px;height:3px;border-radius:50%;background:var(--text3)}
+.card-empty{text-align:center;padding:40px 20px;color:var(--text3);font-size:14px;grid-column:1/-1}
+
+/* Floating panel */
+.float-panel{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);z-index:90;
+background:#1a1a1a;border-radius:24px;padding:8px 12px;display:flex;gap:4px;
+box-shadow:0 8px 32px rgba(0,0,0,.25);transition:transform .3s ease;opacity:0}
+.float-panel.show{transform:translateX(-50%) translateY(0);opacity:1}
+.float-btn{padding:6px 12px;border-radius:16px;font-size:12px;color:rgba(255,255,255,.6);cursor:pointer;transition:all .2s;white-space:nowrap}
+.float-btn:hover{color:#fff;background:rgba(255,255,255,.15)}
+.float-btn.active{color:#fff;font-weight:600}
+
+/* Footer */
+.footer{max-width:960px;margin:0 auto;padding:40px 24px 60px;text-align:center}
+.footer-line{font-size:12px;color:var(--text3);margin-bottom:4px}
+.footer-warn{font-size:12px;color:#D85A30;margin-top:8px}
+
+/* Responsive */
+@media(max-width:768px){
+.hero{padding:32px 16px 24px}
+.hero-title{font-size:22px}
+.stats{grid-template-columns:repeat(2,1fr)}
+.nav-inner{display:none}
+.nav-mobile{display:block;position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-mobile-btn{width:100%;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;font-size:14px;font-weight:600;color:var(--text);cursor:pointer}
+.nav-mobile-btn svg{width:16px;height:16px;transition:transform .2s}
+.nav-mobile-btn.open svg{transform:rotate(180deg)}
+.nav-mobile-list{display:none;padding:8px 16px 12px}
+.nav-mobile-list.open{display:block}
+.nav-mobile-item{display:block;padding:8px 12px;border-radius:8px;font-size:13px;color:var(--text2);cursor:pointer}
+.nav-mobile-item:hover{background:var(--border)}
+.section{padding:24px 16px 8px}
+.cards{grid-template-columns:1fr}
+.card{padding:16px}
+.float-panel{display:none}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<div class="hero">
+<div class="hero-date">__REPORT_DATE_FULL__</div>
+<div class="hero-title">医药行业晨报 · 学术会议版</div>
+<div class="hero-sub">面向学术会议板块负责人的每日精选资讯</div>
+<div class="total-badge"><span class="dot"></span><span id="total-count">0</span> 条资讯</div>
+<div class="stats" id="stats-grid"></div>
+</div>
+
+<div class="nav" id="nav-desktop">
+<div class="nav-inner" id="nav-inner"></div>
+</div>
+<div class="nav-mobile" id="nav-mobile">
+<div class="nav-mobile-btn" id="nav-mobile-btn">
+<span id="nav-mobile-label">选择版块</span>
+<svg viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</div>
+<div class="nav-mobile-list" id="nav-mobile-list"></div>
+</div>
+
+<div id="sections"></div>
+
+<div class="float-panel" id="float-panel"></div>
+
+<div class="footer">
+<div class="footer-line">医药行业晨报 · 学术会议版 | 数据来源：公开网络搜索</div>
+<div class="footer-line">生成时间：__REPORT_DATE_FULL__ | 仅供内部参考</div>
+<div class="footer-warn" id="footer-warn" style="display:none">今日新闻较少，建议稍后更新</div>
+</div>
+
+<script>
+var SECTIONS=[
+{id:"cat6",name:"学术会议动态",short:"会议动态",color:"#D85A30",bg:"#FAECE7",text:"#993C1D"},
+{id:"cat7",name:"KOL动态追踪",short:"KOL追踪",color:"#534AB7",bg:"#EEEDFE",text:"#3C3489"},
+{id:"cat8",name:"竞品会议情报",short:"竞品情报",color:"#A32D2D",bg:"#FCEBEB",text:"#791F1F"},
+{id:"cat4",name:"重磅数据发布",short:"数据发布",color:"#185FA5",bg:"#E6F1FB",text:"#0C447C"},
+{id:"cat3",name:"政策与会议合规",short:"政策合规",color:"#3B6D11",bg:"#EAF3DE",text:"#27500A"},
+{id:"cat5",name:"数字化会议趋势",short:"数字化趋势",color:"#0F6E56",bg:"#E1F5EE",text:"#085041"}
+];
+
+// ===== REPORT_DATA START =====
+const REPORT_DATA = [
+// 示例数据 - 加载时替换为检索结果
+{title:"示例：ASCO 2026年会注册截止日期临近",url:"https://example.com",source:"示例来源",summary:"ASCO 2026年会早鸟注册将于6月25日截止，建议尽快完成注册。",timeDisplay:"2小时前",category:"cat6",tags:["ASCO","注册截止"]},
+{title:"示例：张某某教授当选CSCO新一届主委",url:"https://example.com",source:"示例来源",summary:"中国临床肿瘤学会宣布张某某教授当选新一届主委，任期三年。",timeDisplay:"3小时前",category:"cat7",tags:["CSCO","人事变更"]},
+{title:"示例：某竞品企业在ESMO发布III期数据",url:"https://example.com",source:"示例来源",summary:"A公司将在ESMO 2026年会上以LBA形式发布其PD-1抑制剂III期数据。",timeDisplay:"5小时前",category:"cat8",tags:["ESMO","竞品A公司","III期数据"]}
+];
+// ===== REPORT_DATA END =====
+
+var totalEl=document.getElementById('total-count');
+var statsGrid=document.getElementById('stats-grid');
+var navInner=document.getElementById('nav-inner');
+var navMobileList=document.getElementById('nav-mobile-list');
+var navMobileBtn=document.getElementById('nav-mobile-btn');
+var navMobileLabel=document.getElementById('nav-mobile-label');
+var sectionsEl=document.getElementById('sections');
+var floatPanel=document.getElementById('float-panel');
+var progressEl=document.getElementById('progress');
+var footerWarn=document.getElementById('footer-warn');
+
+var sectionData={};
+SECTIONS.forEach(function(s){sectionData[s.id]=[];});
+REPORT_DATA.forEach(function(item){
+if(sectionData[item.category]){sectionData[item.category].push(item);}
+});
+
+totalEl.textContent=REPORT_DATA.length;
+if(REPORT_DATA.length<15){footerWarn.style.display='block';}
+
+SECTIONS.forEach(function(s){
+var count=sectionData[s.id].length;
+var pct=REPORT_DATA.length>0?Math.round(count/REPORT_DATA.length*100):0;
+var card=document.createElement('div');
+card.className='stat-card';
+card.innerHTML='<div class="stat-num" style="color:'+s.color+'">'+count+'</div>'+
+'<div class="stat-label">'+s.short+'</div>'+
+'<div class="stat-bar"><div class="stat-bar-fill" style="width:0;background:'+s.color+'" data-w="'+pct+'"></div></div>';
+statsGrid.appendChild(card);
+
+var btn=document.createElement('div');
+btn.className='nav-btn';
+btn.setAttribute('data-cat',s.id);
+btn.textContent=s.name;
+btn.style.setProperty('--active-color',s.color);
+navInner.appendChild(btn);
+
+var mItem=document.createElement('div');
+mItem.className='nav-mobile-item';
+mItem.setAttribute('data-cat',s.id);
+mItem.textContent=s.name+' ('+count+')';
+navMobileList.appendChild(mItem);
+
+var sec=document.createElement('div');
+sec.className='section';
+sec.id='sec-'+s.id;
+sec.innerHTML='<div class="section-header">'+
+'<div class="section-icon" style="background:'+s.color+'">'+s.short.charAt(0)+'</div>'+
+'<div class="section-title">'+s.name+'</div>'+
+'<div class="section-count">'+count+' 条</div>'+
+'</div>';
+
+var cards=document.createElement('div');
+cards.className='cards';
+cards.id='cards-'+s.id;
+
+if(count===0){
+cards.innerHTML='<div class="card-empty">该版块今日暂无更新</div>';
+}else{
+sectionData[s.id].forEach(function(item,idx){
+var globalIdx=REPORT_DATA.indexOf(item)+1;
+var cardEl=document.createElement('div');
+cardEl.className='card';
+cardEl.style.setProperty('--card-accent',s.color);
+cardEl.style.animationDelay=(idx*0.03)+'s';
+
+var tagsHtml='';
+if(item.tags&&item.tags.length>0){
+tagsHtml='<div class="card-tags">';
+item.tags.forEach(function(tag){
+tagsHtml+='<span class="card-tag" style="background:'+s.bg+';color:'+s.text+'">'+tag+'</span>';
+});
+tagsHtml+='</div>';
+}
+
+cardEl.innerHTML='<div class="card-top">'+
+'<span class="card-num">#'+globalIdx+'</span>'+
+'<a class="card-title" href="'+item.url+'" target="_blank" rel="noopener noreferrer">'+item.title+'</a>'+
+'</div>'+
+'<p class="card-summary">'+item.summary+'</p>'+
+tagsHtml+
+'<div class="card-meta">'+
+'<span class="card-source">'+item.source+'</span>'+
+'<span class="card-dot"></span>'+
+'<span>'+item.timeDisplay+'</span>'+
+'</div>';
+cards.appendChild(cardEl);
+});
+}
+sec.appendChild(cards);
+sectionsEl.appendChild(sec);
+
+var fBtn=document.createElement('div');
+fBtn.className='float-btn';
+fBtn.setAttribute('data-cat',s.id);
+fBtn.textContent=s.short;
+floatPanel.appendChild(fBtn);
+});
+
+// Animate stat bars
+setTimeout(function(){
+var bars=document.querySelectorAll('.stat-bar-fill');
+bars.forEach(function(el){
+el.style.width=el.getAttribute('data-w')+'%';
+});
+},300);
+
+// Scroll observer for card animation
+var cardObserver=new IntersectionObserver(function(entries){
+entries.forEach(function(e){
+if(e.isIntersecting){
+e.target.classList.add('visible');
+cardObserver.unobserve(e.target);
+}
+});
+},{threshold:0.1});
+document.querySelectorAll('.card').forEach(function(c){cardObserver.observe(c);});
+
+// Nav active state
+var currentCat=null;
+var navBtns=document.querySelectorAll('.nav-btn');
+var navMobileItems=document.querySelectorAll('.nav-mobile-item');
+var floatBtns=document.querySelectorAll('.float-btn');
+
+function setActive(catId){
+currentCat=catId;
+navBtns.forEach(function(b){
+var match=b.getAttribute('data-cat')===catId;
+b.classList.toggle('active',match);
+if(match){b.style.background=b.style.getPropertyValue('--active-color');b.style.borderColor=b.style.getPropertyValue('--active-color');}
+else{b.style.background='';b.style.borderColor='';}
+});
+navMobileItems.forEach(function(b){
+b.classList.toggle('active',b.getAttribute('data-cat')===catId);
+if(b.getAttribute('data-cat')===catId){
+navMobileLabel.textContent=b.textContent;
+}
+});
+floatBtns.forEach(function(b){
+var match=b.getAttribute('data-cat')===catId;
+b.classList.toggle('active',match);
+if(match){b.style.background='rgba(255,255,255,.2)';}
+else{b.style.background='';}
+});
+}
+
+function getActiveCat(){
+var scrollY=window.scrollY+120;
+var active=SECTIONS[0].id;
+SECTIONS.forEach(function(s){
+var el=document.getElementById('sec-'+s.id);
+if(el&&el.offsetTop<=scrollY){active=s.id;}
+});
+return active;
+}
+
+var ticking=false;
+window.addEventListener('scroll',function(){
+if(!ticking){
+requestAnimationFrame(function(){
+var scrollPercent=(window.scrollY/(document.documentElement.scrollHeight-window.innerHeight))*100;
+progressEl.style.width=Math.min(scrollPercent,100)+'%';
+var cat=getActiveCat();
+if(cat!==currentCat){setActive(cat);}
+floatPanel.classList.toggle('show',window.scrollY>500);
+ticking=false;
+});
+ticking=true;
+}
+});
+
+// Nav click handlers
+function scrollToCat(catId){
+var el=document.getElementById('sec-'+catId);
+if(el){window.scrollTo({top:el.offsetTop-60,behavior:'smooth'});}
+setActive(catId);
+}
+navBtns.forEach(function(b){
+b.addEventListener('click',function(){scrollToCat(b.getAttribute('data-cat'));});
+});
+navMobileItems.forEach(function(b){
+b.addEventListener('click',function(){
+scrollToCat(b.getAttribute('data-cat'));
+navMobileList.classList.remove('open');
+navMobileBtn.classList.remove('open');
+});
+});
+floatBtns.forEach(function(b){
+b.addEventListener('click',function(){scrollToCat(b.getAttribute('data-cat'));});
+});
+
+// Mobile nav toggle
+navMobileBtn.addEventListener('click',function(){
+navMobileList.classList.toggle('open');
+navMobileBtn.classList.toggle('open');
+});
+document.addEventListener('click',function(e){
+if(!navMobile.contains(e.target)){
+navMobileList.classList.remove('open');
+navMobileBtn.classList.remove('open');
+}
+});
+
+// Init
+setActive(SECTIONS[0].id);
+</script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+interface:
+  display_name: "医疗器械质量活动效果复盘"
+  short_description: "复盘营销/促销活动的目标、投入和结果"
+  default_prompt: "Use $medical-device-campaign-performance-review for paid 医疗器械质量 活动效果复盘."

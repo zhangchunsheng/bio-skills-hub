@@ -1,0 +1,19 @@
+name: clinical-decision-making
+version: 1.0.0
+description: 临床决策与循证医学子系统——PICO问题构建、证据检索与GRADE分级、NNT/NNH决策分析、不确定性管理。让每一次临床决策有据可循、有度可量。
+triggers:
+  - "临床决策"
+  - "该不该做这个检查"
+  - "该不该用这个药"
+  - "该不该转诊"
+  - "循证医学"
+  - "证据强度"
+  - "GRADE"
+category: healthcare
+requires_api_key: false
+author: 老陈（基层医务管理）
+tags:
+  - 循证医学
+  - 临床决策
+  - GRADE
+  - NNT

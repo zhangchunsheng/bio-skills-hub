@@ -1,0 +1,10 @@
+{
+  "keywords": [
+    {"layer": "L1", "keyword": "血糖异常", "category": "检查指标", "weight": 5, "status": "启用"},
+    {"layer": "L1", "keyword": "糖化血红蛋白", "category": "检查指标", "weight": 4, "status": "启用"},
+    {"layer": "L2", "keyword": "体检后", "category": "就诊阶段", "weight": 5, "status": "启用"},
+    {"layer": "L2", "keyword": "复诊前", "category": "就诊阶段", "weight": 4, "status": "启用"},
+    {"layer": "L3", "keyword": "指标解读", "category": "问题角度", "weight": 5, "status": "启用"},
+    {"layer": "L3", "keyword": "日常注意", "category": "问题角度", "weight": 4, "status": "启用"}
+  ]
+}

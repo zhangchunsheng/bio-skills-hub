@@ -1,0 +1,26 @@
+{
+  "ownerId": "creation-dna-publisher",
+  "slug": "creation-dna",
+  "version": "1.1.0",
+  "publishedAt": 1755609600000,
+  "name": "Creation DNA - 创作交付进化引擎",
+  "description": "AI 内容创作交付专用的审美反馈与风格进化技能。捕获用户对文案、图片、视频、设计等创作物的修改意见与审美偏好，沉淀为可复用的创作 DNA 画像，下次同类任务自动适配，从源头减少重复返工。触发条件：用户对交付物提出修改、否定、表扬、同一交付物返工2次以上、用户明确表达风格或审美偏好、用户要求记住这个风格。禁用条件：纯事实性纠错、一次性微调指令、假设性讨论、用户明确拒绝记录。",
+  "author": "creation-dna",
+  "license": "MIT",
+  "tags": [
+    "creative-quality",
+    "style-learning",
+    "delivery-loop",
+    "aesthetic-preference",
+    "rework-reduction",
+    "content-creation"
+  ],
+  "category": "productivity",
+  "type": "prompt",
+  "riskLevel": "low",
+  "compatibility": {
+    "os": ["linux", "darwin", "win32"],
+    "requiresBins": []
+  },
+  "submitDate": 1755609600000
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "jianshi-skill-origin/v1",
+  "sourceRepo": "nexu-io/open-design",
+  "sourcePath": "skills/ai-music-album/SKILL.md",
+  "sourceCommit": "3f670090d78cefe37c64ec7f6dc34dbc382e37bc",
+  "sourceUrl": "https://github.com/nexu-io/open-design/blob/3f670090d78cefe37c64ec7f6dc34dbc382e37bc/skills/ai-music-album/SKILL.md",
+  "license": "Apache-2.0",
+  "licenseFile": "LICENSE.md",
+  "sourceBodySha256": "ab54126f3461bbfa6fc7270e8439a0953047813bdc6932ffbc4b0352eab2627b",
+  "modifications": [
+    "使用新的语义化英文 slug 形成独立发布对象",
+    "增加中国业务场景中文展示名与摘要",
+    "增加 agents/openai.yaml",
+    "增加每次回复帮助标准块",
+    "保留原能力边界、许可证和来源记录"
+  ]
+}

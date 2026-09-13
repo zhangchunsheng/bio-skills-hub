@@ -1,0 +1,120 @@
+{# 极简风 · 卡片体（不含 <style>，供单卡与汇总库共用） #}
+<div class="wrap" style="--card-accent:{{ c.primary }}">
+
+  <header class="masthead">
+    <p class="site">{{ c.site or c.source_host }}</p>
+    <h1>{{ c.title }}</h1>
+    {% if c.dek %}<p class="dek">{{ c.dek }}</p>{% endif %}
+    <div class="meta">
+      <span>{{ c.style_name }}</span>
+      <span>置信度 {{ c.confidence }}</span>
+      {% if c.date %}<span>{{ c.date }}</span>{% endif %}
+      {% if c.author %}<span>{{ c.author }}</span>{% endif %}
+      <span>{{ c.extracted_at }}</span>
+    </div>
+    {% if c.url %}<div class="meta" style="margin-top:8px"><a class="src" href="{{ c.url }}">{{ c.url }}</a></div>{% endif %}
+  </header>
+  <hr class="rule">
+
+  <section>
+    <p class="label">配色 · Palette</p>
+    <div class="swatches">
+      {% for s in c.swatches %}
+      <div class="sw">
+        <div class="chip" style="background:{{ s.hex }}"></div>
+        <div class="info">
+          <div class="role">{{ s.role }}</div>
+          <div class="hex">{{ s.hex }}</div>
+          {% if s.usage %}<div class="usage">{{ s.usage }}</div>{% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <p class="note">正文/底色对比度 {{ c.contrast }}:1　·　页面实际在用色 {{ c.palette_size }} 个（彩色 {{ c.vivid_count }} 个）</p>
+  </section>
+
+  <section>
+    <p class="label">字体 · Typography</p>
+    <div class="type-row">
+      <div class="type-col">
+        <div class="fam"><span class="kind">标题字体</span><br>{{ c.heading_stack }}</div>
+        <p class="specimen" style="font-family:{{ c.heading_stack }}">风格 DNA 采集</p>
+      </div>
+      <div class="type-col">
+        <div class="fam"><span class="kind">正文字体</span><br>{{ c.body_stack }}</div>
+        <p class="specimen" style="font-family:{{ c.body_stack }};font-size:18px">The quick brown fox 永恒的当下</p>
+      </div>
+    </div>
+    <p class="note">族系：标题 {{ c.heading_char }} / 正文 {{ c.body_char }}　·　字重档位 {{ c.weight_count }} 个　·　正文 {{ c.body_size }}px -> 最大 {{ c.max_size }}px（比 {{ c.type_ratio }}）</p>
+  </section>
+
+  <section>
+    <p class="label">排版节奏 · Rhythm</p>
+    <div class="params">
+      <div class="param"><div class="k">基准单位</div><div class="v">{{ c.base_unit }}<small>px</small></div></div>
+      <div class="param"><div class="k">圆角</div><div class="v">{{ c.radius_style }} <small>{{ c.max_radius }}px</small></div></div>
+      <div class="param"><div class="k">容器宽</div><div class="v">{{ c.container_width }}<small>px</small></div></div>
+      <div class="param"><div class="k">留白密度</div><div class="v">{{ c.density }}</div></div>
+      <div class="param"><div class="k">平均间距</div><div class="v">{{ c.avg_spacing }}<small>px</small></div></div>
+      <div class="param"><div class="k">字距调整</div><div class="v">{{ c.letter_spacing }}<small>px</small></div></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="label">风格归类 · Classification</p>
+    <div class="scores">
+      {% for s in c.scores %}
+      <div class="score {{ 'win' if s.win else '' }}">
+        <span>{{ s.name }}</span>
+        <span class="bar"><i style="width:{{ s.pct }}%"></i></span>
+        <span class="pct">{{ s.pct }}%</span>
+      </div>
+      {% endfor %}
+    </div>
+    <p class="note">判定依据：{{ c.evidence }}　·　样式信号 {{ c.signal_strength }}
+      {%- if c.template_ready %}　·　已有成品模板{% else %}　·　该风格模板待建{% endif %}</p>
+    {% for n in c.notes %}<p class="note">{{ n }}</p>{% endfor %}
+  </section>
+
+  {% if c.audit_checks %}
+  <section>
+    <hr class="rule">
+    <p class="label">设计体检 · Audit {{ c.audit.grade }}</p>
+    <ul class="checks">
+      {% for ch in c.audit_checks %}
+      <li class="lv-{{ ch.level }}">
+        <span class="dot"></span>
+        <span class="ct"><b>{{ ch.title }}</b>{% if ch.detail %} — {{ ch.detail }}{% endif %}
+          {% if ch.source and ch.source != '—' %}<em>{{ ch.source }}</em>{% endif %}</span>
+      </li>
+      {% endfor %}
+    </ul>
+    {% if c.audit.note %}<p class="note">{{ c.audit.note }}</p>{% endif %}
+  </section>
+  {% endif %}
+
+  {% if c.lead or c.outline or c.quotes or c.numbers %}
+  <section>
+    <p class="label">内容 · Content</p>
+    {% if c.lead %}<p class="lead">{{ c.lead }}</p>{% endif %}
+    {% for q in c.quotes %}<blockquote>{{ q }}</blockquote>{% endfor %}
+    {% if c.outline %}
+    <ul class="outline">
+      {% for o in c.outline %}<li><span>{{ loop.index }}</span>{{ o }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+    {% if c.numbers %}
+    <div class="nums">
+      {% for n in c.numbers %}<span class="num">{{ n }}</span>{% endfor %}
+    </div>
+    {% endif %}
+    <p class="note">共 {{ c.paragraph_count }} 段 / 约 {{ c.word_count }} 字　·　采集自 {{ c.extracted_from }}</p>
+  </section>
+  {% endif %}
+
+  <footer>
+    <hr class="rule" style="margin-bottom:16px">
+    灵感卡 · 极简风模板 v1.0　·　由 web-inspiration-vault 结构化提取（配色 / 字体 / 排版节奏）
+  </footer>
+
+</div>

@@ -1,0 +1,101 @@
+{
+  "id": "web-inspiration-vault",
+  "name": "web-inspiration-vault",
+  "name_en": "Web Inspiration Vault",
+  "version": "1.4.0",
+  "status": "mvp-working",
+  "agent_created": true,
+  "created_at": "2026-09-10",
+  "one_liner": "把收藏的网页拆出视觉 DNA（配色/字体/排版节奏）+ 文字内容，套进预设风格模板，生成统一风格的灵感卡片与单文件灵感库。",
+  "triggers": [
+    "网页灵感库",
+    "收藏页转HTML",
+    "提取网页配色",
+    "提取网页字体",
+    "视觉DNA",
+    "网页风格模板",
+    "灵感卡",
+    "收藏夹整理成作品集",
+    "把文章存成卡片",
+    "灵感归档"
+  ],
+  "entrypoints": {
+    "fetch": "scripts/fetch_page.py",
+    "extract": "scripts/extract_dna.py",
+    "render": "scripts/render_card.py",
+    "vault": "scripts/build_vault.py",
+    "test": "tests/test_extract_dna.py"
+  },
+  "dependencies": {
+    "python": [
+      "requests",
+      "beautifulsoup4",
+      "lxml",
+      "jinja2"
+    ],
+    "headless_browser": false,
+    "note": "无需 Playwright；字段按 computed style 语义命名，随时可切换到真实渲染数据源"
+  },
+  "styles": {
+    "minimalist": "ready",
+    "magazine": "ready",
+    "tech": "ready",
+    "retro": "ready"
+  },
+  "skeletons": {
+    "inspiration_card": "ready",
+    "onepager_report": "planned",
+    "project_showcase": "planned"
+  },
+  "verified_on": [
+    "rand.org/topics/featured/artificial-intelligence (magazine, content_hub)",
+    "ruanyifeng.com/blog weekly-issue-305 (minimalist)",
+    "tailwindcss.com/blog (tech)",
+    "stripe.com (tech)",
+    "leejames? leerob.com (tech)",
+    "spacejam.com/1996 (retro)",
+    "stephango.com (magazine)",
+    "craigmod.com (tech)"
+  ],
+  "test_status": "14/14 passing",
+  "known_limits": [
+    "远程字体只记录字体栈不内嵌字体文件",
+    "风格边界模糊站点分值接近，需看分布而非只看冠军",
+    "audit 读的是 CSS 声明而非页面实际使用；设计系统完备的站点告警偏保守",
+    "光学对齐/基线对齐/留白心理感受需渲染才能判断，静态解析无法覆盖",
+    "JS 渲染的 computed style 暂不可得（接入 Playwright 的唯一动机）"
+  ],
+  "docs": {
+    "book_list": "docs/book_list.md",
+    "design_criteria": "docs/design_criteria.md"
+  },
+  "related_projects": [
+    "SingleFile (输入端，用户侧浏览器插件)",
+    "Readability.js / Obsidian Web Clipper / ArchiveBox (对照方案，非依赖)"
+  ],
+  "new_in_1_2": [
+    "design audit（排版/配色体检）：把 Refactoring UI + Bringhurst + WCAG 判据变成可计算检查",
+    "card grid extraction（内容枢纽页的卡片原子抽取）+ page_type 判定",
+    "declared design tokens（站点自报 CSS 变量）与统计推断分离",
+    "trusted_char()：品牌自定义字体的回退链不再误导族系判定",
+    "多风格汇总时的 CSS 作用域隔离（scope_css）"
+  ],
+  "slug": "web-inspiration-vault",
+  "display_name": "网页灵感风格模板库",
+  "display_name_en": "Web Inspiration Vault",
+  "author": "七仔的AI工具箱",
+  "category": "design",
+  "description": "把收藏的网页拆出视觉 DNA（配色/字体/排版节奏）与文字内容，自动归类到极简风/杂志风/科技风/复古风模板，产出统一风格的灵感卡、单文件灵感库与可复用的风格档案（Markdown）。",
+  "style_names_zh": {
+    "minimalist": "极简风",
+    "magazine": "杂志风",
+    "tech": "科技赛博风",
+    "retro": "复古 Vintage 风"
+  },
+  "new_in_1_4": [
+    "科技赛博风模板（网格底纹 + 霓虹发光线 + 等宽终端标签 + 方形角标）",
+    "复古 Vintage 风模板（纸感底 + 双线分隔 + 菱形装饰 + 点线引导 + 旧式数字）",
+    "四风格全部就绪，灵感库不再有兜底渲染"
+  ],
+  "styles_note": "赛博感用网格纹理与单色霓虹表达，不用大面积深色底（交付物可读性红线）；暗色版做法写在 styles/tech/card.css.txt 末尾注释。"
+}

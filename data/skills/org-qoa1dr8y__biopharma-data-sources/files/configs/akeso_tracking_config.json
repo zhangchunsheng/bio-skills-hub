@@ -1,0 +1,18 @@
+{
+  "company": "康方生物",
+  "company_en": "Akeso",
+  "cde_company": "康方生物",
+  "ticker": "09926.HK",
+  "description": "港股创新药，全球首创双抗平台。核心资产依沃西单抗（PD-1/VEGF双抗）是全球首个在III期头对头战胜K药（帕博利珠单抗）的药物，属'临床数据读出型'标的——每次HARMONi系列数据披露都大幅驱动股价（+15.8%~+37.5%）。是'14天前哨'工具最有效的应用对象。",
+  "updated": "2026-08-20",
+  "pipeline_molecules": [
+    {"name_cn": "依沃西单抗", "name_en": "ivonescimab", "code": "AK112/SMT112", "brand_cn": "依达方", "brand_eu": "", "type": "创新药", "note": "PD-1/VEGF双抗，全球首个头对头战胜K药，HARMONi-2/HARMONi-3/HARMONi-7系列III期"},
+    {"name_cn": "卡度尼利单抗", "name_en": "cadonilimab", "code": "AK104", "brand_cn": "开坦尼", "brand_eu": "", "type": "创新药", "note": "PD-1/CTLA-4双抗，全球首个获批肿瘤免疫双抗，2022年获批"},
+    {"name_cn": "依若奇单抗", "name_en": "iloskibart", "code": "AK101", "brand_cn": "爱达罗", "brand_eu": "", "type": "创新药", "note": "IL-12/IL-23双靶向单抗，银屑病，2025年获批"},
+    {"name_cn": "伊努西单抗", "name_en": "ebronucimab", "code": "AK102", "brand_cn": "伊喜宁", "brand_eu": "", "type": "创新药", "note": "PCSK9，高胆固醇血症，2024年获批"}
+  ],
+  "bd_partners": [
+    {"name_cn": "Summit Therapeutics", "name_en": "Summit", "ticker": "SMMT", "region": "全球（除中国）", "deal": "依沃西单抗全球权益，美股SMMT是股价放大器（HARMONi数据披露时SMMT同步暴涨272%）"}
+  ],
+  "watch_keywords": ["ivonescimab", "cadonilimab", "AK112", "AK104", "HARMONi", "依沃西", "卡度尼利", "依达方", "开坦尼"]
+}

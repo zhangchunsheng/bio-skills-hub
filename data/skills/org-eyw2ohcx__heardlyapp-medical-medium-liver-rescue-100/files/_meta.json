@@ -1,0 +1,47 @@
+{
+  "name": "medical-medium-liver-rescue",
+  "version": "1.0.0",
+  "description": "Anthony William's 'Medical Medium Liver Rescue: Answers to Eczema, Psoriasis, Diabetes, Strep, Acne, Gout, Bloating, Gallstones, Adrenal Stress, Fatigue, Fatty Liver, Weight Issues, SIBO & Autoimmune Disease' — the definitive guide to liver health from the Medical Medium. Covers the liver's true function, why modern life overburdens it, and the complete protocol for restoring liver function through specific foods, supplements, and the 3:6:9 cleanse.",
+  "publisher": "heardlyapp",
+  "license": "MIT",
+  "homepage": "https://clawhub.ai/heardlyapp/medical-medium-liver-rescue",
+  "useCase": "Understanding liver function, healing chronic conditions through liver support, learning the 3:6:9 cleanse, identifying liver troublemakers, and restoring overall health.",
+  "knownRisks": [
+    "Not a substitute for medical advice or treatment",
+    "Some claims are not supported by mainstream medical research",
+    "Protocols may be intensive and require significant lifestyle changes",
+    "Always consult a doctor before starting any new health regimen",
+    "The 3:6:9 cleanse is a significant dietary change"
+  ],
+  "tags": [
+    "medical-medium",
+    "liver",
+    "detox",
+    "celery-juice",
+    "chronic-illness",
+    "autoimmune",
+    "health",
+    "nutrition",
+    "cleanse",
+    "holistic-health",
+    "healing",
+    "gut-health",
+    "liver-rescue",
+    "anthony-william"
+  ],
+  "openclaw": {
+    "emoji": "🍃",
+    "category": "health"
+  },
+  "owner": "heardlyapp",
+  "slug": "medical-medium-liver-rescue",
+  "displayName": "Medical Medium Liver Rescue",
+  "latest": {
+    "version": "1.0.0",
+    "publishedAt": 1781001651416,
+    "commit": null
+  },
+  "history": [],
+  "updatedAt": "2026-06-09T10:40:51.416Z",
+  "createdAt": "2026-06-09T10:40:51.416Z"
+}

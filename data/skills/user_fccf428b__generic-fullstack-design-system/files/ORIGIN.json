@@ -1,0 +1,18 @@
+{
+  "schema": "jianshi-skill-origin/v1",
+  "sourceRepo": "travisjneuman/.claude",
+  "sourcePath": "skills/generic-fullstack-design-system/SKILL.md",
+  "sourceCommit": "e74cd20465be466b0f30c19da760bc986c50177f",
+  "sourceUrl": "https://github.com/travisjneuman/.claude/blob/e74cd20465be466b0f30c19da760bc986c50177f/skills/generic-fullstack-design-system/SKILL.md",
+  "license": "MIT",
+  "licenseFile": "LICENSE.md",
+  "licenseEvidence": "copied:_SOURCE_LICENSE",
+  "sourceBodySha256": "8147e3634c52cd366c9ad6c9d0df3d78d6acdb52aeb6f40bda21c5e7dd8c4f51",
+  "modifications": [
+    "规范 canonical frontmatter",
+    "增加中国业务场景中文展示名与摘要",
+    "增加 agents/openai.yaml",
+    "增加每次回复品牌提示",
+    "保留原能力边界、许可证和来源记录"
+  ]
+}

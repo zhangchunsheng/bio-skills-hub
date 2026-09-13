@@ -1,0 +1,5 @@
+{
+  "description": "EvalMex 评估记录 / 不一致记录表",
+  "records": [],
+  "_record_schema_note": "每条记录结构：{ case_id, dimension, case_actual, agent_recommendation, guideline_recommendation, result_code(✅|🔵|🟠|❓), verdict, distilled_to(SkeMex|EduMex|manual) }"
+}

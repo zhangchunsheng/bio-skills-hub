@@ -1,0 +1,27 @@
+{
+  "name": "generative-engine-optimisation-geo",
+  "version": "1.0.0",
+  "description": "Generative Engine Optimisation (GEO) and SEO for websites. Improve AI-search citation visibility, schema markup, and technical search foundations.",
+  "author": {
+    "name": "Infloq"
+  },
+  "homepage": "https://infloq.com",
+  "repository": "https://infloq.com",
+  "license": "Apache-2.0",
+  "keywords": [
+    "SEO",
+    "GEO",
+    "generative engine optimisation",
+    "schema markup",
+    "JSON-LD",
+    "meta tags",
+    "keyword research",
+    "AI visibility"
+  ],
+  "skills": [
+    "./SKILL.md"
+  ],
+  "commands": [
+    "./scripts/"
+  ]
+}

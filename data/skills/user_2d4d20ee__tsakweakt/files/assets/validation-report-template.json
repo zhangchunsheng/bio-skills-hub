@@ -1,0 +1,15 @@
+{
+  "valid": false,
+  "status": "FAIL",
+  "validation_result": "完整性校验不通过",
+  "branch": "M",
+  "rule_set": "protocol-completeness-v1",
+  "protocol_artifact_id": null,
+  "present_items": [],
+  "missing_items": [],
+  "warnings": [],
+  "next_node": "0.1",
+  "next_task": "RETURN_FOR_REVISION",
+  "popup_required": true,
+  "message": "方案不完整，缺少：[缺失项]"
+}

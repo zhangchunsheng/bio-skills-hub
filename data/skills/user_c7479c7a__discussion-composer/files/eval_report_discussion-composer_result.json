@@ -1,0 +1,324 @@
+{
+  "meta": {
+    "skill_name": "discussion-composer",
+    "evaluated_on": "2026-03-23",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Academic Writing",
+    "execution_mode": "A",
+    "complexity": "Moderate",
+    "n_inputs": 5
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": null
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": null
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": null
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No executable code generated; Mode A writing skill"
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 91,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": null
+      },
+      "reliability": {
+        "score": 10,
+        "max": 12,
+        "note": "Citation-placeholder rule works well but one edge case slipped in Variant B test"
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": null
+      },
+      "agent_usability": {
+        "score": 15,
+        "max": 16,
+        "note": null
+      },
+      "human_usability": {
+        "score": 8,
+        "max": 8,
+        "note": null
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": null
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": null
+      },
+      "agent_specific": {
+        "score": 16,
+        "max": 20,
+        "note": null
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 87.2,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 24,
+      "total": 25
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Canonical input for discussion-section-architect",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 36,
+        "specialized": 53,
+        "total": 89,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core output requirement 1 for canonical input satisfied",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core output requirement 2 for canonical input satisfied",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core output requirement 3 for canonical input satisfied",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core output requirement 4 for canonical input satisfied",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core output requirement 5 for canonical input satisfied",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Variant A input for discussion-section-architect",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 35,
+        "specialized": 53,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core output requirement 1 for variant a input satisfied",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core output requirement 2 for variant a input satisfied",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core output requirement 3 for variant a input satisfied",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core output requirement 4 for variant a input satisfied",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core output requirement 5 for variant a input satisfied",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "Variant B input for discussion-section-architect",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core output requirement 1 for variant b input satisfied",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core output requirement 2 for variant b input satisfied",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core output requirement 3 for variant b input satisfied",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core output requirement 4 for variant b input satisfied",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core output requirement 5 for variant b input satisfied",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "Edge input for discussion-section-architect",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 34,
+        "specialized": 52,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core output requirement 1 for edge input satisfied",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core output requirement 2 for edge input satisfied",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core output requirement 3 for edge input satisfied",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core output requirement 4 for edge input satisfied",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core output requirement 5 for edge input satisfied",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Stress input for discussion-section-architect",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core output requirement 1 for stress input satisfied",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core output requirement 2 for stress input satisfied",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core output requirement 3 for stress input satisfied",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core output requirement 4 for stress input satisfied",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Core output requirement 5 for stress input satisfied",
+            "result": "FAIL",
+            "note": "Minor deviation observed"
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 36.4,
+    "dynamic_weighted": 52.3,
+    "score": 89,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Six-part structure (opening/interpretation/literature/implications/limitations/conclusion) is methodologically sound and complete",
+    "Citation placeholder convention prevents fabrication while preserving discussion flow",
+    "Draft→Revise checklist prevents common Discussion errors including new-data introduction",
+    "Hard rule prohibiting clinical recommendations beyond evidence level is rigorously enforced"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Citation placeholder not uniformly applied in literature comparison",
+      "observed_in": [
+        3
+      ],
+      "problem": "When a user does not provide specific prior studies, occasional outputs referenced specific studies by implication without a clear placeholder label.",
+      "root_cause": "The citation placeholder rule exists but applies primarily to explicit citation requests; implicit references may slip through.",
+      "fix": "Strengthen the citation rule: any named author, study, or landmark paper not provided by the user must use the explicit placeholder format [CITE: description] regardless of how it is introduced."
+    }
+  ]
+}

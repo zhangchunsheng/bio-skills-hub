@@ -1,0 +1,8 @@
+{
+  "name": "clinical-trial-protocol",
+  "version": "1.2.0",
+  "description": "临床研究方案(IIT)智能设计技能 - docx 生成脚本依赖",
+  "dependencies": {
+    "docx": "^8.5.0"
+  }
+}

@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PharmaceuticalCareTemplate version="1.0" generated_at="2026-07-29 10:00:00">
+  <!--药学监护路径模板 - 通用模板（含三阶段时序：院前/院中/院后）-->
+  <TemplateInfo>
+    <Name>{疾病名称}药学监护路径</Name>
+    <Code>{DISEASE_CODE}</Code>
+    <DRGCode>{DRG_CODE}</DRGCode>
+    <DRGName>{DRG_NAME}</DRGName>
+    <Description>适用于{疾病名称}患者的标准化药学监护路径，包含院前评估、住院治疗全程药学监护、出院后随访计划。</Description>
+    <EstimatedDays>{ESTIMATED_DAYS}</EstimatedDays>
+    <CourseType>{standard | long_term}</CourseType>
+    <IsActive>1</IsActive>
+    <GuidelineSources>
+      <Guideline name="{指南名称1}" organization="{发布机构1}" year="{年份1}" evidence_level="{证据等级1}" />
+      <Guideline name="{指南名称2}" organization="{发布机构2}" year="{年份2}" evidence_level="{证据等级2}" />
+      <!-- 多指南时逐一列出，单指南时仅列一条 -->
+    </GuidelineSources>
+  </TemplateInfo>
+
+  <DrugTreatments>
+    <!--标准药物治疗方案（含推荐等级样式化标签）-->
+    <!--院前阶段用药-->
+    <Drug>
+      <Phase>院前</Phase>
+      <DayRange>Pre-D7~D0</DayRange>
+      <DrugName>{药品通用名}</DrugName>
+      <DrugNameEN>{English INN}</DrugNameEN>
+      <Specification>{剂型规格}</Specification>
+      <Dosage>{单次剂量}</Dosage>
+      <Frequency>{频次}</Frequency>
+      <Route>{给药途径}</Route>
+      <Indication>{使用原因}</Indication>
+      <Notes>{注意事项}</Notes>
+      <Priority>{优先级数字}</Priority>
+      <RecommendLevel style="color:#fff;background:#e74c3c;padding:2px 12px;border-radius:4px;display:inline-block;font-weight:600;font-size:12px;margin:0 2px;">一线用药</RecommendLevel>
+      <GuidelineSource>{来源指南标注}</GuidelineSource>
+    </Drug>
+    <!--院中阶段用药-->
+    <Drug>
+      <Phase>治疗初期</Phase>
+      <DayRange>D1-D3</DayRange>
+      <DrugName>{药品通用名}</DrugName>
+      <DrugNameEN>{English INN}</DrugNameEN>
+      <Specification>{剂型规格}</Specification>
+      <Dosage>{单次剂量}</Dosage>
+      <Frequency>{频次}</Frequency>
+      <Route>{给药途径}</Route>
+      <Indication>{使用原因}</Indication>
+      <Notes>{注意事项}</Notes>
+      <Priority>1</Priority>
+      <RecommendLevel style="color:#fff;background:#e74c3c;padding:2px 12px;border-radius:4px;display:inline-block;font-weight:600;font-size:12px;margin:0 2px;">一线用药</RecommendLevel>
+      <GuidelineSource>{来源指南标注}</GuidelineSource>
+    </Drug>
+    <Drug>
+      <Phase>巩固期</Phase>
+      <DayRange>D4-D7</DayRange>
+      <DrugName>{药品通用名}</DrugName>
+      <DrugNameEN>{English INN}</DrugNameEN>
+      <Specification>{剂型规格}</Specification>
+      <Dosage>{单次剂量}</Dosage>
+      <Frequency>{频次}</Frequency>
+      <Route>{给药途径}</Route>
+      <Indication>{使用原因}</Indication>
+      <Notes>{注意事项}</Notes>
+      <Priority>2</Priority>
+      <RecommendLevel style="color:#fff;background:#3498db;padding:2px 12px;border-radius:4px;display:inline-block;font-weight:600;font-size:12px;margin:0 2px;">二线用药</RecommendLevel>
+      <GuidelineSource>{来源指南标注}</GuidelineSource>
+    </Drug>
+    <!--院后随访阶段用药-->
+    <Drug>
+      <Phase>院后随访</Phase>
+      <DayRange>Post-D7~D90</DayRange>
+      <DrugName>{药品通用名}</DrugName>
+      <DrugNameEN>{English INN}</DrugNameEN>
+      <Specification>{剂型规格}</Specification>
+      <Dosage>{单次剂量}</Dosage>
+      <Frequency>{频次}</Frequency>
+      <Route>{给药途径}</Route>
+      <Indication>{使用原因}</Indication>
+      <Notes>{注意事项}</Notes>
+      <Priority>1</Priority>
+      <RecommendLevel style="color:#fff;background:#e74c3c;padding:2px 12px;border-radius:4px;display:inline-block;font-weight:600;font-size:12px;margin:0 2px;">一线用药</RecommendLevel>
+      <GuidelineSource>{来源指南标注}</GuidelineSource>
+    </Drug>
+  </DrugTreatments>
+
+  <LabTests>
+    <!--必需的检验监测项目（含监护优先级样式化标签）-->
+    <LabTest>
+      <DayRange>D1, D3, D7</DayRange>
+      <TestName>{检验项目名称}</TestName>
+      <Purpose>{监测目的}</Purpose>
+      <Frequency>{监测频次}</Frequency>
+      <Notes>{注意事项}</Notes>
+      <TargetRange>{目标范围}</TargetRange>
+      <ActionThreshold>{异常处理阈值}</ActionThreshold>
+      <MonitoringPriority style="color:#fff;background:#e74c3c;padding:2px 10px;border-radius:9999px;display:inline-block;font-weight:600;font-size:12px;">高</MonitoringPriority>
+    </LabTest>
+    <LabTest>
+      <DayRange>D1, D3, D5</DayRange>
+      <TestName>{检验项目名称}</TestName>
+      <Purpose>{监测目的}</Purpose>
+      <Frequency>{监测频次}</Frequency>
+      <Notes>{注意事项}</Notes>
+      <TargetRange>{目标范围}</TargetRange>
+      <ActionThreshold>{异常处理阈值}</ActionThreshold>
+      <MonitoringPriority style="color:#fff;background:#e74c3c;padding:2px 10px;border-radius:9999px;display:inline-block;font-weight:600;font-size:12px;">高</MonitoringPriority>
+    </LabTest>
+    <LabTest>
+      <DayRange>Post-D30, Post-D90</DayRange>
+      <TestName>{检验项目名称}</TestName>
+      <Purpose>{院后随访监测目的}</Purpose>
+      <Frequency>{监测频次}</Frequency>
+      <Notes>{注意事项}</Notes>
+      <TargetRange>{目标范围}</TargetRange>
+      <ActionThreshold>{异常处理阈值}</ActionThreshold>
+      <MonitoringPriority style="color:#fff;background:#f39c12;padding:2px 10px;border-radius:9999px;display:inline-block;font-weight:600;font-size:12px;">中</MonitoringPriority>
+    </LabTest>
+  </LabTests>
+
+  <DrugInteractions>
+    <!--重要的药物相互作用-->
+    <Interaction>
+      <DrugA>{药物A名称}</DrugA>
+      <DrugB>{药物B名称}</DrugB>
+      <Mechanism>{相互作用机制}</Mechanism>
+      <Consequence>{临床后果}</Consequence>
+      <Severity>severe</Severity>
+      <Action>{处理建议}</Action>
+    </Interaction>
+    <Interaction>
+      <DrugA>{药物A名称}</DrugA>
+      <DrugB>{药物B名称}</DrugB>
+      <Mechanism>{相互作用机制}</Mechanism>
+      <Consequence>{临床后果}</Consequence>
+      <Severity>moderate</Severity>
+      <Action>{处理建议}</Action>
+    </Interaction>
+  </DrugInteractions>
+
+  <Timeline>
+    <!--院前节点-->
+    <Node>
+      <DayNo>Pre-D7</DayNo>
+      <DayLabel>Pre-D7 院前评估</DayLabel>
+      <Phase>院前期</Phase>
+      <PhaseCategory>pre_hospital</PhaseCategory>
+      <MedicalActions>{院前诊疗行为}</MedicalActions>
+      <DrugActions>{院前用药准备}</DrugActions>
+      <PharmacyActions>PC-02患者分组预评估，PC-03既往用药梳理</PharmacyActions>
+      <KeyActions>院前用药评估 + 风险分层</KeyActions>
+    </Node>
+    <Node>
+      <DayNo>Pre-D1</DayNo>
+      <DayLabel>Pre-D1 入院准备</DayLabel>
+      <Phase>院前期</Phase>
+      <PhaseCategory>pre_hospital</PhaseCategory>
+      <MedicalActions>{入院前诊疗准备}</MedicalActions>
+      <DrugActions>{入院前用药调整}</DrugActions>
+      <PharmacyActions>PC-03入院用药重整预备</PharmacyActions>
+      <KeyActions>入院用药准备</KeyActions>
+    </Node>
+    <!--院中节点-->
+    <Node>
+      <DayNo>1</DayNo>
+      <DayLabel>D1 入院</DayLabel>
+      <Phase>入院期</Phase>
+      <PhaseCategory>in_hospital</PhaseCategory>
+      <MedicalActions>{入院诊疗行为}</MedicalActions>
+      <DrugActions>{入院用药}</DrugActions>
+      <PharmacyActions>PC-02患者分组评估，PC-03用药重整记录，PC-08药学综合评估，PC-05处方审核</PharmacyActions>
+      <KeyActions>入院综合评估 + 用药重整</KeyActions>
+    </Node>
+    <Node>
+      <DayNo>2</DayNo>
+      <DayLabel>D2 治疗中</DayLabel>
+      <Phase>治疗初期</Phase>
+      <PhaseCategory>in_hospital</PhaseCategory>
+      <MedicalActions>{治疗期诊疗行为}</MedicalActions>
+      <DrugActions>{治疗期用药}</DrugActions>
+      <PharmacyActions>PC-01药学查房SOAP记录，疗效与安全性评估</PharmacyActions>
+      <KeyActions>药学查房</KeyActions>
+    </Node>
+    <Node>
+      <DayNo>3</DayNo>
+      <DayLabel>D3 疗效评估</DayLabel>
+      <Phase>治疗初期</Phase>
+      <PhaseCategory>in_hospital</PhaseCategory>
+      <MedicalActions>{疗效评估诊疗行为}</MedicalActions>
+      <DrugActions>{根据疗效调整方案}</DrugActions>
+      <PharmacyActions>PC-01药学查房SOAP，PC-05处方审核，疗效评估</PharmacyActions>
+      <KeyActions>疗效评估 + 方案调整</KeyActions>
+    </Node>
+    <Node>
+      <DayNo>7</DayNo>
+      <DayLabel>D7 出院评估</DayLabel>
+      <Phase>巩固期</Phase>
+      <PhaseCategory>in_hospital</PhaseCategory>
+      <MedicalActions>{出院前评估}</MedicalActions>
+      <DrugActions>{确定出院用药方案}</DrugActions>
+      <PharmacyActions>PC-08出院药学综合评估，PC-06处方精简评估</PharmacyActions>
+      <KeyActions>出院评估</KeyActions>
+    </Node>
+    <Node>
+      <DayNo>10</DayNo>
+      <DayLabel>D10 出院</DayLabel>
+      <Phase>出院期</Phase>
+      <PhaseCategory>in_hospital</PhaseCategory>
+      <MedicalActions>出院医嘱</MedicalActions>
+      <DrugActions>{出院带药}</DrugActions>
+      <PharmacyActions>PC-07出院用药教育记录表，出院随访计划</PharmacyActions>
+      <KeyActions>出院用药教育 + 随访计划</KeyActions>
+    </Node>
+    <!--院后随访节点-->
+    <Node>
+      <DayNo>Post-D7</DayNo>
+      <DayLabel>Post-D7 出院后7天随访</DayLabel>
+      <Phase>随访期</Phase>
+      <PhaseCategory>post_hospital</PhaseCategory>
+      <MedicalActions>{出院后7天随访内容}</MedicalActions>
+      <DrugActions>评估用药依从性</DrugActions>
+      <PharmacyActions>PC-10药学随访记录，用药教育强化</PharmacyActions>
+      <KeyActions>出院后7天随访</KeyActions>
+    </Node>
+    <Node>
+      <DayNo>Post-D30</DayNo>
+      <DayLabel>Post-D30 1个月随访</DayLabel>
+      <Phase>随访期</Phase>
+      <PhaseCategory>post_hospital</PhaseCategory>
+      <MedicalActions>{出院后30天随访内容}</MedicalActions>
+      <DrugActions>评估用药方案是否需调整</DrugActions>
+      <PharmacyActions>PC-10药学随访，疗效评估</PharmacyActions>
+      <KeyActions>出院后30天随访</KeyActions>
+    </Node>
+    <Node>
+      <DayNo>Post-D90</DayNo>
+      <DayLabel>Post-D90 3个月随访</DayLabel>
+      <Phase>随访期</Phase>
+      <PhaseCategory>post_hospital</PhaseCategory>
+      <MedicalActions>{出院后3个月随访内容}</MedicalActions>
+      <DrugActions>长期用药管理评估</DrugActions>
+      <PharmacyActions>PC-10药学随访，长期用药管理</PharmacyActions>
+      <KeyActions>出院后3个月随访</KeyActions>
+    </Node>
+    <Node>
+      <DayNo>Post-D180</DayNo>
+      <DayLabel>Post-D180 6个月随访</DayLabel>
+      <Phase>随访期</Phase>
+      <PhaseCategory>post_hospital</PhaseCategory>
+      <MedicalActions>{出院后6个月随访内容}</MedicalActions>
+      <DrugActions>长期用药安全性评估</DrugActions>
+      <PharmacyActions>PC-10药学随访，长期安全性评估</PharmacyActions>
+      <KeyActions>出院后6个月随访</KeyActions>
+    </Node>
+    <Node>
+      <DayNo>Post-D365</DayNo>
+      <DayLabel>Post-D365 12个月随访</DayLabel>
+      <Phase>随访期</Phase>
+      <PhaseCategory>post_hospital</PhaseCategory>
+      <MedicalActions>{出院后12个月年度评估}</MedicalActions>
+      <DrugActions>年度用药方案全面评估</DrugActions>
+      <PharmacyActions>PC-10药学年度随访，用药方案全面评估</PharmacyActions>
+      <KeyActions>年度随访评估</KeyActions>
+    </Node>
+  </Timeline>
+</PharmaceuticalCareTemplate>

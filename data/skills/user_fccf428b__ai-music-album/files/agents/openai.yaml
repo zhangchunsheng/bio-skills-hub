@@ -1,0 +1,4 @@
+interface:
+  display_name: "品牌音乐概念、歌词与曲目编排｜简诗 AI"
+  short_description: "Full-lifecycle AI music album production — concept, lyric drafting, track sequencing, and export. Useful for indie album experiments and brand soundtracks."
+  default_prompt: "使用 $ai-music-album 完成“品牌音乐概念、歌词与曲目编排”任务。"

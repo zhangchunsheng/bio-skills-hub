@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WeChat Cover Design Brief",
+  "type": "object",
+  "required": [
+    "input_quality",
+    "article_thesis",
+    "reader_takeaway",
+    "content_class",
+    "theme",
+    "visual_metaphor",
+    "elements",
+    "forbidden_substitutions",
+    "title",
+    "prompt_elements",
+    "image_prompt"
+  ],
+  "properties": {
+    "input_quality": {"enum": ["final", "provisional"]},
+    "article_thesis": {"type": "string", "minLength": 20},
+    "reader_takeaway": {"type": "string", "minLength": 12},
+    "content_class": {
+      "enum": ["personal_showcase", "opinion", "method", "mechanism", "trend", "transaction", "controversy", "evidence", "industry_landscape"]
+    },
+    "theme": {
+      "type": "object",
+      "required": ["id", "rationale", "compatibility"],
+      "properties": {
+        "id": {"pattern": "^theme(?:[1-9]|1[0-3])$"},
+        "rationale": {"type": "string", "minLength": 20},
+        "compatibility": {"enum": ["compatible", "user_override"]}
+      }
+    },
+    "visual_metaphor": {
+      "type": "object",
+      "required": ["relationship", "thesis_explanation"],
+      "properties": {
+        "relationship": {"type": "string", "minLength": 20},
+        "thesis_explanation": {"type": "string", "minLength": 20}
+      }
+    },
+    "elements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "role", "description", "source"],
+        "properties": {
+          "id": {"pattern": "^[a-z][a-z0-9_]{1,30}$"},
+          "role": {"enum": ["focal", "supporting"]},
+          "description": {"type": "string", "minLength": 8},
+          "source": {"type": "string", "minLength": 8}
+        }
+      }
+    },
+    "forbidden_substitutions": {
+      "description": "Content-level keyword shortcuts that would misstate the article, such as a vaccine-syringe cliche for a delivery-mechanism article. Do not reuse image-quality negative-prompt terms such as watermark, crowded layout, or gibberish.",
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 3}
+    },
+    "title": {
+      "type": "object",
+      "required": ["exact_text", "subtitle", "zone", "type_mood", "type_palette", "integration_device"],
+      "properties": {
+        "exact_text": {"type": "string", "minLength": 1},
+        "subtitle": {"type": "string"},
+        "zone": {"type": "string", "minLength": 8},
+        "type_mood": {"type": "string", "minLength": 4},
+        "type_palette": {"type": "string", "minLength": 4},
+        "integration_device": {"type": "string", "minLength": 8}
+      }
+    },
+    "prompt_elements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["element_id", "prompt_description"],
+        "properties": {
+          "element_id": {"pattern": "^[a-z][a-z0-9_]{1,30}$"},
+          "prompt_description": {"type": "string", "minLength": 8}
+        }
+      }
+    },
+    "image_prompt": {"type": "string", "minLength": 300}
+  }
+}

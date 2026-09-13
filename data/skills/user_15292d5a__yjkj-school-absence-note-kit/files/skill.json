@@ -1,0 +1,82 @@
+{
+  "schema": "v1",
+  "slug": "school-absence-note-kit",
+  "name": "school-absence-note-kit",
+  "displayName": "School Absence Note Kit",
+  "version": "1.0.0",
+  "description": "Draft truthful school absence, late arrival, early pickup, appointment, illness recovery, and make-up work messages with documentation checklist, follow-up tracker, and email, portal, or printed-note variants.",
+  "categories": [
+    "education",
+    "family",
+    "administration"
+  ],
+  "tags": [
+    "school absence note",
+    "attendance message",
+    "make-up work",
+    "late arrival",
+    "early pickup",
+    "parent communication"
+  ],
+  "license": "MIT-0",
+  "language": "en",
+  "promptOnly": true,
+  "hasExecutableCode": false,
+  "requires_api": false,
+  "no_code_execution": true,
+  "no_network": true,
+  "no_credentials": true,
+  "contentType": "document-only",
+  "usage": {
+    "triggers": [
+      "Write a school absence note",
+      "Draft a late arrival message",
+      "Create an early pickup note",
+      "Ask for make-up work after an absence",
+      "Prepare a school attendance portal message"
+    ],
+    "inputRequirements": [
+      "School level or grade band",
+      "Recipient and communication channel",
+      "Student name or initials if desired",
+      "Date or date range and relevant times",
+      "Truthful reason category",
+      "Expected return date or time if known",
+      "Requested school action",
+      "Known documentation requirement if any"
+    ],
+    "outputDeliverables": [
+      "Situation snapshot",
+      "Ready-to-send note",
+      "Short portal version",
+      "Formal email version",
+      "Printed note version",
+      "Make-up work request",
+      "Documentation checklist",
+      "Follow-up tracker",
+      "Scope and policy notes"
+    ]
+  },
+  "constraints": {
+    "noFabrication": true,
+    "noForgedSignatures": true,
+    "noFakeDocumentation": true,
+    "noUnauthorizedImpersonation": true,
+    "noSchoolPolicyAdvice": true,
+    "noLegalAdvice": true,
+    "noCredentials": true,
+    "noExternalNetwork": true,
+    "noExecution": true,
+    "safetyNotice": "This skill supports truthful school attendance communication only. It does not fabricate excuses, medical details, signatures, or documents, and it does not replace local school attendance rules or legal guidance."
+  },
+  "triggerKeywords": [
+    "schoolAbsenceNote",
+    "absenceNoteBuilder",
+    "excusedAbsenceNote",
+    "schoolNoteTemplate",
+    "makeUpWorkNote",
+    "studentAbsenceKit",
+    "absenceMessageBuilder"
+  ],
+  "execution": "noExec"
+}

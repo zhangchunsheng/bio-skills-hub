@@ -1,0 +1,73 @@
+- **Dual-Track Header & Cover Spacing (双轨间距规范：首页舒展大气 ↔ 正文紧凑空间让渡)**:
+  - **🟢 仅首页 PPT / 封面页 (Cover Slide / Hero Slide)**: 豁免紧凑压缩，采用开阔舒展的纵向呼吸排版。
+    - Badge / 分类标签 (`.eyebrow-pill` / `.cover-badge` 如 `DESIGN CANVAS`): `margin-bottom: 22px` (间距 `16px ~ 28px`)
+    - 主标题 (`.cover-title` / `h1` 如 `写 Skill 前先回答四个问题`): `margin-bottom: 26px` (间距 `20px ~ 32px`)
+    - 副标题 / 金句引导语 (`.cover-sub` 如 `"想清楚问题，比直接写代码更重要" —— 四问设计画布`): `margin-bottom: 44px` (间距 `36px ~ 56px`)
+    - 容器: `.cover-frame` 或 `.slide.hero .slide-header` 居中/左对齐舒展排版。
+  - **🔵 正文内容页 (Content Slides)**:
+    - `.header-compact` (垂直紧凑页眉容器): Badge + Title + Subtitle 统一以 `gap: 8px` 紧凑编排，总高严格控制在画布的 18%~22% 以内（<= 200px），将 78%+ 黄金纵向空间留给主内容。
+    - `.header-split` (左右水平分栏页眉): `display: flex; justify-content: space-between; align-items: flex-end;`，左侧为 Badge + 主标题，右侧并排为副标题/金句引导语，纵向 3 行压减为 1 行。
+    - `.eyebrow-pill` / `.kicker` / `.slide-label`: 胶囊分类微徽章（`margin-bottom: 4px ~ 6px`）。
+    - **行内徽标前缀**: 直接在 `<h2>` 内前置 `<span class="eyebrow-pill">TAG</span>` 实现单行紧凑。
+- **Bottom Navigation Toolbar & Overview (底栏四件套与全景缩略图)**:
+  - `.controls-bar` / `.deck-controls`: 底部居中毛玻璃悬浮控制栏，包含：
+    - `◀ 上一页` (button with `prevSlide()`)
+    - `01 / 15` 页码指示器 (`.slide-counter`) 与细条动态进度条 (`.slide-progress-track`)
+    - `下一页 ▶` (button with `nextSlide()`)
+    - `🗂 全览` (button with `toggleOverview()`)
+    - `⛶ 全屏` (button with `toggleFullScreen()`)
+  - `.deck-overview` / `#overviewModal`: 全屏毛玻璃缩略图模态框，基于 DOM 动态渲染所有 Slide 的序号徽章、标题与摘要卡片，点击任意卡片瞬间直达跳转。
+  - **快捷键规范**: `←`/`→`/`Space` 翻页，`O` 打开全览，`F` 全屏，`Esc` 退出全览/全屏。
+- **Typography & High-Legibility Large Font Standard (主要内容大字号高可读性规范 · NON-NEGOTIABLE)**:
+  - 杜绝 12px~14px 细碎小字感。在 1920×1080 舞台下，所有生成页面必须遵循大字号标准阶梯：
+    - **分类徽标/Pill** (`.slide-label` / `.eyebrow-pill` / `.kicker`): `16px ~ 18px` (font-weight: 800, padding: 5px 14px)
+    - **主标题** (`.slide-title` / `.h-xl`): `48px ~ 54px` (font-weight: 800/900, line-height: 1.15)
+    - **副标题/金句** (`.slide-subtitle` / `.lead` / `.tagline`): `22px ~ 26px` (font-weight: 600, line-height: 1.5)
+    - **卡片/分栏标题** (`.card h3` / `.b-card h3` / `.card-title`): `26px ~ 28px` (font-weight: 800)
+    - **卡片正文/主要段落** (`.card p` / `.b-card p` / `.card-text` / `.body-text`): `20px ~ 22px` (line-height: 1.62)
+    - **列表项/Bullet Items** (`.card li` / `.b-card li` / `.feature-desc`): `19px ~ 21px` (line-height: 1.6)
+    - **数据大数字** (`.stat-nb` / `.cover-stat .n`): `56px ~ 72px`, **数据标签** (`.stat-label` / `.cover-stat .l`): `16px ~ 18px` (font-weight: 700)
+    - **流程步骤/Pipeline** (`.step-nb`: `19px ~ 20px`, `h3`: `24px` font-weight: 800, `p`: `19px`)
+    - **数据表格** (`.data-table`): `th: 21px` (font-weight: 800) / `td: 20px` (line-height: 1.5)
+    - **代码块** (`.code-block`): `19px ~ 21px` (line-height: 1.65)
+    - **金句引用与 Callout** (`.quote-text`: `34px`, `.callout`: `23px` font-weight: 600)
+    - **底栏控制台** (`.ctrl-btn` / `.slide-counter`): `16px` (font-weight: 700/800)
+  - 强调色类名: `.em` (blue), `.em-teal`, `.em-red`, `.em-amber`.
+- **Layouts**: `.grid-2`, `.grid-3`, `.grid-4` for multiple columns; `.stack-col` for a vertical stack of `.stack-row` layers.
+- **Cards & Card Headers (卡片与单行同行标题规范 · NON-NEGOTIABLE)**:
+  - `.card` (general card), `.b-card` (Beautiful modern glass card), `.feat-card` (feature card with full colored border), `.plat-card` (compact platform card).
+  - **Inline Icon & Badge Standard (图片/图标/序号徽章与标题单行同行并排)**: 
+    - 绝不在卡片内将图标/序号徽标放在标题正上方拆成两行展示（浪费纵深且视觉散乱）。
+    - 必须使用 `.card-header` / `.card-title-row` / `.b-card-header` 水平弹性盒（`display: flex; align-items: center; gap: 12px;`）或直接在 `<h3>` 内包含 `<span class="badge">` / `<span class="card-num-badge">` / `<span class="icon-box">` 实现同行并排。
+    - **豁免条件**：仅在极窄列宽或超长文字确实无法单排放下时，才可酌情折行两行展示。
+- **Color variants**: colored components take a `-blue` / `-teal` / `-red` / `-amber` / `-violet` (or `.b-*` / `.fill-*`) modifier class; always pair them:
+  - `.card` + `.b-blue` / `.b-teal` / `.b-red` / `.b-amber` (adds a thick colored top border and colors all list bullet dots inside the card). **IMPORTANT:** Always use these color modifiers on `.card` elements side-by-side in a grid to visually distinguish different key points or topics (e.g., `<div class="card b-blue">`, `<div class="card b-teal">`).
+  - `.card` + `.fill-blue` / `.fill-teal` / `.fill-red` / `.fill-amber` / `.fill-violet` (adds a full 2px colored border and a soft wash background). Use this when you want a strongly highlighted, fully colored box.
+  - `.feat-card` + `.feat-blue` / `.feat-teal` / `.feat-red` / `.feat-amber` (sets full border and heading color).
+  - `.badge` / `.card-num-badge` (inside `.card`): automatically inherits the color of the parent card if the card uses a `.b-*` or `.fill-*` modifier. **STANDARD:** Place the badge/icon inside `.card-header` or directly inside the `<h3>` (e.g., `<div class="card-header"><span class="badge">1</span><h3>Title</h3></div>` or `<h3><span class="badge">1</span> Title</h3>`) to align the badge and the text perfectly on the same line.
+  - `.tag` (standalone label) + `.tag-blue` / `.tag-teal` / `.tag-red` / `.tag-amber`.
+  - `.stack-row` + `.stack-blue` / `.stack-teal` / `.stack-red` / `.stack-amber` / `.stack-navy` (for layered architecture diagrams).
+  - `.step-header` / `.pipeline-step`: 流水线步骤中，`<span class="step-nb">01</span>` 与 `<h3>步骤标题</h3>` 必须水平同行对齐。
+- **Images (必读 [`image-treatments.md`](image-treatments.md))**: 所有图片必须按场景选 8 套范式(T1-T8)之一,不再用旧的 `.slide-img` + `.img-grid` + `.img-cap` 组合:
+  - **T2 Float 自由留白** (默认): 单图,纯留白无框无阴影,用于照片、纪实、人物、辅助图
+  - **T1 Bleed 全屏出血**: 主视觉,图延伸到 slide 边缘
+  - **T3 Inset 浅色基底** (截图默认): UI 截图、dashboard、代码截图,无圆角无阴影,靠浅色色阶分层
+  - **T4 Browser Chrome**: 网页应用、dashboard 截图,加简化浏览器顶栏
+  - **T5 Device Frame**: 移动/桌面 App 截图,极简设备外框
+  - **T6 Quiet Frame** (多图默认): 多张图分组,0.5px 极轻发丝线,单图**不加** figcaption
+  - **T7 Backdrop 背景虚化**: 章节幕封、大字报配图,图降透明度+模糊作为背景
+  - **T8 Edge Card** (唯一允许圆角+阴影): Beautiful Modern 营销首图,6px 圆角 + 极轻阴影
+  - 每张 `<img>` 必须写 `data-treatment="t-XXX"` 自检属性(评审 grep 锚点)
+  - 比例类(`.r-16x10` / `.r-4x3` / `.h-22` 等)全局通用,叠加在 T1-T8 任一范式上
+  - **永远写** `alt="..."` 描述图内容;**禁止**给 figcaption 写"原始截图 / 产品截图 / Screenshot / Untitled / Sample"这类空标签
+  - 旧 `.img-grid` 仍可作 fallback 容器,但**首选** `.t-quiet-grid`(T6 自带 0.5px 发丝线 + gap 14px)
+- **Code & Tables**: `.code-block` on a `<pre><code>` for automatic syntax highlighting (via Highlight.js); `.data-table` on a `<table>` (with `<th>` header cells) for data tables; inline `<code>` inside cards, lists, and paragraphs is styled automatically.
+- **Diagrams, Charts & Markdown**:
+  - **Mermaid.js** (Logical Diagrams): Wrap text diagrams in `<pre class="mermaid">` (e.g. `graph TD`, sequence diagrams, mindmaps). **WARNING**: If you place a Mermaid diagram inside an HTML comment `<!-- ... -->` for any reason, you MUST use thick arrows `==>` or dotted arrows `-.->` instead of thin arrows `-->`. The thin arrow `-->` will prematurely close the HTML comment and break the page layout!
+  - **Apache ECharts** (Data Visualizations): Wrap JSON option configuration in `<div class="echarts" data-option='{...}'></div>` or `<pre class="echarts">{...}</pre>` for interactive bar, line, pie, radar, or sankey charts.
+  - **Markdown**: Wrap markdown text blocks in elements with `class="markdown"` (rendered by Marked.js).
+- **Speaker Notes**: Add `<aside class="notes">Speaker notes content here</aside>` inside any slide. Notes are invisible in the presentation view but displayed in Speaker View.
+- **Cover Slide**: Use `.cover-bg`, `.cover-grid`, `.cover-content`, `.cover-logo` (accent word inside `<span>`), `.cover-title` (gradient text via `<span class="h">`), `.cover-divider`, `.cover-sub` (highlight via `<span class="warm">`), and `.cover-stats` with `.cover-stat` items (`.n` = number, `.l` = label) for key metrics.
+- **Footers**: Use `.bottom-strip` for key takeaways at the bottom of a slide; inside it, `.em` renders teal and `.wm` renders amber.
+- **Animations**: Add `.a` and `.a1` through `.a6` to elements for staggered fade-up animations when the slide becomes active. For inline SVG diagrams, `.flow-anim` / `.flow-anim-slow` animate dashed connector lines and `.pulse-dot` makes a dot pulse.
+

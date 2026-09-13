@@ -1,0 +1,61 @@
+# 医药政策雷达 — 运行配置
+
+# ===== 默认参数 =====
+defaults:
+  provinces: "all"              # 默认全部31省
+  sources:                      # 默认全部机构类型
+    - 药监
+    - 医保
+    - 中医药
+    - 卫健委
+  date_range_days: 7            # 默认检索近7天
+  urgency_filter:               # 默认全部紧急程度
+    - 高
+    - 中
+    - 低
+  roles:                        # 默认全部岗位
+    - 合规
+    - GA
+    - MA
+    - Mkt
+    - 高管
+  output_format: "markdown"     # 默认Markdown输出
+
+# ===== 百通数据源配置（唯一数据源） =====
+baitong:
+  # 百通数据集映射（需与百通平台实际ID保持一致）
+  # 待VIP开通后，通过 list_datasets 获取并更新
+  datasets:
+    drug_safety: "2065016615398768641"      # 全国药监局官方网站数据集（国家级+31省≈32条）
+    medical_insurance: "2065020861590503425" # 全国医疗保障局官方网站数据集（国家级+31省+地市≈260条）
+    tcm: "2065022654185701378"              # 全国中医药官方网站数据集（国家级+31省+部分地市≈29条）
+    health_commission: ""                   # 全国卫健委官方网站数据集（百通平台暂无，待创建）
+  search:
+    default_similarity: 0.5      # 默认相似度阈值
+    default_limit: 10000          # 单次检索最大返回Token数
+    default_mode: "mixedRecall"   # 检索模式：embedding/fullText/mixedRecall
+    rerank: true                  # 是否启用ReRank重排序
+
+# ===== 运行限制 =====
+limits:
+  max_concurrent_search: 5      # 并发检索上限
+  search_timeout_sec: 30        # 单次检索超时（秒）
+  dedup_similarity_threshold: 0.85  # 标题相似度阈值
+  max_tasks_warning: 500        # 任务数超过此值触发用户确认
+
+# ===== 风险评分 =====
+risk:
+  high_threshold: 15            # ≥15 → 红色预警
+  medium_threshold: 8           # ≥8 → 黄色关注
+  # <8 → 绿色跟踪
+
+# ===== 输出格式支持 =====
+output:
+  supported_formats:
+    - markdown
+    - html
+    - tencent-docs
+  templates:
+    markdown: "assets/report_default.md"
+    executive: "assets/executive_brief.md"
+    tencent_docs: "assets/report_tencent_docs.md"

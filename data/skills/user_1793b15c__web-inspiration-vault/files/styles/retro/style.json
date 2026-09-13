@@ -1,0 +1,45 @@
+{
+  "id": "retro",
+  "name_zh": "复古 Vintage 风",
+  "name_en": "Retro / Vintage",
+  "version": "1.0.0",
+  "status": "ready",
+  "one_liner": "纸感底 + 双线 + 点线引导，像一本旧目录册。用边框而不是阴影做层次。",
+  "signature_moves": [
+    "暖调纸感底色（#f6f1e4，明度 0.94 带暖色相）",
+    "全站衬线（含正文），旧式数字 font-variant-numeric: oldstyle-nums",
+    "双线分隔（border-top: 3px double）替代现代发丝线",
+    "菱形装饰点用纯 CSS（旋转 45 度方块）三连排，不使用任何装饰字符",
+    "数据行走点线引导（leader dots），老目录册的排版手法",
+    "边框 + 内框替代阴影：色票册式配色卡（外层 1px + 内层描边）",
+    "首字下沉 + 斜体导语 + 衬线引语段",
+    "大写小字距 small-caps 标签"
+  ],
+  "forbidden": [
+    "box-shadow 投影（复古靠边框与双线做层次）",
+    "鲜艳高饱和色（饱和度需压低）",
+    "大圆角与药丸按钮",
+    "无衬线做正文"
+  ],
+  "best_for": [
+    "历史 / 档案 / 出版类站点",
+    "品牌故事与沿革页",
+    "需要温度感的作品集与年刊"
+  ],
+  "criteria_refs": [
+    "Refactoring UI · Use fewer borders（此处反过来用：边框即风格语言）",
+    "Bringhurst · 无衬线需更大行距（衬线正文行距可略紧，本模板取 1.78）",
+    "docs/design_criteria.md"
+  ],
+  "paired_skeletons": [
+    "inspiration_card",
+    "onepager_report",
+    "archive_catalogue"
+  ],
+  "defaults": {
+    "radius": 0,
+    "body_line_height": 1.78,
+    "container": 780,
+    "ornament": "diamond x3"
+  }
+}

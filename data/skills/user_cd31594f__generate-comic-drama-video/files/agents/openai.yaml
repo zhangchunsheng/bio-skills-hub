@@ -1,0 +1,4 @@
+interface:
+  display_name: "漫剧视频生成"
+  short_description: "从环境检查和用户引导到故事、视觉、配音与最终 MP4 的完整漫剧流程"
+  default_prompt: "使用 $generate-comic-drama-video 先检查环境并引导我补充必要信息，再生成一部经过故事审核、统一视觉审核、配音和成片校验的横屏漫剧。"

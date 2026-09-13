@@ -1,0 +1,4 @@
+interface:
+  display_name: "医疗器械质量制度SOP审查"
+  short_description: "检查制度或SOP的角色、步骤、例外和留痕"
+  default_prompt: "Use $medical-device-policy-sop-review for paid 医疗器械质量 制度SOP审查."

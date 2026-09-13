@@ -1,0 +1,4 @@
+interface:
+  display_name: "医药商业制度SOP审查"
+  short_description: "检查制度或SOP的角色、步骤、例外和留痕"
+  default_prompt: "Use $pharma-policy-sop-review for paid 医药商业 制度SOP审查."

@@ -1,0 +1,38 @@
+{
+  "slug": "shoe-hotspot-prevention-card",
+  "name": "shoe-hotspot-prevention-card",
+  "displayName": "Shoe Hotspot Prevention Card",
+  "version": "1.0.0",
+  "description": "Create a practical shoe hotspot prevention card with foot friction map, shoe fit notes, sock choices, barrier or tape plan, break-in schedule, check-in reminders, and medical-care boundaries for wounds, diabetes, infection signs, or persistent pain.",
+  "triggerKeywords": [
+    "shoe hotspot prevention",
+    "prevent blisters",
+    "shoe rubbing plan",
+    "blister prevention card",
+    "foot hotspot map",
+    "break in shoes",
+    "walking day shoe prep",
+    "heel rubbing prevention",
+    "sock and tape plan",
+    "long day foot prep"
+  ],
+  "tags": [
+    "health-routine",
+    "footwear",
+    "travel",
+    "walking",
+    "prevention"
+  ],
+  "license": "MIT-0",
+  "language": "en",
+  "promptOnly": true,
+  "hasExecutableCode": false,
+  "requires_api": false,
+  "requiresApi": false,
+  "no_code_execution": true,
+  "execution": "noExec",
+  "no_network": true,
+  "no_credentials": true,
+  "contentType": "document-only",
+  "safety": "Prevention routine only; advise medical care for open wounds, diabetes, circulation or numbness concerns, infection signs, severe swelling, or persistent pain; no wound treatment or blister draining guidance."
+}

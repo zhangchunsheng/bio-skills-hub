@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/omni-real-scene/visual-plan.schema.json",
+  "title": "Universal Visual Plan",
+  "type": "object",
+  "required": [
+    "mode",
+    "items"
+  ],
+  "properties": {
+    "mode": {
+      "enum": [
+        "batch",
+        "series",
+        "multiratio",
+        "same_subject",
+        "scene_swap",
+        "audience_swap"
+      ]
+    },
+    "pairwise_min_differences": {
+      "type": "integer",
+      "minimum": 5,
+      "maximum": 18
+    },
+    "items": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "additionalProperties": true
+}

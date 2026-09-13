@@ -1,0 +1,43 @@
+{
+  "engine": "EvalMex",
+  "version": "1.0",
+  "description": "EvalMex 评估层——双向可靠性评估（三方对照 + 4 类结果编码 + 综合评级）",
+  "methodology": {
+    "principle": "三方对照双向判断——不预设人类专家全对",
+    "three_way": ["病例实际方案", "Agent 推荐方案", "指南推荐方案"],
+    "note": "不一致处依据指南判定谁更优"
+  },
+  "result_codes": {
+    "A_consistent": {
+      "code": "✅",
+      "meaning": "三者一致",
+      "flow": "统计加分"
+    },
+    "agent_superior": {
+      "code": "🔵",
+      "meaning": "Agent 比病例更符合指南",
+      "flow": "→ SkeMex 蒸馏"
+    },
+    "case_superior": {
+      "code": "🟠",
+      "meaning": "病例比 Agent 更符合指南",
+      "flow": "→ EduMex 盲区"
+    },
+    "both_deviate": {
+      "code": "❓",
+      "meaning": "双方均偏离指南",
+      "flow": "→ 人工判定"
+    }
+  },
+  "evaluation_dimensions": [
+    { "id": "D1", "name": "信息采集完整性", "weight": 0.15 },
+    { "id": "D2", "name": "诊断/检查决策合理性", "weight": 0.20 },
+    { "id": "D3", "name": "治疗方案三方对照（核心）", "weight": 0.30 },
+    { "id": "D4", "name": "特殊情况处理", "weight": 0.20 },
+    { "id": "D5", "name": "综合指南依从性", "weight": 0.15 }
+  ],
+  "scoring": {
+    "per_dimension": "0-2 分",
+    "total": "总分 / 10"
+  }
+}

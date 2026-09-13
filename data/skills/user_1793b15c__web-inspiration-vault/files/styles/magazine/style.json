@@ -1,0 +1,49 @@
+{
+  "id": "magazine",
+  "name_zh": "杂志风",
+  "name_en": "Magazine / Editorial",
+  "version": "1.0.0",
+  "status": "ready",
+  "one_liner": "宽网格里放概览，窄版心里放正文 —— 两种宽度同时存在。",
+  "signature_moves": [
+    "双宽度版心：概览区用宽网格，正文栏用 66ch 窄版心（Bringhurst：66 字符为理想行宽）",
+    "用 ch 单位约束正文栏，而不是 px —— 直接把字符数判据写进 CSS",
+    "标题特大且行高极紧（line-height 1.06），正文行高 1.65（行高与字号反比）",
+    "标题用衬线体，正文用无衬线体：编辑型版面的经典搭配",
+    "首字下沉（::first-letter）—— 杂志风最省力的身份标记",
+    "分区标题的上方间距是下方的 2 倍（Bringhurst 子标题 26pt above / 13pt below）",
+    "图片卡片：固定比例容器 + cover 裁切 + 内阴影防渗色（不用边框）",
+    "元信息弱化：类型标签与日期更小更浅、字距拉开；标题与数据才是主角",
+    "两层阴影且只向下偏移：光来自上方",
+    "强调色只出现在 accent 细线、标签和下划线上，不做大面积色块"
+  ],
+  "forbidden": [
+    "正文超过 75ch（会读串行）",
+    "标题与正文字号比小于 2（就没有杂志的层级张力）",
+    "等宽字体做正文",
+    "圆角大于 6px（编辑型版面偏方正）"
+  ],
+  "best_for": [
+    "内容枢纽页 / 主题聚合页（大图卡片矩阵）",
+    "长文阅读页与专题报道",
+    "项目展示、案例集、文章归档"
+  ],
+  "criteria_refs": [
+    "Bringhurst 2.1.2（行宽 45–75 字符，66 理想）",
+    "Bringhurst（子标题上下间距约 2:1）",
+    "Refactoring UI · Establishing a type scale（阶梯相邻差 >=25%）",
+    "Refactoring UI · Greys don't have to be grey（灰阶带色温）",
+    "Refactoring UI · Emulate a light source（光来自上方）",
+    "Refactoring UI · Use fewer borders（用底色与内阴影替代边框）"
+  ],
+  "paired_skeletons": ["inspiration_card", "content_hub_grid", "longform_article"],
+  "defaults": {
+    "grid_width": 1200,
+    "measure": "66ch",
+    "body_size": 17,
+    "body_line_height": 1.65,
+    "heading_line_height": 1.06,
+    "section_gap_ratio": 2.0,
+    "radius": 3
+  }
+}

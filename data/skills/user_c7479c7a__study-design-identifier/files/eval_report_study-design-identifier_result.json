@@ -1,0 +1,250 @@
+{
+  "meta": {
+    "skill_name": "study-design-identifier",
+    "evaluated_on": "2026-03-23",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Evidence Insight",
+    "execution_mode": "A",
+    "complexity": "Simple",
+    "n_inputs": 3
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": null
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": null
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": null
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No code generated; Category 1 design identification only"
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 89,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": null
+      },
+      "reliability": {
+        "score": 9,
+        "max": 12,
+        "note": "Confidence rating provides honest uncertainty labeling; one gap: no behavior defined for when paper methods are deliberately obfuscated"
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "273 lines; six reference modules"
+      },
+      "agent_usability": {
+        "score": 15,
+        "max": 16,
+        "note": null
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": null
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": null
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": null
+      },
+      "agent_specific": {
+        "score": 16,
+        "max": 20,
+        "note": "Primary/secondary/hybrid distinction is a strong differentiator; self-label correction feature is valuable and rare"
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 85.0,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 15,
+      "total": 15
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Classify a paper self-described as 'real-world evidence' from methods",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 35,
+        "specialized": 51,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Design identified from actual methods structure, not author self-description",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Primary design label assigned with justification",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Self-label corrected if imprecise with explanation",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Classification confidence (High/Medium/Low) stated",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "No fabricated study features to support classification",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Hybrid paper: GEO screening + TCGA validation + mouse experiments",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 34,
+        "specialized": 50,
+        "total": 84,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Hybrid status identified and not forced into single oversimplified label",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Primary and secondary design layers separated",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Nearest confusing alternative designs explained in Section E",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Evidence family position placed for downstream appraisal use",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "What design can/cannot support stated in Section H",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Only title and journal available — design cannot be determined",
+        "status": "COMPLETED",
+        "status_flag": "⚠️",
+        "note": null,
+        "basic": 33,
+        "specialized": 48,
+        "total": 81,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Low classification confidence assigned with specific reason",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "No design invented from title alone",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "User asked to provide abstract or methods for higher confidence classification",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Any inferences from title labeled as speculative",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Most likely classification provided with major ambiguity explicitly stated",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 35.6,
+    "dynamic_weighted": 51.0,
+    "score": 87,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Self-label correction feature explicitly corrects misleading author terminology — a rare and valuable capability",
+    "Primary/secondary/hybrid tripartite classification prevents false single-label oversimplification for complex modern papers",
+    "Classification confidence rating ensures honest uncertainty disclosure when methods are incomplete",
+    "Twelve hard rules precisely prevent data-type/design conflation and label inflation"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "No behavior defined for deliberately obfuscated methods sections",
+      "observed_in": [],
+      "problem": "The skill handles incomplete methods by lowering confidence, but does not address the scenario where methods appear to be strategically vague or deliberately non-reproducible.",
+      "root_cause": "Coverage rules focus on availability not intentionality of incompleteness.",
+      "fix": "Add a methods-quality note: if multiple design-critical details appear systematically omitted (not just one or two), flag this as 'Methods Opacity' and recommend the user contact authors or seek supplementary materials before high-confidence classification."
+    },
+    {
+      "priority": "P2",
+      "title": "Edge-case handling reference could be more explicitly prominent",
+      "observed_in": [],
+      "problem": "The edge-case-handling.md reference is listed but its activation criteria are not clearly specified in SKILL.md for agents that may miss triggering it for mislabeled papers.",
+      "root_cause": "Reference module integration section does not specify which input conditions trigger the edge-case-handling reference.",
+      "fix": "Add a trigger note: 'Use references/edge-case-handling.md whenever the paper's self-label appears to conflict with structural signals extracted in Step 2, or when the paper appears to be a non-standard design type'."
+    }
+  ]
+}

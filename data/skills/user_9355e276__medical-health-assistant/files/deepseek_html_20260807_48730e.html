@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>医疗健康全能助手</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f0f4f9;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .skill-container {
+            max-width: 1200px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.04);
+            padding: 2.5rem 2.8rem 2.8rem;
+            transition: all 0.2s;
+        }
+
+        @media (max-width: 700px) {
+            .skill-container {
+                padding: 1.5rem;
+            }
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header h1 span {
+            background: #dcfce7;
+            color: #166534;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+        }
+
+        .subhead {
+            color: #64748b;
+            font-size: 0.95rem;
+            background: #f8fafc;
+            padding: 0.8rem 1.2rem;
+            border-radius: 14px;
+            border-left: 4px solid #059669;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 850px) {
+            .grid-2col {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        .panel {
+            background: #f9fafc;
+            border-radius: 20px;
+            padding: 1.6rem 1.6rem 1.8rem;
+            border: 1px solid #eef2f6;
+        }
+
+        .panel-title {
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 1.2rem;
+            color: #0f172a;
+        }
+
+        .panel-title .icon {
+            font-size: 1.3rem;
+        }
+
+        .badge {
+            background: #e2e8f0;
+            color: #1e293b;
+            padding: 0.1rem 0.9rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 4px;
+            color: #334155;
+        }
+
+        .form-group label .required {
+            color: #dc2626;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.6rem 1rem;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            background: white;
+            transition: 0.15s;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #059669;
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12);
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-top: 0.3rem;
+        }
+
+        @media (max-width: 500px) {
+            .checkbox-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            padding: 0.3rem 0.5rem;
+            border-radius: 8px;
+            transition: 0.15s;
+            cursor: pointer;
+        }
+
+        .checkbox-item:hover {
+            background: #f1f5f9;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #059669;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .btn {
+            border: none;
+            padding: 0.6rem 1.8rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #059669;
+            color: white;
+            box-shadow: 0 2px 12px rgba(5, 150, 105, 0.25);
+        }
+
+        .btn-primary:hover {
+            background: #047857;
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(5, 150, 105, 0.30);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            pointer-events: none;
+            transform: none;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid #d1d9e6;
+            color: #475569;
+        }
+
+        .btn-outline:hover {
+            background: #f1f5f9;
+            border-color: #94a3b8;
+        }
+
+        .btn-success {
+            background: #0f172a;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #1e293b;
+        }
+
+        .btn-danger {
+            background: #dc2626;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        /* 报告区域 */
+        .report-area {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid #eef2f6;
+            display: none;
+        }
+
+        .report-area.show {
+            display: block;
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .report-header h2 {
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .report-content {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 1.8rem 2rem;
+            border: 1px solid #e2e8f0;
+            max-height: 500px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #1e293b;
+        }
+
+        .report-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        .report-content::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .tag {
+            background: #dbeafe;
+            color: #1e4b8f;
+            padding: 0.1rem 0.7rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        .tag-green {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .tag-orange {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .tag-red {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .text-muted {
+            color: #94a3b8;
+            font-size: 0.85rem;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0f172a;
+            color: white;
+            padding: 0.7rem 2rem;
+            border-radius: 60px;
+            font-weight: 500;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 999;
+            font-size: 0.95rem;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .footer-note {
+            margin-top: 2rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid #eef2f6;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .inline-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="skill-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>
+                🏥 医疗健康全能助手
+                <span>v1.0</span>
+            </h1>
+            <div class="inline-tags">
+                <span class="tag">寻医问药</span>
+                <span class="tag tag-green">药品比价</span>
+                <span class="tag tag-orange">医院推荐</span>
+                <span class="tag tag-red">医保报销</span>
+            </div>
+        </div>
+
+        <div class="subhead">
+            🌟 全网寻医问药 · 对症下药 · 药品比价 · 服药提醒 · 医院/医生推荐 · 医保报销 · 陪诊陪护 · 风评查询 · 综合医疗报告
+        </div>
+
+        <div class="grid-2col">
+            <!-- 左侧：用户需求表单 -->
+            <div class="panel">
+                <div class="panel-title">
+                    <span class="icon">📋</span> 填写您的需求
+                    <span class="badge">必填 *</span>
+                </div>
+
+                <div class="form-group">
+                    <label>您的姓名 <span class="required">*</span></label>
+                    <input type="text" id="userName" placeholder="请输入您的姓名" value="张先生">
+                </div>
+
+                <div class="form-group">
+                    <label>年龄 <span class="required">*</span></label>
+                    <input type="number" id="userAge" placeholder="请输入年龄" value="45">
+                </div>
+
+                <div class="form-group">
+                    <label>主要症状/疾病 <span class="required">*</span></label>
+                    <textarea id="symptoms" placeholder="请详细描述您的症状、持续时间、严重程度等">持续性头痛，伴有轻微发热，已持续3天。之前有高血压病史。</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>参保类型 <span class="required">*</span></label>
+                    <select id="insuranceType">
+                        <option value="城镇职工医保">城镇职工医保</option>
+                        <option value="城乡居民医保">城乡居民医保</option>
+                        <option value="商业医疗保险">商业医疗保险</option>
+                        <option value="新农合">新农合</option>
+                        <option value="无医保">无医保</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>所在城市 <span class="required">*</span></label>
+                    <input type="text" id="userCity" placeholder="请输入您所在的城市" value="北京市">
+                </div>
+
+                <div class="form-group">
+                    <label>是否有既往病史</label>
+                    <input type="text" id="medicalHistory" placeholder="如有请填写，如无留空" value="高血压（5年）">
+                </div>
+            </div>
+
+            <!-- 右侧：服务选择 & 操作 -->
+            <div class="panel">
+                <div class="panel-title">
+                    <span class="icon">🛠️</span> 选择服务模块
+                    <span class="badge">可多选</span>
+                </div>
+
+                <div class="checkbox-grid" id="serviceModules">
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="diagnosis" checked> 🔍 对症下药推荐
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="drugPrice" checked> 💊 全网药品比价
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="hospital" checked> 🏥 医院推荐
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="doctor" checked> 👨‍⚕️ 医生推荐
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="insurance" checked> 💰 医保报销指导
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="companion" checked> 🤝 陪诊陪护服务
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="facility" checked> 🏪 医院周边设施
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="review" checked> ⭐ 医院/医生风评
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="reminder" checked> ⏰ 服药提醒
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="emergency" checked> 🚑 急诊/住院指导
+                    </label>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary" id="generateBtn" style="flex:1; justify-content:center;">
+                        📄 生成综合医疗报告
+                    </button>
+                    <button class="btn btn-outline" id="resetBtn">↺ 重置</button>
+                </div>
+
+                <div style="margin-top:1rem; background:#f1f5f9; border-radius:12px; padding:0.8rem 1.2rem; border:1px solid #e2e8f0; font-size:0.85rem; color:#475569;">
+                    💡 选择需要的服务模块，系统将生成包含对应内容的综合报告
+                </div>
+            </div>
+        </div>
+
+        <!-- 报告区域 -->
+        <div class="report-area" id="reportArea">
+            <div class="report-header">
+                <h2>📋 综合医疗报告</h2>
+                <div style="display:flex; gap:0.8rem; flex-wrap:wrap;">
+                    <button class="btn btn-success" id="downloadReportBtn">⬇ 下载报告</button>
+                    <button class="btn btn-outline" id="copyReportBtn">📋 复制</button>
+                    <button class="btn btn-danger" id="closeReportBtn">✕ 关闭</button>
+                </div>
+            </div>
+            <div class="report-content" id="reportContent">
+                报告内容将在此显示...
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <span>📌 所有信息仅供参考，请以医疗机构实际诊断为准</span>
+            <span>🔹 数据本地处理，保护隐私</span>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast">✨ 操作成功</div>
+
+    <script>
+        (function() {
+            "use strict";
+
+            // DOM refs
+            const generateBtn = document.getElementById('generateBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const downloadBtn = document.getElementById('downloadReportBtn');
+            const copyBtn = document.getElementById('copyReportBtn');
+            const closeBtn = document.getElementById('closeReportBtn');
+            const reportArea = document.getElementById('reportArea');
+            const reportContent = document.getElementById('reportContent');
+            const toastEl = document.getElementById('toast');
+
+            const userName = document.getElementById('userName');
+            const userAge = document.getElementById('userAge');
+            const symptoms = document.getElementById('symptoms');
+            const insuranceType = document.getElementById('insuranceType');
+            const userCity = document.getElementById('userCity');
+            const medicalHistory = document.getElementById('medicalHistory');
+
+            function toast(msg, duration = 2800) {
+                toastEl.textContent = msg;
+                toastEl.classList.add('show');
+                clearTimeout(toastEl._timer);
+                toastEl._timer = setTimeout(() => {
+                    toastEl.classList.remove('show');
+                }, duration);
+            }
+
+            function getSelectedServices() {
+                const checkboxes = document.querySelectorAll('#serviceModules input[type="checkbox"]:checked');
+                return Array.from(checkboxes).map(cb => cb.value);
+            }
+
+            function getServiceLabel(value) {
+                const map = {
+                    'diagnosis': '🔍 对症下药推荐',
+                    'drugPrice': '💊 全网药品比价',
+                    'hospital': '🏥 医院推荐',
+                    'doctor': '👨‍⚕️ 医生推荐',
+                    'insurance': '💰 医保报销指导',
+                    'companion': '🤝 陪诊陪护服务',
+                    'facility': '🏪 医院周边设施',
+                    'review': '⭐ 医院/医生风评',
+                    'reminder': '⏰ 服药提醒',
+                    'emergency': '🚑 急诊/住院指导'
+                };
+                return map[value] || value;
+            }
+
+            function generateReport() {
+                // 验证必填
+                const name = userName.value.trim() || '未填写';
+                const age = userAge.value.trim() || '未填写';
+                const sym = symptoms.value.trim() || '未填写';
+                const insurance = insuranceType.value || '未选择';
+                const city = userCity.value.trim() || '未填写';
+                const history = medicalHistory.value.trim() || '无';
+
+                const services = getSelectedServices();
+                if (services.length === 0) {
+                    toast('⚠️ 请至少选择一个服务模块', 2500);
+                    return;
+                }
+
+                // 构建报告
+                const now = new Date().toLocaleString('zh-CN');
+                let report = '═══════════════════════════════════════════════════\n';
+                report += '             📋 综合医疗健康报告\n';
+                report += '═══════════════════════════════════════════════════\n\n';
+                report += `📅 生成时间：${now}\n\n`;
+                report += '───────────────────────────────────────────────────\n';
+                report += '【👤 用户基本信息】\n';
+                report += `  姓名：${name}\n`;
+                report += `  年龄：${age} 岁\n`;
+                report += `  所在城市：${city}\n`;
+                report += `  参保类型：${insurance}\n`;
+                report += `  既往病史：${history}\n\n`;
+
+                report += '【🩺 主要症状/疾病】\n';
+                report += `  ${sym}\n\n`;
+
+                report += '【🛠️ 已选服务模块】\n';
+                services.forEach((s, i) => {
+                    report += `  ${i+1}. ${getServiceLabel(s)}\n`;
+                });
+                report += '\n';
+
+                // 根据服务生成内容
+                if (services.includes('diagnosis')) {
+                    report += '───────────────────────────────────────────────────\n';
+                    report += '【🔍 对症下药推荐】\n';
+                    const drugs = ['布洛芬缓释胶囊', '对乙酰氨基酚片', '阿司匹林肠溶片'];
+                    const advices = [
+                        '建议先进行血常规检查，明确病因',
+                        '如体温超过38.5℃，可使用退热药物',
+                        '注意休息，多饮水，避免劳累'
+                    ];
+                    report += `  根据您描述的"${sym}"症状，建议：\n`;
+                    advices.forEach(a => report += `  • ${a}\n`);
+                    report += `  推荐药物：${drugs.join('、')}\n`;
+                    report += '  ⚠️ 请遵医嘱使用，切勿自行用药\n\n';
+                }
+
+                if (services.includes('drugPrice')) {
+                    report += '───────────────────────────────────────────────────\n';
+                    report += '【💊 全网药品比价】\n';
+                    report += '  药品名称          | 参考价格 | 药店/平台\n';
+                    report += '  ───────────────────────────────────────────\n';
+                    report += '  布洛芬缓释胶囊    | ¥15.80   | 京东健康\n';
+                    report += '  对乙酰氨基酚片    | ¥12.50   | 阿里健康\n';
+                    report += '  阿司匹林肠溶片    | ¥18.20   | 美团买药\n';
+                    report += '  复方氨酚烷胺胶囊  | ¥22.60   | 老百姓大药房\n';
+                    report += '  感冒清热颗粒      | ¥19.90   | 一心堂药房\n\n';
+                }
+
+                if (services.includes('hospital')) {
+                    report += '───────────────────────────────────────────────────\n';
+                    report += '【🏥 医院推荐】\n';
+                    const hospitals = [
+                        { name: '北京协和医院', dept: '神经内科', score: '⭐⭐⭐⭐⭐', addr: '北京市东城区帅府园1号' },
+                        { name: '首都医科大学宣武医院', dept: '神经内科', score: '⭐⭐⭐⭐⭐', addr: '北京市西城区长椿街45号' },
+                        { name: '北京大学第三医院', dept: '神经内科', score: '⭐⭐⭐⭐', addr: '北京市海淀区花园北路49号' },
+                    ];
+                    hospitals.forEach((h, i) => {
+                        report += `  ${i+1}. ${h.name} (${h.dept})\n`;
+                        report += `     评分：${h.score}  |  地址：${h.addr}\n`;
+                    });
+                    report += `  推荐理由：以上医院在${city}地区神经内科领域具有权威性\n\n`;
+                }
+
+                if (services.includes('doctor')) {
+                    report += '───────────────────────────────────────────────────\n';
+                    report += '【👨‍⚕️ 医生推荐】\n';
+                    const doctors = [
+                        { name: '王拥军', title: '主任医师', dept: '神经内科', hospital: '北京天坛医院', score: '⭐⭐⭐⭐⭐' },
+                        { name: '崔丽英', title: '主任医师', dept: '神经内科', hospital: '北京协和医院', score: '⭐⭐⭐⭐⭐' },
+                        { name: '贾建平', title: '主任医师', dept: '神经内科', hospital: '宣武医院', score: '⭐⭐⭐⭐⭐' },
+                    ];
+                    doctors.forEach((d, i) => {
+                        report += `  ${i+1}. ${d.name}  ${d.title}  |  ${d.hospital} ${d.dept}\n`;
+                        report += `     综合评分：${d.score}  |  擅长：脑血管病、头痛、癫痫\n`;
+                    });
+                    report += '\n';
+                }
+
+                if (services.includes('insurance')) {
+                    report += '───────────────────────────────────────────────────\n';
+                    report += '【💰 医保报销指导】\n';
+                    report += `  参保类型：${insurance}\n`;
+                    report += '  ───────────────────────────────────────────\n';
+                    if (insurance === '城镇职工医保') {
+                        report += '  报销比例：门诊 70%  |  住院 85%\n';
+                        report += '  起付线：门诊 ¥1800  |  住院 ¥1300\n';
+                        report += '  封顶线：门诊 ¥2万  |  住院 ¥30万\n';
+                    } else if (insurance === '城乡居民医保') {
+                        report += '  报销比例：门诊 50%  |  住院 75%\n';
+                        report += '  起付线：门诊 ¥100  |  住院 ¥800\n';
+                        report += '  封顶线：门诊 ¥4000  |  住院 ¥25万\n';
+                    } else if (insurance === '商业医疗保险') {
+                        report += '  请查阅您所购商业保险的具体条款\n';
+                        report += '  通常覆盖社保目录外的药品和诊疗项目\n';
+                    } else {
+                        report += '  建议咨询当地医保局了解具体政策\n';
+                    }
+                    report += `  预估自付费用：约 ¥200-500（视具体用药和治疗方案而定）\n\n`;
+                }
+
+                if (services.includes('companion')) {
+                    report += '───────────────────────────────────────────────────\n';
+                    report += '【🤝 陪诊陪护服务】\n';
+                    report += '  服务名称          | 价格参考 | 联系方式\n';
+                    report += '  ───────────────────────────────────────────\n';
+                    report += '  全程陪诊服务      | ¥200-500/天 | 400-xxx-xxxx\n';
+                    report += '  住院陪护服务      | ¥300-600/天 | 400-xxx-xxxx\n';
+                    report += '  老人陪护          | ¥250-450/天 | 400-xxx-xxxx\n';
+                    report += '  儿童陪诊          | ¥280-480/天 | 400-xxx-xxxx\n';
+                    report += '  ⚠️ 建议提前24小时预约\n\n';
+                }
+
+                if (services.includes('facility')) {
+                    report += '───────────────────────────────────────────────────\n';
+                    report += '【🏪 医院周边生活便利设施】\n';
+                    report += `  以${city}地区主要医院周边为例：\n`;
+                    report += '  ───────────────────────────────────────────\n';
+                    report += '  🏨 住宿：如家快捷酒店、汉庭酒店、全季酒店\n';
+                    report += '  🍜 餐饮：肯德基、麦当劳、永和大王、老乡鸡\n';
+                    report += '  🚌 交通：地铁站、公交站、出租车停靠点\n';
+                    report += '  💊 药店：老百姓大药房、同仁堂、国大药房\n';
+                    report += '  🏧 银行：中国银行、工商银行、建设银行\n\n';
+                }
+
+                if (services.includes('review')) {
+                    report += '───────────────────────────────────────────────────\n';
+                    report += '【⭐ 医院/医生风评】\n';
+                    report += '  北京协和医院 神经内科 综合评分：4.8/5.0\n';
+                    report += '  患者评价：\"医生专业，态度好，挂号需要提前\"\n';
+                    report += '  ───────────────────────────────────────────\n';
+                    report += '  宣武医院 神经内科 综合评分：4.7/5.0\n';
+                    report += '  患者评价：\"治疗效果好，排队时间稍长\"\n';
+                    report += '  ───────────────────────────────────────────\n';
+                    report += '  天坛医院 神经内科 综合评分：4.9/5.0\n';
+                    report += '  患者评价：\"专科权威，值得信赖\"\n\n';
+                }
+
+                if (services.includes('reminder')) {
+                    report += '───────────────────────────────────────────────────\n';
+                    report += '【⏰ 服药提醒】\n';
+                    report += '  建议设置以下服药提醒：\n';
+                    report += '  • 布洛芬：每日3次，每次1粒，饭后服用\n';
+                    report += '  • 降压药：每日1次，早晨空腹服用\n';
+                    report += '  💡 建议使用手机闹钟或药盒分装辅助\n\n';
+                }
+
+                if (services.includes('emergency')) {
+                    report += '───────────────────────────────────────────────────\n';
+                    report += '【🚑 急诊/住院指导】\n';
+                    report += '  急诊流程：\n';
+                    report += '  1. 前往医院急诊科挂号\n';
+                    report += '  2. 初步诊断和分诊\n';
+                    report += '  3. 检查和治疗\n';
+                    report += '  4. 根据病情决定住院或回家休养\n\n';
+                    report += '  住院准备：\n';
+                    report += '  • 携带身份证、医保卡、病历资料\n';
+                    report += '  • 准备个人生活用品（换洗衣物、洗漱用品等）\n';
+                    report += '  • 提前了解医院住院部位置和探视时间\n\n';
+                }
+
+                report += '───────────────────────────────────────────────────\n';
+                report += '【⚠️ 重要声明】\n';
+                report += '  1. 本报告基于您提供的信息生成，仅供参考\n';
+                report += '  2. 具体诊疗请以专业医生的意见为准\n';
+                report += '  3. 药品价格和市场行情可能实时变动\n';
+                report += '  4. 医保政策以当地医保局最新规定为准\n';
+                report += '  5. 如症状加重，请立即就医\n\n';
+                report += '═══════════════════════════════════════════════════\n';
+                report += '        祝您早日康复！💪\n';
+                report += '═══════════════════════════════════════════════════\n';
+
+                return report;
+            }
+
+            // 生成并显示报告
+            function generateAndShowReport() {
+                // 验证必填
+                if (!userName.value.trim()) {
+                    toast('⚠️ 请输入您的姓名', 2000);
+                    userName.focus();
+                    return;
+                }
+                if (!userAge.value.trim() || isNaN(userAge.value) || parseInt(userAge.value) < 1) {
+                    toast('⚠️ 请输入有效年龄', 2000);
+                    userAge.focus();
+                    return;
+                }
+                if (!symptoms.value.trim()) {
+                    toast('⚠️ 请描述您的症状', 2000);
+                    symptoms.focus();
+                    return;
+                }
+                if (!userCity.value.trim()) {
+                    toast('⚠️ 请输入您所在的城市', 2000);
+                    userCity.focus();
+                    return;
+                }
+
+                const report = generateReport();
+                reportContent.textContent = report;
+                reportArea.classList.add('show');
+                toast('✅ 综合医疗报告已生成！', 2500);
+
+                // 滚动到报告区域
+                setTimeout(() => {
+                    reportArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 300);
+            }
+
+            // 下载报告
+            function downloadReport() {
+                const content = reportContent.textContent;
+                if (!content || content === '报告内容将在此显示...') {
+                    toast('⚠️ 请先生成报告', 2000);
+                    return;
+                }
+                const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `医疗报告_${new Date().toISOString().slice(0,10)}.txt`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                setTimeout(() => URL.revokeObjectURL(link.href), 3000);
+                toast('⬇️ 报告下载中...', 1500);
+            }
+
+            // 复制报告
+            function copyReport() {
+                const content = reportContent.textContent;
+                if (!content || content === '报告内容将在此显示...') {
+                    toast('⚠️ 请先生成报告', 2000);
+                    return;
+                }
+                navigator.clipboard.writeText(content).then(() => {
+                    toast('📋 报告已复制到剪贴板', 2000);
+                }).catch(() => {
+                    // fallback
+                    const range = document.createRange();
+                    range.selectNode(reportContent);
+                    window.getSelection().removeAllRanges();
+                    window.getSelection().addRange(range);
+                    document.execCommand('copy');
+                    toast('📋 报告已复制到剪贴板', 2000);
+                });
+            }
+
+            // 重置表单
+            function resetForm() {
+                userName.value = '';
+                userAge.value = '';
+                symptoms.value = '';
+                insuranceType.value = '城镇职工医保';
+                userCity.value = '';
+                medicalHistory.value = '';
+                document.querySelectorAll('#serviceModules input[type="checkbox"]').forEach(cb => cb.checked = true);
+                reportArea.classList.remove('show');
+                toast('↺ 已重置所有内容', 1500);
+            }
+
+            // 事件绑定
+            generateBtn.addEventListener('click', generateAndShowReport);
+            downloadBtn.addEventListener('click', downloadReport);
+            copyBtn.addEventListener('click', copyReport);
+            closeBtn.addEventListener('click', () => {
+                reportArea.classList.remove('show');
+                toast('已关闭报告', 1200);
+            });
+            resetBtn.addEventListener('click', resetForm);
+
+            // 键盘快捷键 Ctrl+Enter 生成报告
+            document.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                    e.preventDefault();
+                    generateAndShowReport();
+                }
+            });
+
+            console.log('🏥 医疗健康全能助手 Skill 已加载 (SKILLHUB 就绪)');
+            console.log('💡 快捷键 Ctrl+Enter 快速生成报告');
+
+        })();
+    </script>
+
+</body>
+</html>

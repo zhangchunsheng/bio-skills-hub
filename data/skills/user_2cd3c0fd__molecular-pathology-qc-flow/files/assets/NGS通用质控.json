@@ -1,0 +1,437 @@
+{
+  "$schema": "../references/qc-flow.schema.json",
+  "schema_version": "1.1",
+  "diagram": {
+    "name": "NGS通用质控流程",
+    "id": "ngs_general_qc_flow",
+    "technology": "NGS",
+    "method": "未确定（扩增子或杂交捕获等）",
+    "project": "通用模板",
+    "qc_stage": "样本至结果复核",
+    "stages": [
+      "样本与核酸",
+      "文库制备",
+      "测序运行",
+      "下机数据质控",
+      "结果复核"
+    ],
+    "sources": [
+      {
+        "id": "fda_ngs_guidance",
+        "type": "regulatory",
+        "title": "FDA NGS Analytical Validation Guidance",
+        "version": "网页现行版",
+        "last_verified": "2026-08-27",
+        "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/considerations-design-development-and-analytical-validation-next-generation-sequencing-ngs-based",
+        "scope_note": "用于分析验证和性能指标框架，不提供本实验室项目接受阈值。",
+        "evidence_status": "confirmed"
+      },
+      {
+        "id": "illumina_ngs_workflow",
+        "type": "official-technical-document",
+        "title": "Illumina NGS Workflow",
+        "version": "网页现行版",
+        "last_verified": "2026-08-27",
+        "url": "https://www.illumina.com/science/technology/next-generation-sequencing/beginners/ngs-workflow.html",
+        "scope_note": "用于核酸、文库、测序和分析的通用工作流，不替代平台或项目 SOP。",
+        "evidence_status": "confirmed"
+      },
+      {
+        "id": "illumina_quality_scores",
+        "type": "official-technical-document",
+        "title": "Illumina Quality Scores",
+        "version": "网页现行版",
+        "last_verified": "2026-08-27",
+        "url": "https://www.illumina.com/science/technology/next-generation-sequencing/plan-experiments/quality-scores.html",
+        "scope_note": "用于解释质量分数含义；Q30 比例接受阈值仍由具体平台、run 和 SOP 决定。",
+        "evidence_status": "confirmed"
+      }
+    ],
+    "layout": {
+      "mode": "swimlane",
+      "page_width": 1200,
+      "page_height": 1500,
+      "auto_size": true,
+      "show_source_note": true,
+      "center_x": 600,
+      "start_y": 40,
+      "level_gap": 140,
+      "lane_gap": 360,
+      "stage_gap": 24,
+      "margin": 40
+    }
+  },
+  "measurements": [
+    {
+      "id": "nucleic_acid_qc",
+      "name": "核酸数量与质量",
+      "unit": "按项目 SOP",
+      "description": "核酸数量、纯度、完整性或其他经验证的样本级指标。",
+      "evidence_refs": [
+        "fda_ngs_guidance",
+        "illumina_ngs_workflow"
+      ]
+    },
+    {
+      "id": "library_qc",
+      "name": "文库质量",
+      "unit": "按建库方法 SOP",
+      "description": "文库浓度、片段分布和适用的批次对照指标。",
+      "evidence_refs": [
+        "fda_ngs_guidance",
+        "illumina_ngs_workflow"
+      ]
+    },
+    {
+      "id": "q30",
+      "name": "Q30",
+      "unit": "% 或碱基质量分数",
+      "description": "Q30 表示预测碱基判读错误概率约为千分之一；项目接受比例待 SOP 确认。",
+      "evidence_refs": [
+        "illumina_quality_scores"
+      ]
+    },
+    {
+      "id": "coverage_metrics",
+      "name": "深度与覆盖度",
+      "unit": "×、% 或项目定义单位",
+      "description": "样本级深度、覆盖度、均一性等指标，阈值依赖 panel 和验证。",
+      "evidence_refs": [
+        "fda_ngs_guidance"
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "label": "接收已完成前处理的核酸样本",
+      "stage": "样本与核酸",
+      "evidence_refs": [
+        "illumina_ngs_workflow"
+      ]
+    },
+    {
+      "id": "nucleic_acid_check",
+      "type": "decision",
+      "label": "核酸质量与数量是否满足当前项目 SOP？",
+      "stage": "样本与核酸",
+      "condition": {
+        "operator": "CUSTOM",
+        "expression": "依据样本类型、提取方法和项目验证规则判断核酸质量与数量",
+        "missing_policy": "manual_review"
+      },
+      "evidence_refs": [
+        "fda_ngs_guidance",
+        "illumina_ngs_workflow"
+      ]
+    },
+    {
+      "id": "nucleic_acid_fail",
+      "type": "invalid",
+      "label": "样本不通过<br>按 SOP 补样、重提取或记录偏差",
+      "stage": "样本与核酸",
+      "terminal_result": "invalid",
+      "evidence_refs": [
+        "fda_ngs_guidance"
+      ]
+    },
+    {
+      "id": "library_prepare",
+      "type": "process",
+      "label": "按项目方法完成文库制备",
+      "stage": "文库制备",
+      "evidence_refs": [
+        "illumina_ngs_workflow"
+      ]
+    },
+    {
+      "id": "library_check",
+      "type": "decision",
+      "label": "文库及批次对照是否满足当前 SOP？",
+      "stage": "文库制备",
+      "condition": {
+        "operator": "CUSTOM",
+        "expression": "依据建库方法、试剂版本和项目验证规则判断文库与批次对照",
+        "missing_policy": "manual_review"
+      },
+      "evidence_refs": [
+        "fda_ngs_guidance",
+        "illumina_ngs_workflow"
+      ]
+    },
+    {
+      "id": "library_fail",
+      "type": "invalid",
+      "label": "文库不通过<br>按 SOP 重建库或调查批次",
+      "stage": "文库制备",
+      "terminal_result": "invalid",
+      "evidence_refs": [
+        "fda_ngs_guidance"
+      ]
+    },
+    {
+      "id": "sequencing_run",
+      "type": "process",
+      "label": "上机测序并完成数据拆分",
+      "stage": "测序运行",
+      "evidence_refs": [
+        "illumina_ngs_workflow"
+      ]
+    },
+    {
+      "id": "run_check",
+      "type": "decision",
+      "label": "运行对照、产量及质量指标是否满足平台 SOP？",
+      "stage": "测序运行",
+      "condition": {
+        "operator": "CUSTOM",
+        "expression": "依据仪器、试剂、run 配置和当前 SOP 判断运行质量",
+        "missing_policy": "invalid"
+      },
+      "evidence_refs": [
+        "fda_ngs_guidance",
+        "illumina_quality_scores"
+      ]
+    },
+    {
+      "id": "run_fail",
+      "type": "invalid",
+      "label": "运行不通过<br>按 SOP 判批次无效或调查重测",
+      "stage": "测序运行",
+      "terminal_result": "invalid",
+      "evidence_refs": [
+        "fda_ngs_guidance"
+      ]
+    },
+    {
+      "id": "bioinformatics",
+      "type": "process",
+      "label": "质量过滤、比对、变异检测与注释",
+      "stage": "下机数据质控",
+      "evidence_refs": [
+        "fda_ngs_guidance",
+        "illumina_ngs_workflow"
+      ]
+    },
+    {
+      "id": "sample_data_check",
+      "type": "decision",
+      "label": "样本级深度、覆盖度及项目指标是否满足验证规则？",
+      "stage": "下机数据质控",
+      "condition": {
+        "operator": "CUSTOM",
+        "expression": "依据 panel、pipeline 版本和实验室验证规则判断样本级数据质量",
+        "missing_policy": "manual_review"
+      },
+      "evidence_refs": [
+        "fda_ngs_guidance"
+      ]
+    },
+    {
+      "id": "data_fail",
+      "type": "invalid",
+      "label": "样本级数据不通过<br>重测、补充检测或按 SOP 报告失败",
+      "stage": "下机数据质控",
+      "terminal_result": "invalid",
+      "evidence_refs": [
+        "fda_ngs_guidance"
+      ]
+    },
+    {
+      "id": "manual_review",
+      "type": "process",
+      "label": "复核样本身份、变异证据和质控记录",
+      "stage": "结果复核",
+      "evidence_refs": [
+        "fda_ngs_guidance"
+      ]
+    },
+    {
+      "id": "review_check",
+      "type": "decision",
+      "label": "是否满足当前项目的最终审核要求？",
+      "stage": "结果复核",
+      "condition": {
+        "operator": "CUSTOM",
+        "expression": "依据当前项目 SOP 完成最终人工审核",
+        "missing_policy": "manual_review"
+      },
+      "evidence_refs": [
+        "fda_ngs_guidance"
+      ]
+    },
+    {
+      "id": "review_pending",
+      "type": "end",
+      "label": "待人工处理<br>补充复核、检测或偏差说明",
+      "stage": "结果复核",
+      "terminal_result": "manual_review",
+      "evidence_refs": [
+        "fda_ngs_guidance"
+      ]
+    },
+    {
+      "id": "pass",
+      "type": "pass",
+      "label": "质控通过<br>进入项目结果签发流程",
+      "stage": "结果复核",
+      "terminal_result": "pass",
+      "evidence_refs": [
+        "fda_ngs_guidance"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "start",
+      "target": "nucleic_acid_check",
+      "label": "",
+      "branch": "next",
+      "evidence_refs": [
+        "illumina_ngs_workflow"
+      ]
+    },
+    {
+      "id": "e2",
+      "source": "nucleic_acid_check",
+      "target": "library_prepare",
+      "label": "是",
+      "branch": "yes",
+      "evidence_refs": [
+        "fda_ngs_guidance"
+      ]
+    },
+    {
+      "id": "e3",
+      "source": "nucleic_acid_check",
+      "target": "nucleic_acid_fail",
+      "label": "否",
+      "branch": "no",
+      "evidence_refs": [
+        "fda_ngs_guidance"
+      ]
+    },
+    {
+      "id": "e4",
+      "source": "library_prepare",
+      "target": "library_check",
+      "label": "",
+      "branch": "next",
+      "evidence_refs": [
+        "illumina_ngs_workflow"
+      ]
+    },
+    {
+      "id": "e5",
+      "source": "library_check",
+      "target": "sequencing_run",
+      "label": "是",
+      "branch": "yes",
+      "evidence_refs": [
+        "fda_ngs_guidance"
+      ]
+    },
+    {
+      "id": "e6",
+      "source": "library_check",
+      "target": "library_fail",
+      "label": "否",
+      "branch": "no",
+      "evidence_refs": [
+        "fda_ngs_guidance"
+      ]
+    },
+    {
+      "id": "e7",
+      "source": "sequencing_run",
+      "target": "run_check",
+      "label": "",
+      "branch": "next",
+      "evidence_refs": [
+        "illumina_ngs_workflow"
+      ]
+    },
+    {
+      "id": "e8",
+      "source": "run_check",
+      "target": "bioinformatics",
+      "label": "是",
+      "branch": "yes",
+      "evidence_refs": [
+        "fda_ngs_guidance"
+      ]
+    },
+    {
+      "id": "e9",
+      "source": "run_check",
+      "target": "run_fail",
+      "label": "否",
+      "branch": "no",
+      "evidence_refs": [
+        "fda_ngs_guidance"
+      ]
+    },
+    {
+      "id": "e10",
+      "source": "bioinformatics",
+      "target": "sample_data_check",
+      "label": "",
+      "branch": "next",
+      "evidence_refs": [
+        "fda_ngs_guidance"
+      ]
+    },
+    {
+      "id": "e11",
+      "source": "sample_data_check",
+      "target": "manual_review",
+      "label": "是",
+      "branch": "yes",
+      "evidence_refs": [
+        "fda_ngs_guidance"
+      ]
+    },
+    {
+      "id": "e12",
+      "source": "sample_data_check",
+      "target": "data_fail",
+      "label": "否",
+      "branch": "no",
+      "evidence_refs": [
+        "fda_ngs_guidance"
+      ]
+    },
+    {
+      "id": "e13",
+      "source": "manual_review",
+      "target": "review_check",
+      "label": "",
+      "branch": "next",
+      "evidence_refs": [
+        "fda_ngs_guidance"
+      ]
+    },
+    {
+      "id": "e14",
+      "source": "review_check",
+      "target": "pass",
+      "label": "是",
+      "branch": "yes",
+      "evidence_refs": [
+        "fda_ngs_guidance"
+      ]
+    },
+    {
+      "id": "e15",
+      "source": "review_check",
+      "target": "review_pending",
+      "label": "否",
+      "branch": "no",
+      "evidence_refs": [
+        "fda_ngs_guidance"
+      ]
+    }
+  ]
+}

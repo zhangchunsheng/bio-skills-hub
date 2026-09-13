@@ -1,0 +1,11 @@
+{
+  "owner": "hanxueyuan",
+  "slug": "pfizer",
+  "displayName": "Pfizer",
+  "latest": {
+    "version": "0.1.0",
+    "publishedAt": 1774387816766,
+    "commit": "https://github.com/openclaw/skills/commit/b881e9349902b19ff20f3eb72968760448e5e4ad"
+  },
+  "history": []
+}

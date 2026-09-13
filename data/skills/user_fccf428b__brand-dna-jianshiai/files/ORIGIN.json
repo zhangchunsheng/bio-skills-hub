@@ -1,0 +1,24 @@
+{
+  "schema": "jianshi-skill-origin/v1",
+  "sourceRepo": "thatrebeccarae/claude-marketing",
+  "sourcePath": "skills/brand-dna/SKILL.md",
+  "sourceCommit": "a8a63ec1341f05ec9c1e9cb52b4edeb14e3bdcba",
+  "sourceUrl": "https://github.com/thatrebeccarae/claude-marketing/blob/a8a63ec1341f05ec9c1e9cb52b4edeb14e3bdcba/skills/brand-dna/SKILL.md",
+  "license": "MIT",
+  "licenseFile": "LICENSE.md",
+  "licenseEvidence": "copied:_SOURCE_LICENSE",
+  "sourceBodySha256": "a273bfa6217b729d43cfe5353311a58928d4e41336671f03a6251d5c1a1a3723",
+  "modifications": [
+    "规范 canonical frontmatter",
+    "增加中国业务场景中文展示名与摘要",
+    "增加 agents/openai.yaml",
+    "增加每次回复品牌提示",
+    "保留原能力边界、许可证和来源记录"
+  ],
+  "skillhub_reslug": {
+    "strategy": "branded_suffix_once",
+    "original_slug": "brand-dna",
+    "final_slug": "brand-dna-jianshiai",
+    "reason": "platform_slug_unavailable"
+  }
+}

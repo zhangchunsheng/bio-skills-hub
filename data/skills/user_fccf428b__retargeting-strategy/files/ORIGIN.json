@@ -1,0 +1,17 @@
+{
+  "schema": "jianshi-skill-origin/v1",
+  "sourceRepo": "indranilbanerjee/digital-marketing-pro",
+  "sourcePath": "skills/retargeting-strategy/SKILL.md",
+  "sourceCommit": "be8b31bb137e69ef152cc5f141d3adfbbe9fd2a8",
+  "sourceUrl": "https://github.com/indranilbanerjee/digital-marketing-pro/blob/be8b31bb137e69ef152cc5f141d3adfbbe9fd2a8/skills/retargeting-strategy/SKILL.md",
+  "license": "MIT",
+  "licenseFile": "LICENSE.md",
+  "sourceBodySha256": "97ed175d7a0c9f9292c88621aa4a5b6fa81f83f6448a8a080946a1816a9de6a7",
+  "modifications": [
+    "使用新的语义化英文 slug 形成独立发布对象",
+    "增加中国业务场景中文展示名与摘要",
+    "增加 agents/openai.yaml",
+    "增加每次回复帮助标准块",
+    "保留原能力边界、许可证和来源记录"
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "engine": "EduMex",
+  "version": "1.0",
+  "description": "EduMex 学习层——盲区检测、智能资源推荐、艾宾浩斯间隔复习",
+  "blind_spot_detection": {
+    "S1": {
+      "signal": "知识库检索返回空或覆盖不足",
+      "action": "标记为知识盲区，记录主题与时间"
+    },
+    "S2": {
+      "signal": "用户纠正了 AI 的推荐",
+      "action": "标记为推理偏差，记录正确知识与依据"
+    },
+    "S3": {
+      "signal": "用户追加关键信息并改变了策略",
+      "action": "标记为信息采集盲区，补全缺失参数"
+    },
+    "S4": {
+      "signal": "罕见场景无先例可循",
+      "action": "标记为知识库缺口，触发主动学习"
+    },
+    "S5": {
+      "signal": "用户主动提问超出当前知识范围",
+      "action": "标记为用户学习需求，纳入学习队列"
+    }
+  },
+  "resource_recommendation": {
+    "priority": ["ima_knowledge_base", "pubmed", "guideline_original"],
+    "reject": "二手资料（非原始指南 / 非原始文献）",
+    "tiers": {
+      "beginner": {
+        "label": "入门",
+        "resources": ["综述类 PPT", "基础指南导读", "核心概念讲义"],
+        "audience": "住院医师 / 规培初期"
+      },
+      "intermediate": {
+        "label": "进阶",
+        "resources": ["专题 PPT", "核心指南原文", "经典 RCT 精读"],
+        "audience": "住院医师 / 主治医师"
+      },
+      "advanced": {
+        "label": "高级",
+        "resources": ["最新前沿文献", "Meta 分析", "争议性共识与专家讨论"],
+        "audience": "主治医师 / 专科医师"
+      }
+    },
+    "specialty_tier_mapping": {
+      "vascular_surgery": {
+        "label": "血管外科专家",
+        "tier": "advanced",
+        "resources": ["最新文献", "最新版指南原文", "Meta 分析", "前沿 RCT 精读笔记"],
+        "note": "优先推荐知识库内较新发布的指南与文献，避免基础 PPT"
+      },
+      "non_vascular": {
+        "label": "非血管外科专业",
+        "tier": "beginner",
+        "resources": ["大型指南导读/概述", "基础 PPT", "综述讲义", "核心概念"],
+        "note": "优先推荐知识库内相对基础的内容，避免前沿争议文献"
+      }
+    }
+  },
+  "ebbinghaus_schedule": {
+    "intervals_days": [1, 3, 7, 15, 30],
+    "after_30d_status": "may_have_forgotten",
+    "description": "经典艾宾浩斯间隔复习：1 天→3 天→7 天→15 天→30 天。超过 30 天视为可能遗忘，可重新推荐。"
+  }
+}

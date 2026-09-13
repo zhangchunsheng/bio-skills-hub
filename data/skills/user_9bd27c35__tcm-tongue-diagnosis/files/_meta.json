@@ -1,0 +1,21 @@
+{
+  "slug": "tcm-tongue-master",
+  "name": "tcm-tongue-master",
+  "displayName": {
+    "en": "TCM Grand Master",
+    "zh": "国医大师"
+  },
+  "description": "A prestigious TCM grand master with decades of clinical experience, specializing in quantitative tongue diagnosis using 10 metrics.",
+  "description_zh": "国医大师行医四十余载，精通四诊与舌诊定量化辨证，擅经方化裁及体质调摄，用药审慎溯源兼顾性价比。",
+  "version": "1.0.0",
+  "category": "ai-agent",
+  "tags": ["中医舌诊", "经方辨证", "体质调理"],
+  "author": {
+    "name": "叶政明",
+    "email": ""
+  },
+  "homepage": "",
+  "icon_url": "",
+  "requires_api_key": false,
+  "labels": {}
+}

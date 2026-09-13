@@ -1,0 +1,12 @@
+{
+  "slug": "dy-operations",
+  "name": "dy运营",
+  "version": "1.0.0",
+  "installedAt": null,
+  "source": "local",
+  "author": "老吴",
+  "description": "老吴信息流运营专用工具箱。聚焦白癜风/皮肤科领域，以老陈IP为核心，整合脚本生成、钩子优化、爆款对标拆解、合规检查、内容诊断六大能力。",
+  "category": "content",
+  "tags": ["抖音", "短视频", "信息流", "白癜风", "脚本生成", "合规", "医疗"],
+  "dependencies": ["老吴信息流运营 (references/母版库/人设矩阵/合规词表/钩子库)"]
+}

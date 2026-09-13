@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{user_name}} · 运动健康状态深度评估报告</title>
+<style>
+  :root{
+    --bg:#f5f7fa; --card:#ffffff; --ink:#1f2933; --sub:#52606d; --line:#e4e7eb;
+    --green:#2f9e44; --yellow:#f08c00; --orange:#e8590c; --red:#e03131; --blue:#1971c2; --purple:#862e9c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;padding:32px 16px}
+  .wrap{max-width:920px;margin:0 auto}
+  header{background:linear-gradient(135deg,#1971c2,#15aabf);color:#fff;border-radius:16px;padding:36px 32px;margin-bottom:24px}
+  header h1{font-size:26px;font-weight:700;margin-bottom:8px}
+  header p{font-size:14px;opacity:.92}
+  .tag{display:inline-block;background:rgba(255,255,255,.2);border-radius:20px;padding:4px 12px;font-size:12px;margin-top:14px;margin-right:8px}
+  .badge-new{background:#e03131;color:#fff;font-size:10px;padding:1px 6px;border-radius:6px;font-weight:700;vertical-align:middle;margin-left:4px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px 26px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .card h2{font-size:19px;margin-bottom:14px;padding-left:12px;border-left:4px solid var(--blue)}
+  .card h3{font-size:15px;color:var(--sub);margin:18px 0 8px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:8px}
+  .metric{background:var(--bg);border-radius:12px;padding:16px;text-align:center}
+  .metric .v{font-size:26px;font-weight:700}
+  .metric .l{font-size:12px;color:var(--sub);margin-top:4px}
+  .metric .s{font-size:11px;margin-top:6px;padding:2px 8px;border-radius:10px;display:inline-block}
+  .ok{background:#ebfbee;color:var(--green)} .warn{background:#fff4e6;color:var(--orange)} .bad{background:#fff0f0;color:var(--red)} .new{background:#f1f0ff;color:var(--purple)}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left}
+  th{background:var(--bg);font-weight:600}
+  .callout{border-left:4px solid var(--blue);background:#f1f8ff;padding:14px 16px;border-radius:0 10px 10px 0;margin:14px 0;font-size:14px}
+  .callout.insight{border-color:var(--orange);background:#fff8f1}
+  .callout.warn{border-color:var(--red);background:#fff5f5}
+  .callout.critical{border-color:var(--purple);background:#faf0ff}
+  ul{margin:8px 0 8px 22px} li{margin:5px 0}
+  .plan{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin:12px 0}
+  .day{background:var(--bg);border-radius:10px;padding:10px 6px;font-size:11px;text-align:center}
+  .day b{display:block;font-size:13px;margin-bottom:4px}
+  .day .ride{color:var(--green)} .day .str{color:var(--blue)} .day .rest{color:var(--sub)}
+  .ref{font-size:12px;color:var(--sub)} .ref li{margin:3px 0}
+  .foot{text-align:center;color:var(--sub);font-size:12px;margin-top:10px}
+  .num{font-weight:700;color:var(--blue)}
+  .hr-bar{height:40px;border-radius:8px;overflow:hidden;display:flex;margin:14px 0;font-size:11px;color:#fff;text-align:center;align-items:center;line-height:1.2}
+  .compare{background:linear-gradient(to right,var(--green)50%,var(--red)50%);border-radius:12px;padding:2px;margin:14px 0}
+  .compare-inner{background:var(--card);border-radius:10px;padding:16px;display:flex;justify-content:space-around;text-align:center}
+  .cmp-item .lbl{font-size:11px;color:var(--sub)} .cmp-item .val{font-size:22px;font-weight:700} .cmp-arrow{font-size:28px;color:var(--sub);align-self:center}
+  .bmi-bar{height:14px;border-radius:7px;background:linear-gradient(90deg,var(--green) 0 40%,var(--yellow) 40% 70%,var(--red) 70% 100%);position:relative;margin:18px 0 6px}
+  .bmi-bar .mark{position:absolute;top:-6px;width:3px;height:26px;background:#1f2933}
+  .bmi-bar .lbl{position:absolute;top:18px;font-size:11px;transform:translateX(-50%)}
+  .aha-card{background:linear-gradient(135deg,#faf0ff,#f1f8ff);border:2px solid var(--purple);border-radius:16px;padding:26px;margin-bottom:20px;box-shadow:0 2px 8px rgba(134,46,156,.08)}
+  .aha-card h2{font-size:20px;margin-bottom:16px;padding-left:12px;border-left:4px solid var(--purple);color:var(--purple)}
+  .aha-sub{font-size:13px;color:var(--sub);margin-bottom:14px}
+  .aha-row{display:flex;gap:14px;margin:16px 0;align-items:stretch}
+  .aha-belief{flex:1;background:#f5f7fa;border-radius:12px;padding:16px;text-align:center}
+  .aha-reality{flex:1;background:#fff;border:2px solid var(--red);border-radius:12px;padding:16px;text-align:center;box-shadow:0 1px 4px rgba(224,49,49,.08)}
+  .aha-belief .lbl{font-size:12px;color:var(--sub);margin-bottom:6px}
+  .aha-reality .lbl{font-size:12px;color:var(--red);font-weight:600;margin-bottom:6px}
+  .aha-belief .val{font-size:22px;font-weight:700;color:var(--sub)}
+  .aha-reality .val{font-size:26px;font-weight:800;color:var(--red)}
+  .aha-vs{width:42px;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--sub);font-weight:700}
+  .aha-bar{height:28px;border-radius:8px;overflow:hidden;display:flex;margin:14px 0;font-size:11px;color:#fff;text-align:center;align-items:center}
+  .aha-bar .left{background:#adb5bd;display:flex;align-items:center;justify-content:center;padding:0 8px}
+  .aha-bar .right{background:var(--red);display:flex;align-items:center;justify-content:center;padding:0 8px;flex:1}
+  .aha-why{background:#fff;border-left:4px solid var(--purple);padding:14px 16px;border-radius:0 10px 10px 0;margin-top:14px;font-size:14px}
+  .plan-note{background:#f1f8ff;border-radius:10px;padding:12px 16px;margin:12px 0 14px;font-size:13px;color:var(--sub)}
+  .plan-note b{color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>{{user_name}} · 运动健康状态深度评估报告</h1>
+  <p>{{report_version}} · 生成日期 {{date}} · 基于本人实测体测与运动数据</p>
+  <div>
+    <span class="tag">{{age}}岁·{{gender}}·{{sport_type}}</span>
+    <span class="tag">每周{{ride_freq}}</span>
+    <span class="tag">目标{{goal}}</span>
+    <span class="tag">{{watch_brand}}<span class="badge-new" style="background:#fff7e6;color:var(--orange)">HRV需确认</span></span>
+  </div>
+</header>
+
+<!-- 一、核心指标速览 -->
+<div class="card">
+  <h2>一、你的核心指标速览</h2>
+  <div class="grid">
+    <div class="metric"><div class="v">{{bmi}}</div><div class="l">BMI (kg/m²)</div><div class="s {{bmi_cls}}">{{bmi_tag}}</div></div>
+    <div class="metric"><div class="v">{{bodyfat}}</div><div class="l">体脂率</div><div class="s {{bf_cls}}">{{bf_tag}}</div></div>
+    <div class="metric"><div class="v">{{whr}}</div><div class="l">腰臀比</div><div class="s {{whr_cls}}">{{whr_tag}}</div></div>
+    <div class="metric"><div class="v">{{waist}}</div><div class="l">腰围</div><div class="s {{waist_cls}}">{{waist_tag}}</div></div>
+    <div class="metric"><div class="v">{{rest_hr}}</div><div class="l">静息心率</div><div class="s {{rhr_cls}}">{{rhr_tag}}</div></div>
+    <div class="metric"><div class="v" style="color:var(--purple)">{{mhr}}</div><div class="l">最大心率</div><div class="s {{mhr_cls}}">{{mhr_tag}}</div></div>
+  </div>
+  <div class="callout critical">
+    <b>核心定性：</b>{{core_diagnosis}}
+  </div>
+</div>
+
+<!-- 一(续)、反直觉洞察卡：用认知反差制造 Aha 时刻 -->
+<div class="aha-card">
+  <h2>一个你可能没想到的真相</h2>
+  <p class="aha-sub">{{aha_subtitle}}</p>
+  <div class="aha-row">
+    <div class="aha-belief">
+      <div class="lbl">你以为</div>
+      <div class="val">{{aha_belief_val}}</div>
+      <div style="font-size:12px;color:var(--sub);margin-top:6px">{{aha_belief_text}}</div>
+    </div>
+    <div class="aha-vs">VS</div>
+    <div class="aha-reality">
+      <div class="lbl">实际上</div>
+      <div class="val">{{aha_reality_val}}</div>
+      <div style="font-size:12px;color:var(--red);margin-top:6px">{{aha_reality_text}}</div>
+    </div>
+  </div>
+  <div class="aha-bar">
+    <div class="left" style="width:{{aha_bar_left_pct}}%">{{aha_bar_left_label}}</div>
+    <div class="right">{{aha_bar_right_label}}</div>
+  </div>
+  <div class="aha-why">
+    <b>为什么：</b>{{aha_why}}
+  </div>
+</div>
+
+<!-- 二、体成分评估 -->
+<div class="card">
+  <h2>二、体成分深度评估</h2>
+  <table>
+    <tr><th>判定项</th><th>你的数值</th><th>健康标准</th><th>结论</th></tr>
+    <tr><td>BMI</td><td class="num">{{bmi}}</td><td>{{bmi_std}}</td><td><span class="{{bmi_cls}}" style="padding:2px 8px;border-radius:8px;font-size:12px;background:#fff0f0;color:var(--red)">{{bmi_tag}}</span></td></tr>
+    <tr><td>体脂率</td><td class="num">{{bodyfat}}</td><td>{{bf_std}}</td><td><span style="padding:2px 8px;border-radius:8px;font-size:12px;background:#fff0f0;color:var(--red)">{{bf_tag}}</span></td></tr>
+    <tr><td>腰围</td><td class="num">{{waist}}</td><td>{{waist_std}}</td><td><span style="padding:2px 8px;border-radius:8px;font-size:12px;background:#fff4e6;color:var(--orange)">{{waist_tag}}</span></td></tr>
+    <tr><td>腰臀比</td><td class="num">{{whr}}</td><td>{{whr_std}}</td><td><span style="padding:2px 8px;border-radius:8px;font-size:12px;background:#ebfbee;color:var(--green)">{{whr_tag}}</span></td></tr>
+  </table>
+  <div class="callout insight"><b>身体成分换算：</b>{{bodycomp_note}}</div>
+</div>
+
+<!-- 二(续)、饮食结构与训练补给分析（可选·有饮食数据时显示） -->
+<div class="card" style="border:2px solid var(--green)" data-optional="diet">
+  <h2>二(续)、🍽️ 饮食结构与训练补给分析 <span class="badge-new" style="font-size:13px;padding:3px 8px;">可选·有饮食记录时显示</span></h2>
+  <p>{{diet_intro}}</p>
+
+  <h3>三大营养素速览</h3>
+  <table>
+    <tr><th>营养素</th><th>你的摄入</th><th>目标</th><th>结论</th></tr>
+    <tr><td><b>蛋白质</b></td><td class="num">{{protein_intake}}</td><td>{{protein_target}}</td><td><span style="padding:2px 8px;border-radius:8px;font-size:12px;background:#ebfbee;color:var(--green)">{{protein_verdict}}</span></td></tr>
+    <tr><td><b>碳水化合物</b></td><td class="num" style="color:var(--red)">{{carb_intake}}</td><td>{{carb_target}}</td><td><span style="padding:2px 8px;border-radius:8px;font-size:12px;background:#fff0f0;color:var(--red)">{{carb_verdict}}</span></td></tr>
+    <tr><td>脂肪</td><td>{{fat_intake}}</td><td>{{fat_target}}</td><td><span style="padding:2px 8px;border-radius:8px;font-size:12px;background:#fff4e6;color:var(--orange)">{{fat_verdict}}</span></td></tr>
+  </table>
+
+  <div class="callout warn">
+    <b>🔴 核心问题：{{carb_problem_title}}</b>
+    {{carb_problem_note}}
+  </div>
+
+  <h3>🍱 一日食物结构点评</h3>
+  <table>
+    <tr><th>餐次</th><th>内容</th><th>优点</th><th>待优化</th></tr>
+    <tr><td>早</td><td>{{meal_breakfast}}</td><td>{{meal_breakfast_pro}}</td><td>{{meal_breakfast_con}}</td></tr>
+    <tr><td>午</td><td>{{meal_lunch}}</td><td>{{meal_lunch_pro}}</td><td>{{meal_lunch_con}}</td></tr>
+    <tr><td>晚</td><td>{{meal_dinner}}</td><td>{{meal_dinner_pro}}</td><td>{{meal_dinner_con}}</td></tr>
+  </table>
+
+  <h3>⛽ 训练补给方案（若有训练计划）</h3>
+  <p>{{fuel_plan_note}}</p>
+  <table>
+    <tr><th>时机</th><th>目标量</th><th>推荐食物</th><th>依据</th></tr>
+    <tr><td>练前 1–2h</td><td><b>{{fuel_pre_amt}}</b></td><td>{{fuel_pre_food}}</td><td>{{fuel_pre_ref}}</td></tr>
+    <tr><td>练中</td><td><b>{{fuel_during_amt}}</b></td><td>{{fuel_during_food}}</td><td>{{fuel_during_ref}}</td></tr>
+    <tr><td>练后 30–60min</td><td><b>{{fuel_post_amt}}</b></td><td>{{fuel_post_food}}</td><td>{{fuel_post_ref}}</td></tr>
+  </table>
+
+  <div class="callout critical">
+    <b>⚠️ 最关键的一条：{{fuel_critical}}</b>
+  </div>
+
+  <h3>📌 日常饮食结构的三条调整</h3>
+  <ul>
+    <li><b>{{diet_adj1_title}}：</b>{{diet_adj1}}</li>
+    <li><b>{{diet_adj2_title}}：</b>{{diet_adj2}}</li>
+    <li><b>{{diet_adj3_title}}：</b>{{diet_adj3}}</li>
+  </ul>
+</div>
+
+<!-- 二(续2)、维生素矿物质补充评估（可选·有补充剂评估需求时显示） -->
+<div class="card" style="border:2px solid var(--red)" data-optional="supplement">
+  <h2>二(续2)、💊 维生素矿物质补充评估 <span class="badge-new" style="font-size:13px;padding:3px 8px;">可选·按需显示</span></h2>
+  <p>{{supp_intro}}</p>
+
+  <h3>📊 按优先级排序的判断</h3>
+  <table>
+    <tr><th>营养素</th><th>个人风险点</th><th>建议</th><th>权威依据 / 剂量</th></tr>
+    <tr><td><b>维生素 D</b><br>🔴 最该补</td><td>{{vd_risk}}</td><td><b>{{vd_advice}}</b></td><td>{{vd_ref}}</td></tr>
+    <tr><td><b>铁</b><br>🟡 先验血</td><td>{{iron_risk}}</td><td>{{iron_advice}}</td><td>{{iron_ref}}</td></tr>
+    <tr><td><b>钙</b><br>🟡 食补优先</td><td>{{ca_risk}}</td><td>{{ca_advice}}</td><td>{{ca_ref}}</td></tr>
+    <tr><td><b>镁/电解质</b><br>🟢 食补</td><td>{{mg_risk}}</td><td>{{mg_advice}}</td><td>{{mg_ref}}</td></tr>
+    <tr><td><b>B 族</b><br>🟢 食补</td><td>{{b_risk}}</td><td>{{b_advice}}</td><td>{{b_ref}}</td></tr>
+    <tr><td><b>复合维生素</b><br>🟢 非必须</td><td>{{multi_risk}}</td><td>{{multi_advice}}</td><td>{{multi_ref}}</td></tr>
+    <tr><td><b>蛋白粉</b><br>🟢 不需要</td><td>{{whey_risk}}</td><td>{{whey_advice}}</td><td>{{whey_ref}}</td></tr>
+  </table>
+
+  <h3>🔑 两个关键点</h3>
+  <ul>
+    <li><b>维生素 D 最该主动补：</b>{{vd_key}}</li>
+    <li><b>铁和钙别盲补：</b>{{iron_ca_key}}</li>
+  </ul>
+
+  <div class="callout critical">
+    <b>⚠️ 建议的精准路线：</b>{{supp_precise_route}}
+  </div>
+</div>
+
+<!-- 三、运动数据深度解读 -->
+<div class="card" style="border:2px solid var(--purple)">
+  <h2>三、运动数据深度解读 <span class="badge-new" style="font-size:13px;padding:3px 8px;">实测数据</span></h2>
+  <h3>3.1 本次运动概况</h3>
+  <table>
+    <tr><th>项目</th><th>数值</th><th>评价</th></tr>
+    <tr><td>距离 / 时长</td><td>{{ride_dist}} / {{ride_dur}}</td><td>{{ride_dist_note}}</td></tr>
+    <tr><td>均速 / 最高速</td><td>{{avg_speed}} / {{max_speed}}</td><td>{{speed_note}}</td></tr>
+    <tr><td>平均心率 / 最大心率</td><td><b>{{avg_hr}} / {{ride_max_hr}}</b></td><td>{{hr_note}}</td></tr>
+    <tr><td>步频/动作节奏（可选）</td><td><b style="color:var(--red)">{{cadence}}</b></td><td>{{cadence_note}}</td></tr>
+    <tr><td>累计爬升</td><td>{{elevation}}</td><td>{{elev_note}}</td></tr>
+    <tr><td>温度</td><td>{{temp}}</td><td>{{temp_note}}</td></tr>
+  </table>
+
+  <h3>3.2 心率区间分布诊断</h3>
+  <div class="hr-bar">
+    <div style="background:#74c0fc;width:{{z1_pct}}%">Z1<br>{{z1_pct}}%</div>
+    <div style="background:var(--green);width:{{z2_pct}}%">Z2<br>{{z2_pct}}%</div>
+    <div style="background:var(--yellow);width:{{z3_pct}}%">Z3<br>{{z3_pct}}%</div>
+    <div style="background:var(--orange);width:{{z4_pct}}%">Z4<br>{{z4_pct}}%</div>
+    <div style="background:var(--red);width:{{z5_pct}}%">Z5<br>{{z5_pct}}%</div>
+  </div>
+  <table>
+    <tr><th>区间</th><th>占比</th><th>时间</th><th>应该占</th><th>结论</th></tr>
+    <tr><td>Z2 有氧</td><td>{{z2_pct}}%</td><td>{{z2_time}}</td><td>应占 80%</td><td>{{z2_verdict}}</td></tr>
+    <tr><td>Z4 阈值</td><td>{{z4_pct}}%</td><td>{{z4_time}}</td><td>应 ≤5%</td><td>{{z4_verdict}}</td></tr>
+  </table>
+  <div class="callout warn"><b>强度倒挂解读：</b>{{intensity_reversal_note}}</div>
+
+  <h3>3.3 运动模式与动作质量分析</h3>
+  <div class="callout critical"><b>{{cadence}} rpm 解读：</b>{{cadence_detail}}</div>
+  <div class="callout warn"><b>与旧伤关联：</b>{{cadence_injury}}</div>
+
+  <h3>3.4 最大心率校准</h3>
+  <div class="callout">{{mhr_calibration_note}}</div>
+  <div class="compare">
+    <div class="compare-inner">
+      <div class="cmp-item"><div class="lbl">旧版(MHR={{mhr_old}})</div><div class="val" style="color:var(--sub)">Z4:{{z4_old}}</div></div>
+      <div class="cmp-arrow">→</div>
+      <div class="cmp-item"><div class="lbl" style="color:var(--purple)">新版(MHR={{mhr_new}})</div><div class="val" style="color:var(--purple)">Z4:{{z4_new}}</div></div>
+    </div>
+  </div>
+  <table>
+    <tr><th>区间</th><th>旧版(bpm)</th><th>新版(bpm)</th><th>用途</th><th>怎么做</th></tr>
+    <tr><td>Z1</td><td>{{z1_old_r}}</td><td><b>{{z1_new_r}}</b></td><td>热身/冷身</td><td>骑后放松</td></tr>
+    <tr><td>Z2</td><td>{{z2_old_r}}</td><td><b>{{z2_new_r}}</b></td><td>燃脂</td><td>80%时间放这里</td></tr>
+    <tr><td>Z3</td><td>{{z3_old_r}}</td><td><b>{{z3_new_r}}</b></td><td>耐力</td><td>中等强度</td></tr>
+    <tr><td>Z4</td><td>{{z4_old_r}}</td><td><b>{{z4_new_r}}</b></td><td>代谢刺激</td><td>每周1次间歇</td></tr>
+    <tr><td>Z5</td><td>{{z5_old_r}}</td><td><b>{{z5_new_r}}</b></td><td>冲刺</td><td>偶尔</td></tr>
+  </table>
+</div>
+
+<!-- 三bis、功率维度（若有FTP数据；无FTP时整块删除） -->
+<div class="card" style="border:2px solid var(--purple)">
+  <h2>三(续)、⚡ 功率基线分析 <span class="badge-new" style="font-size:13px;padding:3px 8px;">可选·有FTP时显示</span></h2>
+  <div class="grid">
+    <div class="metric"><div class="v" style="color:var(--purple)">{{ftp}} W</div><div class="l">FTP 阈值功率</div></div>
+    <div class="metric"><div class="v">{{wkg}}</div><div class="l">W/kg 相对功率</div><div class="s {{wkg_cls}}">{{wkg_tag}}</div></div>
+    <div class="metric"><div class="v" style="color:var(--orange)">{{tss}}</div><div class="l">TSS 训练压力</div></div>
+  </div>
+  <h3>功率训练六区间（基于 FTP={{ftp}}W）</h3>
+  <table>
+    <tr><th>区间</th><th>占FTP%</th><th>功率范围(W)</th><th>对应心率</th><th>用途</th></tr>
+    <tr><td>Z1 恢复</td><td>&lt;55%</td><td>&lt;{{z1p}}</td><td>—</td><td>热身/冷身</td></tr>
+    <tr><td>Z2 有氧</td><td>55–75%</td><td>{{z2p_lo}}–{{z2p_hi}}</td><td>燃脂区</td><td>⭐80%时间</td></tr>
+    <tr><td>Z3 Tempo</td><td>75–90%</td><td>{{z3p_lo}}–{{z3p_hi}}</td><td>—</td><td>耐力巡航</td></tr>
+    <tr><td>Z4 阈值</td><td>90–105%</td><td>{{z4p_lo}}–{{z4p_hi}}</td><td>阈值</td><td>间歇</td></tr>
+    <tr><td>Z5 无氧</td><td>105–120%</td><td>{{z5p_lo}}–{{z5p_hi}}</td><td>—</td><td>冲刺</td></tr>
+  </table>
+  <div class="callout insight">{{power_note}}</div>
+</div>
+
+<!-- 三ter、多源交叉验证（若多数据源；单数据源时整块删除） -->
+<div class="card" style="border:2px solid var(--blue)">
+  <h2>三(续)、🔍 多源数据交叉验证 <span class="badge-new" style="font-size:13px;padding:3px 8px;">可选·多数据源时显示</span></h2>
+  <table>
+    <tr><th>数据源</th><th>时长</th><th>平均HR</th><th>记录范围</th></tr>
+    <tr><td>{{src1_name}}</td><td>{{src1_dur}}</td><td>{{src1_hr}}</td><td>{{src1_scope}}</td></tr>
+    <tr><td>{{src2_name}}</td><td>{{src2_dur}}</td><td>{{src2_hr}}</td><td>{{src2_scope}}</td></tr>
+    <tr><td>{{src3_name}}</td><td>{{src3_dur}}</td><td>{{src3_hr}}</td><td>{{src3_scope}}</td></tr>
+  </table>
+  <div class="callout critical">{{multisource_note}}</div>
+</div>
+
+<!-- 四、综合诊断 -->
+<div class="card">
+  <h2>四、综合诊断：为什么"练得不少却体脂高"？</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:14px 0">
+    <div class="callout warn" style="margin:0"><b>强度倒挂</b><br>{{diag1}}</div>
+    <div class="callout warn" style="margin:0"><b>运动模式不当</b><br>{{diag2}}</div>
+    <div class="callout warn" style="margin:0"><b>缺力量训练</b><br>{{diag3}}</div>
+    <div class="callout warn" style="margin:0"><b>饮食敏感型</b><br>{{diag4}}</div>
+  </div>
+  <p>{{diagnosis_loop}}</p>
+</div>
+
+<!-- 五、周计划 -->
+<div class="card">
+  <h2>五、修正后的周训练计划</h2>
+  <h3>三大原则</h3>
+  <ol><li>{{plan_principle1}}</li><li>{{plan_principle2}}</li><li>{{plan_principle3}}</li></ol>
+  <h3>适用条件</h3>
+  <div class="plan-note">
+    本模板基于<b>{{plan_assumption}}</b>。如果你的情况不同，请按以下条件分支调整：
+    <ul style="margin:8px 0 0 18px">
+      <li><b>每周只能运动 2 次 →</b> {{plan_if_2days}}</li>
+      <li><b>每周能运动 4–5 次 →</b> {{plan_if_45days}}</li>
+      <li><b>有旧伤/正在恢复 →</b> {{plan_if_injury}}</li>
+      <li><b>女性处于经期/黄体晚期 →</b> {{plan_if_menstrual}}</li>
+    </ul>
+  </div>
+  <h3>周模板</h3>
+  <div class="plan">
+    <div class="day"><b>一</b><span class="ride">{{plan_mon}}</span></div>
+    <div class="day"><b>二</b><span class="str">{{plan_tue}}</span></div>
+    <div class="day"><b>三</b><span class="rest">{{plan_wed}}</span></div>
+    <div class="day"><b>四</b><span class="ride">{{plan_thu}}</span></div>
+    <div class="day"><b>五</b><span class="str">{{plan_fri}}</span></div>
+    <div class="day"><b>六</b><span class="ride">{{plan_sat}}</span></div>
+    <div class="day"><b>日</b><span class="rest">{{plan_sun}}</span></div>
+  </div>
+  <div class="callout" style="border-color:var(--green);background:#ebfbee">{{plan_carb_note}}</div>
+</div>
+
+<!-- 六、损伤防护 -->
+<div class="card">
+  <h2>六、损伤防护升级 · 结合运动数据的防护建议</h2>
+  <h3>{{injury1_part}}</h3>
+  <ul>{{injury1_advice}}</ul>
+  <h3>{{injury2_part}}</h3>
+  <div class="callout warn"><b>{{injury2_risk}}</b><ul>{{injury2_action}}</ul></div>
+</div>
+
+<!-- 七、HRV / 恢复监测（仅当设备支持 HRV 时显示本节；否则 {{hrv_guide}} 写明不支持并给替代方案） -->
+<div class="card" data-optional="hrv">
+  <h2>七、{{watch_brand}} 恢复监测 · HRV 说明</h2>
+  <div class="callout">{{hrv_guide}}</div>
+</div>
+
+<!-- 九、月经周期与训练周期化（女性专属·仅性别=女且提供月经数据时显示） -->
+<div class="card" style="border:2px solid var(--purple)" data-optional="menstrual">
+  <h2>九、🩸 月经周期与训练周期化（女性专属）</h2>
+  <div class="callout critical"><b>启用条件：</b>本报告仅针对女性用户、且已收集月经数据后显示；男性用户无此章节。</div>
+
+  <h3>9.1 你的周期基本情况</h3>
+  <table>
+    <tr><th>项目</th><th>你的情况</th></tr>
+    <tr><td>是否规律</td><td>{{mc_regular}}</td></tr>
+    <tr><td>周期天数</td><td>{{mc_cycle_len}} 天（正常 21–35）</td></tr>
+    <tr><td>经期天数</td><td>{{mc_period_len}} 天</td></tr>
+    <tr><td>最近一次月经第一天</td><td>{{mc_last_first}}</td></tr>
+    <tr><td>PMS / 痛经</td><td>{{mc_pms}}</td></tr>
+  </table>
+
+  <h3>9.2 周期阶段时间线（以最近月经第一天 = Day 1）</h3>
+  {{mc_timeline_note}}
+  <div class="plan">
+    <div class="day" style="outline:2px solid var(--purple)"><b>Day 1–{{mc_period_len}} 经期</b><span class="rest">{{mc_d_menstrual}}</span></div>
+    <div class="day"><b>Day {{mc_ef_start}}–{{mc_ef_end}} 早卵泡</b><span class="rest">{{mc_d_earlyfol}}</span></div>
+    <div class="day" style="background:#faf0ff"><b>Day {{mc_lf_start}}–{{mc_lf_end}} ⭐黄金</b><span class="ride">{{mc_d_latefol}}</span></div>
+    <div class="day"><b>Day {{mc_ov_start}}–{{mc_ov_end}} 排卵</b><span class="ride">{{mc_d_ov}}</span></div>
+    <div class="day"><b>Day {{mc_lut_start}}–{{mc_lut_end}} 黄体</b><span class="rest">{{mc_d_luteal}}</span></div>
+  </div>
+  <div class="callout insight"><b>今日位置：</b>{{mc_today_note}}</div>
+
+  <h3>9.3 四阶段训练适配</h3>
+  <table>
+    <tr><th>阶段</th><th>主导激素</th><th>你的感受</th><th>训练建议</th></tr>
+    <tr><td>月经期</td><td>雌激素↓ 孕酮↓</td><td>疲倦/腹部不适</td><td>Z1–2 恢复、轻量力量、补铁；避 有氧能力/VO₂max</td></tr>
+    <tr><td>早卵泡期</td><td>雌激素缓升仍低</td><td>主观疲劳强</td><td>逐步加量，不急于上高强度；Z2–Z3 稳态</td></tr>
+    <tr><td><b>⭐晚卵泡期</b></td><td><b>雌激素高峰</b></td><td>精力好、恢复快</td><td><b>黄金窗口：VO₂max 间歇、力量加重 5–10%、有氧能力测试</b></td></tr>
+    <tr><td>排卵期</td><td>雌激素急降 孕酮↑</td><td>韧带松弛</td><td>Tempo 稳定输出（75–85% 阈值）；避突发加速</td></tr>
+    <tr><td>黄体期</td><td>孕酮高峰 体温↑</td><td>易疲劳、保水</td><td>长距离 Z2 耐力；多补水 + 多补碳水 10–15g/h</td></tr>
+  </table>
+
+  <div class="callout warn"><b>25 天短周期提醒：</b>{{mc_short_note}}（若周期 ≠ 28 天，黄金窗口会相应压缩/延长，须按"排卵日 ≈ 下次月经 − 14 天"重新推算。）</div>
+
+  <h3>9.4 铁补充联动</h3>
+  <div class="callout">{{mc_iron_note}}</div>
+
+  <h3>9.5 周期化排课建议</h3>
+  <ul>
+    <li><b>黄金窗口（晚卵泡期）</b>排 VO₂max 间歇 / FTP 测试 / 力量加重。</li>
+    <li><b>黄体晚期（PMS）</b>主动降量，安排瑜伽 / 普拉提 / 恢复性活动。</li>
+    <li><b>月经期</b>避高强度，以恢复为主。</li>
+    <li>连续记录 3 个周期确认个人模式后，再做年度周期表。</li>
+  </ul>
+</div>
+
+<!-- 八、总结 -->
+<div class="card">
+  <h2>八、给你的总结</h2>
+  <div class="callout insight">{{summary}}</div>
+</div>
+
+<!-- 参考文献 -->
+<div class="card">
+  <h2>参考文献</h2>
+  <ul class="ref">
+    <li>WHO 身体活动与久坐行为指南：https://www.who.int/teams/noncommunicable-diseases/physical-activity</li>
+    <li>WHO 身体活动事实清单：https://www.who.int/news-room/fact-sheets/detail/physical-activity</li>
+    <li>中国成人超重肥胖判定标准（WS/T 428-2013）</li>
+    <li>Seiler S. (2010). Training Intensity and Duration Distribution in Endurance Athletes. Int J Sports Physiol Perform.</li>
+    <li>Hopker J et al. (2019). Cycling cadence and performance: A systematic review. Sports Medicine.</li>
+    <li>ACSM 体脂率分级与心率区间训练法</li>
+    <li>ACSM/AND/DC 联合立场：营养与运动表现（Thomas et al., 2016, Journal of the Academy of Nutrition and Dietetics）— 碳水 6–10 g/kg（1–3h 训练）、蛋白 1.2–2.0 g/kg</li>
+    <li>ACSM 运动营养立场：训练补给（练前/练中/练后碳水与蛋白时机）</li>
+    <li>IOC 共识：Dietary Supplements and the High-Performance Athlete (2018) — 运动员最常需补铁、钙、维生素 D；强调先营养评估（饮食+血液标志物）再补</li>
+    <li>GSSI 女性运动员微量营养素专文 (2023) — 铁缺乏 15–35%、VD 不足 33–42%；VD3 2000–4000 IU/日、钙 1000–1500mg/日；钙铁不同服</li>
+    <li>中国营养学会《中国居民膳食营养素参考摄入量(2023版)》— 维生素 D 为国人最缺乏；女性 &lt;50 岁钙 RNI 1000mg/日、铁 20mg/日</li>
+    <li>CT Yeh 公路车基地 (2026)：女性自行車手月經週期訓練調整——4 階段功率課表配置指南 https://ctyeh.com/articles/2195</li>
+    <li>Carmichael et al. (2021) PMC7916245：The Impact of Menstrual Cycle Phase on Athletes' Performance — Narrative Review https://pmc.ncbi.nlm.nih.gov/articles/PMC7916245/</li>
+    <li>BMJ Sports Medicine Blog：Can the Menstrual Cycle Phase Impact Sports Performance? https://blogs.bmj.com/bjsm?p=11767</li>
+    <li>Harmony Cycle：根据月经周期调整锻炼（各阶段最佳运动方式） https://harmony-cycle.app/zh/blog/articles/cycle-syncing-workouts-exercise-by-phase</li>
+  </ul>
+</div>
+
+<div class="foot">本报告基于本人提供的实测数据生成，仅供健康管理参考，不构成医疗诊断。如有不适请就医。</div>
+</div>
+</body>
+</html>

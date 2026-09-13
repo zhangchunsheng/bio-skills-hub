@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "reviewStatus": "pending",
+  "assets": [
+    {
+      "sourceUrl": "https://example.com/assets/example.webp",
+      "localPath": "public/assets/example.webp",
+      "purpose": "Example image",
+      "licenseOrAttribution": "Confirm before reuse",
+      "contentType": "image/webp",
+      "checksumSha256": ""
+    }
+  ]
+}

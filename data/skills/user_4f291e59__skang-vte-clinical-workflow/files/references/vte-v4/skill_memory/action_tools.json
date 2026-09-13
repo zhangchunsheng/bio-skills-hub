@@ -1,0 +1,6 @@
+{
+  "branch": "action_tools",
+  "description": "工具/操作技能——具体的剂量速查表和计算规则",
+  "skills": [],
+  "_skill_schema_note": "每条技能结构：{ id, trigger, content, evidence, source_date, source_case, utility, adoptions, status, tags[] }"
+}

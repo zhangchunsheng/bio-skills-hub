@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="代谢组学通路映射">
+  <circle cx="32" cy="32" r="29" fill="#e8f5e9" stroke="#2e7d32" stroke-width="3"/>
+  <circle cx="18" cy="20" r="6" fill="#43a047"/>
+  <circle cx="46" cy="18" r="6" fill="#66bb6a"/>
+  <circle cx="23" cy="45" r="6" fill="#1b5e20"/>
+  <circle cx="47" cy="43" r="6" fill="#81c784"/>
+  <path d="M23 22.5 40.5 19M21 25l-1.5 14M27 43l14-1.5M43 23l2 14" fill="none" stroke="#2e7d32" stroke-width="3" stroke-linecap="round"/>
+  <path d="M31 28c-3.5 0-6 2.3-6 5.2 0 2.7 2.2 4.8 5 4.8h2c2.8 0 5-2.1 5-4.8 0-2.9-2.5-5.2-6-5.2Z" fill="#ffca28" stroke="#f57f17" stroke-width="2"/>
+</svg>

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "status": "draft",
+  "siteSpec": {
+    "status": "draft",
+    "artifact": "SITE_SPEC.md"
+  },
+  "designDna": {
+    "required": true,
+    "status": "pending",
+    "artifact": "evidence/design-dna/design-dna.json"
+  },
+  "gpuAnalysis": {
+    "decision": "pending",
+    "status": "pending",
+    "decisionArtifact": "evidence/web-shader-extractor/gpu-decision.json",
+    "scoutCard": "evidence/web-shader-extractor/scout-card.json",
+    "replayManifest": "evidence/web-shader-extractor/replay-manifest.json"
+  },
+  "blockingUnknowns": [],
+  "finalizedAt": null
+}

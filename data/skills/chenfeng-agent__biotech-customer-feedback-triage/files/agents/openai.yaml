@@ -1,0 +1,4 @@
+interface:
+  display_name: "生物科技客户反馈分级"
+  short_description: "将客户反馈按意图、严重度和责任边界分级"
+  default_prompt: "Use $biotech-customer-feedback-triage for paid 生物科技 客户反馈分级."

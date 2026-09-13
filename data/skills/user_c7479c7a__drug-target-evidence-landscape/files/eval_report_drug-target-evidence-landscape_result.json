@@ -1,0 +1,333 @@
+{
+  "meta": {
+    "skill_name": "drug-target-evidence-landscape",
+    "evaluated_on": "2026-03-23",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Evidence Insight",
+    "execution_mode": "A",
+    "complexity": "Moderate",
+    "n_inputs": 5
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "Explicit prohibition on fabricating trial status, approval status, company activity, and asset metadata"
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": null
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": null
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No code generated; Category 1 evidence analysis only"
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 90,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": null
+      },
+      "reliability": {
+        "score": 9,
+        "max": 12,
+        "note": "Step 2 live-verification assumption; no explicit fallback for offline environments"
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "294 lines; eight reference modules well organized"
+      },
+      "agent_usability": {
+        "score": 15,
+        "max": 16,
+        "note": "Same live-verification assumption issue as other evidence skills"
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": null
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": null
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": null
+      },
+      "agent_specific": {
+        "score": 17,
+        "max": 20,
+        "note": "Development maturity + strategic openness dual framework is a valuable differentiator; crowding vs maturity separation is strong"
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 87.0,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 25,
+      "total": 25
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "TIGIT target evidence landscape in solid tumors",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 35,
+        "specialized": 53,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Disease relevance, druggability, preclinical evidence, and clinical evidence separated",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Competition and crowding map includes same-target and substitute approaches",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Development maturity and strategic openness assessed separately",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "No fabricated trial identifiers, approval status, or company activity",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Primary recommended interpretation given with limiting-factor identification",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "IL-17 pathway competition and strategic whitespace in psoriasis",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Target relevance separated from druggability",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Crowded field not automatically labeled as closed without checking differentiation logic",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Strategic openness section identifies remaining whitespace if any",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Preclinical activity not presented as proof of patient benefit",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Verification caveat applied when asset/trial details are mentioned",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "KRAS G12D vs SHP2 target comparison in pancreatic cancer",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 35,
+        "specialized": 53,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Two targets compared using same evidence-layer framework",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Tractability comparison explicit for both targets",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Evidence chain gaps explicitly identified for each target",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "No fabricated relative efficacy or superiority claims without clinical evidence",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Self-critical review identifies most assumption-dependent comparison point",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "Early-stage target with only preclinical evidence and no clinical data",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Clinical evidence section correctly marked as absent with explicit statement",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Preclinical activity not implied as proof of clinical promise",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Development maturity correctly assigned as early-stage",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Sparse competition not presented as automatic strategic attractiveness",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Verification gap flagged as limiting factor in primary interpretation",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Ferroptosis-related interventions in HCC — full landscape with multiple modalities",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": null,
+        "basic": 34,
+        "specialized": 51,
+        "total": 85,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Multiple modalities assessed with separate tractability and competition analysis",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Biology relevance and therapeutic tractability not conflated for any modality",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Mixed evidence (thin on some paths, stronger on others) represented accurately",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "Primary interpretation states limiting factor explicitly",
+            "result": "PASS",
+            "note": null
+          },
+          {
+            "text": "No fabricated clinical trial activity for ferroptosis HCC assets",
+            "result": "PASS",
+            "note": null
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 36.0,
+    "dynamic_weighted": 52.2,
+    "score": 88,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Development maturity + strategic openness dual framework prevents the common error of conflating crowded space with closed opportunity",
+    "Eight-layer evidence separation (disease relevance, mechanistic rationale, druggability, preclinical, translational bridge, clinical, competition, maturity) is uniquely comprehensive",
+    "Asset and trial verification requirement with explicit caveat obligation prevents fabricated pipeline claims",
+    "Negative trigger guidance ('do not present a tractable target as disease-relevant unless evidence is explicit') is a rare and valuable guard against reverse-logic errors"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Step 2 live verification assumption creates inconsistency in offline environments",
+      "observed_in": [
+        1,
+        2
+      ],
+      "problem": "Step 2 requires verifying trial status, approvals, and asset data from live sources, but in offline execution this defaults to training memory which may produce outdated or incorrect competitive landscape claims.",
+      "root_cause": "No fallback behavior defined for environments without live database access.",
+      "fix": "Add explicit fallback: 'When live verification is unavailable, all trial status, approval status, and competitive activity claims must be labeled [UNVERIFIED — based on training knowledge, verify with ClinicalTrials.gov and DrugBank before use]'."
+    },
+    {
+      "priority": "P2",
+      "title": "No guidance on how to handle proprietary or undisclosed asset information",
+      "observed_in": [],
+      "problem": "The skill handles public asset information well but does not specify how to respond when users provide proprietary pipeline information they want incorporated into the landscape.",
+      "root_cause": "Input Validation section focuses on public evidence sources and does not address user-provided proprietary context.",
+      "fix": "Add a note: 'If the user provides proprietary or confidential asset information, incorporate it into the landscape analysis and label it [User-provided — not independently verifiable]'."
+    }
+  ]
+}
