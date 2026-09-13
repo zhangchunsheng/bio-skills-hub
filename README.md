@@ -54,7 +54,7 @@ npm start        # Laravel 在 :8000 提供 API + 用户端 / + 管理端 /admin
 │   ├── app/Console/Commands/SyncSkills.php   # skills:sync 抓取命令
 │   ├── app/Http/Controllers/                 # 公开 API + Admin API
 │   └── routes/api.php
-├── data/              # 运行时数据（gitignore）：skills.db 与技能文件
+├── data/              # 运行时数据：skills.db 与技能文件（已随仓库提交，开箱即用）
 └── deploy/deploy.sh   # 前端产物发布脚本
 ```
 
